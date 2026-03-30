@@ -158,21 +158,29 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <div class="frow">
         <div class="field" id="fcc">
           <label>Объём ДВС, см³</label>
-          <input type="number" id="cc" placeholder="например: 2000">
+          <input type="number" id="cc" placeholder="например: 2000" oninput="this.style.borderColor=''">
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
           <input type="number" id="kw" placeholder="например: 110" oninput="updHP();this.style.borderColor=''">
         </div>
       </div>
-      <div class="field" id="fem" style="display:none">
-        <label>30-мин. мощность ЭД, кВт</label>
-        <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP();this.style.borderColor=''">
-        <div class="fhint">Мощность электродвигателя — для утильсбора электро/гибридов</div>
+      <div id="fem" style="display:none">
+        <div class="frow">
+          <div class="field">
+            <label id="em_front_label">30-мин. мощность ЭД (перед.), кВт</label>
+            <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP();this.style.borderColor=''">
+          </div>
+          <div class="field" id="fem_rear">
+            <label>30-мин. мощность ЭД (зад.), кВт</label>
+            <input type="number" id="em_kw2" placeholder="0 если нет" value="0" oninput="updEMHP()">
+          </div>
+        </div>
+        <div class="fhint" id="em_hint"></div>
       </div>
       <div class="frow">
         <div class="field"><label>Мощность ДВС, л.с.</label><input type="number" id="hp" readonly style="color:var(--accent2)"></div>
-        <div class="field"><label>Мощность ЭД, л.с.</label><input type="number" id="em_hp" readonly style="color:var(--accent2)"></div>
+        <div class="field"><label>Суммарная мощность ЭД, л.с.</label><input type="number" id="em_hp" readonly style="color:var(--accent2)"></div>
       </div>
 
       <hr class="div">
@@ -350,19 +358,25 @@ function delivery() {
 // ── Таможенная пошлина ────────────────────────────────────────────────────────
 
 // Источник: лист "Таможенная пошлина", строка 3, Китай
-function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur) {
-  const priceEur = pMaxCny * rateVtb / rateEur; // цена в EUR
+function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0) {
+  const priceEur = pMaxCny * rateVtb / rateEur;
 
   if (etype === 'electric') {
-    // D3: (pMax*0.15*rateVtb)*1.2 + (akciz_em*emHp)*1.2 + pMax*rateVtb*0.2
+    // Только мощность ЭД (суммарная передний + задний)
     const a = akcizRate(emHp);
     return (pMaxCny*0.15*rateVtb)*1.2 + (a*emHp)*1.2 + pMaxCny*rateVtb*0.2;
   }
-  // Параллельный гибрид → как бензин/дизель (E3 → B3/A3/C3)
-  return dutyICE(age, pMaxCny, cc, priceEur, rateEur);
+  if (etype === 'parallel') {
+    // Параллельный гибрид: мощность ДВС + суммарная мощность всех ЭД
+    const totalHp = kw*KW2HP + emHp;
+    // Пошлина считается как ДВС (по объёму/цене), но акциз от суммарной мощности
+    return dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp);
+  }
+  // Бензин/дизель/мягкий гибрид — только мощность ДВС
+  return dutyICE(age, pMaxCny, cc, priceEur, rateEur, kw*KW2HP);
 }
 
-function dutyICE(age, pMaxCny, cc, priceEur, rateEur) {
+function dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp) {
   if (age === 'new') {
     // B3: MAX(pct*price_eur*rate_eur, cubic*cc*rate_eur)
     const pct = priceEur > 8500 ? 0.48 : 0.54;
@@ -536,12 +550,39 @@ function lookICE(cc,kw,ci){
 
 // ── UI helpers ───────────────────────────────────────────────────────────────
 function updHP(){ const v=+document.getElementById('kw').value; document.getElementById('hp').value=v?(v*KW2HP).toFixed(1):'' }
-function updEMHP(){ const v=+document.getElementById('em_kw').value; document.getElementById('em_hp').value=v?(v*KW2HP).toFixed(1):'' }
+function updEMHP(){
+  const v1=+document.getElementById('em_kw').value||0;
+  const v2=+document.getElementById('em_kw2').value||0;
+  const total=v1+v2;
+  document.getElementById('em_hp').value=total?(total*KW2HP).toFixed(1):'';
+}
 function onType(){
   const t=document.getElementById('etype').value;
-  document.getElementById('fcc').style.opacity=t==='electric'?'0.3':'1';
-  document.getElementById('fcc').style.pointerEvents=t==='electric'?'none':'auto';
-  document.getElementById('fem').style.display=(t==='electric'||t==='parallel')?'block':'none';
+  const isElectric = t==='electric';
+  const isParallel = t==='parallel';
+  const hasEM = isElectric||isParallel;
+
+  // Объём ДВС — скрываем для электро
+  document.getElementById('fcc').style.opacity=isElectric?'0.3':'1';
+  document.getElementById('fcc').style.pointerEvents=isElectric?'none':'auto';
+
+  // Поля ЭД
+  document.getElementById('fem').style.display=hasEM?'block':'none';
+
+  // Задний ЭД — показываем всегда когда есть ЭД
+  document.getElementById('fem_rear').style.display=hasEM?'block':'none';
+
+  // Подсказки и метки
+  const hint = document.getElementById('em_hint');
+  const frontLabel = document.getElementById('em_front_label');
+  if(isParallel){
+    frontLabel.textContent='30-мин. мощность ЭД (перед.), кВт';
+    hint.innerHTML='<span style="color:var(--accent2)">Параллельный гибрид: пошлина = мощность ДВС + суммарная мощность всех ЭД</span>';
+  } else if(isElectric){
+    frontLabel.textContent='30-мин. мощность ЭД (перед.), кВт';
+    hint.innerHTML='<span style="color:var(--accent2)">Электро/последовательный гибрид: пошлина считается только от суммарной мощности ЭД</span>';
+  }
+  updEMHP();
 }
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
@@ -563,7 +604,7 @@ function onAge() {
 }
 
 function clearErrors() {
-  ['price_cny','price_max','kw','city_input','em_kw'].forEach(id => {
+  ['price_cny','price_max','cc','kw','city_input','em_kw'].forEach(id => {
     const el = document.getElementById(id);
     if(el) el.style.borderColor = '';
   });
@@ -583,17 +624,18 @@ function calc(){
   const rEur    = +document.getElementById('rate_eur').value||93.42;
   const etype   = document.getElementById('etype').value;
   const age     = document.getElementById('age').value;
-  const cc      = +document.getElementById('cc').value||1500;
+  const cc      = +document.getElementById('cc').value||0;
   const kw      = +document.getElementById('kw').value||0;
-  const emKw    = +document.getElementById('em_kw').value||0;
+  const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
   const comm    = +document.getElementById('comm').value||150000;
 
   let hasError = false;
   if(!pCny){ markError('price_cny'); hasError=true; }
-  if(!kw)  { markError('kw');        hasError=true; }
+  if(!kw && etype!=='electric')  { markError('kw'); hasError=true; }
+  if(etype!=='electric' && !cc){ markError('cc'); hasError=true; }
   if(age==='new' && !+document.getElementById('price_max').value){ markError('price_max'); hasError=true; }
-  if((etype==='electric'||etype==='parallel')&&!emKw){ markError('em_kw'); hasError=true; }
+  if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw'); hasError=true; }
   if(hasError) return;
 
   const d = delivery();
@@ -608,7 +650,7 @@ function calc(){
   const expDocCny = age==='new' ? 0 : 1800;
 
   // Пошлина, таможенное оформление, утильсбор
-  const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur);
+  const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw);
   const clear  = customsClear(pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500; // для Кяхты
