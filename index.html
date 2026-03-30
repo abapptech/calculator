@@ -114,13 +114,13 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Стоимость покупки авто в КНР, ¥</label>
-        <input type="number" id="price_cny" placeholder="например: 150000">
+        <input type="number" id="price_cny" placeholder="например: 150000" oninput="this.style.borderColor=''">
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field">
-        <label>Макс. официальная цена в интернете, ¥</label>
-        <input type="number" id="price_max" placeholder="например: 103920">
-        <div class="fhint">Для расчёта пошлины берётся MAX из двух цен</div>
+        <label id="price_max_label">Макс. официальная цена в интернете, ¥</label>
+        <input type="number" id="price_max" placeholder="например: 103920" oninput="this.style.borderColor=''">
+        <div class="fhint" id="price_max_hint">Для расчёта пошлины берётся MAX из двух цен</div>
       </div>
       <div class="frow">
         <div class="field">
@@ -149,7 +149,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       </div>
       <div class="field">
         <label>Возраст / категория</label>
-        <select id="age">
+        <select id="age" onchange="onAge()">
           <option value="new">До 3-ех лет (новый)</option>
           <option value="mid">Проходной (3–5 лет)</option>
           <option value="old">Непроходной (5+ лет)</option>
@@ -162,12 +162,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
-          <input type="number" id="kw" placeholder="например: 110" oninput="updHP()">
+          <input type="number" id="kw" placeholder="например: 110" oninput="updHP();this.style.borderColor=''">
         </div>
       </div>
       <div class="field" id="fem" style="display:none">
         <label>30-мин. мощность ЭД, кВт</label>
-        <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP()">
+        <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP();this.style.borderColor=''">
         <div class="fhint">Мощность электродвигателя — для утильсбора электро/гибридов</div>
       </div>
       <div class="frow">
@@ -182,7 +182,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <label>Город покупки в КНР</label>
         <div style="position:relative">
           <input type="text" id="city_input" placeholder="Введите название города..." autocomplete="off"
-            oninput="onCityInput()" onblur="setTimeout(hideDropdown,200)"
+            oninput="onCityInput();this.style.borderColor=''" onblur="setTimeout(hideDropdown,200)"
             style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none">
           <div id="city_dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;max-height:200px;overflow-y:auto;z-index:200;margin-top:2px"></div>
         </div>
@@ -546,8 +546,37 @@ function onType(){
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
+function onAge() {
+  const age = document.getElementById('age').value;
+  const label = document.getElementById('price_max_label');
+  const hint  = document.getElementById('price_max_hint');
+  const input = document.getElementById('price_max');
+  if (age === 'new') {
+    label.innerHTML = 'MSRP / Рекомендованная розничная цена, ¥ <span style="color:var(--red)">*</span>';
+    hint.innerHTML  = '<span style="color:var(--accent3)">⚠️ Для новых авто таможня считается от MSRP (официальная цена производителя). Укажите цену с сайта дилера или производителя.</span>';
+    input.placeholder = 'Обязательно для нового авто';
+  } else {
+    label.textContent = 'Макс. официальная цена в интернете, ¥';
+    hint.textContent  = 'Для расчёта пошлины берётся MAX из двух цен';
+    input.placeholder = 'например: 103920';
+  }
+}
+
+function clearErrors() {
+  ['price_cny','price_max','kw','city_input','em_kw'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.borderColor = '';
+  });
+}
+function markError(id) {
+  const el = document.getElementById(id);
+  if(el) { el.style.borderColor = 'var(--red)'; el.focus(); }
+}
+
 // ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
 function calc(){
+  clearErrors();
+
   const pCny    = +document.getElementById('price_cny').value||0;
   const pMax    = +document.getElementById('price_max').value||pCny;
   const rVtb    = +document.getElementById('rate_vtb').value||12.02;
@@ -560,10 +589,15 @@ function calc(){
   const emHp    = emKw*KW2HP;
   const comm    = +document.getElementById('comm').value||150000;
 
-  if(!pCny||!kw){ alert('Укажите цену авто и мощность ДВС в кВт'); return; }
+  let hasError = false;
+  if(!pCny){ markError('price_cny'); hasError=true; }
+  if(!kw)  { markError('kw');        hasError=true; }
+  if(age==='new' && !+document.getElementById('price_max').value){ markError('price_max'); hasError=true; }
+  if((etype==='electric'||etype==='parallel')&&!emKw){ markError('em_kw'); hasError=true; }
+  if(hasError) return;
 
   const d = delivery();
-  if(!d){ alert('Выберите город покупки в КНР и дождитесь загрузки расстояний'); return; }
+  if(!d){ markError('city_input'); return; }
 
   // Таможенная цена = MAX(цена покупки, макс официальная)
   const pTax = Math.max(pCny, pMax);
@@ -775,7 +809,7 @@ async function loadRates() {
 }
 
 // Запускаем при загрузке страницы
-window.addEventListener('DOMContentLoaded', loadRates);
+window.addEventListener('DOMContentLoaded', () => { loadRates(); onAge(); });
 </script>
 </body>
 </html>
