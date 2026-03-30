@@ -130,14 +130,14 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         </div>
         <div class="field">
           <label>Курс CNY/RUB (ЦБ РФ) <span id="cbr-badge" style="color:var(--accent2);display:none">● авто</span></label>
-          <input type="number" id="rate_cbr" value="11.73" step="0.01">
+          <input type="number" id="rate_cbr" value="11.73" step="0.0001">
           <div class="fhint">Для расчёта таможенной пошлины (новые авто)</div>
         </div>
       </div>
       <div class="frow">
         <div class="field">
           <label>Курс EUR/RUB (ЦБ РФ) <span id="eur-badge" style="color:var(--accent2);display:none">● авто</span></label>
-          <input type="number" id="rate_eur" value="93.42" step="0.01">
+          <input type="number" id="rate_eur" value="93.42" step="0.0001">
           <div class="fhint">Для расчёта таможенной пошлины</div>
         </div>
       </div>
@@ -849,12 +849,12 @@ async function loadRates() {
       } catch(e) { /* попробуем следующий */ }
     }
     if (eurRate) {
-      document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(2);
+      document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(4);
       document.getElementById('eur-badge').style.display = 'inline';
       eurOk = true;
     }
     if (cnyRate) {
-      document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(2);
+      document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(4);
       document.getElementById('cbr-badge').style.display = 'inline';
     }
   } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e); }
