@@ -797,15 +797,28 @@ function calc(){
 async function loadRates() {
   let vtbOk = false, eurOk = false;
 
-  // 1. Курс CNY/RUB ВТБ — из vtb_rate.json в репозитории vtb-parser
+  // Гарантируем остановку спиннера через 8 секунд в любом случае
+  const safetyStop = setTimeout(() => {
+    const spinner = document.getElementById('rate-spinner');
+    const msg = document.getElementById('rate-msg');
+    if (spinner) spinner.style.display = 'none';
+    if (msg && msg.textContent.includes('Загружаю')) {
+      msg.textContent = '⚠️ Не удалось загрузить курсы — введите вручную';
+      msg.style.color = 'var(--accent3)';
+    }
+  }, 8000);
+
+  // 1. Курс CNY/RUB ВТБ — из vtb_rate.json
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     const r = await fetch(
       'https://raw.githubusercontent.com/abapptech/calculator/main/vtb_rate.json',
-      { cache: 'no-cache' }
+      { cache: 'no-cache', signal: controller.signal }
     );
+    clearTimeout(timeout);
     if (r.ok) {
       const d = await r.json();
-      // Используем курс продажи (sell) — именно по нему клиент покупает юань
       const sell = parseFloat(d.cny_sell);
       if (sell > 0) {
         document.getElementById('rate_vtb').value = sell.toFixed(2);
@@ -849,6 +862,7 @@ async function loadRates() {
   } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e); }
 
   // Обновляем статус
+  clearTimeout(safetyStop);
   const msg = document.getElementById('rate-msg');
   const spinner = document.getElementById('rate-spinner');
   spinner.style.display = 'none';
