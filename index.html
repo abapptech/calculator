@@ -129,7 +129,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
     <div class="pbody">
       <div class="slabel">Стоимость и курс</div>
 
-      <!-- Плашка статуса курсов -->
+      <div class="field">
+        <label>Наименование автомобиля <span style="color:var(--text3)">(необязательно)</span></label>
+        <input type="text" id="car_name" placeholder="например: Toyota Camry 2.5 AT">
+      </div>
       <div id="rate-status" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:14px;font-size:10px;color:var(--text2);display:flex;align-items:center;gap:8px">
         <span id="rate-spinner" style="display:inline-block;width:10px;height:10px;border:2px solid var(--border);border-top-color:var(--accent2);border-radius:50%;animation:spin .8s linear infinite"></span>
         <span id="rate-msg">Загружаю актуальные курсы…</span>
@@ -141,10 +144,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <input type="number" id="price_cny" placeholder="например: 150000" oninput="this.style.borderColor=''">
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
-      <div class="field">
-        <label id="price_max_label">Макс. официальная цена в интернете, ¥</label>
+      <div class="field" id="field_price_max">
+        <label id="price_max_label">Таможенная стоимость (MSRP), ¥</label>
         <input type="number" id="price_max" placeholder="например: 103920" oninput="this.style.borderColor=''">
-        <div class="fhint" id="price_max_hint">Для расчёта пошлины берётся MAX из двух цен</div>
+        <div class="fhint" id="price_max_hint">Для новых авто таможня считается от MSRP (официальная цена производителя)</div>
       </div>
       <div class="frow">
         <div class="field">
@@ -637,17 +640,14 @@ function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); do
 
 function onAge() {
   const age = document.getElementById('age').value;
-  const label = document.getElementById('price_max_label');
-  const hint  = document.getElementById('price_max_hint');
+  const fieldMax = document.getElementById('field_price_max');
   const input = document.getElementById('price_max');
   if (age === 'new') {
-    label.innerHTML = 'MSRP / Рекомендованная розничная цена, ¥ <span style="color:var(--red)">*</span>';
-    hint.innerHTML  = '<span style="color:var(--accent3)">⚠️ Для новых авто таможня считается от MSRP (официальная цена производителя). Укажите цену с сайта дилера или производителя.</span>';
+    fieldMax.style.display = 'block';
     input.placeholder = 'Обязательно для нового авто';
   } else {
-    label.textContent = 'Макс. официальная цена в интернете, ¥';
-    hint.textContent  = 'Для расчёта пошлины берётся MAX из двух цен';
-    input.placeholder = 'например: 103920';
+    fieldMax.style.display = 'none';
+    input.value = '';
   }
 }
 
@@ -782,11 +782,16 @@ function calc(){
   const cny = (amount) => `${fmtN(amount)} ¥ = ${fmt(amount * rVtb)}`;
   const mnt = (amount) => `${fmtN(amount)} ₮ = ${fmt(amount * rMnt)}`;
 
+  const carName = document.getElementById('car_name').value.trim();
+  const cityName = document.getElementById('city_input').value.trim();
+
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
-    ${sec('Автомобиль')}
+    ${carName ? row('Автомобиль', carName) : ''}
+    ${row('Город покупки в КНР', cityName || '—')}
+    ${sec('Стоимость')}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${row('Таможенная цена MAX', cny(pTax))}
+    ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Экспортные документы', cny(expDocCny))}
@@ -801,13 +806,14 @@ function calc(){
   // Строим массив строк для экспорта карточки
   const makeExportRows = (logisticRows, total) => {
     const base = [
-      {type:'sec', label:'Автомобиль'},
-      {label:'Цена авто в КНР (CNY)', val: Math.round(pCny).toLocaleString('ru-RU')+' ¥'},
-      {label:'Цена авто (× курс ВТБ '+rVtb+')', val: fmt(pCny*rVtb)},
-      {label:'Таможенная цена MAX', val: fmt(pTax*rVtb)},
+      ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
+      {label:'Город покупки в КНР', val: cityName || '—'},
+      {type:'sec', label:'Стоимость'},
+      {label:'Цена авто в КНР', val: cny(pCny)},
+      ...(age === 'new' ? [{label:'Таможенная стоимость (MSRP)', val: cny(pTax)}] : []),
       {type:'sec', label:'Расходы в КНР'},
-      {label:'Накладные расходы (0.5%)', val: fmt(ovhdCny*rVtb)},
-      {label:'Экспортные документы', val: fmt(expDocCny*rVtb)},
+      {label:'Накладные расходы (0.5%)', val: cny(ovhdCny)},
+      {label:'Экспортные документы', val: cny(expDocCny)},
       {type:'sec', label:'Таможенные платежи'},
       {label:'Таможенная пошлина', val: fmt(duty), cls:'red'},
       {label:'Таможенное оформление', val: fmt(clear)},
@@ -1139,6 +1145,7 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
       </div>
     </div>
     <div class="ec-city" style="color:${color}">${cityTitle}</div>
+    ${carName ? `<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:4px">${carName}</div>` : ''}
     <div class="ec-total-big">${fmt(total)}</div>
     <div class="ec-rates" id="ec-rates-${cityId}"></div>
     ${rowsHtml}
