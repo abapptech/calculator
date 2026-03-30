@@ -878,56 +878,7 @@ function calc(){
     ${row('Брокер МНГ (MNT→RUB)', fmt(900000 * rMnt) + ' (' + (900000).toLocaleString() + ' ₮)')}
     ${row('Перевозка эвакуатором Эрэн-Хото–Кяхта (MNT→RUB)', fmt(2500000 * rMnt) + ' (' + (2500000).toLocaleString() + ' ₮)')}`;
 
-  document.getElementById('res').innerHTML = `
-  <div class="panel">
-    <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
-    <div class="pbody">
-      <div class="notice">⚠️ Цены приведены справочно. Окончательная стоимость зависит от актуального курса валют, маршрута и условий на момент сделки. Не является публичной офертой.</div>
-      <div class="rbar">
-        <div class="ri">CNY/RUB ВТБ: <span class="rv">&nbsp;${rVtb}</span></div>
-        <span class="rs">·</span>
-        <div class="ri">CNY/RUB ЦБ: <span class="rv">&nbsp;${rCbr}</span></div>
-        <span class="rs">·</span>
-        <div class="ri">EUR/RUB ЦБ: <span class="rv">&nbsp;${rEur}</span></div>
-        <span class="rs">·</span>
-        <div class="ri">MNT/RUB×1.03: <span class="rv">&nbsp;${rMnt.toFixed(5)}</span></div>
-        <span class="rs">·</span>
-        <div class="ri">Мощность: <span class="rv">&nbsp;${(kw*KW2HP).toFixed(0)} л.с.</span></div>
-      </div>
-
-      <div class="cgrid">
-        <div class="cc" style="border-color:var(--accent2);background:#0a1418">
-          <div class="cname" style="color:var(--accent2)">📍 Забайкальск</div>
-          <div class="cprice" style="color:var(--accent2);font-size:22px">${fmt(zabaikalsk)}</div>
-          <div class="csub">через Маньчжурию · лаб. Чита</div>
-        </div>
-        <div class="cc">
-          <div class="cname">📍 Александров</div>
-          <div class="cprice">${fmt(alexandrov)}</div>
-          <div class="csub">через Хоргос · СВХ Александров</div>
-        </div>
-        <div class="cc">
-          <div class="cname">📍 Уссурийск</div>
-          <div class="cprice">${fmt(ussuriysk)}</div>
-          <div class="csub">через Суйфэньхэ</div>
-        </div>
-        <div class="cc best">
-          <div class="cname">📍 Кяхта — 4 варианта доставки</div>
-          <div class="cprice">${fmt(kyakSelf)}</div>
-          <div class="csub">самоходом (базовый) · через Эрэн-Хото → Монголия</div>
-          <div class="kvars">
-            <div class="kv"><div class="kvl">Самоходом</div><div class="kvp">${fmt(kyakSelf)}</div></div>
-            <div class="kv"><div class="kvl">Полуприцеп</div><div class="kvp">${fmt(kyakPP)}</div></div>
-            <div class="kv"><div class="kvl">Автовоз</div><div class="kvp">${fmt(kyakAuto)}</div></div>
-            <div class="kv"><div class="kvl">Эвакуатор</div><div class="kvp">${fmt(kyakEvac)}</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">
-        Детализация по городам (нажмите на город чтобы раскрыть)
-      </div>
-
+  // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabExport = [
     {type:'sec', label:'Логистика — Забайкальск'},
     {label:'Перевозка до Маньчжурии', val: fmt(d.man*rVtb)},
@@ -991,6 +942,56 @@ function calc(){
     {label:'Брокер МНГ', val: fmt(900000*rMnt)+' (900 000 ₮)'},
     {label:'Эвакуатор Эрэн-Хото–Кяхта', val: fmt(2500000*rMnt)+' (2 500 000 ₮)'},
   ];
+
+  document.getElementById('res').innerHTML = `
+  <div class="panel">
+    <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
+    <div class="pbody">
+      <div class="notice">⚠️ Цены приведены справочно. Окончательная стоимость зависит от актуального курса валют, маршрута и условий на момент сделки. Не является публичной офертой.</div>
+      <div class="rbar">
+        <div class="ri">CNY/RUB ВТБ: <span class="rv">&nbsp;${rVtb}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">CNY/RUB ЦБ: <span class="rv">&nbsp;${rCbr}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">EUR/RUB ЦБ: <span class="rv">&nbsp;${rEur}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">MNT/RUB×1.03: <span class="rv">&nbsp;${rMnt.toFixed(5)}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">Мощность: <span class="rv">&nbsp;${(kw*KW2HP).toFixed(0)} л.с.</span></div>
+      </div>
+
+      <div class="cgrid">
+        <div class="cc" style="border-color:var(--accent2);background:#0a1418">
+          <div class="cname" style="color:var(--accent2)">📍 Забайкальск</div>
+          <div class="cprice" style="color:var(--accent2);font-size:22px">${fmt(zabaikalsk)}</div>
+          <div class="csub">через Маньчжурию · лаб. Чита</div>
+        </div>
+        <div class="cc">
+          <div class="cname">📍 Александров</div>
+          <div class="cprice">${fmt(alexandrov)}</div>
+          <div class="csub">через Хоргос · СВХ Александров</div>
+        </div>
+        <div class="cc">
+          <div class="cname">📍 Уссурийск</div>
+          <div class="cprice">${fmt(ussuriysk)}</div>
+          <div class="csub">через Суйфэньхэ</div>
+        </div>
+        <div class="cc best">
+          <div class="cname">📍 Кяхта — 4 варианта доставки</div>
+          <div class="cprice">${fmt(kyakSelf)}</div>
+          <div class="csub">самоходом (базовый) · через Эрэн-Хото → Монголия</div>
+          <div class="kvars">
+            <div class="kv"><div class="kvl">Самоходом</div><div class="kvp">${fmt(kyakSelf)}</div></div>
+            <div class="kv"><div class="kvl">Полуприцеп</div><div class="kvp">${fmt(kyakPP)}</div></div>
+            <div class="kv"><div class="kvl">Автовоз</div><div class="kvp">${fmt(kyakAuto)}</div></div>
+            <div class="kv"><div class="kvl">Эвакуатор</div><div class="kvp">${fmt(kyakEvac)}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">
+        Детализация по городам (нажмите на город чтобы раскрыть)
+      </div>
 
       ${cityDetail('zab','📍 Забайкальск — '+fmt(zabaikalsk),'var(--accent2)',zabRows,zabExport,zabaikalsk)}
       ${cityDetail('alex','📍 Александров — '+fmt(alexandrov),'var(--text)',alexRows,alexExport,alexandrov)}
