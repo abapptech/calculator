@@ -82,26 +82,26 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .dl-btn{display:flex;align-items:center;gap:6px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'IBM Plex Mono',monospace;font-size:10px;padding:8px 12px;cursor:pointer;transition:all .2s;margin-top:8px;justify-content:center}
 .dl-btn:hover{border-color:var(--accent);color:var(--accent)}
 .dl-btn:disabled{opacity:.5;cursor:wait}
-.export-card{position:fixed;left:-9999px;top:0;width:600px;background:#0d0f14;padding:28px;font-family:'IBM Plex Mono',monospace;color:#e8eaf0;line-height:1.4}
-.ec-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #2a3040}
-.ec-brand{font-size:13px;font-weight:700;color:#e8eaf0}
-.ec-sub{font-size:10px;color:#8892a4;margin-top:2px}
-.ec-city{font-size:18px;font-weight:700;color:#e8eaf0;margin-bottom:4px}
-.ec-total-big{font-size:30px;font-weight:900;color:#f5c842;margin-bottom:14px}
+.export-card{position:fixed;left:-9999px;top:0;width:600px;background:#ffffff;padding:28px;font-family:'IBM Plex Mono',monospace;color:#1a1a2e;line-height:1.4}
+.ec-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #e0e0e0}
+.ec-brand{font-size:13px;font-weight:700;color:#1a1a2e}
+.ec-sub{font-size:10px;color:#666;margin-top:2px}
+.ec-city{font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.ec-total-big{font-size:30px;font-weight:900;color:#cc2200;margin-bottom:14px}
 .ec-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.ec-rate{font-size:9px;color:#8892a4;background:#161a22;padding:3px 8px;border-radius:4px}
-.ec-rate span{color:#3ecfcf;font-weight:600}
-.ec-sec{font-size:9px;color:#f5c842;letter-spacing:.1em;text-transform:uppercase;margin:12px 0 5px;font-weight:600}
-.ec-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1e2430;font-size:10px}
-.ec-key{color:#8892a4}
-.ec-val{color:#e8eaf0;font-weight:500}
-.ec-val-red{color:#f87171;font-weight:500}
-.ec-val-tot{color:#f5c842;font-weight:700;font-size:12px}
-.ec-val-pct{color:#ff6b4a;font-weight:500}
-.ec-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#18160a;border-radius:8px;margin-top:10px}
-.ec-total-key{font-size:11px;color:#a08040;font-weight:600}
-.ec-total-val{font-size:18px;font-weight:700;color:#f5c842}
-.ec-footer{margin-top:14px;padding-top:10px;border-top:1px solid #2a3040;font-size:9px;color:#5a6478;text-align:center;line-height:1.6}
+.ec-rate{font-size:9px;color:#555;background:#f5f5f5;padding:3px 8px;border-radius:4px}
+.ec-rate span{color:#cc2200;font-weight:600}
+.ec-sec{font-size:9px;color:#cc2200;letter-spacing:.1em;text-transform:uppercase;margin:12px 0 5px;font-weight:600}
+.ec-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:10px}
+.ec-key{color:#555}
+.ec-val{color:#1a1a2e;font-weight:500}
+.ec-val-red{color:#cc2200;font-weight:500}
+.ec-val-tot{color:#cc2200;font-weight:700;font-size:12px}
+.ec-val-pct{color:#e05500;font-weight:500}
+.ec-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff3f0;border-radius:8px;margin-top:10px;border:1px solid #f0c0b0}
+.ec-total-key{font-size:11px;color:#aa3300;font-weight:600}
+.ec-total-val{font-size:18px;font-weight:700;color:#cc2200}
+.ec-footer{margin-top:14px;padding-top:10px;border-top:1px solid #e0e0e0;font-size:8px;color:#888;line-height:1.7}
 </style>
 </head>
 <body>
@@ -600,6 +600,14 @@ function onType(){
   document.getElementById('fcc').style.opacity=isElectric?'0.3':'1';
   document.getElementById('fcc').style.pointerEvents=isElectric?'none':'auto';
 
+  // Мощность ДВС и л.с. — неактивны для электро
+  const kwField = document.getElementById('kw');
+  const hpField = document.getElementById('hp');
+  kwField.style.opacity = isElectric?'0.3':'1';
+  kwField.style.pointerEvents = isElectric?'none':'auto';
+  hpField.style.opacity = isElectric?'0.3':'1';
+  if(isElectric){ kwField.value=''; hpField.value=''; }
+
   // Поля ЭД — показываем только для электро/гибридов
   document.getElementById('fem').style.display=hasEM?'block':'none';
 
@@ -787,7 +795,6 @@ function calc(){
     ${row('Таможенное оформление', fmt(clear))}
     ${row('Утилизационный сбор', fmt(util), 'red')}
     ${rowHL('Итого гос. платежей', fmt(duty + clear + util))}
-    ${row('Доля гос. платежей от цены авто', (((duty + util) / (pCny * rVtb)) * 100).toFixed(1) + '%', 'pct')}
     ${sec('Комиссия')}
     ${row('Комиссия Abapp', fmt(comm))}`;
 
@@ -806,7 +813,6 @@ function calc(){
       {label:'Таможенное оформление', val: fmt(clear)},
       {label:'Утилизационный сбор', val: fmt(util), cls:'red'},
       {label:'Итого гос. платежей', val: fmt(duty+clear+util), cls:'tot'},
-      {label:'Доля гос. платежей', val: (((duty+util)/(pCny*rVtb))*100).toFixed(1)+'%', cls:'pct'},
       {type:'sec', label:'Комиссия'},
       {label:'Комиссия Abapp', val: fmt(comm)},
       ...logisticRows,
@@ -1137,8 +1143,10 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
     <div class="ec-rates" id="ec-rates-${cityId}"></div>
     ${rowsHtml}
     <div class="ec-footer">
-      ⚠️ Цены приведены справочно. Расчёт не является публичной офертой.<br>
-      © Abapp. Все права защищены. · ${new Date().toLocaleDateString('ru-RU')}
+      * Расчёт стоимости произведён по курсам валют (курс банка ВТБ для совершения операций в интернет-банке/приложении и курс ЦБ РФ) на указанную выше дату и может отличаться от конечной стоимости на момент заказа и/или после завершения процедуры растаможки автомобиля.<br>
+      ** Расчёт стоимости не включает в себя любые банковские комиссии за перевод средств за рубеж.<br>
+      *** Расчёт стоимости является ориентировочным и не является публичной офертой.<br><br>
+      © Abapp · abappcn.ru/calculator/ · ${new Date().toLocaleDateString('ru-RU')}
     </div>`;
   document.body.appendChild(card);
 
@@ -1161,7 +1169,7 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
     });
 
     const canvas = await html2canvas(card, {
-      backgroundColor: '#0d0f14',
+      backgroundColor: '#ffffff',
       scale: 2,
       useCORS: true,
       logging: false,
