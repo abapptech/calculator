@@ -170,7 +170,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <div class="slabel">Характеристики</div>
 
       <div class="field">
-        <label>Тип ДВС</label>
+        <label>Тип двигателя</label>
         <select id="etype" onchange="onType()">
           <option value="petrol">Бензин/дизель</option>
           <option value="electric">Электро/последовательный гибрид</option>
@@ -210,7 +210,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       </div>
       <div class="frow">
         <div class="field"><label>Мощность ДВС, л.с.</label><input type="number" id="hp" readonly style="color:var(--accent2)"></div>
-        <div class="field"><label>Суммарная мощность ЭД, л.с.</label><input type="number" id="em_hp" readonly style="color:var(--accent2)"></div>
+        <div class="field"><label>Суммарная мощность ЭД, л.с.</label><input type="number" id="em_hp" readonly style="color:var(--accent2);opacity:0.3"></div>
       </div>
 
       <hr class="div">
@@ -600,13 +600,18 @@ function onType(){
   document.getElementById('fcc').style.opacity=isElectric?'0.3':'1';
   document.getElementById('fcc').style.pointerEvents=isElectric?'none':'auto';
 
-  // Поля ЭД
+  // Поля ЭД — показываем только для электро/гибридов
   document.getElementById('fem').style.display=hasEM?'block':'none';
 
-  // Задний ЭД — показываем всегда когда есть ЭД
+  // Поле "Суммарная мощность ЭД" — всегда видно, но затемнено для бензина
+  document.getElementById('em_hp').style.opacity=hasEM?'1':'0.3';
+  document.getElementById('em_hp').style.color=hasEM?'var(--accent2)':'var(--text3)';
+  if(!hasEM) document.getElementById('em_hp').value='';
+
+  // Задний ЭД
   document.getElementById('fem_rear').style.display=hasEM?'block':'none';
 
-  // Подсказки и метки
+  // Подсказки
   const hint = document.getElementById('em_hint');
   const frontLabel = document.getElementById('em_front_label');
   if(isParallel){
@@ -619,6 +624,7 @@ function onType(){
   updEMHP();
 }
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
+function fmtN(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU') }
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
 function onAge() {
@@ -765,8 +771,8 @@ function calc(){
     `<div style="font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding:10px 0 4px;font-weight:600">${title}</div>`;
 
   // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
-  const cny = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ¥ = ${fmt(amount * rVtb)}`;
-  const mnt = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ₮ = ${fmt(amount * rMnt)}`;
+  const cny = (amount) => `${fmtN(amount)} ¥ = ${fmt(amount * rVtb)}`;
+  const mnt = (amount) => `${fmtN(amount)} ₮ = ${fmt(amount * rMnt)}`;
 
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
