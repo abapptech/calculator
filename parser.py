@@ -5,7 +5,7 @@
 
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import json
 import re
 
@@ -57,14 +57,16 @@ def parse_cny_rate() -> dict | None:
 
 
 def save_rate_json(rate: dict):
+    MSK = timezone(timedelta(hours=3))
+    now_msk = datetime.now(MSK).strftime("%Y-%m-%d %H:%M МСК")
     data = {
         "cny_buy":  rate["buy"],
         "cny_sell": rate["sell"],
-        "updated":  datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated":  now_msk,
     }
     with open(RATE_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"[{datetime.now():%H:%M:%S}] Сохранено в {RATE_FILE} ✅")
+    print(f"[{datetime.now(MSK).strftime('%H:%M:%S')} МСК] Сохранено в {RATE_FILE} ✅")
     print(f"  CNY покупка: {rate['buy']} | продажа: {rate['sell']}")
 
 
