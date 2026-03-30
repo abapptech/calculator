@@ -1,38 +1,659 @@
-name: Parse VTB CNY Rate
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор стоимости авто из КНР — Abapp</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14;--surface:#161a22;--surface2:#1e2430;--border:#2a3040;
+  --accent:#f5c842;--accent2:#3ecfcf;--accent3:#ff6b4a;
+  --text:#e8eaf0;--text2:#8892a4;--text3:#5a6478;--red:#f87171;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;min-height:100vh}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:100}
+.logo-wrap{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-wrap img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.hdr-title{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
+.hdr-sub{font-size:10px;color:var(--text2);margin-top:2px}
+.hdr-links{margin-left:auto;display:flex;gap:10px}
+.hdr-links a{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;transition:all .2s;font-family:'Unbounded',sans-serif}
+.btn-tg{background:#1a3a4a;color:var(--accent2);border:1px solid #2a5a6a}
+.btn-tg:hover{background:#24506a}
+.btn-vk{background:#2a3520;color:#a8d470;border:1px solid #3a5530}
+.btn-vk:hover{background:#3a4a2a}
+.wrap{max-width:1140px;margin:0 auto;padding:28px 16px 60px;display:grid;grid-template-columns:420px 1fr;gap:20px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.phdr{background:var(--surface2);padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.phdr-t{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;color:var(--text);letter-spacing:.05em;text-transform:uppercase}
+.pbody{padding:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus{border-color:var(--accent)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892a4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;cursor:pointer}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fhint{font-size:9px;color:var(--text3);margin-top:4px}
+.div{border:none;border-top:1px solid var(--border);margin:16px 0}
+.slabel{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.cbtn{width:100%;background:var(--accent);color:#0d0f14;border:none;border-radius:10px;padding:13px;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:all .2s;margin-top:4px}
+.cbtn:hover{background:#ffd84d;transform:translateY(-1px)}
+.rp{position:sticky;top:84px}
+.rbar{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ri{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2)}
+.rv{color:var(--accent2);font-weight:600}
+.rs{color:var(--border)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cc{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.cc.best{grid-column:1/-1;border-color:var(--accent);background:#18160a}
+.cname{font-size:9px;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.cc.best .cname{color:var(--accent)}
+.cprice{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:3px}
+.cc.best .cprice{font-size:22px;color:var(--accent)}
+.csub{font-size:9px;color:var(--text3)}
+.kvars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.kv{background:#0d0f14;border-radius:7px;padding:7px 8px;text-align:center}
+.kvl{font-size:8px;color:var(--text3);margin-bottom:3px}
+.kvp{font-size:11px;font-weight:600;color:var(--accent)}
+.bdown{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.bhdr{padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--border);font-size:9px;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.bbody{padding:0 14px}
+.br{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px}
+.br:last-child{border-bottom:none}
+.bk{color:var(--text2)}
+.bv{color:var(--text);font-weight:500}
+.bv.red{color:var(--red)}
+.bv.tot{color:var(--accent);font-family:'Unbounded',sans-serif;font-size:12px}
+.bv.pct{color:var(--accent3)}
+.bhl{background:#0a0800;margin:0 -14px;padding:9px 14px}
+.notice{background:#1a1200;border:1px solid #3a2a00;border-radius:9px;padding:10px 14px;font-size:10px;color:#a08040;line-height:1.6;margin-bottom:14px}
+.empty{padding:48px 20px;text-align:center}
+.ei{font-size:44px;margin-bottom:14px}
+.et{font-family:'Unbounded',sans-serif;font-size:13px;color:var(--text2);margin-bottom:8px}
+.es{font-size:11px;color:var(--text3);line-height:1.6}
+.arr{transition:transform .2s}
+.arr.open{transform:rotate(180deg)}
+.bbody.hidden{display:none}
+.fnote{margin-top:10px;font-size:9px;color:var(--text3);text-align:center;line-height:1.6}
+@media(max-width:820px){.wrap{grid-template-columns:1fr}.rp{position:static}.cgrid{grid-template-columns:1fr}.kvars{grid-template-columns:1fr 1fr}.hdr-links{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo-wrap" href="https://t.me/abappb2b" target="_blank">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MiIgaGVpZ2h0PSI3MiIgdmlld0JveD0iMCAwIDcyIDcyIj48cmVjdCB3aWR0aD0iNzIiIGhlaWdodD0iNzIiIHJ4PSIxNCIgZmlsbD0iIzFlMjQzMCIvPjx0ZXh0IHg9IjM2IiB5PSI0OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2Y1Yzg0MiI+QTwvdGV4dD48L3N2Zz4=" alt="Abapp">
+    <div><div class="hdr-title">Abapp</div><div class="hdr-sub">Калькулятор стоимости авто из КНР</div></div>
+  </a>
+  <div class="hdr-links">
+    <a href="https://t.me/abappb2b" target="_blank" class="btn-tg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.018 9.51c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.127 14.4l-2.967-.924c-.645-.204-.658-.645.136-.953l11.57-4.461c.537-.194 1.006.131.696.186z"/></svg>
+      Telegram
+    </a>
+    <a href="https://vk.com/abappb2b" target="_blank" class="btn-vk">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.392 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.865 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.169.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.762-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.745-.576.745z"/></svg>
+      ВКонтакте
+    </a>
+  </div>
+</header>
 
-on:
-  schedule:
-    # 07:00, 10:00, 13:00, 16:00 МСК (UTC+3 = UTC-3ч)
-    - cron: '0 4,7,10,13 * * *'
-  workflow_dispatch: # ручной запуск
+<div class="wrap">
+  <!-- ФОРМА -->
+  <div class="panel">
+    <div class="phdr"><span>🚗</span><span class="phdr-t">Параметры автомобиля</span></div>
+    <div class="pbody">
+      <div class="slabel">Стоимость и курс</div>
 
-jobs:
-  parse:
-    runs-on: ubuntu-latest
+      <!-- Плашка статуса курсов -->
+      <div id="rate-status" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:14px;font-size:10px;color:var(--text2);display:flex;align-items:center;gap:8px">
+        <span id="rate-spinner" style="display:inline-block;width:10px;height:10px;border:2px solid var(--border);border-top-color:var(--accent2);border-radius:50%;animation:spin .8s linear infinite"></span>
+        <span id="rate-msg">Загружаю актуальные курсы…</span>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      <div class="field">
+        <label>Стоимость покупки авто в КНР, ¥</label>
+        <input type="number" id="price_cny" placeholder="например: 150000">
+        <div class="fhint">Фактическая цена покупки у продавца</div>
+      </div>
+      <div class="field">
+        <label>Макс. официальная цена в интернете, ¥</label>
+        <input type="number" id="price_max" placeholder="например: 103920">
+        <div class="fhint">Для расчёта пошлины берётся MAX из двух цен</div>
+      </div>
+      <div class="frow">
+        <div class="field">
+          <label>Курс CNY/RUB (ВТБ) <span id="vtb-badge" style="color:var(--accent2);display:none">● авто</span></label>
+          <input type="number" id="rate_vtb" value="12.02" step="0.01">
+          <div class="fhint" id="vtb-updated"></div>
+        </div>
+        <div class="field">
+          <label>Курс EUR/RUB (ЦБ РФ) <span id="eur-badge" style="color:var(--accent2);display:none">● авто</span></label>
+          <input type="number" id="rate_eur" value="93.42" step="0.01">
+          <div class="fhint">Для расчёта таможенной пошлины</div>
+        </div>
+      </div>
 
-      - name: Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      <hr class="div">
+      <div class="slabel">Характеристики</div>
 
-      - name: Install dependencies
-        run: |
-          pip install playwright beautifulsoup4
-          playwright install chromium
-          playwright install-deps chromium
+      <div class="field">
+        <label>Тип ДВС</label>
+        <select id="etype" onchange="onType()">
+          <option value="petrol">Бензин/дизель</option>
+          <option value="electric">Электро</option>
+          <option value="parallel">Параллельный гибрид</option>
+          <option value="mild">Мягкий гибрид</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Возраст / категория</label>
+        <select id="age">
+          <option value="new">До 3-ех лет (новый)</option>
+          <option value="mid">Проходной (3–5 лет)</option>
+          <option value="old">Непроходной (5+ лет)</option>
+        </select>
+      </div>
+      <div class="frow">
+        <div class="field" id="fcc">
+          <label>Объём ДВС, см³</label>
+          <input type="number" id="cc" placeholder="например: 2000">
+        </div>
+        <div class="field">
+          <label>Мощность ДВС, кВт</label>
+          <input type="number" id="kw" placeholder="например: 110" oninput="updHP()">
+        </div>
+      </div>
+      <div class="field" id="fem" style="display:none">
+        <label>30-мин. мощность ЭД, кВт</label>
+        <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP()">
+        <div class="fhint">Мощность электродвигателя — для утильсбора электро/гибридов</div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>Мощность ДВС, л.с.</label><input type="number" id="hp" readonly style="color:var(--accent2)"></div>
+        <div class="field"><label>Мощность ЭД, л.с.</label><input type="number" id="em_hp" readonly style="color:var(--accent2)"></div>
+      </div>
 
-      - name: Run parser
-        run: python parser.py
+      <hr class="div">
+      <div class="slabel">Логистика</div>
 
-      - name: Commit vtb_rate.json
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add vtb_rate.json
-          git diff --cached --quiet || git commit -m "update vtb_rate.json [skip ci]"
-          git push
- 
+      <div class="field">
+        <label>Город покупки в КНР</label>
+        <div style="position:relative">
+          <input type="text" id="city_input" placeholder="Введите название города..." autocomplete="off"
+            oninput="onCityInput()" onblur="setTimeout(hideDropdown,200)"
+            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none">
+          <div id="city_dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;max-height:200px;overflow-y:auto;z-index:200;margin-top:2px"></div>
+        </div>
+        <div class="fhint" id="city_status">516 городов КНР — расстояния считаются по реальным дорогам (OSRM)</div>
+      </div>
+
+      <!-- Расстояния — заполняются автоматически или вручную -->
+      <div id="dist_block" style="display:none">
+        <div style="font-size:9px;color:var(--accent2);margin-bottom:8px;letter-spacing:0.08em;text-transform:uppercase">
+          📍 Расстояния по дорогам (км) · <span id="dist_source"></span>
+        </div>
+        <div class="frow">
+          <div class="field"><label>До Маньчжурии</label><input type="number" id="d_man" readonly style="color:var(--accent2)"></div>
+          <div class="field"><label>До Эрэн-Хото</label><input type="number" id="d_erl" readonly style="color:var(--accent2)"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>До Суйфэньхэ</label><input type="number" id="d_sui" readonly style="color:var(--accent2)"></div>
+          <div class="field"><label>До Хоргоса</label><input type="number" id="d_hor" readonly style="color:var(--accent2)"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Комиссия Автоброкер, ₽</label>
+        <input type="number" id="comm" value="150000">
+      </div>
+
+      <button class="cbtn" onclick="calc()">⚡ Рассчитать стоимость</button>
+    </div>
+  </div>
+
+  <!-- РЕЗУЛЬТАТЫ -->
+  <div class="rp">
+    <div id="res">
+      <div class="panel">
+        <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
+        <div class="empty"><div class="ei">🧮</div><div class="et">Введите параметры</div><div class="es">Заполните форму слева<br>и нажмите «Рассчитать»</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── База городов КНР (516 городов, координаты из листа "Города КНР") ─────────
+// ── Таможенная пошлина ────────────────────────────────────────────────────────
+// Источник: лист "Таможенная пошлина", строка 3, Китай
+function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur) {
+  const priceEur = pMaxCny * rateVtb / rateEur; // цена в EUR
+
+  if (etype === 'electric') {
+    // D3: (pMax*0.15*rateVtb)*1.2 + (akciz_em*emHp)*1.2 + pMax*rateVtb*0.2
+    const a = akcizRate(emHp);
+    return (pMaxCny*0.15*rateVtb)*1.2 + (a*emHp)*1.2 + pMaxCny*rateVtb*0.2;
+  }
+  // Параллельный гибрид → как бензин/дизель (E3 → B3/A3/C3)
+  return dutyICE(age, pMaxCny, cc, priceEur, rateEur);
+}
+
+function dutyICE(age, pMaxCny, cc, priceEur, rateEur) {
+  if (age === 'new') {
+    // B3: MAX(pct*price_eur*rate_eur, cubic*cc*rate_eur)
+    const pct = priceEur > 8500 ? 0.48 : 0.54;
+    const dutyPct = pct * priceEur * rateEur;
+    let cubicR;
+    if      (priceEur === 0)       cubicR = 0;
+    else if (priceEur <= 8500)     cubicR = 2.5;
+    else if (priceEur <= 16700)    cubicR = 3.5;
+    else if (priceEur <= 42300)    cubicR = 5.5;
+    else if (priceEur <= 84500)    cubicR = 7.5;
+    else if (priceEur <= 169000)   cubicR = 15;
+    else                           cubicR = 20;
+    return Math.max(dutyPct, cubicR * cc * rateEur);
+  }
+  if (age === 'mid') {
+    // A3: ставка_EUR/куб * cc * rateEur
+    let r;
+    if      (cc >= 3000) r = 3.6;
+    else if (cc > 2300)  r = 3;
+    else if (cc > 1800)  r = 2.7;
+    else if (cc > 1500)  r = 2.5;
+    else if (cc > 1000)  r = 1.7;
+    else                 r = 1.5;
+    return r * cc * rateEur;
+  }
+  // old (5+): C3
+  let r;
+  if      (cc > 3000) r = 5.7;
+  else if (cc > 2300) r = 5;
+  else if (cc > 1800) r = 4.8;
+  else if (cc > 1500) r = 3.5;
+  else if (cc > 1000) r = 3.2;
+  else                r = 3;
+  return r * cc * rateEur;
+}
+
+function akcizRate(hp) {
+  if (hp > 500) return 1742;
+  if (hp > 400) return 1685;
+  if (hp > 300) return 1628;
+  if (hp > 200) return 955;
+  if (hp > 150) return 583;
+  if (hp > 90)  return 61;
+  return 0;
+}
+
+// ── Таможенное оформление (INPUT CN B24) ────────────────────────────────────
+function customsClear(priceCny, rateVtb) {
+  const r = priceCny * rateVtb;
+  if (r <= 200000)   return 1231;
+  if (r <= 450000)   return 2462;
+  if (r <= 1200000)  return 4924;
+  if (r <= 2700000)  return 13541;
+  if (r <= 4200000)  return 18465;
+  if (r <= 5500000)  return 21344;
+  if (r <= 10000000) return 49240;
+  return 73860;
+}
+
+// ── Утильсбор (лист Утильсбор, физ. лица, с 01.01.2026, база 20 000 руб.) ──
+const UB = 20000;
+function utilshor(etype, cc, kw, emKw, age) {
+  const isNew = age === 'new';
+  const ci = isNew ? 0 : 1; // 0=D(0-3лет), 1=F(3+лет)
+
+  if (etype === 'electric') {
+    // Строки 7-15: по кВт ЭД
+    return lookElectric(emKw || kw, ci);
+  }
+  // Мягкий/параллельный/бензин — по объёму и мощности ДВС
+  return lookICE(cc, kw, ci);
+}
+
+// Электро: таблица по кВт (строки 7-15)
+const EL = [
+  {mx:58.84, d:0.17,  f:0.26  },
+  {mx:73.55, d:49.56, f:82.08 },
+  {mx:95.61, d:65.88, f:95.64 },
+  {mx:117.68,d:78.0,  f:111.36},
+  {mx:139.75,d:92.4,  f:129.72},
+  {mx:161.81,d:109.68,f:151.2 },
+  {mx:183.88,d:129.96,f:176.16},
+  {mx:205.94,d:153.96,f:205.2 },
+  {mx:1e9,   d:182.4, f:239.04},
+];
+function lookElectric(kw,ci){
+  for(const r of EL) if(kw<=r.mx) return (ci?r.f:r.d)*UB;
+  return 182.4*UB;
+}
+
+// ДВС: по объёму cc и кВт (переводим в л.с. для сравнения с таблицей)
+// Таблицы сгруппированы по объёму cc, внутри — по кВт (колонки A/B = кВт от/до)
+const KW2HP = 1.35962;
+// Объём до 1000 (строки 18-30, по кВт)
+const ICE1 = [
+  {mx:117.68,d:0.17, f:0.26 },
+  {mx:139.75,d:15.36,f:28.44},
+  {mx:161.81,d:15.84,f:29.28},
+  {mx:183.88,d:16.2, f:30.12},
+  {mx:1e9,   d:17.28,f:30.12},
+];
+// Объём 1001-2000 (строки 33-45)
+const ICE2 = [
+  {mx:117.68,d:0.17,  f:0.26  },
+  {mx:139.75,d:45.0,  f:74.64 },
+  {mx:161.81,d:47.64, f:79.2  },
+  {mx:183.88,d:50.52, f:83.88 },
+  {mx:205.94,d:57.12, f:91.92 },
+  {mx:228.0, d:64.56, f:100.56},
+  {mx:250.07,d:72.96, f:110.16},
+  {mx:272.13,d:83.16, f:120.6 },
+  {mx:294.2, d:94.8,  f:132.0 },
+  {mx:316.26,d:108.0, f:144.6 },
+  {mx:338.33,d:123.24,f:158.4 },
+  {mx:367.75,d:140.4, f:173.4 },
+  {mx:1e9,   d:160.08,f:189.84},
+];
+// Объём 2001-3000
+const ICE3 = [
+  {mx:117.68,d:0.17,  f:0.26  },
+  {mx:139.75,d:115.34,f:172.8 },
+  {mx:161.81,d:118.2, f:175.08},
+  {mx:183.88,d:120.12,f:177.6 },
+  {mx:205.94,d:126.0, f:183.0 },
+  {mx:228.0, d:131.04,f:188.52},
+  {mx:250.07,d:136.32,f:193.68},
+  {mx:272.13,d:141.72,f:199.08},
+  {mx:294.2, d:147.48,f:204.72},
+  {mx:316.26,d:153.36,f:210.48},
+  {mx:338.33,d:159.48,f:216.36},
+  {mx:367.75,d:165.84,f:222.36},
+  {mx:1e9,   d:172.44,f:228.6 },
+];
+// Объём 3001-3500
+const ICE4 = [
+  {mx:117.68,d:129.2, f:197.81},
+  {mx:139.75,d:129.2, f:197.81},
+  {mx:161.81,d:131.76,f:200.04},
+  {mx:183.88,d:134.4, f:202.2 },
+  {mx:205.94,d:137.16,f:204.36},
+  {mx:228.0, d:140.52,f:207.24},
+  {mx:250.07,d:144.0, f:212.4 },
+  {mx:272.13,d:151.92,f:217.8 },
+  {mx:294.2, d:160.32,f:224.28},
+  {mx:316.26,d:169.2, f:231.0 },
+  {mx:338.33,d:178.44,f:237.96},
+  {mx:367.75,d:188.28,f:245.04},
+  {mx:1e9,   d:198.6, f:252.48},
+];
+// Объём 3501+
+const ICE5 = [
+  {mx:117.68,d:164.53,f:216.29},
+  {mx:139.75,d:164.53,f:216.29},
+  {mx:161.81,d:167.28,f:219.48},
+  {mx:183.88,d:170.16,f:222.84},
+  {mx:205.94,d:173.04,f:226.2 },
+  {mx:228.0, d:176.52,f:231.36},
+  {mx:250.07,d:180.0, f:236.64},
+  {mx:272.13,d:186.36,f:249.6 },
+  {mx:294.2, d:192.88,f:263.4 },
+  {mx:316.26,d:199.68,f:277.92},
+  {mx:338.33,d:206.64,f:293.16},
+  {mx:367.75,d:213.84,f:309.36},
+  {mx:1e9,   d:221.28,f:326.4 },
+];
+function lookICE(cc,kw,ci){
+  const t = cc<=1000?ICE1:cc<=2000?ICE2:cc<=3000?ICE3:cc<=3500?ICE4:ICE5;
+  for(const r of t) if(kw<=r.mx) return (ci?r.f:r.d)*UB;
+  const last=t[t.length-1]; return (ci?last.f:last.d)*UB;
+}
+
+// ── UI helpers ───────────────────────────────────────────────────────────────
+function updHP(){ const v=+document.getElementById('kw').value; document.getElementById('hp').value=v?(v*KW2HP).toFixed(1):'' }
+function updEMHP(){ const v=+document.getElementById('em_kw').value; document.getElementById('em_hp').value=v?(v*KW2HP).toFixed(1):'' }
+function onType(){
+  const t=document.getElementById('etype').value;
+  document.getElementById('fcc').style.opacity=t==='electric'?'0.3':'1';
+  document.getElementById('fcc').style.pointerEvents=t==='electric'?'none':'auto';
+  document.getElementById('fem').style.display=(t==='electric'||t==='parallel')?'block':'none';
+}
+function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
+function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
+
+// ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
+function calc(){
+  const pCny    = +document.getElementById('price_cny').value||0;
+  const pMax    = +document.getElementById('price_max').value||pCny;
+  const rVtb    = +document.getElementById('rate_vtb').value||12.02;
+  const rEur    = +document.getElementById('rate_eur').value||93.42;
+  const etype   = document.getElementById('etype').value;
+  const age     = document.getElementById('age').value;
+  const cc      = +document.getElementById('cc').value||1500;
+  const kw      = +document.getElementById('kw').value||0;
+  const emKw    = +document.getElementById('em_kw').value||0;
+  const emHp    = emKw*KW2HP;
+  const comm    = +document.getElementById('comm').value||150000;
+
+  if(!pCny||!kw){ alert('Укажите цену авто и мощность ДВС в кВт'); return; }
+
+  const d = delivery();
+  if(!d){ alert('Выберите город покупки в КНР и дождитесь загрузки расстояний'); return; }
+
+  // Таможенная цена = MAX(цена покупки, макс официальная)
+  const pTax = Math.max(pCny, pMax);
+
+  // Накладные в КНР (0% для новых, 0.5% для б/у) — в CNY
+  const ovhdCny = age==='new' ? 0 : pCny*0.005;
+  // Экспортные документы (0 для новых, 1800 CNY для б/у)
+  const expDocCny = age==='new' ? 0 : 1800;
+
+  // Пошлина, таможенное оформление, утильсбор
+  const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur);
+  const clear  = customsClear(pCny, rVtb);
+  const util   = utilshor(etype, cc, kw, emKw, age);
+  const expertiza = (age==='new') ? 4500 : 1500; // для Кяхты
+
+  // ── АЛЕКСАНДРОВ (CN-Александров D19 = B19*rVtb + C19) ────────────────────
+  // B(CNY): price + overhead + export + delivery_alex (если не новый)
+  // C(RUB): 35000(брокер) + 45000(лаб) + 10000(СВХ) + duty + clear + util + comm
+  const bAlex = pCny + ovhdCny + expDocCny + (age==='new'?0:d.alex);
+  const cAlex = 35000 + 45000 + 10000 + duty + clear + util + comm;
+  const alexandrov = bAlex*rVtb + cAlex;
+
+  // ── ЗАБАЙКАЛЬСК (CN-Заб. D21 = B21*rVtb + C21) ───────────────────────────
+  // B(CNY): price + overhead + export + to_manchuria + 1500(брокер КНР) + 3500(переход)
+  // C(RUB): 30000(брокер Заб) + 45000(лаб Чита) + 10000(СВХ) + duty + clear + util + comm
+  const bZab = pCny + ovhdCny + expDocCny + (age==='new'?0:d.man) + 1500 + 3500;
+  const cZab = 30000 + 45000 + 10000 + duty + clear + util + comm;
+  const zabaikalsk = bZab*rVtb + cZab;
+
+  // ── УССУРИЙСК (CN-Уссурийск D19 = B19*rVtb + C19) ───────────────────────
+  // B(CNY): price + overhead + export + to_suifenhe + 500(брокер СФ) + 2500(переход)
+  // C(RUB): 55000(брокер+СБКТС+ЭПТС+СВХ, фиксировано) + duty + clear + util + 100000(комиссия)
+  const bUss = pCny + ovhdCny + expDocCny + (age==='new'?0:d.sui) + 500 + 2500;
+  const cUss = 55000 + duty + clear + util + 100000; // комиссия в Уссурийске фикс. 100 000
+  const ussuriysk = bUss*rVtb + cUss;
+
+  // ── КЯХТА (все 4 варианта) ────────────────────────────────────────────────
+  // Путь: Эрэн-Хото (КНР) → Замын-Удэ (МНГ) → Алтанбулаг (МНГ) → Кяхта (РФ)
+  // Курс MNT/RUB = ЦБ РФ * 1.03 ≈ 0.0227417 * 1.03
+  const rMnt = 0.0227417 * 1.03;
+  // Базовые CNY: price + overhead + export + to_erlian + 2300(брокер КНР/перегон граница)
+  const bKBase = pCny + ovhdCny + expDocCny + (age==='new'?0:d.erl) + 2300;
+  // Базовые RUB (одинаковы для всех вариантов):
+  // 15000(перегон Алтанбулаг-Кяхта) + 40000(лаб) + 6000(СВХ 3дня) + 20000(брокер Кяхта)
+  // + expertiza + 1500(перевод) + duty + clear + util + comm
+  const cKBase = 15000+40000+6000+20000+expertiza+1500+duty+clear+util+comm;
+
+  // Самоходом (E31):
+  // B+ 1200(перевозка Замын-Удэ самоходом CNY)
+  // C+ 5000(билеты Алтанбулаг-УБ RUB)
+  // D(MNT): 50000+250000+200000+80000+450000+450000 = стоянка+бензин+суточные+билеты+брокер_зу+брокер_аб
+  const dSelf = 50000+250000+200000+80000+450000+450000;
+  const kyakSelf = (bKBase+1200)*rVtb + (cKBase+5000) + dSelf*rMnt;
+
+  // Полуприцеп (E64):
+  // B+ 400(погрузка CNY)
+  // D(MNT): 50000(стоянка) + 550000(брокер_алтан) + 3000000(перевозка ЗУ-Кяхта полуприцеп)
+  const dPP = 50000+550000+3000000;
+  const kyakPP = (bKBase+400)*rVtb + cKBase + dPP*rMnt;
+
+  // Автовоз (E95):
+  // D(MNT): 550000(брокер МНГ+стоянка) + 2000000(автовоз ЗУ-Кяхта)
+  const dAuto = 550000+2000000;
+  const kyakAuto = bKBase*rVtb + cKBase + dAuto*rMnt;
+
+  // Эвакуатор (E127):
+  // D(MNT): 50000(стоянка) + 900000(брокер МНГ) + 2500000(эвакуатор)
+  const dEvac = 50000+900000+2500000;
+  const kyakEvac = bKBase*rVtb + cKBase + dEvac*rMnt;
+
+  // ── Рендер ──────────────────────────────────────────────────────────────
+  document.getElementById('res').innerHTML = `
+  <div class="panel">
+    <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
+    <div class="pbody">
+      <div class="notice">⚠️ Цены приведены справочно. Окончательная стоимость зависит от актуального курса валют, маршрута и условий на момент сделки. Не является публичной офертой.</div>
+      <div class="rbar">
+        <div class="ri">CNY/RUB ВТБ: <span class="rv">&nbsp;${rVtb}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">EUR/RUB ЦБ: <span class="rv">&nbsp;${rEur}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">MNT/RUB×1.03: <span class="rv">&nbsp;${rMnt.toFixed(5)}</span></div>
+        <span class="rs">·</span>
+        <div class="ri">Мощность: <span class="rv">&nbsp;${(kw*KW2HP).toFixed(0)} л.с.</span></div>
+      </div>
+
+      <div class="cgrid">
+        <div class="cc" style="border-color:var(--accent2);background:#0a1418">
+          <div class="cname" style="color:var(--accent2)">📍 Забайкальск</div>
+          <div class="cprice" style="color:var(--accent2);font-size:22px">${fmt(zabaikalsk)}</div>
+          <div class="csub">через Маньчжурию · лаб. Чита</div>
+        </div>
+        <div class="cc">
+          <div class="cname">📍 Александров</div>
+          <div class="cprice">${fmt(alexandrov)}</div>
+          <div class="csub">через Хоргос · СВХ Александров</div>
+        </div>
+        <div class="cc">
+          <div class="cname">📍 Уссурийск</div>
+          <div class="cprice">${fmt(ussuriysk)}</div>
+          <div class="csub">через Суйфэньхэ</div>
+        </div>
+        <div class="cc best">
+          <div class="cname">📍 Кяхта — 4 варианта доставки</div>
+          <div class="cprice">${fmt(kyakSelf)}</div>
+          <div class="csub">самоходом (базовый) · через Эрэн-Хото → Монголия</div>
+          <div class="kvars">
+            <div class="kv"><div class="kvl">Самоходом</div><div class="kvp">${fmt(kyakSelf)}</div></div>
+            <div class="kv"><div class="kvl">Полуприцеп</div><div class="kvp">${fmt(kyakPP)}</div></div>
+            <div class="kv"><div class="kvl">Автовоз</div><div class="kvp">${fmt(kyakAuto)}</div></div>
+            <div class="kv"><div class="kvl">Эвакуатор</div><div class="kvp">${fmt(kyakEvac)}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bdown">
+        <div class="bhdr" onclick="toggle()">
+          <span>Детализация расчёта (нажмите, чтобы раскрыть)</span>
+          <svg class="arr" id="barr" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="bbody hidden" id="bbd">
+          <div class="br"><span class="bk">Цена авто (CNY × курс ВТБ)</span><span class="bv">${fmt(pCny*rVtb)}</span></div>
+          <div class="br"><span class="bk">Таможенная цена (MAX цен × курс ВТБ)</span><span class="bv">${fmt(pTax*rVtb)}</span></div>
+          <div class="br"><span class="bk">Накладные в КНР 0.5% (CNY→RUB)</span><span class="bv">${fmt(ovhdCny*rVtb)}</span></div>
+          <div class="br"><span class="bk">Экспортные документы КНР (CNY→RUB)</span><span class="bv">${fmt(expDocCny*rVtb)}</span></div>
+          <div class="br"><span class="bk">Таможенная пошлина</span><span class="bv red">${fmt(duty)}</span></div>
+          <div class="br"><span class="bk">Таможенное оформление</span><span class="bv">${fmt(clear)}</span></div>
+          <div class="br"><span class="bk">Утилизационный сбор</span><span class="bv red">${fmt(util)}</span></div>
+          <div class="br bhl"><span class="bk" style="color:var(--text)">Итого гос. платежей</span><span class="bv tot">${fmt(duty+clear+util)}</span></div>
+          <div class="br"><span class="bk">Комиссия Автоброкер</span><span class="bv">${fmt(comm)}</span></div>
+          <div class="br"><span class="bk">— доп. расходы Александров (CNY→RUB)</span><span class="bv">${fmt(d.alex*rVtb)} + 90 000 ₽</span></div>
+          <div class="br"><span class="bk">— доп. расходы Забайкальск (CNY→RUB)</span><span class="bv">${fmt((d.man+1500+3500)*rVtb)} + 85 000 ₽</span></div>
+          <div class="br"><span class="bk">— доп. расходы Уссурийск (CNY→RUB)</span><span class="bv">${fmt((d.sui+500+2500)*rVtb)} + 55 000 ₽</span></div>
+          <div class="br"><span class="bk">— доп. расходы Кяхта, самоходом MNT</span><span class="bv">${fmt(dSelf*rMnt)} (${dSelf.toLocaleString()} ₮)</span></div>
+          <div class="br"><span class="bk">Доля пошлины+утиля от цены авто</span><span class="bv pct">${(((duty+util)/(pCny*rVtb))*100).toFixed(1)}%</span></div>
+        </div>
+      </div>
+      <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
+    </div>
+  </div>`;
+}
+
+// ── Автозагрузка курсов при открытии страницы ────────────────────────────────
+async function loadRates() {
+  let vtbOk = false, eurOk = false;
+
+  // 1. Курс CNY/RUB ВТБ — из vtb_rate.json в репозитории vtb-parser
+  try {
+    const r = await fetch(
+      'https://raw.githubusercontent.com/abapptech/calculator/main/vtb_rate.json',
+      { cache: 'no-cache' }
+    );
+    if (r.ok) {
+      const d = await r.json();
+      // Используем курс продажи (sell) — именно по нему клиент покупает юань
+      const sell = parseFloat(d.cny_sell);
+      if (sell > 0) {
+        document.getElementById('rate_vtb').value = sell.toFixed(2);
+        document.getElementById('vtb-badge').style.display = 'inline';
+        if (d.updated) {
+          document.getElementById('vtb-updated').textContent =
+            'Обновлено: ' + d.updated + ' (ВТБ интернет-банк, продажа)';
+        }
+        vtbOk = true;
+      }
+    }
+  } catch(e) { console.warn('VTB rate fetch failed:', e); }
+
+  // 2. Курс EUR/RUB — открытый API ЦБ РФ (через прокси cors.sh т.к. ЦБ блокирует браузер)
+  // Пробуем сначала прямой запрос, затем fallback через allorigins
+  try {
+    const urls = [
+      'https://www.cbr-xml-daily.ru/daily_json.js',
+      'https://api.allorigins.win/raw?url=https://www.cbr-xml-daily.ru/daily_json.js',
+    ];
+    let eurRate = null;
+    for (const url of urls) {
+      try {
+        const r = await fetch(url, { cache: 'no-cache' });
+        if (r.ok) {
+          const d = await r.json();
+          eurRate = d?.Valute?.EUR?.Value;
+          if (eurRate) break;
+        }
+      } catch(e) { /* попробуем следующий */ }
+    }
+    if (eurRate) {
+      document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(2);
+      document.getElementById('eur-badge').style.display = 'inline';
+      eurOk = true;
+    }
+  } catch(e) { console.warn('EUR rate fetch failed:', e); }
+
+  // Обновляем статус
+  const msg = document.getElementById('rate-msg');
+  const spinner = document.getElementById('rate-spinner');
+  spinner.style.display = 'none';
+
+  if (vtbOk && eurOk) {
+    msg.textContent = '✅ Курсы загружены автоматически — можно редактировать вручную';
+    msg.style.color = 'var(--accent2)';
+  } else if (vtbOk || eurOk) {
+    msg.textContent = '⚠️ Загружен ' + (vtbOk ? 'курс ВТБ' : 'курс ЦБ') + '. Остальное — проверьте вручную';
+    msg.style.color = '#f5c842';
+  } else {
+    msg.textContent = '⚠️ Не удалось загрузить курсы — проверьте и введите вручную';
+    msg.style.color = 'var(--accent3)';
+  }
+}
+
+// Запускаем при загрузке страницы
+window.addEventListener('DOMContentLoaded', loadRates);
+</script>
+</body>
+</html>
