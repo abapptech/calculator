@@ -298,6 +298,8 @@ function searchCities(q) {
 
 // OSRM расстояние по дорогам
 async function osrmDist(lat1,lon1,lat2,lon2) {
+  // Если координаты совпадают — расстояние 0
+  if(Math.abs(lat1-lat2)<0.001 && Math.abs(lon1-lon2)<0.001) return 0;
   const url='https://router.project-osrm.org/route/v1/driving/'+lon1+','+lat1+';'+lon2+','+lat2+'?overview=false';
   const r=await fetch(url);
   const d=await r.json();
@@ -328,7 +330,7 @@ async function loadDistances(cityName) {
       osrmDist(city.lat,city.lon,BORDERS.sui.lat,BORDERS.sui.lon),
       osrmDist(city.lat,city.lon,BORDERS.hor.lat,BORDERS.hor.lon),
     ]);
-    if(man&&erl&&sui&&hor){
+    if(man!==null&&erl!==null&&sui!==null&&hor!==null){
       currentDistances={man,erl,sui,hor};
       document.getElementById('d_man').value=man;
       document.getElementById('d_erl').value=erl;
@@ -764,12 +766,11 @@ function calc(){
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
     ${sec('Автомобиль')}
-    ${row('Цена авто в КНР (CNY)', Math.round(pCny).toLocaleString('ru-RU') + ' ¥')}
-    ${row('Цена авто в рублях (× курс ВТБ ' + rVtb + ')', fmt(pCny * rVtb))}
-    ${row('Таможенная цена MAX (× курс ВТБ)', fmt(pTax * rVtb))}
+    ${row('Цена авто в КНР', cny(pCny))}
+    ${row('Таможенная цена MAX', cny(pTax))}
     ${sec('Расходы в КНР')}
-    ${row('Накладные расходы в КНР (0.5%)', fmt(ovhdCny * rVtb))}
-    ${row('Экспортные документы', fmt(expDocCny * rVtb))}
+    ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
+    ${row('Экспортные документы', cny(expDocCny))}
     ${sec('Таможенные платежи')}
     ${row('Таможенная пошлина', fmt(duty), 'red')}
     ${row('Таможенное оформление', fmt(clear))}
@@ -823,29 +824,33 @@ function calc(){
       </div>
     </div>`;
 
+  // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
+  const cny = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ¥ = ${fmt(amount * rVtb)}`;
+  const mnt = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ₮ = ${fmt(amount * rMnt)}`;
+
   const zabRows = `
-    ${row('Перевозка до Маньчжурии (CNY→RUB)', fmt(d.man * rVtb))}
-    ${row('Брокер КНР + погрузка (CNY→RUB)', fmt(1500 * rVtb))}
-    ${row('Перевозка через границу Маньчжурия–Забайкальск (CNY→RUB)', fmt(3500 * rVtb))}
+    ${row('Перевозка до Маньчжурии', cny(d.man))}
+    ${row('Брокер КНР + погрузка', cny(1500))}
+    ${row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500))}
     ${row('Таможенный брокер в Забайкальске', fmt(30000))}
     ${row('Лаборатория СБКТС+ЭПТС (Чита)', fmt(45000))}
     ${row('СВХ', fmt(10000))}`;
 
   const alexRows = `
-    ${row('Перевозка до СВХ Александров (CNY→RUB)', fmt(d.alex * rVtb))}
+    ${row('Перевозка до СВХ Александров', cny(d.alex))}
     ${row('Таможенный брокер в Александрове', fmt(35000))}
     ${row('Лаборатория СБКТС+ЭПТС', fmt(45000))}
     ${row('СВХ', fmt(10000))}`;
 
   const ussRows = `
-    ${row('Перевозка до Суйфэньхэ (CNY→RUB)', fmt(d.sui * rVtb))}
-    ${row('Брокер Суйфэньхэ + ПРР (CNY→RUB)', fmt(500 * rVtb))}
-    ${row('Перевозка через границу Суйфэньхэ–Уссурийск (CNY→RUB)', fmt(2500 * rVtb))}
+    ${row('Перевозка до Суйфэньхэ', cny(d.sui))}
+    ${row('Брокер Суйфэньхэ + ПРР', cny(500))}
+    ${row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500))}
     ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}`;
 
   const kyakBase = `
-    ${row('Перевозка до Эрэн-Хото (CNY→RUB)', fmt(d.erl * rVtb))}
-    ${row('Брокер КНР + перегон через границу КНР–МНГ (CNY→RUB)', fmt(2300 * rVtb))}
+    ${row('Перевозка до Эрэн-Хото', cny(d.erl))}
+    ${row('Брокер КНР + перегон через границу КНР–МНГ', cny(2300))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
     ${row('СВХ 3 дня', fmt(6000))}
@@ -854,58 +859,58 @@ function calc(){
     ${row('Перевод сертификата', fmt(1500))}`;
 
   const kyakSelfRows = kyakBase + `
-    ${row('Перевозка Замын-Удэ самоходом (CNY→RUB)', fmt(1200 * rVtb))}
+    ${row('Перевозка Замын-Удэ самоходом', cny(1200))}
     ${row('Билеты Алтанбулаг–Улан-Батор', fmt(5000))}
-    ${row('Стоянка Замын-Удэ (MNT→RUB)', fmt(50000 * rMnt) + ' (' + (50000).toLocaleString() + ' ₮)')}
-    ${row('Бензин (MNT→RUB)', fmt(250000 * rMnt) + ' (' + (250000).toLocaleString() + ' ₮)')}
-    ${row('Суточные (MNT→RUB)', fmt(200000 * rMnt) + ' (' + (200000).toLocaleString() + ' ₮)')}
-    ${row('Билеты до Замын-Удэ (MNT→RUB)', fmt(80000 * rMnt) + ' (' + (80000).toLocaleString() + ' ₮)')}
-    ${row('Брокер Замын-Удэ (MNT→RUB)', fmt(450000 * rMnt) + ' (' + (450000).toLocaleString() + ' ₮)')}
-    ${row('Брокер Алтанбулаг (MNT→RUB)', fmt(450000 * rMnt) + ' (' + (450000).toLocaleString() + ' ₮)')}`;
+    ${row('Стоянка Замын-Удэ', mnt(50000))}
+    ${row('Бензин', mnt(250000))}
+    ${row('Суточные', mnt(200000))}
+    ${row('Билеты до Замын-Удэ', mnt(80000))}
+    ${row('Брокер Замын-Удэ', mnt(450000))}
+    ${row('Брокер Алтанбулаг', mnt(450000))}`;
 
   const kyakPPRows = kyakBase + `
-    ${row('Погрузка и крепление в полуприцепе (CNY→RUB)', fmt(400 * rVtb))}
-    ${row('Стоянка Замын-Удэ (MNT→RUB)', fmt(50000 * rMnt) + ' (' + (50000).toLocaleString() + ' ₮)')}
-    ${row('Брокер Алтанбулаг + ТИР (MNT→RUB)', fmt(550000 * rMnt) + ' (' + (550000).toLocaleString() + ' ₮)')}
-    ${row('Перевозка Эрэн-Хото–Кяхта полуприцеп (MNT→RUB)', fmt(3000000 * rMnt) + ' (' + (3000000).toLocaleString() + ' ₮)')}`;
+    ${row('Погрузка и крепление в полуприцепе', cny(400))}
+    ${row('Стоянка Замын-Удэ', mnt(50000))}
+    ${row('Брокер Алтанбулаг + ТИР', mnt(550000))}
+    ${row('Перевозка Эрэн-Хото–Кяхта полуприцеп', mnt(3000000))}`;
 
   const kyakAutoRows = kyakBase + `
-    ${row('Брокер МНГ + стоянка (MNT→RUB)', fmt(550000 * rMnt) + ' (' + (550000).toLocaleString() + ' ₮)')}
-    ${row('Перевозка автовозом Замын-Удэ–Кяхта (MNT→RUB)', fmt(2000000 * rMnt) + ' (' + (2000000).toLocaleString() + ' ₮)')}`;
+    ${row('Брокер МНГ + стоянка', mnt(550000))}
+    ${row('Перевозка автовозом Замын-Удэ–Кяхта', mnt(2000000))}`;
 
   const kyakEvacRows = kyakBase + `
-    ${row('Стоянка Замын-Удэ (MNT→RUB)', fmt(50000 * rMnt) + ' (' + (50000).toLocaleString() + ' ₮)')}
-    ${row('Брокер МНГ (MNT→RUB)', fmt(900000 * rMnt) + ' (' + (900000).toLocaleString() + ' ₮)')}
-    ${row('Перевозка эвакуатором Эрэн-Хото–Кяхта (MNT→RUB)', fmt(2500000 * rMnt) + ' (' + (2500000).toLocaleString() + ' ₮)')}`;
+    ${row('Стоянка Замын-Удэ', mnt(50000))}
+    ${row('Брокер МНГ', mnt(900000))}
+    ${row('Перевозка эвакуатором Эрэн-Хото–Кяхта', mnt(2500000))}`;
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabExport = [
     {type:'sec', label:'Логистика — Забайкальск'},
-    {label:'Перевозка до Маньчжурии', val: fmt(d.man*rVtb)},
-    {label:'Брокер КНР + погрузка', val: fmt(1500*rVtb)},
-    {label:'Перевозка Маньчжурия–Забайкальск', val: fmt(3500*rVtb)},
+    {label:'Перевозка до Маньчжурии', val: cny(d.man)},
+    {label:'Брокер КНР + погрузка', val: cny(1500)},
+    {label:'Перевозка Маньчжурия–Забайкальск', val: cny(3500)},
     {label:'Таможенный брокер Забайкальск', val: fmt(30000)},
     {label:'Лаборатория СБКТС+ЭПТС (Чита)', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
   ];
   const alexExport = [
     {type:'sec', label:'Логистика — Александров'},
-    {label:'Перевозка до СВХ Александров', val: fmt(d.alex*rVtb)},
+    {label:'Перевозка до СВХ Александров', val: cny(d.alex)},
     {label:'Таможенный брокер Александров', val: fmt(35000)},
     {label:'Лаборатория СБКТС+ЭПТС', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
   ];
   const ussExport = [
     {type:'sec', label:'Логистика — Уссурийск'},
-    {label:'Перевозка до Суйфэньхэ', val: fmt(d.sui*rVtb)},
-    {label:'Брокер Суйфэньхэ + ПРР', val: fmt(500*rVtb)},
-    {label:'Перевозка Суйфэньхэ–Уссурийск', val: fmt(2500*rVtb)},
+    {label:'Перевозка до Суйфэньхэ', val: cny(d.sui)},
+    {label:'Брокер Суйфэньхэ + ПРР', val: cny(500)},
+    {label:'Перевозка Суйфэньхэ–Уссурийск', val: cny(2500)},
     {label:'Брокер + СБКТС+ЭПТС + СВХ', val: fmt(55000)},
   ];
   const kyakBaseExport = [
     {type:'sec', label:'Логистика — Кяхта (общее)'},
-    {label:'Перевозка до Эрэн-Хото', val: fmt(d.erl*rVtb)},
-    {label:'Брокер КНР + перегон КНР–МНГ', val: fmt(2300*rVtb)},
+    {label:'Перевозка до Эрэн-Хото', val: cny(d.erl)},
+    {label:'Брокер КНР + перегон КНР–МНГ', val: cny(2300)},
     {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
     {label:'Лаборатория СБКТС+ЭПТС (Кяхта)', val: fmt(40000)},
     {label:'СВХ 3 дня', val: fmt(6000)},
@@ -915,32 +920,32 @@ function calc(){
   ];
   const kyakSelfExport = [...kyakBaseExport,
     {type:'sec', label:'Самоходом через Монголию'},
-    {label:'Перевозка Замын-Удэ самоходом', val: fmt(1200*rVtb)},
+    {label:'Перевозка Замын-Удэ самоходом', val: cny(1200)},
     {label:'Билеты Алтанбулаг–УБ', val: fmt(5000)},
-    {label:'Стоянка Замын-Удэ', val: fmt(50000*rMnt)+' (50 000 ₮)'},
-    {label:'Бензин', val: fmt(250000*rMnt)+' (250 000 ₮)'},
-    {label:'Суточные', val: fmt(200000*rMnt)+' (200 000 ₮)'},
-    {label:'Билеты до Замын-Удэ', val: fmt(80000*rMnt)+' (80 000 ₮)'},
-    {label:'Брокер Замын-Удэ', val: fmt(450000*rMnt)+' (450 000 ₮)'},
-    {label:'Брокер Алтанбулаг', val: fmt(450000*rMnt)+' (450 000 ₮)'},
+    {label:'Стоянка Замын-Удэ', val: mnt(50000)},
+    {label:'Бензин', val: mnt(250000)},
+    {label:'Суточные', val: mnt(200000)},
+    {label:'Билеты до Замын-Удэ', val: mnt(80000)},
+    {label:'Брокер Замын-Удэ', val: mnt(450000)},
+    {label:'Брокер Алтанбулаг', val: mnt(450000)},
   ];
   const kyakPPExport = [...kyakBaseExport,
     {type:'sec', label:'Полуприцеп'},
-    {label:'Погрузка и крепление', val: fmt(400*rVtb)},
-    {label:'Стоянка Замын-Удэ', val: fmt(50000*rMnt)+' (50 000 ₮)'},
-    {label:'Брокер Алтанбулаг + ТИР', val: fmt(550000*rMnt)+' (550 000 ₮)'},
-    {label:'Перевозка Эрэн-Хото–Кяхта', val: fmt(3000000*rMnt)+' (3 000 000 ₮)'},
+    {label:'Погрузка и крепление', val: cny(400)},
+    {label:'Стоянка Замын-Удэ', val: mnt(50000)},
+    {label:'Брокер Алтанбулаг + ТИР', val: mnt(550000)},
+    {label:'Перевозка Эрэн-Хото–Кяхта', val: mnt(3000000)},
   ];
   const kyakAutoExport = [...kyakBaseExport,
     {type:'sec', label:'Автовоз'},
-    {label:'Брокер МНГ + стоянка', val: fmt(550000*rMnt)+' (550 000 ₮)'},
-    {label:'Автовоз Замын-Удэ–Кяхта', val: fmt(2000000*rMnt)+' (2 000 000 ₮)'},
+    {label:'Брокер МНГ + стоянка', val: mnt(550000)},
+    {label:'Автовоз Замын-Удэ–Кяхта', val: mnt(2000000)},
   ];
   const kyakEvacExport = [...kyakBaseExport,
     {type:'sec', label:'Эвакуатор'},
-    {label:'Стоянка Замын-Удэ', val: fmt(50000*rMnt)+' (50 000 ₮)'},
-    {label:'Брокер МНГ', val: fmt(900000*rMnt)+' (900 000 ₮)'},
-    {label:'Эвакуатор Эрэн-Хото–Кяхта', val: fmt(2500000*rMnt)+' (2 500 000 ₮)'},
+    {label:'Стоянка Замын-Удэ', val: mnt(50000)},
+    {label:'Брокер МНГ', val: mnt(900000)},
+    {label:'Эвакуатор Эрэн-Хото–Кяхта', val: mnt(2500000)},
   ];
 
   document.getElementById('res').innerHTML = `
