@@ -126,8 +126,15 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="field">
           <label>Курс CNY/RUB (ВТБ) <span id="vtb-badge" style="color:var(--accent2);display:none">● авто</span></label>
           <input type="number" id="rate_vtb" value="12.02" step="0.01">
-          <div class="fhint" id="vtb-updated"></div>
+          <div class="fhint" id="vtb-updated">Для расчёта стоимости авто в рублях</div>
         </div>
+        <div class="field">
+          <label>Курс CNY/RUB (ЦБ РФ) <span id="cbr-badge" style="color:var(--accent2);display:none">● авто</span></label>
+          <input type="number" id="rate_cbr" value="11.73" step="0.01">
+          <div class="fhint">Для расчёта таможенной пошлины (новые авто)</div>
+        </div>
+      </div>
+      <div class="frow">
         <div class="field">
           <label>Курс EUR/RUB (ЦБ РФ) <span id="eur-badge" style="color:var(--accent2);display:none">● авто</span></label>
           <input type="number" id="rate_eur" value="93.42" step="0.01">
@@ -357,29 +364,31 @@ function delivery() {
 // ── Таможенная пошлина ────────────────────────────────────────────────────────
 
 // Источник: лист "Таможенная пошлина", строка 3, Китай
-function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0) {
-  const priceEur = pMaxCny * rateVtb / rateEur;
+// rateCnyCbr = курс CNY/RUB ЦБ (КУРСЫ!D3) — нужен для B3 и D3
+// rateEur    = курс EUR/RUB ЦБ (КУРСЫ!F3) — нужен для A3, B3, C3
+function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0, rateCnyCbr=0) {
+  // Если курс ЦБ не передан — используем ВТБ как приближение
+  const rateCny = rateCnyCbr || rateVtb;
+  const priceEur = pMaxCny * rateCny / rateEur; // цена в EUR через ЦБ
 
   if (etype === 'electric') {
-    // Только мощность ЭД (суммарная передний + задний)
+    // D3: (B5*0.15*КУРСЫ!D3)*1.2 + (акциз*B12)*1.2 + (B5*КУРСЫ!D3)*0.2
+    // B5 = макс официальная цена, B12 = мощность ЭД, курс ЦБ
     const a = akcizRate(emHp);
-    return (pMaxCny*0.15*rateVtb)*1.2 + (a*emHp)*1.2 + pMaxCny*rateVtb*0.2;
+    return (pMaxCny*0.15*rateCny)*1.2 + (a*emHp)*1.2 + (pMaxCny*rateCny)*0.2;
   }
-  if (etype === 'parallel') {
-    // Параллельный гибрид: мощность ДВС + суммарная мощность всех ЭД
-    const totalHp = kw*KW2HP + emHp;
-    // Пошлина считается как ДВС (по объёму/цене), но акциз от суммарной мощности
-    return dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp);
-  }
-  // Бензин/дизель/мягкий гибрид — только мощность ДВС
-  return dutyICE(age, pMaxCny, cc, priceEur, rateEur, kw*KW2HP);
+
+  // Параллельный гибрид (E3) → как бензин/дизель по объёму (A3/B3/C3)
+  // НЕ суммирует мощности — пошлина считается только по объёму ДВС и цене
+  return dutyICE(age, pMaxCny, cc, priceEur, rateEur, rateCny);
 }
 
-function dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp) {
+function dutyICE(age, pMaxCny, cc, priceEur, rateEur, rateCny) {
   if (age === 'new') {
-    // B3: MAX(pct*price_eur*rate_eur, cubic*cc*rate_eur)
+    // B3: MAX( pct * B5 * КУРСЫ!D3 ; cubic * B8 * КУРСЫ!F3 )
+    // pct зависит от цены в EUR: >8500 → 48%, иначе → 54%
     const pct = priceEur > 8500 ? 0.48 : 0.54;
-    const dutyPct = pct * priceEur * rateEur;
+    const dutyPct = pct * pMaxCny * rateCny; // процент от цены в рублях по ЦБ
     let cubicR;
     if      (priceEur === 0)       cubicR = 0;
     else if (priceEur <= 8500)     cubicR = 2.5;
@@ -391,7 +400,7 @@ function dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp) {
     return Math.max(dutyPct, cubicR * cc * rateEur);
   }
   if (age === 'mid') {
-    // A3: ставка_EUR/куб * cc * rateEur
+    // A3: ставка * объём * EUR/RUB ЦБ
     let r;
     if      (cc >= 3000) r = 3.6;
     else if (cc > 2300)  r = 3;
@@ -409,6 +418,8 @@ function dutyICE(age, pMaxCny, cc, priceEur, rateEur, totalHp) {
   else if (cc > 1500) r = 3.5;
   else if (cc > 1000) r = 3.2;
   else                r = 3;
+  return r * cc * rateEur;
+}
   return r * cc * rateEur;
 }
 
@@ -620,6 +631,7 @@ function calc(){
   const pCny    = +document.getElementById('price_cny').value||0;
   const pMax    = +document.getElementById('price_max').value||pCny;
   const rVtb    = +document.getElementById('rate_vtb').value||12.02;
+  const rCbr    = +document.getElementById('rate_cbr').value||rVtb; // курс ЦБ CNY/RUB
   const rEur    = +document.getElementById('rate_eur').value||93.42;
   const etype   = document.getElementById('etype').value;
   const age     = document.getElementById('age').value;
@@ -649,7 +661,7 @@ function calc(){
   const expDocCny = age==='new' ? 0 : 1800;
 
   // Пошлина, таможенное оформление, утильсбор
-  const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw);
+  const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
   const clear  = customsClear(pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500; // для Кяхты
@@ -807,20 +819,20 @@ async function loadRates() {
     }
   } catch(e) { console.warn('VTB rate fetch failed:', e); }
 
-  // 2. Курс EUR/RUB — открытый API ЦБ РФ (через прокси cors.sh т.к. ЦБ блокирует браузер)
-  // Пробуем сначала прямой запрос, затем fallback через allorigins
+  // 2. Курс EUR/RUB и CNY/RUB — открытый API ЦБ РФ
   try {
     const urls = [
       'https://www.cbr-xml-daily.ru/daily_json.js',
       'https://api.allorigins.win/raw?url=https://www.cbr-xml-daily.ru/daily_json.js',
     ];
-    let eurRate = null;
+    let eurRate = null, cnyRate = null;
     for (const url of urls) {
       try {
         const r = await fetch(url, { cache: 'no-cache' });
         if (r.ok) {
           const d = await r.json();
           eurRate = d?.Valute?.EUR?.Value;
+          cnyRate = d?.Valute?.CNY?.Value;
           if (eurRate) break;
         }
       } catch(e) { /* попробуем следующий */ }
@@ -830,7 +842,11 @@ async function loadRates() {
       document.getElementById('eur-badge').style.display = 'inline';
       eurOk = true;
     }
-  } catch(e) { console.warn('EUR rate fetch failed:', e); }
+    if (cnyRate) {
+      document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(2);
+      document.getElementById('cbr-badge').style.display = 'inline';
+    }
+  } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e); }
 
   // Обновляем статус
   const msg = document.getElementById('rate-msg');
