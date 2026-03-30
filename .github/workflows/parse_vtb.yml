@@ -1,0 +1,37 @@
+name: Parse VTB CNY Rate
+
+on:
+  schedule:
+    # 07:00, 10:00, 13:00, 16:00 МСК (UTC+3 = UTC-3ч)
+    - cron: '0 4,7,10,13 * * *'
+  workflow_dispatch: # ручной запуск
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright beautifulsoup4
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: Run parser
+        run: python parser.py
+
+      - name: Commit vtb_rate.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add vtb_rate.json
+          git diff --cached --quiet || git commit -m "update vtb_rate.json [skip ci]"
+          git push
