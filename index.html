@@ -785,6 +785,10 @@ function calc(){
   const carName = document.getElementById('car_name').value.trim();
   const cityName = document.getElementById('city_input').value.trim();
 
+  // Сохраняем глобально для карточек
+  window._carName = carName;
+  window._cityName = cityName;
+
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
     ${carName ? row('Автомобиль', carName) : ''}
@@ -1125,6 +1129,8 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
   // Логотип base64
   const logoEl = document.querySelector('.logo-wrap img');
   const logoSrc = logoEl ? logoEl.src : '';
+  const carName = window._carName || '';
+  const cityName = window._cityName || '';
 
   // Строим HTML карточки
   const rowsHtml = rows.map(r => {
