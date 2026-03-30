@@ -764,6 +764,10 @@ function calc(){
   const sec = (title) =>
     `<div style="font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding:10px 0 4px;font-weight:600">${title}</div>`;
 
+  // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
+  const cny = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ¥ = ${fmt(amount * rVtb)}`;
+  const mnt = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ₮ = ${fmt(amount * rMnt)}`;
+
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
     ${sec('Автомобиль')}
@@ -824,10 +828,6 @@ function calc(){
         </button>
       </div>
     </div>`;
-
-  // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
-  const cny = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ¥ = ${fmt(amount * rVtb)}`;
-  const mnt = (amount) => `${Math.round(amount).toLocaleString('ru-RU')} ₮ = ${fmt(amount * rMnt)}`;
 
   const zabRows = `
     ${row('Перевозка до Маньчжурии', cny(d.man))}
