@@ -755,9 +755,13 @@ function calc(){
   // Комиссия в рублях (CNY × курс ВТБ)
   const commRub = comm * rVtb;
 
-  // Комиссия ВТБ = 2.5% от всех CNY-расходов (кроме комиссии)
-  const vtbCommBase = pCny + ovhdCny + expDocCny;
-  const vtbComm = vtbCommBase * rVtb * 0.025;
+  // Комиссия ВТБ = 2.5% от (Стоимость + Расходы в КНР) для каждого города
+  // Стоимость: pCny (или pTax для новых)
+  const stoimostCny = age === 'new' ? pTax : pCny;
+  const vtbCommZab  = (stoimostCny + zabChinaCny)  * rVtb * 0.025;
+  const vtbCommAlex = (stoimostCny + alexChinaCny) * rVtb * 0.025;
+  const vtbCommUss  = (stoimostCny + ussChinaCny)  * rVtb * 0.025;
+  const vtbCommKyak = (stoimostCny + kyakChinaCny) * rVtb * 0.025;
 
   // Ручная перевозка или авто по расстоянию
   const dManual = deliveryManual > 0;
@@ -802,7 +806,6 @@ function calc(){
     cny:  [{label:'CNY/RUB ВТБ', val:rVtb},{label:'CNY/RUB ЦБ', val:rCbr},{label:'EUR/RUB ЦБ', val:rEur}],
     kyak: [{label:'CNY/RUB ВТБ', val:rVtb},{label:'CNY/RUB ЦБ', val:rCbr},{label:'EUR/RUB ЦБ', val:rEur},{label:'MNT/RUB×1.03', val:rMnt.toFixed(5)}],
   };
-  window._vtbComm = vtbComm;
 
   // Вспомогательная функция для строки детализации
   const row = (label, val, cls='') =>
@@ -839,7 +842,7 @@ function calc(){
     ${row('Комиссия Abapp', cny(comm))}`;
 
   // Строим массив строк для экспорта карточки
-  const makeExportRows = (chinaExportRows, logisticRows, total) => {
+  const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm) => {
     const base = [
       ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
@@ -867,7 +870,7 @@ function calc(){
     ${row('Утилизационный сбор', fmt(util), 'red')}`;
 
   // Детализация по городу с кнопкой экспорта
-  const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total) => `
+  const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total, vtbComm) => `
     <div class="bdown" style="margin-bottom:10px">
       <div class="bhdr" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('.arr').classList.toggle('open')">
         <span style="color:${color}">${title}</span>
@@ -886,7 +889,7 @@ function calc(){
         </div>
         <button class="dl-btn" id="dlbtn-${id}"
           onclick="downloadCard('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
-          data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total)}">
+          data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
           📥 Скачать JPG
         </button>
       </div>
@@ -1072,42 +1075,15 @@ function calc(){
         <div class="ri">Мощность: <span class="rv">&nbsp;${(kw*KW2HP).toFixed(0)} л.с.</span></div>
       </div>
 
-      <div class="cgrid">
-        <div class="cc" style="border-color:var(--accent2);background:#0a1418">
-          <div class="cname" style="color:var(--accent2)">📍 Забайкальск</div>
-          <div class="cprice" style="color:var(--accent2);font-size:22px">${fmt(zabaikalsk)}</div>
-          <div class="csub">через Маньчжурию · лаб. Забайкальск</div>
-        </div>
-        <div class="cc">
-          <div class="cname">📍 Александров</div>
-          <div class="cprice">${fmt(alexandrov)}</div>
-          <div class="csub">через Хоргос · СВХ Александров</div>
-        </div>
-        <div class="cc">
-          <div class="cname">📍 Уссурийск</div>
-          <div class="cprice">${fmt(ussuriysk)}</div>
-          <div class="csub">через Суйфэньхэ</div>
-        </div>
-        <div class="cc best">
-          <div class="cname">📍 Кяхта — 2 варианта доставки</div>
-          <div class="cprice">${fmt(kyakSelf)}</div>
-          <div class="csub">самоходом (базовый) · через Эрэн-Хото → Монголия</div>
-          <div class="kvars">
-            <div class="kv"><div class="kvl">Самоходом</div><div class="kvp">${fmt(kyakSelf)}</div></div>
-            <div class="kv"><div class="kvl">Эвакуатор</div><div class="kvp">${fmt(kyakEvac)}</div></div>
-          </div>
-        </div>
-      </div>
-
       <div style="font-family:'Unbounded',sans-serif;font-size:10px;color:var(--text2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">
         Детализация по городам (нажмите на город чтобы раскрыть)
       </div>
 
-      ${cityDetail('zab','📍 Забайкальск','var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk)}
-      ${cityDetail('alex','📍 Александров','var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov)}
-      ${cityDetail('uss','📍 Уссурийск','var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk)}
-      ${cityDetail('kyak-self','📍 Кяхта — самоходом','var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf)}
-      ${cityDetail('kyak-evac','📍 Кяхта — эвакуатор','var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac)}
+      ${cityDetail('zab','📍 Забайкальск — '+fmt(zabaikalsk),'var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab)}
+      ${cityDetail('alex','📍 Александров — '+fmt(alexandrov),'var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex)}
+      ${cityDetail('uss','📍 Уссурийск — '+fmt(ussuriysk),'var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss)}
+      ${cityDetail('kyak-self','📍 Кяхта самоходом — '+fmt(kyakSelf),'var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak)}
+      ${cityDetail('kyak-evac','📍 Кяхта эвакуатор — '+fmt(kyakEvac),'var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak)}
 
       <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
     </div>
@@ -1227,7 +1203,6 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
     : (window._calcRates ? window._calcRates.cny : []);
 
   const today = new Date().toLocaleDateString('ru-RU');
-  const vtbComm = window._vtbComm || 0;
 
   const card = document.createElement('div');
   card.className = 'export-card';
