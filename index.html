@@ -812,7 +812,7 @@ function calc(){
   const sec = (title, subtotal='') =>
     `<div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding:10px 0 4px;font-weight:600">
       <span>${title}</span>
-      ${subtotal ? `<span style="color:var(--accent2);font-weight:700;letter-spacing:0">${subtotal}</span>` : ''}
+      ${subtotal ? `<span style="color:var(--accent);font-weight:700;letter-spacing:0">${subtotal}</span>` : ''}
     </div>`;
 
   // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
@@ -843,18 +843,17 @@ function calc(){
     const base = [
       ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
-      {type:'sec', label:'Стоимость'},
+      {type:'sec', label:'Стоимость', subtotal: cny(age === 'new' ? pTax : pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
       ...(age === 'new' ? [{label:'Таможенная стоимость (MSRP)', val: cny(pTax)}] : []),
       ...chinaExportRows,
-      {type:'sec', label:'Комиссия'},
+      {type:'sec', label:'Комиссия', subtotal: cny(comm)},
       {label:'Комиссия Abapp', val: cny(comm)},
       ...logisticRows,
-      {type:'sec', label:'Таможенные платежи'},
+      {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
       {label:'Таможенная пошлина', val: fmt(duty), cls:'red'},
       {label:'Таможенное оформление', val: fmt(clear)},
       {label:'Утилизационный сбор', val: fmt(util), cls:'red'},
-      {label:'Итого таможенных платежей', val: fmt(duty+clear+util), cls:'tot'},
       {type:'total', label:'ИТОГО', val: fmt(total)},
       {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
     ];
@@ -865,8 +864,7 @@ function calc(){
     ${sec('Таможенные платежи', fmt(duty + clear + util))}
     ${row('Таможенная пошлина', fmt(duty), 'red')}
     ${row('Таможенное оформление', fmt(clear))}
-    ${row('Утилизационный сбор', fmt(util), 'red')}
-    ${rowHL('Итого таможенных платежей', fmt(duty + clear + util))}`;
+    ${row('Утилизационный сбор', fmt(util), 'red')}`;
 
   // Детализация по городу с кнопкой экспорта
   const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total) => `
@@ -986,52 +984,52 @@ function calc(){
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabChinaExport = [
-    {type:'sec', label:'Расходы в КНР'},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny)+' ¥ = '+fmt(zabChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
     {label:'Перевозка по Китаю до границы', val: cny(manDelivCny)},
     {label:'Брокер КНР + ПРР', val: cny(1500)},
     {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
   ];
   const zabLogExport = [
-    {type:'sec', label:'Расходы в РФ'},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000)},
     {label:'Таможенный брокер Забайкальск', val: fmt(30000)},
     {label:'Лаборатория СБКТС+ЭПТС (Забайкальск)', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
   ];
 
   const alexChinaExport = [
-    {type:'sec', label:'Расходы в КНР'},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
     {label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)},
     {label:'Перевозка Нур Жолы–Александров', val: cny(14500)},
   ];
   const alexLogExport = [
-    {type:'sec', label:'Расходы в РФ'},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(35000+45000+10000)},
     {label:'Таможенный брокер Александров', val: fmt(35000)},
     {label:'Лаборатория СБКТС+ЭПТС', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
   ];
 
   const ussChinaExport = [
-    {type:'sec', label:'Расходы в КНР'},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny)+' ¥ = '+fmt(ussChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
     {label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)},
     {label:'Брокер КНР + ПРР', val: cny(500)},
     {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
   ];
   const ussLogExport = [
-    {type:'sec', label:'Расходы в РФ'},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(55000)},
     {label:'Брокер + СБКТС+ЭПТС + СВХ', val: fmt(55000)},
   ];
 
   const kyakChinaExport = [
-    {type:'sec', label:'Расходы в КНР'},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny)+' ¥ = '+fmt(kyakChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
     {label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)},
     {label:'Брокер КНР + ПРР', val: cny(2300)},
   ];
   const kyakBaseLogExport = [
-    {type:'sec', label:'Расходы в РФ'},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal)},
     {label:'Лаборатория СБКТС+ЭПТС (Кяхта)', val: fmt(40000)},
     {label:'СВХ 3 дня', val: fmt(6000)},
     {label:'Таможенный брокер Кяхта', val: fmt(20000)},
@@ -1039,7 +1037,7 @@ function calc(){
     {label:'Перевод сертификата', val: fmt(1500)},
   ];
   const kyakSelfLogExport = [...kyakBaseLogExport,
-    {type:'sec', label:'Транзит по Монголии'},
+    {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
     {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
     {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
     {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
@@ -1050,7 +1048,7 @@ function calc(){
     {label:'Брокер МНГ', val: mnt(900000)},
   ];
   const kyakEvacLogExport = [...kyakBaseLogExport,
-    {type:'sec', label:'Транзит по Монголии'},
+    {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000)},
     {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
     {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
     {label:'Стоянка Замын-Удэ', val: mnt(50000)},
@@ -1217,7 +1215,7 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
   // Строим HTML карточки
   const rowsHtml = rows.map(r => {
     const cls = r.cls === 'red' ? 'ec-val-red' : r.cls === 'tot' ? 'ec-val-tot' : r.cls === 'pct' ? 'ec-val-pct' : 'ec-val';
-    if (r.type === 'sec') return `<div class="ec-sec">${r.label}</div>`;
+    if (r.type === 'sec') return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#cc2200;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 5px;font-weight:600"><span>${r.label}</span>${r.subtotal ? `<span style="color:#cc2200;font-weight:700;letter-spacing:0">${r.subtotal}</span>` : ''}</div>`;
     if (r.type === 'total') return `<div class="ec-total-row"><span class="ec-total-key">${r.label}</span><span class="ec-total-val">${r.val} <sup style="font-size:9px">* ** ***</sup></span></div>`;
     return `<div class="ec-row"><span class="ec-key">${r.label}</span><span class="${cls}">${r.val}</span></div>`;
   }).join('');
