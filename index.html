@@ -141,12 +141,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Стоимость покупки авто в КНР, ¥</label>
-        <input type="number" id="price_cny" placeholder="например: 150000" oninput="this.style.borderColor=''">
+        <input type="text" inputmode="numeric" id="price_cny" placeholder="например: 150 000" oninput="maskThousands(this)">
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
         <label id="price_max_label">Таможенная стоимость (MSRP), ¥</label>
-        <input type="number" id="price_max" placeholder="например: 103920" oninput="this.style.borderColor=''">
+        <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this)">
         <div class="fhint" id="price_max_hint">Для новых авто таможня считается от MSRP (официальная цена производителя)</div>
       </div>
       <div class="frow">
@@ -184,7 +184,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <label>Возраст / категория</label>
         <select id="age" onchange="onAge()">
           <option value="new">До 3-ех лет (новый)</option>
-          <option value="mid">Проходной (3–5 лет)</option>
+          <option value="mid" selected>Проходной (3–5 лет)</option>
           <option value="old">Непроходной (5+ лет)</option>
         </select>
       </div>
@@ -247,13 +247,13 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Стоимость перевозки по Китаю, ¥ <span style="color:var(--text3)">(вручную, если нужно)</span></label>
-        <input type="number" id="delivery_manual" placeholder="Если пусто — считается по расстоянию" oninput="this.style.borderColor=''">
+        <input type="text" inputmode="numeric" id="delivery_manual" placeholder="Если пусто — считается по расстоянию" oninput="maskThousands(this)">
         <div class="fhint">Переопределяет автоматический расчёт логистики от города до границы</div>
       </div>
 
       <div class="field">
         <label>Комиссия Abapp, ¥</label>
-        <input type="number" id="comm" value="11000" oninput="fmtInputThousands(this)">
+        <input type="text" inputmode="numeric" id="comm" value="11 000" oninput="maskThousands(this)">
         <div class="fhint">По умолчанию 11 000 ¥</div>
       </div>
 
@@ -643,7 +643,27 @@ function onType(){
 }
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
 function fmtN(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU') }
-function fmtInputThousands(el){ /* number inputs don't support formatted display - just keep raw */ }
+function fmtInputThousands(el){ /* legacy */ }
+
+// Маска тысяч для текстовых полей ввода
+function maskThousands(el) {
+  el.style.borderColor = '';
+  const pos = el.selectionStart;
+  const raw = el.value.replace(/\s/g,'').replace(/[^\d]/g,'');
+  if(!raw){ el.value=''; return; }
+  const formatted = (+raw).toLocaleString('ru-RU');
+  el.value = formatted;
+  // Восстанавливаем позицию курсора с поправкой на добавленные пробелы
+  const diff = formatted.length - el.value.length + formatted.length;
+  try { el.setSelectionRange(formatted.length, formatted.length); } catch(e){}
+}
+
+// Читает число из поля с маской тысяч
+function parseMasked(id) {
+  const el = document.getElementById(id);
+  if(!el) return 0;
+  return +(el.value.replace(/\s/g,'').replace(/[^\d.]/g,'')) || 0;
+}
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
 function onAge() {
@@ -674,8 +694,8 @@ function markError(id) {
 function calc(){
   clearErrors();
 
-  const pCny    = +document.getElementById('price_cny').value||0;
-  const pMax    = +document.getElementById('price_max').value||pCny;
+  const pCny    = parseMasked('price_cny');
+  const pMax    = parseMasked('price_max')||parseMasked('price_cny');
   const rVtb    = +document.getElementById('rate_vtb').value||12.02;
   const rCbr    = +document.getElementById('rate_cbr').value||rVtb; // курс ЦБ CNY/RUB
   const rEur    = +document.getElementById('rate_eur').value||93.42;
@@ -685,14 +705,14 @@ function calc(){
   const kw      = +document.getElementById('kw').value||0;
   const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
-  const comm    = +document.getElementById('comm').value||11000; // комиссия в CNY
-  const deliveryManual = +document.getElementById('delivery_manual').value||0; // ручная перевозка CNY
+  const comm    = parseMasked('comm')||11000;
+  const deliveryManual = parseMasked('delivery_manual');
 
   let hasError = false;
   if(!pCny){ markError('price_cny'); hasError=true; }
   if(!kw && etype!=='electric')  { markError('kw'); hasError=true; }
   if(etype!=='electric' && !cc){ markError('cc'); hasError=true; }
-  if(age==='new' && !+document.getElementById('price_max').value){ markError('price_max'); hasError=true; }
+  if(age==='new' && !parseMasked('price_max')){ markError('price_max'); hasError=true; }
   if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw'); hasError=true; }
   if(hasError) return;
 
