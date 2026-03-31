@@ -755,14 +755,6 @@ function calc(){
   // Комиссия в рублях (CNY × курс ВТБ)
   const commRub = comm * rVtb;
 
-  // Комиссия ВТБ = 2.5% от (Стоимость + Расходы в КНР) для каждого города
-  // Стоимость: pCny (или pTax для новых)
-  const stoimostCny = age === 'new' ? pTax : pCny;
-  const vtbCommZab  = (stoimostCny + zabChinaCny)  * rVtb * 0.025;
-  const vtbCommAlex = (stoimostCny + alexChinaCny) * rVtb * 0.025;
-  const vtbCommUss  = (stoimostCny + ussChinaCny)  * rVtb * 0.025;
-  const vtbCommKyak = (stoimostCny + kyakChinaCny) * rVtb * 0.025;
-
   // Ручная перевозка или авто по расстоянию
   const dManual = deliveryManual > 0;
 
@@ -789,6 +781,19 @@ function calc(){
   const erlDelivCny = dManual ? deliveryManual : d.erl;
   const bKBase = pCny + ovhdCny + expDocCny + (age==='new'?0:erlDelivCny) + 2300 + comm;
   const cKBase = 15000+40000+6000+20000+expertiza+1500+duty+clear+util;
+
+  // Подитоги расходов в КНР (для vtbComm и секций)
+  const alexChinaCny = ovhdCny + (dManual ? deliveryManual : d.alex_cn) + 14500;
+  const zabChinaCny  = ovhdCny + manDelivCny + 1500 + 3500;
+  const ussChinaCny  = ovhdCny + suiDelivCny + 500 + 2500;
+  const kyakChinaCny = ovhdCny + erlDelivCny + 2300;
+
+  // Комиссия ВТБ = 2.5% от (Стоимость + Расходы в КНР) для каждого города
+  const stoimostCny = age === 'new' ? pTax : pCny;
+  const vtbCommZab  = (stoimostCny + zabChinaCny)  * rVtb * 0.025;
+  const vtbCommAlex = (stoimostCny + alexChinaCny) * rVtb * 0.025;
+  const vtbCommUss  = (stoimostCny + ussChinaCny)  * rVtb * 0.025;
+  const vtbCommKyak = (stoimostCny + kyakChinaCny) * rVtb * 0.025;
 
   // Самоходом
   const dSelf = 50000+250000+200000+80000+450000+450000;
@@ -899,16 +904,12 @@ function calc(){
   // Строки логистики (РФ сторона) — тоже разные
 
   // Александров: перевозка по КНР = до Хоргоса, + 14500 Нур Жолы–Александров
-  const alexChinaDelivCny = dManual ? deliveryManual : d.alex - 14500; // вычитаем Нур Жолы
-  // Если вручную — считаем что это всё по КНР, 14500 добавляем отдельно
-  const alexChinaCny = ovhdCny + (dManual ? deliveryManual : d.alex_cn) + 14500;
   const alexChinaRows = `
     ${sec('Расходы в КНР', fmtN(alexChinaCny) + ' ¥ = ' + fmt(alexChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Перевозка по Китаю до границы', cny(dManual ? deliveryManual : d.alex_cn))}
     ${row('Перевозка Нур Жолы–Александров', cny(14500))}`;
 
-  const zabChinaCny = ovhdCny + manDelivCny + 1500 + 3500;
   const zabChinaRows = `
     ${sec('Расходы в КНР', fmtN(zabChinaCny) + ' ¥ = ' + fmt(zabChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
@@ -916,7 +917,6 @@ function calc(){
     ${row('Брокер КНР + ПРР', cny(1500))}
     ${row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500))}`;
 
-  const ussChinaCny = ovhdCny + suiDelivCny + 500 + 2500;
   const ussChinaRows = `
     ${sec('Расходы в КНР', fmtN(ussChinaCny) + ' ¥ = ' + fmt(ussChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
@@ -924,7 +924,6 @@ function calc(){
     ${row('Брокер КНР + ПРР', cny(500))}
     ${row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500))}`;
 
-  const kyakChinaCny = ovhdCny + erlDelivCny + 2300;
   const kyakChinaRows = `
     ${sec('Расходы в КНР', fmtN(kyakChinaCny) + ' ¥ = ' + fmt(kyakChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
