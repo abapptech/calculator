@@ -243,6 +243,17 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
           <div class="field"><label>До Суйфэньхэ</label><input type="number" id="d_sui" readonly style="color:var(--accent2)"></div>
           <div class="field"><label>До Хоргоса</label><input type="number" id="d_hor" readonly style="color:var(--accent2)"></div>
         </div>
+        <div id="delivery_calc_block" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--text2)">
+          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 800)</div>
+          <div class="frow" style="margin-bottom:4px">
+            <div>Забайкальск: <span id="dc_man" style="color:var(--accent2);font-weight:600"></span></div>
+            <div>Кяхта: <span id="dc_erl" style="color:var(--accent2);font-weight:600"></span></div>
+          </div>
+          <div class="frow">
+            <div>Уссурийск: <span id="dc_sui" style="color:var(--accent2);font-weight:600"></span></div>
+            <div>Александров: <span id="dc_hor" style="color:var(--accent2);font-weight:600"></span></div>
+          </div>
+        </div>
       </div>
 
       <div class="field">
@@ -348,7 +359,14 @@ async function loadDistances(cityName) {
       document.getElementById('d_sui').value=sui;
       document.getElementById('d_hor').value=hor;
       document.getElementById('dist_block').style.display='block';
-      document.getElementById('dist_source').textContent='OSRM \u00b7 реальные дороги';
+      document.getElementById('dist_source').textContent='OSRM · реальные дороги';
+
+      // Расчётная стоимость перевозки по формуле км×1.5+800 (Александров: +14500)
+      const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
+      document.getElementById('dc_man').textContent = fmtCny(man*1.5+800);
+      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+800);
+      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+800);
+      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+800+14500);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
     } else throw new Error('нет маршрута');
@@ -724,8 +742,8 @@ function calc(){
 
   // Накладные в КНР (0% для новых, 0.5% для б/у) — в CNY
   const ovhdCny = age==='new' ? 0 : pCny*0.005;
-  // Экспортные документы (0 для новых, 1800 CNY для б/у)
-  const expDocCny = age==='new' ? 0 : 1800;
+  // Экспортные документы исключены из расчётов
+  const expDocCny = 0;
 
   // Пошлина, таможенное оформление, утильсбор
   const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
@@ -813,15 +831,8 @@ function calc(){
     ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${row('Экспортные документы', cny(expDocCny))}
-    ${sec('Таможенные платежи')}
-    ${row('Таможенная пошлина', fmt(duty), 'red')}
-    ${row('Таможенное оформление', fmt(clear))}
-    ${row('Утилизационный сбор', fmt(util), 'red')}
-    ${rowHL('Итого гос. платежей', fmt(duty + clear + util))}
     ${sec('Комиссия')}
-    ${row('Комиссия Abapp', cny(comm))}
-    ${row('Комиссия ВТБ (справочно, ~2.5% от CNY)', fmt(vtbComm), 'pct')}`;
+    ${row('Комиссия Abapp', cny(comm))}`;
 
   // Строим массив строк для экспорта карточки
   const makeExportRows = (logisticRows, total) => {
@@ -833,20 +844,26 @@ function calc(){
       ...(age === 'new' ? [{label:'Таможенная стоимость (MSRP)', val: cny(pTax)}] : []),
       {type:'sec', label:'Расходы в КНР'},
       {label:'Накладные расходы (0.5%)', val: cny(ovhdCny)},
-      {label:'Экспортные документы', val: cny(expDocCny)},
+      {type:'sec', label:'Комиссия'},
+      {label:'Комиссия Abapp', val: cny(comm)},
+      ...logisticRows,
       {type:'sec', label:'Таможенные платежи'},
       {label:'Таможенная пошлина', val: fmt(duty), cls:'red'},
       {label:'Таможенное оформление', val: fmt(clear)},
       {label:'Утилизационный сбор', val: fmt(util), cls:'red'},
-      {label:'Итого гос. платежей', val: fmt(duty+clear+util), cls:'tot'},
-      {type:'sec', label:'Комиссия'},
-      {label:'Комиссия Abapp', val: cny(comm)},
-      {label:'Комиссия ВТБ (справочно ~2.5%)', val: fmt(vtbComm), cls:'pct'},
-      ...logisticRows,
+      {label:'Итого таможенных платежей', val: fmt(duty+clear+util), cls:'tot'},
       {type:'total', label:'ИТОГО', val: fmt(total)},
+      {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
     ];
     return JSON.stringify(base).replace(/"/g, '&quot;');
   };
+
+  const taxRows = `
+    ${sec('Таможенные платежи')}
+    ${row('Таможенная пошлина', fmt(duty), 'red')}
+    ${row('Таможенное оформление', fmt(clear))}
+    ${row('Утилизационный сбор', fmt(util), 'red')}
+    ${rowHL('Итого таможенных платежей', fmt(duty + clear + util))}`;
 
   // Детализация по городу с кнопкой экспорта
   const cityDetail = (id, title, color, items, logisticExportRows, total) => `
@@ -859,7 +876,12 @@ function calc(){
         ${commonRows}
         ${sec('Логистика')}
         ${items}
+        ${taxRows}
         ${rowHL('ИТОГО', fmt(total))}
+        <div class="br" style="padding:6px 0">
+          <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно)</span>
+          <span class="bv pct">${fmt(vtbComm)}</span>
+        </div>
         <button class="dl-btn" id="dlbtn-${id}"
           onclick="downloadCard('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
           data-rows="${makeExportRows(logisticExportRows, total)}">
@@ -869,7 +891,7 @@ function calc(){
     </div>`;
 
   const zabRows = `
-    ${row('Перевозка до Маньчжурии', cny(d.man))}
+    ${row('Перевозка по Китаю до границы', cny(manDelivCny))}
     ${row('Брокер КНР + погрузка', cny(1500))}
     ${row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500))}
     ${row('Таможенный брокер в Забайкальске', fmt(30000))}
@@ -877,19 +899,19 @@ function calc(){
     ${row('СВХ', fmt(10000))}`;
 
   const alexRows = `
-    ${row('Перевозка до СВХ Александров', cny(d.alex))}
+    ${row('Перевозка по Китаю до границы', cny(alexDelivCny))}
     ${row('Таможенный брокер в Александрове', fmt(35000))}
     ${row('Лаборатория СБКТС+ЭПТС', fmt(45000))}
     ${row('СВХ', fmt(10000))}`;
 
   const ussRows = `
-    ${row('Перевозка до Суйфэньхэ', cny(d.sui))}
+    ${row('Перевозка по Китаю до границы', cny(suiDelivCny))}
     ${row('Брокер Суйфэньхэ + ПРР', cny(500))}
     ${row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500))}
     ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}`;
 
   const kyakBase = `
-    ${row('Перевозка до Эрэн-Хото', cny(d.erl))}
+    ${row('Перевозка по Китаю до границы', cny(erlDelivCny))}
     ${row('Брокер КНР + перегон через границу КНР–МНГ', cny(2300))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
@@ -911,12 +933,12 @@ function calc(){
   const kyakEvacRows = kyakBase + `
     ${row('Стоянка Замын-Удэ', mnt(50000))}
     ${row('Брокер МНГ', mnt(900000))}
-    ${row('Перевозка эвакуатором Эрэн-Хото–Кяхта', fmt(70000))}`;
+    ${row('Перевозка эвакуатором Замын-Удэ – Алтанбулаг', fmt(70000))}`;
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabExport = [
     {type:'sec', label:'Логистика — Забайкальск'},
-    {label: dManual ? 'Перевозка по Китаю (вручную)' : 'Перевозка до Маньчжурии', val: cny(dManual ? deliveryManual : d.man)},
+    {label: 'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.man)},
     {label:'Брокер КНР + погрузка', val: cny(1500)},
     {label:'Перевозка Маньчжурия–Забайкальск', val: cny(3500)},
     {label:'Таможенный брокер Забайкальск', val: fmt(30000)},
@@ -925,21 +947,21 @@ function calc(){
   ];
   const alexExport = [
     {type:'sec', label:'Логистика — Александров'},
-    {label: dManual ? 'Перевозка по Китаю (вручную)' : 'Перевозка до СВХ Александров', val: cny(dManual ? deliveryManual : d.alex)},
+    {label: 'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex)},
     {label:'Таможенный брокер Александров', val: fmt(35000)},
     {label:'Лаборатория СБКТС+ЭПТС', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
   ];
   const ussExport = [
     {type:'sec', label:'Логистика — Уссурийск'},
-    {label: dManual ? 'Перевозка по Китаю (вручную)' : 'Перевозка до Суйфэньхэ', val: cny(dManual ? deliveryManual : d.sui)},
+    {label: 'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.sui)},
     {label:'Брокер Суйфэньхэ + ПРР', val: cny(500)},
     {label:'Перевозка Суйфэньхэ–Уссурийск', val: cny(2500)},
     {label:'Брокер + СБКТС+ЭПТС + СВХ', val: fmt(55000)},
   ];
   const kyakBaseExport = [
     {type:'sec', label:'Логистика — Кяхта (общее)'},
-    {label: dManual ? 'Перевозка по Китаю (вручную)' : 'Перевозка до Эрэн-Хото', val: cny(dManual ? deliveryManual : d.erl)},
+    {label: 'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.erl)},
     {label:'Брокер КНР + перегон КНР–МНГ', val: cny(2300)},
     {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
     {label:'Лаборатория СБКТС+ЭПТС (Кяхта)', val: fmt(40000)},
@@ -963,7 +985,7 @@ function calc(){
     {type:'sec', label:'Эвакуатор'},
     {label:'Стоянка Замын-Удэ', val: mnt(50000)},
     {label:'Брокер МНГ', val: mnt(900000)},
-    {label:'Перевозка эвакуатором Эрэн-Хото–Кяхта', val: fmt(70000)},
+    {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
   ];
 
   document.getElementById('res').innerHTML = `
