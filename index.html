@@ -191,7 +191,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <div class="frow">
         <div class="field" id="fcc">
           <label>Объём ДВС, см³</label>
-          <input type="number" id="cc" placeholder="например: 2000" oninput="this.style.borderColor=''">
+          <input type="text" inputmode="numeric" id="cc" placeholder="например: 2 000" oninput="maskThousands(this)">
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
@@ -720,7 +720,7 @@ function calc(){
   const rEur    = +document.getElementById('rate_eur').value||93.42;
   const etype   = document.getElementById('etype').value;
   const age     = document.getElementById('age').value;
-  const cc      = +document.getElementById('cc').value||0;
+  const cc      = parseMasked('cc');
   const kw      = +document.getElementById('kw').value||0;
   const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
@@ -809,8 +809,11 @@ function calc(){
     `<div class="br"><span class="bk">${label}</span><span class="bv ${cls}">${val}</span></div>`;
   const rowHL = (label, val) =>
     `<div class="br bhl"><span class="bk" style="color:var(--text);font-weight:600">${label}</span><span class="bv tot">${val}</span></div>`;
-  const sec = (title) =>
-    `<div style="font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding:10px 0 4px;font-weight:600">${title}</div>`;
+  const sec = (title, subtotal='') =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;padding:10px 0 4px;font-weight:600">
+      <span>${title}</span>
+      ${subtotal ? `<span style="color:var(--accent2);font-weight:700;letter-spacing:0">${subtotal}</span>` : ''}
+    </div>`;
 
   // Форматирование: "X ¥ = Y ₽" или "X ₮ = Y ₽"
   const cny = (amount) => `${fmtN(amount)} ¥ = ${fmt(amount * rVtb)}`;
@@ -859,7 +862,7 @@ function calc(){
   };
 
   const taxRows = `
-    ${sec('Таможенные платежи')}
+    ${sec('Таможенные платежи', fmt(duty + clear + util))}
     ${row('Таможенная пошлина', fmt(duty), 'red')}
     ${row('Таможенное оформление', fmt(clear))}
     ${row('Утилизационный сбор', fmt(util), 'red')}
@@ -897,28 +900,32 @@ function calc(){
   // Александров: перевозка по КНР = до Хоргоса, + 14500 Нур Жолы–Александров
   const alexChinaDelivCny = dManual ? deliveryManual : d.alex - 14500; // вычитаем Нур Жолы
   // Если вручную — считаем что это всё по КНР, 14500 добавляем отдельно
+  const alexChinaCny = ovhdCny + (dManual ? deliveryManual : d.alex_cn) + 14500;
   const alexChinaRows = `
-    ${sec('Расходы в КНР')}
+    ${sec('Расходы в КНР', fmtN(alexChinaCny) + ' ¥ = ' + fmt(alexChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Перевозка по Китаю до границы', cny(dManual ? deliveryManual : d.alex_cn))}
     ${row('Перевозка Нур Жолы–Александров', cny(14500))}`;
 
+  const zabChinaCny = ovhdCny + manDelivCny + 1500 + 3500;
   const zabChinaRows = `
-    ${sec('Расходы в КНР')}
+    ${sec('Расходы в КНР', fmtN(zabChinaCny) + ' ¥ = ' + fmt(zabChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Перевозка по Китаю до границы', cny(manDelivCny))}
     ${row('Брокер КНР + ПРР', cny(1500))}
     ${row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500))}`;
 
+  const ussChinaCny = ovhdCny + suiDelivCny + 500 + 2500;
   const ussChinaRows = `
-    ${sec('Расходы в КНР')}
+    ${sec('Расходы в КНР', fmtN(ussChinaCny) + ' ¥ = ' + fmt(ussChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Перевозка по Китаю до границы', cny(suiDelivCny))}
     ${row('Брокер КНР + ПРР', cny(500))}
     ${row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500))}`;
 
+  const kyakChinaCny = ovhdCny + erlDelivCny + 2300;
   const kyakChinaRows = `
-    ${sec('Расходы в КНР')}
+    ${sec('Расходы в КНР', fmtN(kyakChinaCny) + ' ¥ = ' + fmt(kyakChinaCny * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${row('Перевозка по Китаю до границы', cny(erlDelivCny))}
     ${row('Брокер КНР + ПРР', cny(2300))}`;
@@ -926,33 +933,33 @@ function calc(){
   const commonRowsBase = `
     ${carName ? row('Автомобиль', carName) : ''}
     ${row('Город покупки в КНР', cityName || '—')}
-    ${sec('Стоимость')}
+    ${sec('Стоимость', cny(age === 'new' ? pTax : pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
     ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}`;
 
   const commRows = `
-    ${sec('Комиссия')}
+    ${sec('Комиссия', cny(comm))}
     ${row('Комиссия Abapp', cny(comm))}`;
 
   const zabRows = `
-    ${sec('Расходы в РФ · ' + fmtN(30000+45000+10000) + ' ₽')}
+    ${sec('Расходы в РФ', fmt(30000+45000+10000))}
     ${row('Таможенный брокер в Забайкальске', fmt(30000))}
     ${row('Лаборатория СБКТС+ЭПТС (Забайкальск)', fmt(45000))}
     ${row('СВХ', fmt(10000))}`;
 
   const alexRows = `
-    ${sec('Расходы в РФ · ' + fmtN(35000+45000+10000) + ' ₽')}
+    ${sec('Расходы в РФ', fmt(35000+45000+10000))}
     ${row('Таможенный брокер в Александрове', fmt(35000))}
     ${row('Лаборатория СБКТС+ЭПТС', fmt(45000))}
     ${row('СВХ', fmt(10000))}`;
 
   const ussRows = `
-    ${sec('Расходы в РФ · ' + fmtN(55000) + ' ₽')}
+    ${sec('Расходы в РФ', fmt(55000))}
     ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}`;
 
   const kyakRFtotal = 40000+6000+20000+expertiza+1500;
   const kyakBase = `
-    ${sec('Расходы в РФ · ' + fmtN(kyakRFtotal) + ' ₽')}
+    ${sec('Расходы в РФ', fmt(kyakRFtotal))}
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
     ${row('СВХ 3 дня', fmt(6000))}
     ${row('Таможенный брокер в Кяхте', fmt(20000))}
@@ -960,7 +967,7 @@ function calc(){
     ${row('Перевод сертификата', fmt(1500))}`;
 
   const kyakSelfRows = kyakBase + `
-    ${sec('Транзит по Монголии · ' + fmtN(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt) + ' ₽')}
+    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
     ${row('Перевозка Замын-Удэ–Алтанбулаг самоходом', cny(1200))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Билеты Алтанбулаг–Улан-Батор', fmt(5000))}
@@ -971,7 +978,7 @@ function calc(){
     ${row('Брокер МНГ', mnt(450000+450000))}`;
 
   const kyakEvacRows = kyakBase + `
-    ${sec('Транзит по Монголии · ' + fmtN((50000+900000)*rMnt + 70000 + 15000) + ' ₽')}
+    ${sec('Транзит по Монголии', fmt((50000+900000)*rMnt + 70000 + 15000))}
     ${row('Перевозка эвакуатором Замын-Удэ – Алтанбулаг', fmt(70000))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Стоянка Замын-Удэ', mnt(50000))}
