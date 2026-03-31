@@ -2,8 +2,8 @@ name: Parse VTB CNY Rate
 
 on:
   schedule:
-    # каждый час с 7:00 до 20:00 МСК (UTC+3, т.е. 4:00-17:00 UTC)
-    - cron: '0 4-17 * * *'
+    # каждые 30 минут с 10:00 до 19:00 МСК (7:00-16:00 UTC)
+    - cron: '*/30 7-16 * * *'
   workflow_dispatch: # ручной запуск
 
 jobs:
