@@ -141,30 +141,30 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Стоимость покупки авто в КНР, ¥</label>
-        <input type="text" inputmode="numeric" id="price_cny" placeholder="например: 150 000" oninput="maskThousands(this)">
+        <input type="text" inputmode="numeric" id="price_cny" placeholder="например: 150 000" oninput="maskThousands(this);calc_if_ready()">
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
         <label id="price_max_label">Таможенная стоимость (MSRP), ¥</label>
-        <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this)">
+        <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this);calc_if_ready()">
         <div class="fhint" id="price_max_hint">Для новых авто таможня считается от MSRP (официальная цена производителя)</div>
       </div>
       <div class="frow">
         <div class="field">
           <label>Курс CNY/RUB (ВТБ) <span id="vtb-badge" style="color:var(--accent2);display:none">● авто</span></label>
-          <input type="number" id="rate_vtb" value="12.02" step="0.01">
+          <input type="number" id="rate_vtb" value="12.02" step="0.01" oninput="calc_if_ready()">
           <div class="fhint" id="vtb-updated">Для расчёта стоимости авто в рублях</div>
         </div>
         <div class="field">
           <label>Курс CNY/RUB (ЦБ РФ) <span id="cbr-badge" style="color:var(--accent2);display:none">● авто</span></label>
-          <input type="number" id="rate_cbr" value="11.73" step="0.0001">
+          <input type="number" id="rate_cbr" value="11.73" step="0.0001" oninput="calc_if_ready()">
           <div class="fhint">Для расчёта таможенной пошлины (новые авто)</div>
         </div>
       </div>
       <div class="frow">
         <div class="field">
           <label>Курс EUR/RUB (ЦБ РФ) <span id="eur-badge" style="color:var(--accent2);display:none">● авто</span></label>
-          <input type="number" id="rate_eur" value="93.42" step="0.0001">
+          <input type="number" id="rate_eur" value="93.42" step="0.0001" oninput="calc_if_ready()">
           <div class="fhint">Для расчёта таможенной пошлины</div>
         </div>
       </div>
@@ -174,7 +174,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Тип двигателя</label>
-        <select id="etype" onchange="onType()">
+        <select id="etype" onchange="onType();calc_if_ready()">
           <option value="petrol">Бензин/дизель</option>
           <option value="electric">Электро/последовательный гибрид</option>
           <option value="parallel">Параллельный гибрид</option>
@@ -182,7 +182,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       </div>
       <div class="field">
         <label>Возраст / категория</label>
-        <select id="age" onchange="onAge()">
+        <select id="age" onchange="onAge();calc_if_ready()">
           <option value="new">До 3-ех лет (новый)</option>
           <option value="mid" selected>Проходной (3–5 лет)</option>
           <option value="old">Непроходной (5+ лет)</option>
@@ -191,22 +191,22 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <div class="frow">
         <div class="field" id="fcc">
           <label>Объём ДВС, см³</label>
-          <input type="text" inputmode="numeric" id="cc" placeholder="например: 2 000" oninput="maskThousands(this)">
+          <input type="text" inputmode="numeric" id="cc" placeholder="например: 2 000" oninput="maskThousands(this);calc_if_ready()">
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
-          <input type="number" id="kw" value="110" oninput="updHP();this.style.borderColor=''">
+          <input type="number" id="kw" value="110" oninput="updHP();this.style.borderColor='';calc_if_ready()">
         </div>
       </div>
       <div id="fem" style="display:none">
         <div class="frow">
           <div class="field">
             <label id="em_front_label">30-мин. мощность ЭД (перед.), кВт</label>
-            <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP();this.style.borderColor=''">
+            <input type="number" id="em_kw" placeholder="например: 150" oninput="updEMHP();this.style.borderColor='';calc_if_ready()">
           </div>
           <div class="field" id="fem_rear">
             <label>30-мин. мощность ЭД (зад.), кВт</label>
-            <input type="number" id="em_kw2" placeholder="0 если нет" value="0" oninput="updEMHP()">
+            <input type="number" id="em_kw2" placeholder="0 если нет" value="0" oninput="updEMHP();calc_if_ready()">
           </div>
         </div>
         <div class="fhint" id="em_hint"></div>
@@ -271,7 +271,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Стоимость перевозки по Китаю, ¥ <span style="color:var(--text3)">(вручную, если нужно)</span></label>
-        <input type="text" inputmode="numeric" id="delivery_manual" placeholder="Если пусто — считается по расстоянию" oninput="maskThousands(this)">
+        <input type="text" inputmode="numeric" id="delivery_manual" placeholder="Если пусто — считается по расстоянию" oninput="maskThousands(this);calc_if_ready()">
         <div class="fhint">Переопределяет автоматический расчёт логистики от города до границы</div>
       </div>
 
@@ -286,7 +286,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
       </div>
 
-      <button class="cbtn" onclick="calc()">⚡ Рассчитать стоимость</button>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="cbtn" onclick="calc()" style="flex:1">⚡ Рассчитать</button>
+        <button onclick="resetForm()" style="flex:0 0 auto;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s" title="Сбросить все данные">↺</button>
+      </div>
     </div>
   </div>
 
@@ -728,9 +731,48 @@ function markError(id) {
 }
 
 // ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
+function resetForm(){
+  // Сбрасываем все поля формы
+  document.getElementById('car_name').value = '';
+  document.getElementById('price_cny').value = '';
+  document.getElementById('price_max').value = '';
+  document.getElementById('cc').value = '';
+  document.getElementById('kw').value = '110';
+  document.getElementById('hp').value = (110 * KW2HP).toFixed(1);
+  document.getElementById('em_kw').value = '';
+  document.getElementById('em_kw2').value = '0';
+  document.getElementById('etype').value = 'petrol';
+  document.getElementById('age').value = 'mid';
+  document.getElementById('city_input').value = '';
+  document.getElementById('delivery_manual').value = '';
+  document.getElementById('chk_delivery_included').checked = false;
+  document.getElementById('chk_to_border_only').checked = false;
+  document.getElementById('comm_select').value = '11000';
+  document.getElementById('comm').value = '11000';
+  document.getElementById('comm_hint').textContent = 'Стандартная комиссия — доставка под ключ';
+  currentDistances = null;
+  document.getElementById('dist_block').style.display = 'none';
+  document.getElementById('city_status').textContent = 'Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)';
+  onAge();
+  onType();
+  // Сбрасываем результат
+  document.getElementById('res').innerHTML = `
+    <div class="panel">
+      <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
+      <div class="pbody">
+        <div class="et">🧮</div>
+        <div class="et">Введите параметры</div>
+        <div class="es">Заполните форму слева<br>и нажмите «Рассчитать»</div>
+      </div>
+    </div>`;
+}
+
 function calc_if_ready(){
-  // Пересчитываем только если уже есть результат
-  if(document.getElementById('res').querySelector('.bdown')) calc();
+  // Пересчитываем если есть хотя бы цена авто и мощность (или электро)
+  const hasCny = parseMasked('price_cny') > 0;
+  const etype = document.getElementById('etype').value;
+  const hasKw = etype === 'electric' || +document.getElementById('kw').value > 0;
+  if(hasCny && hasKw) calc();
 }
 
 function onChkDeliveryIncluded(){
