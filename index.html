@@ -219,6 +219,19 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
       <hr class="div">
       <div class="slabel">Логистика</div>
 
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="chk_delivery_included" onchange="calc_if_ready()"
+            style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+          Перевозка до РФ включена в стоимость авто
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="chk_to_border_only" onchange="calc_if_ready()"
+            style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+          Только перевозка до границы КНР (без РФ расходов и таможни)
+        </label>
+      </div>
+
       <div class="field">
         <label>Город покупки в КНР</label>
         <div style="position:relative">
@@ -710,7 +723,14 @@ function markError(id) {
 }
 
 // ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
+function calc_if_ready(){
+  // Пересчитываем только если уже есть результат
+  if(document.getElementById('res').querySelector('.bdown')) calc();
+}
+
 function calc(){
+  const deliveryIncluded = document.getElementById('chk_delivery_included').checked;
+  const toBorderOnly = document.getElementById('chk_to_border_only').checked;
   clearErrors();
 
   const pCny    = parseMasked('price_cny');
@@ -724,7 +744,8 @@ function calc(){
   const kw      = +document.getElementById('kw').value||0;
   const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
-  const comm    = parseMasked('comm')||11000;
+  const commRaw = parseMasked('comm');
+  const comm = commRaw || (document.getElementById('chk_to_border_only').checked ? 6800 : 11000);
   const deliveryManual = parseMasked('delivery_manual');
 
   let hasError = false;
@@ -757,38 +778,62 @@ function calc(){
   // Ручная перевозка или авто по расстоянию
   const dManual = deliveryManual > 0;
 
+  // Флаги: что включать в итог
+  const showChinaDelivery = !deliveryIncluded;
+  const showBrokerAndBorder = !deliveryIncluded && !toBorderOnly;
+  const showRF = !toBorderOnly;
+  const showTax = !toBorderOnly;
+
   // ── АЛЕКСАНДРОВ ──────────────────────────────────────────────────────────
   const alexDelivCny = dManual ? deliveryManual : d.alex;
-  const bAlex = pCny + ovhdCny + expDocCny + (age==='new'?0:alexDelivCny) + comm;
-  const cAlex = 35000 + 45000 + 10000 + duty + clear + util;
-  const alexandrov = bAlex*rVtb + cAlex;
+  const alexCNY = pCny + ovhdCny
+    + (showChinaDelivery && age!=='new' ? (dManual ? deliveryManual : d.alex_cn) : 0)
+    + (showBrokerAndBorder && age!=='new' ? 14500 : 0)
+    + comm;
+  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
+  const alexandrov = alexCNY*rVtb + alexRUB;
 
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
   const manDelivCny = dManual ? deliveryManual : d.man;
-  const bZab = pCny + ovhdCny + expDocCny + (age==='new'?0:manDelivCny) + 1500 + 3500 + comm;
-  const cZab = 30000 + 45000 + 10000 + duty + clear + util;
-  const zabaikalsk = bZab*rVtb + cZab;
+  const zabCNY = pCny + ovhdCny
+    + (showChinaDelivery && age!=='new' ? manDelivCny : 0)
+    + (showBrokerAndBorder && age!=='new' ? 1500+3500 : 0)
+    + comm;
+  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
+  const zabaikalsk = zabCNY*rVtb + zabRUB;
 
   // ── УССУРИЙСК ────────────────────────────────────────────────────────────
   const suiDelivCny = dManual ? deliveryManual : d.sui;
-  const bUss = pCny + ovhdCny + expDocCny + (age==='new'?0:suiDelivCny) + 500 + 2500 + comm;
-  const cUss = 55000 + duty + clear + util;
-  const ussuriysk = bUss*rVtb + cUss;
+  const ussCNY = pCny + ovhdCny
+    + (showChinaDelivery && age!=='new' ? suiDelivCny : 0)
+    + (showBrokerAndBorder && age!=='new' ? 500+2500 : 0)
+    + comm;
+  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+clear+util : 0);
+  const ussuriysk = ussCNY*rVtb + ussRUB;
 
   // ── КЯХТА ────────────────────────────────────────────────────────────────
+  // Кяхта всегда показывает полный маршрут (галочки на неё не влияют)
   const rMnt = 0.0227417 * 1.03;
   const erlDelivCny = dManual ? deliveryManual : d.erl;
-  const bKBase = pCny + ovhdCny + expDocCny + (age==='new'?0:erlDelivCny) + 2300 + comm;
-  const cKBase = 15000+40000+6000+20000+expertiza+1500+duty+clear+util;
+  const kyakErlDelivCny = showChinaDelivery && age!=='new' ? erlDelivCny : 0;
+  const kyakBrokerCny = showBrokerAndBorder && age!=='new' ? 2300 : 0;
+  const bKBase = pCny + ovhdCny + expDocCny + kyakErlDelivCny + kyakBrokerCny + comm;
+  const cKBase = (showRF ? 15000+40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
 
   // Подитоги расходов в КНР (для vtbComm и секций)
-  const alexChinaCny = ovhdCny + (dManual ? deliveryManual : d.alex_cn) + 14500;
-  const zabChinaCny  = ovhdCny + manDelivCny + 1500 + 3500;
-  const ussChinaCny  = ovhdCny + suiDelivCny + 500 + 2500;
-  const kyakChinaCny = ovhdCny + erlDelivCny + 2300;
+  const alexChinaCny = ovhdCny
+    + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
+    + (showBrokerAndBorder ? 14500 : 0);
+  const zabChinaCny = ovhdCny
+    + (showChinaDelivery ? manDelivCny : 0)
+    + (showBrokerAndBorder ? 1500+3500 : 0);
+  const ussChinaCny = ovhdCny
+    + (showChinaDelivery ? suiDelivCny : 0)
+    + (showBrokerAndBorder ? 500+2500 : 0);
+  const kyakChinaCny = ovhdCny + kyakErlDelivCny + kyakBrokerCny;
 
-  // Комиссия ВТБ = 2.5% от (Стоимость + Расходы в КНР) для каждого города
-  const stoimostCny = age === 'new' ? pTax : pCny;
+  // Комиссия ВТБ = 2.5% от (Стоимость + 1800 CNY + Расходы в КНР) для каждого города
+  const stoimostCny = (age === 'new' ? pTax : pCny) + 1800;
   const vtbCommZab  = (stoimostCny + zabChinaCny)  * rVtb * 0.025;
   const vtbCommAlex = (stoimostCny + alexChinaCny) * rVtb * 0.025;
   const vtbCommUss  = (stoimostCny + ussChinaCny)  * rVtb * 0.025;
@@ -858,20 +903,20 @@ function calc(){
       {label:'Комиссия Abapp', val: cny(comm)},
       ...logisticRows,
       {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
-      {label:'Таможенная пошлина', val: fmt(duty), cls:'red'},
+      {label:'Таможенная пошлина', val: fmt(duty)},
       {label:'Таможенное оформление', val: fmt(clear)},
-      {label:'Утилизационный сбор', val: fmt(util), cls:'red'},
+      {label:'Утилизационный сбор', val: fmt(util)},
       {type:'total', label:'ИТОГО', val: fmt(total)},
       {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
     ];
     return JSON.stringify(base).replace(/"/g, '&quot;');
   };
 
-  const taxRows = `
+  const taxRows = showTax ? `
     ${sec('Таможенные платежи', fmt(duty + clear + util))}
-    ${row('Таможенная пошлина', fmt(duty), 'red')}
+    ${row('Таможенная пошлина', fmt(duty))}
     ${row('Таможенное оформление', fmt(clear))}
-    ${row('Утилизационный сбор', fmt(util), 'red')}`;
+    ${row('Утилизационный сбор', fmt(util))}` : '';
 
   // Детализация по городу с кнопкой экспорта
   const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total, vtbComm) => `
@@ -900,34 +945,55 @@ function calc(){
     </div>`;
 
   // Расходы в КНР — разные для каждого города, передаются как параметр
-  // Строки логистики (РФ сторона) — тоже разные
+  // Флаги галочек
+  // deliveryIncluded: перевозка включена в стоимость — убираем перевозку+брокер+переход
+  // toBorderOnly: только до границы КНР — убираем брокер+переход+расходы РФ+таможню
 
-  // Александров: перевозка по КНР = до Хоргоса, + 14500 Нур Жолы–Александров
+  // Вспомогательные флаги строк
+  const showChinaDelivery = !deliveryIncluded;
+  const showBrokerAndBorder = !deliveryIncluded && !toBorderOnly;
+  const showRF = !toBorderOnly;
+  const showTax = !toBorderOnly;
+
+  // Пересчёт CNY-базы с учётом флагов
+  const alexChinaCnyAdj = ovhdCny
+    + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
+    + (showBrokerAndBorder ? 14500 : 0);
+  const zabChinaCnyAdj = ovhdCny
+    + (showChinaDelivery ? manDelivCny : 0)
+    + (showBrokerAndBorder ? 1500 + 3500 : 0);
+  const ussChinaCnyAdj = ovhdCny
+    + (showChinaDelivery ? suiDelivCny : 0)
+    + (showBrokerAndBorder ? 500 + 2500 : 0);
+  const kyakChinaCnyAdj = ovhdCny
+    + (showChinaDelivery ? erlDelivCny : 0)
+    + (showBrokerAndBorder ? 2300 : 0);
+
   const alexChinaRows = `
-    ${sec('Расходы в КНР', fmtN(alexChinaCny) + ' ¥ = ' + fmt(alexChinaCny * rVtb))}
+    ${sec('Расходы в КНР', fmtN(alexChinaCnyAdj) + ' ¥ = ' + fmt(alexChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${row('Перевозка по Китаю до границы', cny(dManual ? deliveryManual : d.alex_cn))}
-    ${row('Перевозка Нур Жолы–Александров', cny(14500))}`;
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(dManual ? deliveryManual : d.alex_cn)) : ''}
+    ${showBrokerAndBorder ? row('Перевозка Нур Жолы–Александров', cny(14500)) : ''}`;
 
   const zabChinaRows = `
-    ${sec('Расходы в КНР', fmtN(zabChinaCny) + ' ¥ = ' + fmt(zabChinaCny * rVtb))}
+    ${sec('Расходы в КНР', fmtN(zabChinaCnyAdj) + ' ¥ = ' + fmt(zabChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${row('Перевозка по Китаю до границы', cny(manDelivCny))}
-    ${row('Брокер КНР + ПРР', cny(1500))}
-    ${row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500))}`;
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(manDelivCny)) : ''}
+    ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(1500)) : ''}
+    ${showBrokerAndBorder ? row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500)) : ''}`;
 
   const ussChinaRows = `
-    ${sec('Расходы в КНР', fmtN(ussChinaCny) + ' ¥ = ' + fmt(ussChinaCny * rVtb))}
+    ${sec('Расходы в КНР', fmtN(ussChinaCnyAdj) + ' ¥ = ' + fmt(ussChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${row('Перевозка по Китаю до границы', cny(suiDelivCny))}
-    ${row('Брокер КНР + ПРР', cny(500))}
-    ${row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500))}`;
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(suiDelivCny)) : ''}
+    ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}
+    ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500)) : ''}`;
 
   const kyakChinaRows = `
-    ${sec('Расходы в КНР', fmtN(kyakChinaCny) + ' ¥ = ' + fmt(kyakChinaCny * rVtb))}
+    ${sec('Расходы в КНР', fmtN(kyakChinaCnyAdj) + ' ¥ = ' + fmt(kyakChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${row('Перевозка по Китаю до границы', cny(erlDelivCny))}
-    ${row('Брокер КНР + ПРР', cny(2300))}`;
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(erlDelivCny)) : ''}
+    ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(2300)) : ''}`;
 
   const commonRowsBase = `
     ${carName ? row('Автомобиль', carName) : ''}
@@ -940,32 +1006,32 @@ function calc(){
     ${sec('Комиссия', cny(comm))}
     ${row('Комиссия Abapp', cny(comm))}`;
 
-  const zabRows = `
+  const zabRows = showRF ? `
     ${sec('Расходы в РФ', fmt(30000+45000+10000))}
     ${row('Таможенный брокер в Забайкальске', fmt(30000))}
     ${row('Лаборатория СБКТС+ЭПТС (Забайкальск)', fmt(45000))}
-    ${row('СВХ', fmt(10000))}`;
+    ${row('СВХ', fmt(10000))}` : '';
 
-  const alexRows = `
+  const alexRows = showRF ? `
     ${sec('Расходы в РФ', fmt(35000+45000+10000))}
     ${row('Таможенный брокер в Александрове', fmt(35000))}
     ${row('Лаборатория СБКТС+ЭПТС', fmt(45000))}
-    ${row('СВХ', fmt(10000))}`;
+    ${row('СВХ', fmt(10000))}` : '';
 
-  const ussRows = `
+  const ussRows = showRF ? `
     ${sec('Расходы в РФ', fmt(55000))}
-    ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}`;
+    ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}` : '';
 
   const kyakRFtotal = 40000+6000+20000+expertiza+1500;
-  const kyakBase = `
+  const kyakBase = showRF ? `
     ${sec('Расходы в РФ', fmt(kyakRFtotal))}
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
     ${row('СВХ 3 дня', fmt(6000))}
     ${row('Таможенный брокер в Кяхте', fmt(20000))}
     ${row('Экспертное заключение', fmt(expertiza))}
-    ${row('Перевод сертификата', fmt(1500))}`;
+    ${row('Перевод сертификата', fmt(1500))}` : '';
 
-  const kyakSelfRows = kyakBase + `
+  const kyakSelfRows = kyakBase + (showRF ? `
     ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
     ${row('Перевозка Замын-Удэ–Алтанбулаг самоходом', cny(1200))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
@@ -974,14 +1040,14 @@ function calc(){
     ${row('Бензин', mnt(250000))}
     ${row('Суточные', mnt(200000))}
     ${row('Билеты до Замын-Удэ', mnt(80000))}
-    ${row('Брокер МНГ', mnt(450000+450000))}`;
+    ${row('Брокер МНГ', mnt(450000+450000))}` : '');
 
-  const kyakEvacRows = kyakBase + `
+  const kyakEvacRows = kyakBase + (showRF ? `
     ${sec('Транзит по Монголии', fmt((50000+900000)*rMnt + 70000 + 15000))}
     ${row('Перевозка эвакуатором Замын-Удэ – Алтанбулаг', fmt(70000))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Стоянка Замын-Удэ', mnt(50000))}
-    ${row('Брокер МНГ', mnt(900000))}`;
+    ${row('Брокер МНГ', mnt(900000))}` : '');
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabChinaExport = [
@@ -1077,11 +1143,11 @@ function calc(){
         Детализация по городам (нажмите на город чтобы раскрыть)
       </div>
 
-      ${cityDetail('zab','📍 Забайкальск — '+fmt(zabaikalsk),'var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab)}
-      ${cityDetail('alex','📍 Александров — '+fmt(alexandrov),'var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex)}
-      ${cityDetail('uss','📍 Уссурийск — '+fmt(ussuriysk),'var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss)}
-      ${cityDetail('kyak-self','📍 Кяхта самоходом — '+fmt(kyakSelf),'var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak)}
-      ${cityDetail('kyak-evac','📍 Кяхта эвакуатор — '+fmt(kyakEvac),'var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak)}
+      ${cityDetail('zab','📍 Забайкальск,'var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab)}
+      ${cityDetail('alex','📍 Александров,'var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex)}
+      ${cityDetail('uss','📍 Уссурийск,'var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss)}
+      ${cityDetail('kyak-self','📍 Кяхта самоходом,'var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak)}
+      ${cityDetail('kyak-evac','📍 Кяхта на эвакуаторе,'var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak)}
 
       <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
     </div>
