@@ -288,9 +288,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
       </div>
 
-      <div style="display:flex;gap:8px;margin-top:4px">
-        <button class="cbtn" onclick="calc()" style="flex:1">⚡ Рассчитать</button>
-        <button onclick="resetForm()" style="flex:0 0 auto;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:10px;padding:13px 18px;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap" title="Сбросить все данные">↺ Сброс</button>
+      <div style="margin-top:12px;text-align:center">
+        <button onclick="resetForm()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 8px;font-family:'IBM Plex Mono',monospace;transition:color .2s" onmouseenter="this.style.color='var(--text2)'" onmouseleave="this.style.color='var(--text3)'">↺ сбросить данные</button>
       </div>
     </div>
   </div>
@@ -782,12 +781,16 @@ function resetCity(){
   calc_if_ready();
 }
 
+let _calcTimer = null;
 function calc_if_ready(){
-  // Пересчитываем если есть хотя бы цена авто и мощность (или электро)
-  const hasCny = parseMasked('price_cny') > 0;
-  const etype = document.getElementById('etype').value;
-  const hasKw = etype === 'electric' || +document.getElementById('kw').value > 0;
-  if(hasCny && hasKw) calc(true); // silent=true — без фокуса на ошибках
+  // Ждём паузу 600мс после последнего изменения — не пересчитываем при каждом нажатии
+  clearTimeout(_calcTimer);
+  _calcTimer = setTimeout(() => {
+    const hasCny = parseMasked('price_cny') > 0;
+    const etype = document.getElementById('etype').value;
+    const hasKw = etype === 'electric' || +document.getElementById('kw').value > 0;
+    if(hasCny && hasKw) calc(true);
+  }, 600);
 }
 
 function onChkDeliveryIncluded(){
