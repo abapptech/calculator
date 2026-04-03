@@ -34,7 +34,13 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Сохраняем свежий файл
+          cp vtb_rate.json /tmp/vtb_rate.json
+          # Синхронизируемся с remote
+          git fetch origin main
+          git reset --hard origin/main
+          # Возвращаем свежий файл и коммитим
+          cp /tmp/vtb_rate.json vtb_rate.json
           git add vtb_rate.json
           git diff --cached --quiet || git commit -m "update vtb_rate.json [skip ci]"
-          git pull --rebase origin main
-          git push
+          git push origin main
