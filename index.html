@@ -725,9 +725,12 @@ function clearErrors() {
     if(el) el.style.borderColor = '';
   });
 }
-function markError(id) {
+function markError(id, silent=false) {
   const el = document.getElementById(id);
-  if(el) { el.style.borderColor = 'var(--red)'; el.focus(); }
+  if(el) {
+    el.style.borderColor = 'var(--red)';
+    if(!silent) el.focus();
+  }
 }
 
 // ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
@@ -772,7 +775,7 @@ function calc_if_ready(){
   const hasCny = parseMasked('price_cny') > 0;
   const etype = document.getElementById('etype').value;
   const hasKw = etype === 'electric' || +document.getElementById('kw').value > 0;
-  if(hasCny && hasKw) calc();
+  if(hasCny && hasKw) calc(true); // silent=true — без фокуса на ошибках
 }
 
 function onChkDeliveryIncluded(){
@@ -805,7 +808,7 @@ function onCommSelect(){
   calc_if_ready();
 }
 
-function calc(){
+function calc(silent=false){
   const deliveryIncluded = document.getElementById('chk_delivery_included').checked;
   const toBorderOnly = document.getElementById('chk_to_border_only').checked;
   clearErrors();
@@ -826,11 +829,11 @@ function calc(){
   const deliveryManual = parseMasked('delivery_manual');
 
   let hasError = false;
-  if(!pCny){ markError('price_cny'); hasError=true; }
-  if(!kw && etype!=='electric')  { markError('kw'); hasError=true; }
-  if(etype!=='electric' && !cc){ markError('cc'); hasError=true; }
-  if(age==='new' && !parseMasked('price_max')){ markError('price_max'); hasError=true; }
-  if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw'); hasError=true; }
+  if(!pCny){ markError('price_cny', silent); hasError=true; }
+  if(!kw && etype!=='electric')  { markError('kw', silent); hasError=true; }
+  if(etype!=='electric' && !cc){ markError('cc', silent); hasError=true; }
+  if(age==='new' && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
+  if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw', silent); hasError=true; }
   if(hasError) return;
 
   const d = delivery();
