@@ -2,9 +2,8 @@ name: Parse VTB CNY Rate
 
 on:
   schedule:
-    # каждые 30 минут с 10:00 до 19:00 МСК (7:00-16:00 UTC)
     - cron: '*/30 7-16 * * *'
-  workflow_dispatch: # ручной запуск
+  workflow_dispatch:
 
 jobs:
   parse:
@@ -30,17 +29,23 @@ jobs:
       - name: Run parser
         run: python parser.py
 
-      - name: Commit vtb_rate.json
+      - name: Push vtb_rate.json via API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Сохраняем свежий файл
-          cp vtb_rate.json /tmp/vtb_rate.json
-          # Синхронизируемся с remote
-          git fetch origin main
-          git reset --hard origin/main
-          # Возвращаем свежий файл и коммитим
-          cp /tmp/vtb_rate.json vtb_rate.json
-          git add vtb_rate.json
-          git diff --cached --quiet || git commit -m "update vtb_rate.json [skip ci]"
-          git push origin main
+          CONTENT=$(base64 -w 0 vtb_rate.json)
+          SHA=$(gh api repos/${{ github.repository }}/contents/vtb_rate.json --jq '.sha' 2>/dev/null || echo "")
+          if [ -n "$SHA" ]; then
+            gh api repos/${{ github.repository }}/contents/vtb_rate.json \
+              --method PUT \
+              --field message="update vtb_rate.json [skip ci]" \
+              --field content="$CONTENT" \
+              --field sha="$SHA" \
+              --field branch="main"
+          else
+            gh api repos/${{ github.repository }}/contents/vtb_rate.json \
+              --method PUT \
+              --field message="update vtb_rate.json [skip ci]" \
+              --field content="$CONTENT" \
+              --field branch="main"
+          fi
