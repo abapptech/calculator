@@ -949,12 +949,6 @@ function calc(){
   // deliveryIncluded: перевозка включена в стоимость — убираем перевозку+брокер+переход
   // toBorderOnly: только до границы КНР — убираем брокер+переход+расходы РФ+таможню
 
-  // Вспомогательные флаги строк
-  const showChinaDelivery = !deliveryIncluded;
-  const showBrokerAndBorder = !deliveryIncluded && !toBorderOnly;
-  const showRF = !toBorderOnly;
-  const showTax = !toBorderOnly;
-
   // Пересчёт CNY-базы с учётом флагов
   const alexChinaCnyAdj = ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
@@ -1158,7 +1152,7 @@ function calc(){
 async function loadRates() {
   let vtbOk = false, eurOk = false;
 
-  // Гарантируем остановку спиннера через 8 секунд в любом случае
+  // Гарантируем остановку спиннера через 10 секунд в любом случае
   const safetyStop = setTimeout(() => {
     const spinner = document.getElementById('rate-spinner');
     const msg = document.getElementById('rate-msg');
@@ -1167,15 +1161,15 @@ async function loadRates() {
       msg.textContent = '⚠️ Не удалось загрузить курсы — введите вручную';
       msg.style.color = 'var(--accent3)';
     }
-  }, 8000);
+  }, 10000);
 
   // 1. Курс CNY/RUB ВТБ — из vtb_rate.json
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
+    const timeout = setTimeout(() => controller.abort(), 6000);
     const r = await fetch(
-      'https://raw.githubusercontent.com/abapptech/calculator/main/vtb_rate.json',
-      { cache: 'no-cache', signal: controller.signal }
+      'https://raw.githubusercontent.com/abapptech/calculator/main/vtb_rate.json?t=' + Date.now(),
+      { cache: 'no-store', signal: controller.signal }
     );
     clearTimeout(timeout);
     if (r.ok) {
@@ -1191,25 +1185,28 @@ async function loadRates() {
         vtbOk = true;
       }
     }
-  } catch(e) { console.warn('VTB rate fetch failed:', e); }
+  } catch(e) { console.warn('VTB rate fetch failed:', e.message); }
 
-  // 2. Курс EUR/RUB и CNY/RUB — открытый API ЦБ РФ
+  // 2. Курс EUR/RUB и CNY/RUB — ЦБ РФ (несколько зеркал)
   try {
     const urls = [
       'https://www.cbr-xml-daily.ru/daily_json.js',
-      'https://api.allorigins.win/raw?url=https://www.cbr-xml-daily.ru/daily_json.js',
+      'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.cbr-xml-daily.ru/daily_json.js'),
     ];
     let eurRate = null, cnyRate = null;
     for (const url of urls) {
       try {
-        const r = await fetch(url, { cache: 'no-cache' });
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 5000);
+        const r = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+        clearTimeout(t);
         if (r.ok) {
           const d = await r.json();
           eurRate = d?.Valute?.EUR?.Value;
           cnyRate = d?.Valute?.CNY?.Value;
           if (eurRate) break;
         }
-      } catch(e) { /* попробуем следующий */ }
+      } catch(e) { console.warn('CBR mirror failed:', url, e.message); }
     }
     if (eurRate) {
       document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(4);
@@ -1220,13 +1217,13 @@ async function loadRates() {
       document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(4);
       document.getElementById('cbr-badge').style.display = 'inline';
     }
-  } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e); }
+  } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e.message); }
 
   // Обновляем статус
   clearTimeout(safetyStop);
   const msg = document.getElementById('rate-msg');
   const spinner = document.getElementById('rate-spinner');
-  spinner.style.display = 'none';
+  if (spinner) spinner.style.display = 'none';
 
   if (vtbOk && eurOk) {
     msg.textContent = '✅ Курсы загружены автоматически — можно редактировать вручную';
@@ -1235,7 +1232,7 @@ async function loadRates() {
     msg.textContent = '⚠️ Загружен ' + (vtbOk ? 'курс ВТБ' : 'курс ЦБ') + '. Остальное — проверьте вручную';
     msg.style.color = '#f5c842';
   } else {
-    msg.textContent = '⚠️ Не удалось загрузить курсы — проверьте и введите вручную';
+    msg.textContent = '⚠️ Не удалось загрузить курсы — введите вручную';
     msg.style.color = 'var(--accent3)';
   }
 }
