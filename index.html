@@ -31,14 +31,14 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .phdr-t{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;color:var(--text);letter-spacing:.05em;text-transform:uppercase}
 .pbody{padding:18px}
 .field{margin-bottom:14px}
-.field label{display:block;font-size:10px;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.field label{display:block;font-size:12px;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field input,.field select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .field input:focus,.field select:focus{border-color:var(--accent)}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238892a4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;cursor:pointer}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .fhint{font-size:9px;color:var(--text3);margin-top:4px}
 .div{border:none;border-top:1px solid var(--border);margin:16px 0}
-.slabel{font-size:10px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.slabel{font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;font-weight:600}
 .cbtn{width:100%;background:var(--accent);color:#0d0f14;border:none;border-radius:10px;padding:13px;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:all .2s;margin-top:4px}
 .cbtn:hover{background:#ffd84d;transform:translateY(-1px)}
 .rp{position:sticky;top:84px}
@@ -61,15 +61,15 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .bdown{background:var(--surface2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .bhdr{padding:11px 14px;background:var(--bg);border-bottom:1px solid var(--border);font-size:9px;color:var(--text2);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .bbody{padding:0 14px}
-.br{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:11px}
+.br{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
 .br:last-child{border-bottom:none}
 .bk{color:var(--text2)}
 .bv{color:var(--text);font-weight:500}
 .bv.red{color:var(--red)}
-.bv.tot{color:var(--accent);font-family:'Unbounded',sans-serif;font-size:12px}
+.bv.tot{color:var(--accent);font-family:'Unbounded',sans-serif;font-size:14px}
 .bv.pct{color:var(--accent3)}
 .bhl{background:#0a0800;margin:0 -14px;padding:9px 14px}
-.notice{background:#1a1200;border:1px solid #3a2a00;border-radius:9px;padding:10px 14px;font-size:10px;color:#a08040;line-height:1.6;margin-bottom:14px}
+.notice{background:#1a1200;border:1px solid #3a2a00;border-radius:9px;padding:10px 14px;font-size:12px;color:#a08040;line-height:1.6;margin-bottom:14px}
 .empty{padding:48px 20px;text-align:center}
 .ei{font-size:44px;margin-bottom:14px}
 .et{font-family:'Unbounded',sans-serif;font-size:13px;color:var(--text2);margin-bottom:8px}
@@ -195,7 +195,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
-          <input type="number" id="kw" placeholder="например: 110" oninput="updHP();this.style.borderColor=''">
+          <input type="number" id="kw" value="110" oninput="updHP();this.style.borderColor=''">
         </div>
       </div>
       <div id="fem" style="display:none">
@@ -227,7 +227,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
             style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none">
           <div id="city_dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;max-height:200px;overflow-y:auto;z-index:200;margin-top:2px"></div>
         </div>
-        <div class="fhint" id="city_status">516 городов КНР — расстояния считаются по реальным дорогам (OSRM)</div>
+        <div class="fhint" id="city_status">Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)</div>
       </div>
 
       <!-- Расстояния — заполняются автоматически или вручную -->
@@ -405,14 +405,14 @@ function hideDropdown() {
 
 // Формула перевозки из таблицы: dist*1.5+800 (+14500 для Хоргоса)
 function delivery() {
-  if(!currentDistances) return null;
-  const d=currentDistances;
+  // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
+  const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
   return {
-    alex:     d.hor*1.5+800+14500,  // полная стоимость до Александрова
-    alex_cn:  d.hor*1.5+800,         // только до Хоргоса (КНР часть)
-    man:  d.man*1.5+800,
-    erl:  d.erl*1.5+800,
-    sui:  d.sui*1.5+800,
+    alex:     d.hor ? d.hor*1.5+800+14500 : 14500,
+    alex_cn:  d.hor ? d.hor*1.5+800 : 0,
+    man:  d.man ? d.man*1.5+800 : 0,
+    erl:  d.erl ? d.erl*1.5+800 : 0,
+    sui:  d.sui ? d.sui*1.5+800 : 0,
   };
 }
 
@@ -736,7 +736,6 @@ function calc(){
   if(hasError) return;
 
   const d = delivery();
-  if(!d){ markError('city_input'); return; }
 
   // Таможенная цена = MAX(цена покупки, макс официальная)
   const pTax = Math.max(pCny, pMax);
@@ -1266,7 +1265,7 @@ async function downloadCard(cityId, cityTitle, rows, total, color) {
 }
 
 // Запускаем при загрузке страницы
-window.addEventListener('DOMContentLoaded', () => { loadRates(); onAge(); });
+window.addEventListener('DOMContentLoaded', () => { loadRates(); onAge(); updHP(); });
 </script>
 </body>
 </html>
