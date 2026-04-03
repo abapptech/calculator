@@ -237,7 +237,9 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div style="position:relative">
           <input type="text" id="city_input" placeholder="Введите название города..." autocomplete="off"
             oninput="onCityInput();this.style.borderColor=''" onblur="setTimeout(hideDropdown,200)"
-            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 12px;outline:none">
+            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 40px 9px 12px;outline:none">
+          <button id="city_reset_btn" onclick="resetCity()" title="Убрать город — расчёт от пограничного города"
+            style="display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:4px;line-height:1">✕</button>
           <div id="city_dropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface2);border:1px solid var(--accent);border-radius:8px;max-height:200px;overflow-y:auto;z-index:200;margin-top:2px"></div>
         </div>
         <div class="fhint" id="city_status">Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)</div>
@@ -288,7 +290,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div style="display:flex;gap:8px;margin-top:4px">
         <button class="cbtn" onclick="calc()" style="flex:1">⚡ Рассчитать</button>
-        <button onclick="resetForm()" style="flex:0 0 auto;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s" title="Сбросить все данные">↺</button>
+        <button onclick="resetForm()" style="flex:0 0 auto;background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:10px;padding:13px 18px;font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap" title="Сбросить все данные">↺ Сброс</button>
       </div>
     </div>
   </div>
@@ -381,6 +383,7 @@ async function loadDistances(cityName) {
       document.getElementById('d_hor').value=hor;
       document.getElementById('dist_block').style.display='block';
       document.getElementById('dist_source').textContent='OSRM · реальные дороги';
+      document.getElementById('city_reset_btn').style.display='block';
 
       // Расчётная стоимость перевозки по формуле км×1.5+800 (Александров: +14500)
       const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
@@ -770,7 +773,14 @@ function resetForm(){
     </div>`;
 }
 
-function calc_if_ready(){
+function resetCity(){
+  document.getElementById('city_input').value = '';
+  document.getElementById('city_reset_btn').style.display = 'none';
+  currentDistances = null;
+  document.getElementById('dist_block').style.display = 'none';
+  document.getElementById('city_status').textContent = 'Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)';
+  calc_if_ready();
+}
   // Пересчитываем если есть хотя бы цена авто и мощность (или электро)
   const hasCny = parseMasked('price_cny') > 0;
   const etype = document.getElementById('etype').value;
