@@ -392,6 +392,7 @@ async function loadDistances(cityName) {
       document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+800+14500);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
+      calc_if_ready();
     } else throw new Error('нет маршрута');
   } catch(e){
     st.textContent='\u26a0\ufe0f Ошибка: '+e.message;
