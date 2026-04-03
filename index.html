@@ -781,6 +781,8 @@ function resetCity(){
   document.getElementById('city_status').textContent = 'Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)';
   calc_if_ready();
 }
+
+function calc_if_ready(){
   // Пересчитываем если есть хотя бы цена авто и мощность (или электро)
   const hasCny = parseMasked('price_cny') > 0;
   const etype = document.getElementById('etype').value;
