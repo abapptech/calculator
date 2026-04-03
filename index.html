@@ -221,12 +221,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
-          <input type="checkbox" id="chk_delivery_included" onchange="calc_if_ready()"
+          <input type="checkbox" id="chk_delivery_included" onchange="onChkDeliveryIncluded()"
             style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
           Перевозка до РФ включена в стоимость авто
         </label>
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
-          <input type="checkbox" id="chk_to_border_only" onchange="calc_if_ready()"
+          <input type="checkbox" id="chk_to_border_only" onchange="onChkToBorderOnly()"
             style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
           Только перевозка до границы КНР (без РФ расходов и таможни)
         </label>
@@ -277,8 +277,13 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 
       <div class="field">
         <label>Комиссия Abapp, ¥</label>
-        <input type="text" inputmode="numeric" id="comm" value="11 000" oninput="maskThousands(this)">
-        <div class="fhint">По умолчанию 11 000 ¥</div>
+        <select id="comm_select" onchange="onCommSelect()" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 12px;outline:none;-webkit-appearance:none;appearance:none">
+          <option value="11000" selected>11 000 ¥ — стандарт, под ключ</option>
+          <option value="8800">8 800 ¥ — передача авто на СВХ</option>
+          <option value="6800">6 800 ¥ — передача на границе КНР</option>
+        </select>
+        <input type="hidden" id="comm" value="11000">
+        <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
       </div>
 
       <button class="cbtn" onclick="calc()">⚡ Рассчитать стоимость</button>
@@ -728,6 +733,36 @@ function calc_if_ready(){
   if(document.getElementById('res').querySelector('.bdown')) calc();
 }
 
+function onChkDeliveryIncluded(){
+  if(document.getElementById('chk_delivery_included').checked){
+    document.getElementById('chk_to_border_only').checked = false;
+  }
+  calc_if_ready();
+}
+
+function onChkToBorderOnly(){
+  if(document.getElementById('chk_to_border_only').checked){
+    document.getElementById('chk_delivery_included').checked = false;
+    // Автоматически ставим комиссию 6800
+    document.getElementById('comm_select').value = '6800';
+    onCommSelect();
+  }
+  calc_if_ready();
+}
+
+function onCommSelect(){
+  const sel = document.getElementById('comm_select');
+  const val = sel.value;
+  document.getElementById('comm').value = val;
+  const hints = {
+    '11000': 'Стандартная комиссия — доставка под ключ',
+    '8800': 'Передача авто на СВХ',
+    '6800': 'Передача на границе КНР',
+  };
+  document.getElementById('comm_hint').textContent = hints[val] || '';
+  calc_if_ready();
+}
+
 function calc(){
   const deliveryIncluded = document.getElementById('chk_delivery_included').checked;
   const toBorderOnly = document.getElementById('chk_to_border_only').checked;
@@ -744,7 +779,7 @@ function calc(){
   const kw      = +document.getElementById('kw').value||0;
   const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
-  const commRaw = parseMasked('comm');
+  const commRaw = +document.getElementById('comm').value;
   const comm = commRaw || (document.getElementById('chk_to_border_only').checked ? 6800 : 11000);
   const deliveryManual = parseMasked('delivery_manual');
 
@@ -923,7 +958,10 @@ function calc(){
     <div class="bdown" style="margin-bottom:10px">
       <div class="bhdr" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('.arr').classList.toggle('open')">
         <span style="color:${color}">${title}</span>
-        <svg class="arr" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="color:${color};font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700">${fmt(total)}</span>
+          <svg class="arr" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
       </div>
       <div class="bbody hidden">
         ${commonRowsBase}
