@@ -283,8 +283,12 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
           <option value="11000" selected>11 000 ¥ — стандарт, под ключ</option>
           <option value="8800">8 800 ¥ — передача авто на СВХ</option>
           <option value="6800">6 800 ¥ — передача на границе КНР</option>
+          <option value="custom">Ввести вручную...</option>
         </select>
         <input type="hidden" id="comm" value="11000">
+        <input type="text" inputmode="numeric" id="comm_custom" placeholder="Введите сумму комиссии, ¥"
+          oninput="maskThousands(this);document.getElementById('comm').value=parseMasked('comm_custom')||0;calc_if_ready()"
+          style="display:none;margin-top:8px;width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 12px;outline:none;box-sizing:border-box">
         <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
       </div>
 
@@ -755,6 +759,8 @@ function resetForm(){
   document.getElementById('chk_to_border_only').checked = false;
   document.getElementById('comm_select').value = '11000';
   document.getElementById('comm').value = '11000';
+  document.getElementById('comm_custom').value = '';
+  document.getElementById('comm_custom').style.display = 'none';
   document.getElementById('comm_hint').textContent = 'Стандартная комиссия — доставка под ключ';
   currentDistances = null;
   document.getElementById('dist_block').style.display = 'none';
@@ -805,6 +811,7 @@ function onChkToBorderOnly(){
     document.getElementById('chk_delivery_included').checked = false;
     // Автоматически ставим комиссию 6800
     document.getElementById('comm_select').value = '6800';
+    document.getElementById('comm_custom').style.display = 'none';
     onCommSelect();
   }
   calc_if_ready();
@@ -813,14 +820,23 @@ function onChkToBorderOnly(){
 function onCommSelect(){
   const sel = document.getElementById('comm_select');
   const val = sel.value;
-  document.getElementById('comm').value = val;
+  const customInput = document.getElementById('comm_custom');
   const hints = {
     '11000': 'Стандартная комиссия — доставка под ключ',
-    '8800': 'Передача авто на СВХ',
-    '6800': 'Передача на границе КНР',
+    '8800':  'Передача авто на СВХ',
+    '6800':  'Передача на границе КНР',
+    'custom': 'Введите сумму вручную',
   };
   document.getElementById('comm_hint').textContent = hints[val] || '';
-  calc_if_ready();
+  if(val === 'custom'){
+    customInput.style.display = 'block';
+    customInput.focus();
+    // comm остаётся старым пока не введут новое значение
+  } else {
+    customInput.style.display = 'none';
+    document.getElementById('comm').value = val;
+    calc_if_ready();
+  }
 }
 
 function calc(silent=false){
