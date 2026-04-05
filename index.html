@@ -1053,11 +1053,13 @@ function calc(silent=false){
       ...chinaExportRows,
       {type:'sec', label:'Комиссия', subtotal: cny(comm)},
       {label:'Комиссия Abapp', val: cny(comm)},
-      ...logisticRows,
-      {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
-      {label:'Таможенная пошлина', val: fmt(duty)},
-      {label:'Таможенное оформление', val: fmt(clear)},
-      {label:'Утилизационный сбор', val: fmt(util)},
+      ...(showRF ? logisticRows : []),
+      ...(showTax ? [
+        {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
+        {label:'Таможенная пошлина', val: fmt(duty)},
+        {label:'Таможенное оформление', val: fmt(clear)},
+        {label:'Утилизационный сбор', val: fmt(util)},
+      ] : []),
       {type:'total', label:'ИТОГО', val: fmt(total)},
       {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
     ];
