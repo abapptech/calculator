@@ -1428,7 +1428,7 @@ async function loadRates() {
 function buildCardFilename(cityId, total) {
   const cityNames = {
     'zab': 'Zabaikalsk', 'alex': 'Alexandrov',
-    'uss': 'Ussuriysk', 'kyak-self': 'Kyakhta', 'kyak-evac': 'Kyakhta',
+    'uss': 'Ussuriysk', 'kyak-self': 'Kyakhta_driver', 'kyak-evac': 'Kyakhta_tow_truck',
   };
   const d = new Date();
   const dd = String(d.getDate()).padStart(2,'0');
@@ -1628,7 +1628,7 @@ async function downloadCardDirect(cityId, cityTitle, rows, total, color) {
   btn.textContent = '⏳ Генерирую...';
   try {
     const canvas = await buildCardCanvas(cityId, cityTitle, rows, total, color);
-    const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
+    const filename = buildCardFilename(cityId, total);
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/jpeg', 0.95);
     a.download = filename;
