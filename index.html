@@ -1115,6 +1115,11 @@ function calc(silent=false){
             data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
             📤 Поделиться
           </button>
+          <button class="dl-btn" id="dwbtn-${id}" style="flex:1"
+            onclick="downloadCardDirect('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
+            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
+            📥 Скачать
+          </button>
         </div>
       </div>
     </div>`;
@@ -1419,6 +1424,26 @@ async function loadRates() {
 }
 
 // ── Экспорт в JPG ────────────────────────────────────────────────────────────
+// ── Формирует имя файла карточки ───────────────────────────────────────────
+function buildCardFilename(cityId, total) {
+  const cityNames = {
+    'zab': 'Zabaikalsk', 'alex': 'Alexandrov',
+    'uss': 'Ussuriysk', 'kyak-self': 'Kyakhta', 'kyak-evac': 'Kyakhta',
+  };
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yy = String(d.getFullYear()).slice(-2);
+  const carRaw = (window._carName || '').trim();
+  const car = carRaw ? carRaw.replace(/[^а-яёА-ЯЁa-zA-Z0-9 ]/g,'').replace(/\s+/g,'_') : '';
+  const city = cityNames[cityId] || cityId;
+  const price = Math.round(total).toString();
+  const parts = ['abapp'];
+  if (car) parts.push(car);
+  parts.push(price, city, dd+mm+yy);
+  return parts.join('_') + '.jpg';
+}
+
 // ── Строим canvas карточки (общий для всех действий) ──────────────────────
 async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   const logoEl = document.querySelector('.logo-wrap img');
@@ -1500,6 +1525,8 @@ async function previewCard(cityId, cityTitle, rows, total, color) {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
     window._lastCardDataUrl = dataUrl;
     window._lastCardCityId = cityId;
+    window._lastCardTotal = total;
+    window._lastCardTotal = total;
     const img = document.getElementById('card-modal-img');
     img.src = dataUrl;
     document.getElementById('card-modal-overlay').classList.add('active');
@@ -1513,6 +1540,25 @@ async function previewCard(cityId, cityTitle, rows, total, color) {
 }
 
 // ── Поделиться карточкой ────────────────────────────────────────────────────
+// ── Формирование имени файла карточки ─────────────────────────────────────
+function buildCardFilename(cityId, total) {
+  const cityMap = {
+    'zab': 'Zabaikalsk',
+    'alex': 'Alexandrov',
+    'uss': 'Ussuriysk',
+    'kyak-self': 'Kyakhta',
+    'kyak-evac': 'Kyakhta',
+  };
+  const cityName = cityMap[cityId] || cityId;
+  const carName = (window._carName || '').trim().replace(/[^a-zA-Zа-яёА-ЯЁ0-9 ]/g, '').replace(/\s+/g, '_') || '';
+  const totalStr = Math.round(total).toString();
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yy = String(d.getFullYear()).slice(-2);
+  const parts = ['abapp', carName, totalStr, cityName, dd+mm+yy].filter(Boolean);
+  return parts.join('_') + '.jpg';
+}
 async function shareCard(cityId, cityTitle, rows, total, color) {
   const btn = document.getElementById('shbtn-' + cityId);
   btn.disabled = true;
@@ -1520,7 +1566,7 @@ async function shareCard(cityId, cityTitle, rows, total, color) {
   try {
     const canvas = await buildCardCanvas(cityId, cityTitle, rows, total, color);
     const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.95));
-    const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
+    const filename = buildCardFilename(cityId, total);
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/jpeg' })] })) {
       await navigator.share({
         files: [new File([blob], filename, { type: 'image/jpeg' })],
@@ -1556,7 +1602,7 @@ function shareCardFromModal() {
   const dataUrl = window._lastCardDataUrl;
   if (!dataUrl) return;
   const cityId = window._lastCardCityId || 'card';
-  const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
+  const filename = buildCardFilename(cityId, window._lastCardTotal || 0);
   fetch(dataUrl).then(r=>r.blob()).then(async blob => {
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/jpeg' })] })) {
       await navigator.share({ files: [new File([blob], filename, { type: 'image/jpeg' })] });
@@ -1571,8 +1617,28 @@ function downloadCardFromModal() {
   const cityId = window._lastCardCityId || 'card';
   const a = document.createElement('a');
   a.href = dataUrl;
-  a.download = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
+  a.download = buildCardFilename(cityId, window._lastCardTotal || 0);
   a.click();
+}
+
+// ── Скачать карточку напрямую ──────────────────────────────────────────────
+async function downloadCardDirect(cityId, cityTitle, rows, total, color) {
+  const btn = document.getElementById('dwbtn-' + cityId);
+  btn.disabled = true;
+  btn.textContent = '⏳ Генерирую...';
+  try {
+    const canvas = await buildCardCanvas(cityId, cityTitle, rows, total, color);
+    const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/jpeg', 0.95);
+    a.download = filename;
+    a.click();
+  } catch(e) {
+    alert('Ошибка генерации: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '📥 Скачать';
+  }
 }
 
 // Запускаем при загрузке страницы
