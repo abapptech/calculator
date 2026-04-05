@@ -1434,7 +1434,7 @@ function buildCardFilename(cityId, total) {
   const dd = String(d.getDate()).padStart(2,'0');
   const mm = String(d.getMonth()+1).padStart(2,'0');
   const yy = String(d.getFullYear()).slice(-2);
-  const carRaw = (window._carName || '').trim();
+  const carRaw = (document.getElementById('car_name') ? document.getElementById('car_name').value.trim() : '') || (window._carName || '').trim();
   const car = carRaw ? carRaw.replace(/[^а-яёА-ЯЁa-zA-Z0-9 ]/g,'').replace(/\s+/g,'_') : '';
   const city = cityNames[cityId] || cityId;
   const price = Math.round(total).toString();
@@ -1475,7 +1475,7 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
       </div>
     </div>
     <div class="ec-city" style="color:#1a1a2e">${cityTitle}</div>
-    ${carName ? `<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px">${carName}</div>` : ''}
+    ${carName ? `<div class="ec-city" style="color:#1a1a2e">${carName}</div>` : ''}
     <div class="ec-total-big">${fmt(total)}</div>
     <div class="ec-rates" id="ec-rates-${cityId}"></div>
     ${rowsHtml}
@@ -1545,8 +1545,8 @@ function buildCardFilename(cityId, total) {
     'zab': 'Zabaikalsk',
     'alex': 'Alexandrov',
     'uss': 'Ussuriysk',
-    'kyak-self': 'Kyakhta',
-    'kyak-evac': 'Kyakhta',
+    'kyak-self': 'Kyakhta_driver',
+    'kyak-evac': 'Kyakhta_tow_truck',
   };
   const cityName = cityMap[cityId] || cityId;
   const carName = (window._carName || '').trim().replace(/[^a-zA-Zа-яёА-ЯЁ0-9 ]/g, '').replace(/\s+/g, '_') || '';
