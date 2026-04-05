@@ -852,6 +852,12 @@ function calc_if_ready(){
 function onChkDeliveryIncluded(){
   if(document.getElementById('chk_delivery_included').checked){
     document.getElementById('chk_to_border_only').checked = false;
+    // Возвращаем стандартную комиссию 11000 если была автоматически выставлена 6800
+    if(document.getElementById('comm_select').value === '6800'){
+      document.getElementById('comm_select').value = '11000';
+      document.getElementById('comm_custom').style.display = 'none';
+      onCommSelect();
+    }
   }
   calc_if_ready();
 }
