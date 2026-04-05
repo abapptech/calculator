@@ -1523,8 +1523,6 @@ async function shareCard(cityId, cityTitle, rows, total, color) {
     const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/jpeg' })] })) {
       await navigator.share({
-        title: 'Расчёт стоимости авто — Abapp',
-        text: cityTitle,
         files: [new File([blob], filename, { type: 'image/jpeg' })],
       });
     } else {
@@ -1561,7 +1559,7 @@ function shareCardFromModal() {
   const filename = 'abapp-' + cityId + '-' + new Date().toISOString().slice(0,10) + '.jpg';
   fetch(dataUrl).then(r=>r.blob()).then(async blob => {
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/jpeg' })] })) {
-      await navigator.share({ title: 'Расчёт Abapp', files: [new File([blob], filename, { type: 'image/jpeg' })] });
+      await navigator.share({ files: [new File([blob], filename, { type: 'image/jpeg' })] });
     } else {
       downloadCardFromModal();
     }
