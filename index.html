@@ -1040,6 +1040,7 @@ function calc(silent=false){
   // Сохраняем глобально для карточек
   window._carName = carName;
   window._cityName = cityName;
+  updateCarNameDisplay();
 
   // Общие статьи (одинаковы для всех городов)
   const commonRows = `
@@ -1303,6 +1304,7 @@ function calc(silent=false){
   document.getElementById('res').innerHTML = `
   <div class="panel">
     <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
+    <div id="res-car-name-bar" style="display:none;padding:6px 16px 0;font-size:13px;font-weight:600;color:var(--accent2);font-family:'Unbounded',sans-serif"></div>
     <div class="pbody">
       <div class="notice">⚠️ Цены приведены справочно. Окончательная стоимость зависит от актуального курса валют, маршрута и условий на момент сделки. Не является публичной офертой.</div>
       <div class="rbar">
@@ -1448,7 +1450,7 @@ function buildCardFilename(cityId, total) {
 async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   const logoEl = document.querySelector('.logo-wrap img');
   const logoSrc = logoEl ? logoEl.src : '';
-  const carName = window._carName || '';
+  const carName = (document.getElementById('car_name') ? document.getElementById('car_name').value.trim() : '') || (window._carName || '').trim();
 
   const rowsHtml = rows.map(r => {
     const cls = r.cls === 'red' ? 'ec-val-red' : r.cls === 'tot' ? 'ec-val-tot' : r.cls === 'pct' ? 'ec-val-pct' : 'ec-val';
@@ -1641,7 +1643,32 @@ async function downloadCardDirect(cityId, cityTitle, rows, total, color) {
 }
 
 // Запускаем при загрузке страницы
-window.addEventListener('DOMContentLoaded', () => { loadRates(); onAge(); updHP(); });
+// ── Динамическое обновление названия авто ──────────────────────────────────
+function updateCarNameDisplay() {
+  const val = document.getElementById('car_name').value.trim();
+  window._carName = val;
+  const bar = document.getElementById('res-car-name-bar');
+  if (bar) {
+    if (val) {
+      bar.textContent = val;
+      bar.style.display = 'block';
+    } else {
+      bar.style.display = 'none';
+    }
+  }
+  // Обновляем строку "Автомобиль" в раскрытых карточках результата
+  document.querySelectorAll('.bk').forEach(el => {
+    if (el.textContent === 'Автомобиль') {
+      const valEl = el.nextElementSibling;
+      if (valEl) valEl.textContent = val || '—';
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadRates(); onAge(); updHP();
+  document.getElementById('car_name').addEventListener('input', updateCarNameDisplay);
+});
 </script>
 
 <!-- Модальное окно предпросмотра карточки -->
