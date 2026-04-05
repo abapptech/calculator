@@ -1002,11 +1002,13 @@ function calc(silent=false){
 
   // Самоходом
   const dSelf = 50000+250000+200000+80000+450000+450000;
-  const kyakSelf = (bKBase+1200)*rVtb + (cKBase+5000) + dSelf*rMnt;
+  const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + dSelf*rMnt) : 0;
+  const kyakSelf = bKBase*rVtb + cKBase + kyakSelfMongolia;
 
   // Эвакуатор: брокер МНГ 900 000 MNT + стоянка 50 000 MNT + эвакуатор 70 000 ₽
   const dEvacMnt = 50000+900000;
-  const kyakEvac = bKBase*rVtb + cKBase + dEvacMnt*rMnt + 70000;
+  const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000) : 0;
+  const kyakEvac = bKBase*rVtb + cKBase + kyakEvacMongolia;
 
   // ── Рендер ──────────────────────────────────────────────────────────────
 
@@ -1271,22 +1273,26 @@ function calc(silent=false){
     {label:'Перевод сертификата', val: fmt(1500)},
   ] : [];
   const kyakSelfLogExport = [...kyakBaseLogExport,
-    {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
-    {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
-    {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
-    {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
-    {label:'Стоянка Замын-Удэ', val: mnt(50000)},
-    {label:'Бензин', val: mnt(250000)},
-    {label:'Суточные', val: mnt(200000)},
-    {label:'Билеты до Замын-Удэ', val: mnt(80000)},
-    {label:'Брокер МНГ', val: mnt(900000)},
+    ...(showRF ? [
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
+      {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
+      {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
+      {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
+      {label:'Стоянка Замын-Удэ', val: mnt(50000)},
+      {label:'Бензин', val: mnt(250000)},
+      {label:'Суточные', val: mnt(200000)},
+      {label:'Билеты до Замын-Удэ', val: mnt(80000)},
+      {label:'Брокер МНГ', val: mnt(900000)},
+    ] : []),
   ];
   const kyakEvacLogExport = [...kyakBaseLogExport,
-    {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000)},
-    {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
-    {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
-    {label:'Стоянка Замын-Удэ', val: mnt(50000)},
-    {label:'Брокер МНГ', val: mnt(900000)},
+    ...(showRF ? [
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000)},
+      {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
+      {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
+      {label:'Стоянка Замын-Удэ', val: mnt(50000)},
+      {label:'Брокер МНГ', val: mnt(900000)},
+    ] : []),
   ];
 
   document.getElementById('res').innerHTML = `
