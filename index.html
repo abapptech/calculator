@@ -863,6 +863,13 @@ function onChkToBorderOnly(){
     document.getElementById('comm_select').value = '6800';
     document.getElementById('comm_custom').style.display = 'none';
     onCommSelect();
+  } else {
+    // Возвращаем стандартную комиссию 11000 если она была автоматически выставлена
+    if(document.getElementById('comm_select').value === '6800'){
+      document.getElementById('comm_select').value = '11000';
+      document.getElementById('comm_custom').style.display = 'none';
+      onCommSelect();
+    }
   }
   calc_if_ready();
 }
