@@ -508,7 +508,7 @@ function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0, rate
     // D3: (B5*0.15*КУРСЫ!D3)*1.2 + (акциз*B12)*1.2 + (B5*КУРСЫ!D3)*0.2
     // B5 = макс официальная цена, B12 = мощность ЭД, курс ЦБ
     const a = akcizRate(emHp);
-    return (pMaxCny*0.15*rateCny)*1.2 + (a*emHp)*1.2 + (pMaxCny*rateCny)*0.2;
+    return (pMaxCny*0.15*rateCny)*1.22 + (a*emHp)*1.22 + (pMaxCny*rateCny)*0.22;
   }
 
   // Параллельный гибрид (E3) → как бензин/дизель по объёму (A3/B3/C3)
@@ -555,12 +555,13 @@ function dutyICE(age, pMaxCny, cc, priceEur, rateEur, rateCny) {
 }
 
 function akcizRate(hp) {
-  if (hp > 500) return 1742;
-  if (hp > 400) return 1685;
-  if (hp > 300) return 1628;
-  if (hp > 200) return 955;
-  if (hp > 150) return 583;
-  if (hp > 90)  return 61;
+  // Ставки акциза с 01.01.2026 (ФЗ №425-ФЗ от 28.11.2025), руб. за 1 л.с.
+  if (hp > 500) return 1829;
+  if (hp > 400) return 1771;
+  if (hp > 300) return 1711;
+  if (hp > 200) return 1004;
+  if (hp > 150) return 613;
+  if (hp > 90)  return 64;
   return 0;
 }
 
