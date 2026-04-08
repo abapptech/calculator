@@ -195,9 +195,9 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
-        <label id="price_max_label">Таможенная стоимость (MSRP), ¥</label>
+        <label id="price_max_label">Таможенная стоимость (MSRP) / рыночная цена, ¥</label>
         <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this);calc_if_ready()">
-        <div class="fhint" id="price_max_hint">Для новых авто таможня считается от MSRP (официальная цена производителя)</div>
+        <div class="fhint" id="price_max_hint">Для новых авто — MSRP (официальная цена производителя). Для электро/гибридов любого возраста — рыночная цена, от которой таможня исчисляет пошлину</div>
       </div>
       <div class="frow">
         <div class="field">
@@ -750,6 +750,7 @@ function onType(){
     hint.innerHTML='<span style="color:var(--accent2)">Электро/последовательный гибрид: пошлина считается только от суммарной мощности ЭД</span>';
   }
   updEMHP();
+  updatePriceMaxField();
 }
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
 function fmtN(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU') }
@@ -777,12 +778,34 @@ function parseMasked(id) {
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
 function onAge() {
-  const age = document.getElementById('age').value;
+  updatePriceMaxField();
+}
+
+function updatePriceMaxField() {
+  const age   = document.getElementById('age').value;
+  const etype = document.getElementById('etype').value;
   const fieldMax = document.getElementById('field_price_max');
-  const input = document.getElementById('price_max');
-  if (age === 'new') {
+  const label    = document.getElementById('price_max_label');
+  const hint     = document.getElementById('price_max_hint');
+  const input    = document.getElementById('price_max');
+  const isElectric = etype === 'electric';
+  const isNew      = age === 'new';
+
+  if (isNew || isElectric) {
     fieldMax.style.display = 'block';
-    input.placeholder = 'Обязательно для нового авто';
+    if (isElectric && !isNew) {
+      label.textContent = 'Рыночная стоимость для таможни, ¥';
+      hint.textContent  = 'Для электро/последовательных гибридов таможня, как правило, исчисляет пошлину от рыночной стоимости аналогичного авто';
+      input.placeholder = 'Укажите рыночную цену';
+    } else if (isNew && isElectric) {
+      label.textContent = 'Таможенная стоимость (MSRP / рыночная), ¥';
+      hint.textContent  = 'Для электро таможня использует MSRP или рыночную цену — укажите большую из двух';
+      input.placeholder = 'Обязательно';
+    } else {
+      label.textContent = 'Таможенная стоимость (MSRP), ¥';
+      hint.textContent  = 'Для новых авто таможня считается от MSRP (официальная цена производителя)';
+      input.placeholder = 'Обязательно для нового авто';
+    }
   } else {
     fieldMax.style.display = 'none';
     input.value = '';
@@ -939,7 +962,7 @@ function calc(silent=false){
   if(!pCny){ markError('price_cny', silent); hasError=true; }
   if(!kw && etype!=='electric')  { markError('kw', silent); hasError=true; }
   if(etype!=='electric' && !cc){ markError('cc', silent); hasError=true; }
-  if(age==='new' && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
+  if((age==='new' || etype==='electric') && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
   if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw', silent); hasError=true; }
   if(hasError) return;
 
