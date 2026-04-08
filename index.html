@@ -600,7 +600,11 @@ function utilshor(etype, cc, kw, emKw, age) {
     // Строки 7-15: по кВт ЭД
     return lookElectric(emKw || kw, ci);
   }
-  // Мягкий/параллельный/бензин — по объёму и мощности ДВС
+  if (etype === 'parallel') {
+    // Параллельный гибрид: мощность = ДВС + ЭД
+    return lookICE(cc, kw + (emKw || 0), ci);
+  }
+  // Бензин/дизель — по объёму и мощности ДВС
   return lookICE(cc, kw, ci);
 }
 
@@ -1087,10 +1091,31 @@ function calc(silent=false){
 
   const carName = document.getElementById('car_name').value.trim();
   const cityName = document.getElementById('city_input').value.trim();
+  // Строка спецификации для карточек
+  let carSpec = '';
+  if (etype === 'electric') {
+    if (emKw) carSpec = `30-мин. мощность ЭД: ${emKw} кВт`;
+  } else if (etype === 'parallel') {
+    const _parts = [];
+    if (cc)   _parts.push(`${cc.toLocaleString('ru-RU')} см³`);
+    if (kw)   _parts.push(`ДВС ${kw} кВт`);
+    if (emKw) _parts.push(`ЭД ${emKw} кВт`);
+    carSpec = _parts.join(' · ');
+  } else {
+    const _parts = [];
+    if (cc) _parts.push(`${cc.toLocaleString('ru-RU')} см³`);
+    if (kw) _parts.push(`${kw} кВт`);
+    carSpec = _parts.join(' · ');
+  }
 
   // Сохраняем глобально для карточек
   window._carName = carName;
   window._cityName = cityName;
+  window._carEtype = etype;
+  window._carCc = cc;
+  window._carKw = kw;
+  window._carEmKw = emKw;
+  window._carSpec = carSpec;
   updateCarNameDisplay();
 
   // Общие статьи (одинаковы для всех городов)
@@ -1106,7 +1131,7 @@ function calc(silent=false){
   // Строим массив строк для экспорта карточки
   const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm) => {
     const base = [
-      ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
+      ...((carName || carSpec) ? [{label: [carName, carSpec].filter(Boolean).join('  ·  '), val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
@@ -1510,6 +1535,8 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   const logoEl = document.querySelector('.logo-wrap img');
   const logoSrc = logoEl ? logoEl.src : '';
   const carName = (document.getElementById('car_name') ? document.getElementById('car_name').value.trim() : '') || (window._carName || '').trim();
+  // Строка спецификации под названием
+  const carSpec = window._carSpec || '';
 
   const rowsHtml = rows.map(r => {
     const cls = r.cls === 'red' ? 'ec-val-red' : r.cls === 'tot' ? 'ec-val-tot' : r.cls === 'pct' ? 'ec-val-pct' : 'ec-val';
@@ -1536,7 +1563,7 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
       </div>
     </div>
     <div class="ec-city" style="color:#1a1a2e">${cityTitle}</div>
-    ${carName ? `<div class="ec-city" style="color:#1a1a2e">${carName}</div>` : ''}
+    ${(carName || carSpec) ? `<div class="ec-city" style="color:#1a1a2e">${[carName, carSpec].filter(Boolean).join('  ·  ')}</div>` : ''}
     <div class="ec-total-big">${fmt(total)}</div>
     <div class="ec-rates" id="ec-rates-${cityId}"></div>
     ${rowsHtml}
