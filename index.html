@@ -992,7 +992,7 @@ function calc(silent=false){
   const kyakErlDelivCny = showChinaDelivery ? erlDelivCny : 0;
   const kyakBrokerCny = showBrokerAndBorder ? 2300 : 0;
   const bKBase = pCny + ovhdCny + expDocCny + kyakErlDelivCny + kyakBrokerCny + comm;
-  const cKBase = (showRF ? 15000+40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
+  const cKBase = (showRF ? 40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
 
   // Подитоги расходов в КНР (для vtbComm и секций)
   const alexChinaCny = ovhdCny
@@ -1015,12 +1015,12 @@ function calc(silent=false){
 
   // Самоходом
   const dSelf = 50000+250000+200000+80000+450000+450000;
-  const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + dSelf*rMnt) : 0;
+  const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + 15000 + dSelf*rMnt) : 0;
   const kyakSelf = bKBase*rVtb + cKBase + kyakSelfMongolia;
 
   // Эвакуатор: брокер МНГ 900 000 MNT + стоянка 50 000 MNT + эвакуатор 70 000 ₽
   const dEvacMnt = 50000+900000;
-  const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000) : 0;
+  const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000 + 15000) : 0;
   const kyakEvac = bKBase*rVtb + cKBase + kyakEvacMongolia;
 
   // ── Рендер ──────────────────────────────────────────────────────────────
@@ -1220,7 +1220,7 @@ function calc(silent=false){
     ${row('Перевод сертификата', fmt(1500))}` : '';
 
   const kyakSelfRows = kyakBase + (showRF ? `
-    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
+    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
     ${row('Перевозка Замын-Удэ–Алтанбулаг самоходом', cny(1200))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Билеты Алтанбулаг–Улан-Батор', fmt(5000))}
@@ -1241,9 +1241,11 @@ function calc(silent=false){
   const zabChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny)+' ¥ = '+fmt(zabChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    {label:'Перевозка по Китаю до границы', val: cny(manDelivCny)},
-    {label:'Брокер КНР + ПРР', val: cny(1500)},
-    {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(manDelivCny)}] : []),
+    ...(showBrokerAndBorder ? [
+      {label:'Брокер КНР + ПРР', val: cny(1500)},
+      {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
+    ] : []),
   ];
   const zabLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000)},
@@ -1255,8 +1257,8 @@ function calc(silent=false){
   const alexChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    {label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)},
-    {label:'Перевозка Нур Жолы–Александров', val: cny(14500)},
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
+    ...(showBrokerAndBorder ? [{label:'Перевозка Нур Жолы–Александров', val: cny(14500)}] : []),
   ];
   const alexLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(35000+45000+10000)},
@@ -1268,9 +1270,11 @@ function calc(silent=false){
   const ussChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny)+' ¥ = '+fmt(ussChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    {label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)},
-    {label:'Брокер КНР + ПРР', val: cny(500)},
-    {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)}] : []),
+    ...(showBrokerAndBorder ? [
+      {label:'Брокер КНР + ПРР', val: cny(500)},
+      {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
+    ] : []),
   ];
   const ussLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(55000)},
@@ -1280,8 +1284,8 @@ function calc(silent=false){
   const kyakChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny)+' ¥ = '+fmt(kyakChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    {label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)},
-    {label:'Брокер КНР + ПРР', val: cny(2300)},
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)}] : []),
+    ...(showBrokerAndBorder ? [{label:'Брокер КНР + ПРР', val: cny(2300)}] : []),
   ];
   const kyakBaseLogExport = showRF ? [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal)},
@@ -1293,7 +1297,7 @@ function calc(silent=false){
   ] : [];
   const kyakSelfLogExport = [...kyakBaseLogExport,
     ...(showRF ? [
-      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
       {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
       {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
       {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
