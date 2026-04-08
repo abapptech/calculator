@@ -505,10 +505,14 @@ function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0, rate
   const priceEur = pMaxCny * rateCny / rateEur; // цена в EUR через ЦБ
 
   if (etype === 'electric') {
-    // D3: (B5*0.15*КУРСЫ!D3)*1.2 + (акциз*B12)*1.2 + (B5*КУРСЫ!D3)*0.2
-    // B5 = макс официальная цена, B12 = мощность ЭД, курс ЦБ
-    const a = akcizRate(emHp);
-    return (pMaxCny*0.15*rateCny)*1.22 + (a*emHp)*1.22 + (pMaxCny*rateCny)*0.22;
+    // Пошлина: цена_руб * 15%
+    // Акциз: ставка (руб/0.75кВт) / 0.75 * мощность_кВт
+    // НДС: (цена_руб + пошлина + акциз) * 22%
+    const emKw = emHp / KW2HP; // кВт ЭД
+    const dutyAmt  = pMaxCny * rateCny * 0.15;
+    const excAmt   = akcizRate(emHp) / 0.75 * emKw;
+    const ndsAmt   = (pMaxCny * rateCny + dutyAmt + excAmt) * 0.22;
+    return dutyAmt + excAmt + ndsAmt;
   }
 
   // Параллельный гибрид (E3) → как бензин/дизель по объёму (A3/B3/C3)
