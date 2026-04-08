@@ -309,7 +309,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
           <div class="field"><label>До Хоргоса</label><input type="number" id="d_hor" readonly style="color:var(--accent2)"></div>
         </div>
         <div id="delivery_calc_block" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--text2)">
-          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 800)</div>
+          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 1200)</div>
           <div class="frow" style="margin-bottom:4px">
             <div>Забайкальск: <span id="dc_man" style="color:var(--accent2);font-weight:600"></span></div>
             <div>Кяхта: <span id="dc_erl" style="color:var(--accent2);font-weight:600"></span></div>
@@ -438,12 +438,12 @@ async function loadDistances(cityName) {
       document.getElementById('dist_source').textContent='OSRM · реальные дороги';
       document.getElementById('city_reset_btn').style.display='block';
 
-      // Расчётная стоимость перевозки по формуле км×1.5+800 (Александров: +14500)
+      // Расчётная стоимость перевозки по формуле км×1.5+1200 (Александров: +14500)
       const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
-      document.getElementById('dc_man').textContent = fmtCny(man*1.5+800);
-      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+800);
-      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+800);
-      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+800+14500);
+      document.getElementById('dc_man').textContent = fmtCny(man*1.5+1200);
+      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+1200);
+      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+1200);
+      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+1200+14500);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
       calc_if_ready();
@@ -481,7 +481,7 @@ function hideDropdown() {
   if(val&&!currentDistances) loadDistances(val);
 }
 
-// Формула перевозки из таблицы: dist*1.5+800 (+14500 для Хоргоса)
+// Формула перевозки из таблицы: dist*1.5+1200 (+14500 для Хоргоса)
 function delivery() {
   // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
   const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
