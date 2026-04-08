@@ -961,8 +961,8 @@ function calc(silent=false){
   // ── АЛЕКСАНДРОВ ──────────────────────────────────────────────────────────
   const alexDelivCny = dManual ? deliveryManual : d.alex;
   const alexCNY = pCny + ovhdCny
-    + (showChinaDelivery && age!=='new' ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder && age!=='new' ? 14500 : 0)
+    + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
+    + (showBrokerAndBorder ? 14500 : 0)
     + comm;
   const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
   const alexandrov = alexCNY*rVtb + alexRUB;
@@ -970,8 +970,8 @@ function calc(silent=false){
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
   const manDelivCny = dManual ? deliveryManual : d.man;
   const zabCNY = pCny + ovhdCny
-    + (showChinaDelivery && age!=='new' ? manDelivCny : 0)
-    + (showBrokerAndBorder && age!=='new' ? 1500+3500 : 0)
+    + (showChinaDelivery ? manDelivCny : 0)
+    + (showBrokerAndBorder ? 1500+3500 : 0)
     + comm;
   const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
   const zabaikalsk = zabCNY*rVtb + zabRUB;
@@ -979,8 +979,8 @@ function calc(silent=false){
   // ── УССУРИЙСК ────────────────────────────────────────────────────────────
   const suiDelivCny = dManual ? deliveryManual : d.sui;
   const ussCNY = pCny + ovhdCny
-    + (showChinaDelivery && age!=='new' ? suiDelivCny : 0)
-    + (showBrokerAndBorder && age!=='new' ? 500+2500 : 0)
+    + (showChinaDelivery ? suiDelivCny : 0)
+    + (showBrokerAndBorder ? 500+2500 : 0)
     + comm;
   const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+clear+util : 0);
   const ussuriysk = ussCNY*rVtb + ussRUB;
@@ -989,8 +989,8 @@ function calc(silent=false){
   // Кяхта всегда показывает полный маршрут (галочки на неё не влияют)
   const rMnt = 0.0227417 * 1.03;
   const erlDelivCny = dManual ? deliveryManual : d.erl;
-  const kyakErlDelivCny = showChinaDelivery && age!=='new' ? erlDelivCny : 0;
-  const kyakBrokerCny = showBrokerAndBorder && age!=='new' ? 2300 : 0;
+  const kyakErlDelivCny = showChinaDelivery ? erlDelivCny : 0;
+  const kyakBrokerCny = showBrokerAndBorder ? 2300 : 0;
   const bKBase = pCny + ovhdCny + expDocCny + kyakErlDelivCny + kyakBrokerCny + comm;
   const cKBase = (showRF ? 15000+40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
 
@@ -1061,7 +1061,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость')}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}
+    ${age === 'new' ? row('Таможенная стоимость MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${sec('Комиссия')}
@@ -1072,9 +1072,9 @@ function calc(silent=false){
     const base = [
       ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
-      {type:'sec', label:'Стоимость', subtotal: cny(age === 'new' ? pTax : pCny)},
+      {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
-      ...(age === 'new' ? [{label:'Таможенная стоимость (MSRP)', val: cny(pTax)}] : []),
+      ...(age === 'new' ? [{label:'Таможенная стоимость MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
       ...chinaExportRows,
       {type:'sec', label:'Комиссия', subtotal: cny(comm)},
       {label:'Комиссия Abapp', val: cny(comm)},
@@ -1186,9 +1186,9 @@ function calc(silent=false){
   const commonRowsBase = `
     ${carName ? row('Автомобиль', carName) : ''}
     ${row('Город покупки в КНР', cityName || '—')}
-    ${sec('Стоимость', cny(age === 'new' ? pTax : pCny))}
+    ${sec('Стоимость', cny(pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}`;
+    ${age === 'new' ? row('Таможенная стоимость MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
 
   const commRows = `
     ${sec('Комиссия', cny(comm))}
