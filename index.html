@@ -486,11 +486,11 @@ function delivery() {
   // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
   const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
   return {
-    alex:     d.hor ? d.hor*1.5+800+14500 : 14500,
-    alex_cn:  d.hor ? d.hor*1.5+800 : 0,
-    man:  d.man ? d.man*1.5+800 : 0,
-    erl:  d.erl ? d.erl*1.5+800 : 0,
-    sui:  d.sui ? d.sui*1.5+800 : 0,
+    alex:     d.hor ? d.hor*1.5+1200+14500 : 14500,
+    alex_cn:  d.hor ? d.hor*1.5+1200 : 0,
+    man:  d.man ? d.man*1.5+1200 : 0,
+    erl:  d.erl ? d.erl*1.5+1200 : 0,
+    sui:  d.sui ? d.sui*1.5+1200 : 0,
   };
 }
 
