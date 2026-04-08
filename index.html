@@ -505,14 +505,9 @@ function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0, rate
   const priceEur = pMaxCny * rateCny / rateEur; // цена в EUR через ЦБ
 
   if (etype === 'electric') {
-    // Пошлина: цена_руб * 15%
-    // Акциз: ставка (руб/0.75кВт) / 0.75 * мощность_кВт
-    // НДС: (цена_руб + пошлина + акциз) * 22%
-    const emKw = emHp / KW2HP; // кВт ЭД
-    const dutyAmt  = pMaxCny * rateCny * 0.15;
-    const excAmt   = akcizRate(emHp) / 0.75 * emKw;
-    const ndsAmt   = (pMaxCny * rateCny + dutyAmt + excAmt) * 0.22;
-    return dutyAmt + excAmt + ndsAmt;
+    // Только пошлина 15% от таможенной стоимости
+    const rateCnyLocal = rateCnyCbr || rateVtb;
+    return pMaxCny * rateCnyLocal * 0.15;
   }
 
   // Параллельный гибрид (E3) → как бензин/дизель по объёму (A3/B3/C3)
@@ -567,6 +562,19 @@ function akcizRate(hp) {
   if (hp > 150) return 613;
   if (hp > 90)  return 64;
   return 0;
+}
+
+// ── Акциз на электро/последовательный гибрид ────────────────────────────────
+function customsExcise(etype, emHp) {
+  if (etype !== 'electric') return 0;
+  const emKw = emHp / KW2HP;
+  return akcizRate(emHp) / 0.75 * emKw;
+}
+
+// ── НДС на электро/последовательный гибрид ──────────────────────────────────
+function customsNDS(etype, pMaxCny, rateCny, duty, excise) {
+  if (etype !== 'electric') return 0;
+  return (pMaxCny * rateCny + duty + excise) * 0.22;
 }
 
 // ── Таможенное оформление (INPUT CN B24) ────────────────────────────────────
@@ -947,6 +955,8 @@ function calc(silent=false){
 
   // Пошлина, таможенное оформление, утильсбор
   const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
+  const excise = customsExcise(etype, emHp);
+  const nds    = customsNDS(etype, pTax, rCbr || rVtb, duty, excise);
   const clear  = customsClear(pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500;
@@ -969,7 +979,7 @@ function calc(silent=false){
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
     + (showBrokerAndBorder ? 14500 : 0)
     + comm;
-  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
+  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
   const alexandrov = alexCNY*rVtb + alexRUB;
 
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
@@ -978,7 +988,7 @@ function calc(silent=false){
     + (showChinaDelivery ? manDelivCny : 0)
     + (showBrokerAndBorder ? 1500+3500 : 0)
     + comm;
-  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
+  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
   const zabaikalsk = zabCNY*rVtb + zabRUB;
 
   // ── УССУРИЙСК ────────────────────────────────────────────────────────────
@@ -987,7 +997,7 @@ function calc(silent=false){
     + (showChinaDelivery ? suiDelivCny : 0)
     + (showBrokerAndBorder ? 500+2500 : 0)
     + comm;
-  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+clear+util : 0);
+  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
   const ussuriysk = ussCNY*rVtb + ussRUB;
 
   // ── КЯХТА ────────────────────────────────────────────────────────────────
@@ -997,7 +1007,7 @@ function calc(silent=false){
   const kyakErlDelivCny = showChinaDelivery ? erlDelivCny : 0;
   const kyakBrokerCny = showBrokerAndBorder ? 2300 : 0;
   const bKBase = pCny + ovhdCny + expDocCny + kyakErlDelivCny + kyakBrokerCny + comm;
-  const cKBase = (showRF ? 40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
+  const cKBase = (showRF ? 40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
 
   // Подитоги расходов в КНР (для vtbComm и секций)
   const alexChinaCny = ovhdCny
@@ -1085,8 +1095,10 @@ function calc(silent=false){
       {label:'Комиссия Abapp', val: cny(comm)},
       ...(showRF ? logisticRows : []),
       ...(showTax ? [
-        {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
+        {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+excise+nds+clear+util)},
         {label:'Таможенная пошлина', val: fmt(duty)},
+        ...(excise ? [{label:'Акциз', val: fmt(excise)}] : []),
+        ...(nds ? [{label:'НДС (22%)', val: fmt(nds)}] : []),
         {label:'Таможенное оформление', val: fmt(clear)},
         {label:'Утилизационный сбор', val: fmt(util)},
       ] : []),
@@ -1097,8 +1109,10 @@ function calc(silent=false){
   };
 
   const taxRows = showTax ? `
-    ${sec('Таможенные платежи', fmt(duty + clear + util))}
+    ${sec('Таможенные платежи', fmt(duty + excise + nds + clear + util))}
     ${row('Таможенная пошлина', fmt(duty))}
+    ${excise ? row('Акциз', fmt(excise)) : ''}
+    ${nds ? row('НДС (22%)', fmt(nds)) : ''}
     ${row('Таможенное оформление', fmt(clear))}
     ${row('Утилизационный сбор', fmt(util))}` : '';
 
