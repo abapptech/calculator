@@ -984,7 +984,7 @@ function calc(silent=false){
   const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
   const excise = customsExcise(etype, emHp);
   const nds    = customsNDS(etype, pTax, rCbr || rVtb, duty, excise);
-  const clear  = customsClear(age === 'new' ? pTax : pCny, rVtb);
+  const clear  = customsClear((age === 'new' || etype === 'electric') ? pTax : pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500;
 
