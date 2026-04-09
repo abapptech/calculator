@@ -1111,7 +1111,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость')}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
+    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}`;
 
@@ -1122,7 +1122,7 @@ function calc(silent=false){
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
-      ...(age === 'new' ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
+      ...((age === 'new' || etype === 'electric') ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
       ...chinaExportRows,
       ...(showRF ? logisticRows : []),
       ...(showTax ? [
@@ -1240,7 +1240,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость', cny(pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
+    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
 
   const commRows = `
     ${sec('Комиссия', cny(comm))}
