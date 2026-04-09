@@ -195,7 +195,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
-        <label id="price_max_label">Таможенная стоимость (MSRP) / рыночная цена, ¥</label>
+        <label id="price_max_label">MSRP / рыночная цена, ¥</label>
         <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this);calc_if_ready()">
         <div class="fhint" id="price_max_hint">Для новых авто — MSRP (официальная цена производителя). Для электро/гибридов любого возраста — рыночная цена, от которой таможня исчисляет пошлину</div>
       </div>
@@ -802,11 +802,11 @@ function updatePriceMaxField() {
       hint.textContent  = 'Для электро/последовательных гибридов таможня, как правило, исчисляет пошлину от рыночной стоимости аналогичного авто';
       input.placeholder = 'Укажите рыночную цену';
     } else if (isNew && isElectric) {
-      label.textContent = 'Таможенная стоимость (MSRP / рыночная), ¥';
+      label.textContent = 'MSRP / рыночная цена, ¥';
       hint.textContent  = 'Для электро таможня использует MSRP или рыночную цену — укажите большую из двух';
       input.placeholder = 'Обязательно';
     } else {
-      label.textContent = 'Таможенная стоимость (MSRP), ¥';
+      label.textContent = 'MSRP, ¥';
       hint.textContent  = 'Для новых авто таможня считается от MSRP (официальная цена производителя)';
       input.placeholder = 'Обязательно для нового авто';
     }
@@ -984,7 +984,7 @@ function calc(silent=false){
   const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
   const excise = customsExcise(etype, emHp);
   const nds    = customsNDS(etype, pTax, rCbr || rVtb, duty, excise);
-  const clear  = customsClear(pCny, rVtb);
+  const clear  = customsClear(age === 'new' ? pTax : pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500;
 
@@ -1092,21 +1092,8 @@ function calc(silent=false){
   const carName = document.getElementById('car_name').value.trim();
   const cityName = document.getElementById('city_input').value.trim();
   // Строка спецификации для карточек
-  let carSpec = '';
-  if (etype === 'electric') {
-    if (emKw) carSpec = `30-мин. мощность ЭД: ${emKw} кВт`;
-  } else if (etype === 'parallel') {
-    const _parts = [];
-    if (cc)   _parts.push(`${cc.toLocaleString('ru-RU')} см³`);
-    if (kw)   _parts.push(`ДВС ${kw} кВт`);
-    if (emKw) _parts.push(`ЭД ${emKw} кВт`);
-    carSpec = _parts.join(' · ');
-  } else {
-    const _parts = [];
-    if (cc) _parts.push(`${cc.toLocaleString('ru-RU')} см³`);
-    if (kw) _parts.push(`${kw} кВт`);
-    carSpec = _parts.join(' · ');
-  }
+  // Спецификация: только объём ДВС (для не-электро)
+  const carSpec = (etype !== 'electric' && cc) ? `${cc.toLocaleString('ru-RU')} см³` : '';
 
   // Сохраняем глобально для карточек
   window._carName = carName;
@@ -1124,7 +1111,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость')}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('Таможенная стоимость MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
+    ${age === 'new' ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}`;
 
@@ -1135,7 +1122,7 @@ function calc(silent=false){
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
-      ...(age === 'new' ? [{label:'Таможенная стоимость MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
+      ...(age === 'new' ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
       ...chinaExportRows,
       ...(showRF ? logisticRows : []),
       ...(showTax ? [
@@ -1253,7 +1240,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость', cny(pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${age === 'new' ? row('Таможенная стоимость MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
+    ${age === 'new' ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
 
   const commRows = `
     ${sec('Комиссия', cny(comm))}
