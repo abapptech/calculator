@@ -126,19 +126,19 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .ec-city{font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
 .ec-total-big{font-size:30px;font-weight:900;color:#cc2200;margin-bottom:14px}
 .ec-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.ec-rate{font-size:9px;color:#555;background:#f5f5f5;padding:3px 8px;border-radius:4px}
+.ec-rate{font-size:10px;color:#555;background:#f5f5f5;padding:3px 8px;border-radius:4px}
 .ec-rate span{color:#cc2200;font-weight:600}
-.ec-sec{font-size:9px;color:#cc2200;letter-spacing:.1em;text-transform:uppercase;margin:12px 0 5px;font-weight:600}
-.ec-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:10px}
+.ec-sec{font-size:11px;color:#cc2200;letter-spacing:.08em;text-transform:uppercase;margin:14px 0 6px;font-weight:600}
+.ec-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
 .ec-key{color:#555}
 .ec-val{color:#1a1a2e;font-weight:500}
 .ec-val-red{color:#cc2200;font-weight:500}
-.ec-val-tot{color:#cc2200;font-weight:700;font-size:12px}
+.ec-val-tot{color:#cc2200;font-weight:700;font-size:14px}
 .ec-val-pct{color:#e05500;font-weight:500}
 .ec-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff3f0;border-radius:8px;margin-top:10px;border:1px solid #f0c0b0}
-.ec-total-key{font-size:11px;color:#aa3300;font-weight:600}
-.ec-total-val{font-size:18px;font-weight:700;color:#cc2200}
-.ec-footer{margin-top:14px;padding-top:10px;border-top:1px solid #e0e0e0;font-size:8px;color:#888;line-height:1.7}
+.ec-total-key{font-size:13px;color:#aa3300;font-weight:600}
+.ec-total-val{font-size:22px;font-weight:700;color:#cc2200}
+.ec-footer{margin-top:16px;padding-top:10px;border-top:1px solid #e0e0e0;font-size:7px;color:#aaa;line-height:1.6}
 
 /* ── Модалка предпросмотра карточки ── */
 #card-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;align-items:center;justify-content:center;padding:16px}
@@ -195,9 +195,9 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
-        <label id="price_max_label">MSRP / рыночная цена, ¥</label>
+        <label id="price_max_label">Таможенная стоимость (MSRP), ¥</label>
         <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this);calc_if_ready()">
-        <div class="fhint" id="price_max_hint">Для новых авто — MSRP (официальная цена производителя). Для электро/гибридов любого возраста — рыночная цена, от которой таможня исчисляет пошлину</div>
+        <div class="fhint" id="price_max_hint">Для новых авто таможня считается от MSRP (официальная цена производителя)</div>
       </div>
       <div class="frow">
         <div class="field">
@@ -309,7 +309,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
           <div class="field"><label>До Хоргоса</label><input type="number" id="d_hor" readonly style="color:var(--accent2)"></div>
         </div>
         <div id="delivery_calc_block" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--text2)">
-          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 1200)</div>
+          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 800)</div>
           <div class="frow" style="margin-bottom:4px">
             <div>Забайкальск: <span id="dc_man" style="color:var(--accent2);font-weight:600"></span></div>
             <div>Кяхта: <span id="dc_erl" style="color:var(--accent2);font-weight:600"></span></div>
@@ -438,12 +438,12 @@ async function loadDistances(cityName) {
       document.getElementById('dist_source').textContent='OSRM · реальные дороги';
       document.getElementById('city_reset_btn').style.display='block';
 
-      // Расчётная стоимость перевозки по формуле км×1.5+1200 (Александров: +14500)
+      // Расчётная стоимость перевозки по формуле км×1.5+800 (Александров: +14500)
       const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
-      document.getElementById('dc_man').textContent = fmtCny(man*1.5+1200);
-      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+1200);
-      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+1200);
-      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+1200+14500);
+      document.getElementById('dc_man').textContent = fmtCny(man*1.5+800);
+      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+800);
+      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+800);
+      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+800+14500);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
       calc_if_ready();
@@ -481,16 +481,16 @@ function hideDropdown() {
   if(val&&!currentDistances) loadDistances(val);
 }
 
-// Формула перевозки из таблицы: dist*1.5+1200 (+14500 для Хоргоса)
+// Формула перевозки из таблицы: dist*1.5+800 (+14500 для Хоргоса)
 function delivery() {
   // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
   const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
   return {
-    alex:     d.hor ? d.hor*1.5+1200+14500 : 14500,
-    alex_cn:  d.hor ? d.hor*1.5+1200 : 0,
-    man:  d.man ? d.man*1.5+1200 : 0,
-    erl:  d.erl ? d.erl*1.5+1200 : 0,
-    sui:  d.sui ? d.sui*1.5+1200 : 0,
+    alex:     d.hor ? d.hor*1.5+800+14500 : 14500,
+    alex_cn:  d.hor ? d.hor*1.5+800 : 0,
+    man:  d.man ? d.man*1.5+800 : 0,
+    erl:  d.erl ? d.erl*1.5+800 : 0,
+    sui:  d.sui ? d.sui*1.5+800 : 0,
   };
 }
 
@@ -505,9 +505,10 @@ function customsDuty(etype, age, pMaxCny, cc, emHp, rateVtb, rateEur, kw=0, rate
   const priceEur = pMaxCny * rateCny / rateEur; // цена в EUR через ЦБ
 
   if (etype === 'electric') {
-    // Только пошлина 15% от таможенной стоимости
-    const rateCnyLocal = rateCnyCbr || rateVtb;
-    return pMaxCny * rateCnyLocal * 0.15;
+    // D3: (B5*0.15*КУРСЫ!D3)*1.2 + (акциз*B12)*1.2 + (B5*КУРСЫ!D3)*0.2
+    // B5 = макс официальная цена, B12 = мощность ЭД, курс ЦБ
+    const a = akcizRate(emHp);
+    return (pMaxCny*0.15*rateCny)*1.2 + (a*emHp)*1.2 + (pMaxCny*rateCny)*0.2;
   }
 
   // Параллельный гибрид (E3) → как бензин/дизель по объёму (A3/B3/C3)
@@ -554,27 +555,13 @@ function dutyICE(age, pMaxCny, cc, priceEur, rateEur, rateCny) {
 }
 
 function akcizRate(hp) {
-  // Ставки акциза с 01.01.2026 (ФЗ №425-ФЗ от 28.11.2025), руб. за 1 л.с.
-  if (hp > 500) return 1829;
-  if (hp > 400) return 1771;
-  if (hp > 300) return 1711;
-  if (hp > 200) return 1004;
-  if (hp > 150) return 613;
-  if (hp > 90)  return 64;
+  if (hp > 500) return 1742;
+  if (hp > 400) return 1685;
+  if (hp > 300) return 1628;
+  if (hp > 200) return 955;
+  if (hp > 150) return 583;
+  if (hp > 90)  return 61;
   return 0;
-}
-
-// ── Акциз на электро/последовательный гибрид ────────────────────────────────
-function customsExcise(etype, emHp) {
-  if (etype !== 'electric') return 0;
-  const emKw = emHp / KW2HP;
-  return akcizRate(emHp) / 0.75 * emKw;
-}
-
-// ── НДС на электро/последовательный гибрид ──────────────────────────────────
-function customsNDS(etype, pMaxCny, rateCny, duty, excise) {
-  if (etype !== 'electric') return 0;
-  return (pMaxCny * rateCny + duty + excise) * 0.22;
 }
 
 // ── Таможенное оформление (INPUT CN B24) ────────────────────────────────────
@@ -600,11 +587,7 @@ function utilshor(etype, cc, kw, emKw, age) {
     // Строки 7-15: по кВт ЭД
     return lookElectric(emKw || kw, ci);
   }
-  if (etype === 'parallel') {
-    // Параллельный гибрид: мощность = ДВС + ЭД
-    return lookICE(cc, kw + (emKw || 0), ci);
-  }
-  // Бензин/дизель — по объёму и мощности ДВС
+  // Мягкий/параллельный/бензин — по объёму и мощности ДВС
   return lookICE(cc, kw, ci);
 }
 
@@ -754,7 +737,6 @@ function onType(){
     hint.innerHTML='<span style="color:var(--accent2)">Электро/последовательный гибрид: пошлина считается только от суммарной мощности ЭД</span>';
   }
   updEMHP();
-  updatePriceMaxField();
 }
 function fmt(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU')+' ₽' }
 function fmtN(n){ return n==null||isNaN(n)?'—':Math.round(n).toLocaleString('ru-RU') }
@@ -782,34 +764,12 @@ function parseMasked(id) {
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
 function onAge() {
-  updatePriceMaxField();
-}
-
-function updatePriceMaxField() {
-  const age   = document.getElementById('age').value;
-  const etype = document.getElementById('etype').value;
+  const age = document.getElementById('age').value;
   const fieldMax = document.getElementById('field_price_max');
-  const label    = document.getElementById('price_max_label');
-  const hint     = document.getElementById('price_max_hint');
-  const input    = document.getElementById('price_max');
-  const isElectric = etype === 'electric';
-  const isNew      = age === 'new';
-
-  if (isNew || isElectric) {
+  const input = document.getElementById('price_max');
+  if (age === 'new') {
     fieldMax.style.display = 'block';
-    if (isElectric && !isNew) {
-      label.textContent = 'Рыночная стоимость для таможни, ¥';
-      hint.textContent  = 'Для электро/последовательных гибридов таможня, как правило, исчисляет пошлину от рыночной стоимости аналогичного авто';
-      input.placeholder = 'Укажите рыночную цену';
-    } else if (isNew && isElectric) {
-      label.textContent = 'MSRP / рыночная цена, ¥';
-      hint.textContent  = 'Для электро таможня использует MSRP или рыночную цену — укажите большую из двух';
-      input.placeholder = 'Обязательно';
-    } else {
-      label.textContent = 'MSRP, ¥';
-      hint.textContent  = 'Для новых авто таможня считается от MSRP (официальная цена производителя)';
-      input.placeholder = 'Обязательно для нового авто';
-    }
+    input.placeholder = 'Обязательно для нового авто';
   } else {
     fieldMax.style.display = 'none';
     input.value = '';
@@ -892,12 +852,6 @@ function calc_if_ready(){
 function onChkDeliveryIncluded(){
   if(document.getElementById('chk_delivery_included').checked){
     document.getElementById('chk_to_border_only').checked = false;
-    // Возвращаем стандартную комиссию 11000 если была автоматически выставлена 6800
-    if(document.getElementById('comm_select').value === '6800'){
-      document.getElementById('comm_select').value = '11000';
-      document.getElementById('comm_custom').style.display = 'none';
-      onCommSelect();
-    }
   }
   calc_if_ready();
 }
@@ -909,13 +863,6 @@ function onChkToBorderOnly(){
     document.getElementById('comm_select').value = '6800';
     document.getElementById('comm_custom').style.display = 'none';
     onCommSelect();
-  } else {
-    // Возвращаем стандартную комиссию 11000 если она была автоматически выставлена
-    if(document.getElementById('comm_select').value === '6800'){
-      document.getElementById('comm_select').value = '11000';
-      document.getElementById('comm_custom').style.display = 'none';
-      onCommSelect();
-    }
   }
   calc_if_ready();
 }
@@ -966,7 +913,7 @@ function calc(silent=false){
   if(!pCny){ markError('price_cny', silent); hasError=true; }
   if(!kw && etype!=='electric')  { markError('kw', silent); hasError=true; }
   if(etype!=='electric' && !cc){ markError('cc', silent); hasError=true; }
-  if((age==='new' || etype==='electric') && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
+  if(age==='new' && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
   if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw', silent); hasError=true; }
   if(hasError) return;
 
@@ -982,9 +929,7 @@ function calc(silent=false){
 
   // Пошлина, таможенное оформление, утильсбор
   const duty   = customsDuty(etype, age, pTax, cc, emHp, rVtb, rEur, kw, rCbr);
-  const excise = customsExcise(etype, emHp);
-  const nds    = customsNDS(etype, pTax, rCbr || rVtb, duty, excise);
-  const clear  = customsClear((age === 'new' || etype === 'electric') ? pTax : pCny, rVtb);
+  const clear  = customsClear(pCny, rVtb);
   const util   = utilshor(etype, cc, kw, emKw, age);
   const expertiza = (age==='new') ? 4500 : 1500;
 
@@ -1003,38 +948,38 @@ function calc(silent=false){
   // ── АЛЕКСАНДРОВ ──────────────────────────────────────────────────────────
   const alexDelivCny = dManual ? deliveryManual : d.alex;
   const alexCNY = pCny + ovhdCny
-    + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? 14500 : 0)
+    + (showChinaDelivery && age!=='new' ? (dManual ? deliveryManual : d.alex_cn) : 0)
+    + (showBrokerAndBorder && age!=='new' ? 14500 : 0)
     + comm;
-  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
   const alexandrov = alexCNY*rVtb + alexRUB;
 
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
   const manDelivCny = dManual ? deliveryManual : d.man;
   const zabCNY = pCny + ovhdCny
-    + (showChinaDelivery ? manDelivCny : 0)
-    + (showBrokerAndBorder ? 1500+3500 : 0)
+    + (showChinaDelivery && age!=='new' ? manDelivCny : 0)
+    + (showBrokerAndBorder && age!=='new' ? 1500+3500 : 0)
     + comm;
-  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+clear+util : 0);
   const zabaikalsk = zabCNY*rVtb + zabRUB;
 
   // ── УССУРИЙСК ────────────────────────────────────────────────────────────
   const suiDelivCny = dManual ? deliveryManual : d.sui;
   const ussCNY = pCny + ovhdCny
-    + (showChinaDelivery ? suiDelivCny : 0)
-    + (showBrokerAndBorder ? 500+2500 : 0)
+    + (showChinaDelivery && age!=='new' ? suiDelivCny : 0)
+    + (showBrokerAndBorder && age!=='new' ? 500+2500 : 0)
     + comm;
-  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+clear+util : 0);
   const ussuriysk = ussCNY*rVtb + ussRUB;
 
   // ── КЯХТА ────────────────────────────────────────────────────────────────
   // Кяхта всегда показывает полный маршрут (галочки на неё не влияют)
   const rMnt = 0.0227417 * 1.03;
   const erlDelivCny = dManual ? deliveryManual : d.erl;
-  const kyakErlDelivCny = showChinaDelivery ? erlDelivCny : 0;
-  const kyakBrokerCny = showBrokerAndBorder ? 2300 : 0;
+  const kyakErlDelivCny = showChinaDelivery && age!=='new' ? erlDelivCny : 0;
+  const kyakBrokerCny = showBrokerAndBorder && age!=='new' ? 2300 : 0;
   const bKBase = pCny + ovhdCny + expDocCny + kyakErlDelivCny + kyakBrokerCny + comm;
-  const cKBase = (showRF ? 40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+  const cKBase = (showRF ? 15000+40000+6000+20000+expertiza+1500 : 0) + (showTax ? duty+clear+util : 0);
 
   // Подитоги расходов в КНР (для vtbComm и секций)
   const alexChinaCny = ovhdCny
@@ -1057,12 +1002,12 @@ function calc(silent=false){
 
   // Самоходом
   const dSelf = 50000+250000+200000+80000+450000+450000;
-  const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + 15000 + dSelf*rMnt) : 0;
+  const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + dSelf*rMnt) : 0;
   const kyakSelf = bKBase*rVtb + cKBase + kyakSelfMongolia;
 
   // Эвакуатор: брокер МНГ 900 000 MNT + стоянка 50 000 MNT + эвакуатор 70 000 ₽
   const dEvacMnt = 50000+900000;
-  const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000 + 15000) : 0;
+  const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000) : 0;
   const kyakEvac = bKBase*rVtb + cKBase + kyakEvacMongolia;
 
   // ── Рендер ──────────────────────────────────────────────────────────────
@@ -1091,18 +1036,10 @@ function calc(silent=false){
 
   const carName = document.getElementById('car_name').value.trim();
   const cityName = document.getElementById('city_input').value.trim();
-  // Строка спецификации для карточек
-  // Спецификация: только объём ДВС (для не-электро)
-  const carSpec = (etype !== 'electric' && cc) ? `${cc.toLocaleString('ru-RU')} см³` : '';
 
   // Сохраняем глобально для карточек
   window._carName = carName;
   window._cityName = cityName;
-  window._carEtype = etype;
-  window._carCc = cc;
-  window._carKw = kw;
-  window._carEmKw = emKw;
-  window._carSpec = carSpec;
   updateCarNameDisplay();
 
   // Общие статьи (одинаковы для всех городов)
@@ -1111,30 +1048,30 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость')}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
+    ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}
     ${sec('Расходы в КНР')}
-    ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}`;
+    ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
+    ${sec('Комиссия')}
+    ${row('Комиссия Abapp', cny(comm))}`;
 
   // Строим массив строк для экспорта карточки
   const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm) => {
     const base = [
-      ...((carName || carSpec) ? [{label: [carName, carSpec].filter(Boolean).join('  ·  '), val: '', cls:'tot'}] : []),
+      ...(carName ? [{label: carName, val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
-      {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
+      {type:'sec', label:'Стоимость', subtotal: cny(age === 'new' ? pTax : pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
-      ...((age === 'new' || etype === 'electric') ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
+      ...(age === 'new' ? [{label:'Таможенная стоимость (MSRP)', val: cny(pTax)}] : []),
       ...chinaExportRows,
+      {type:'sec', label:'Комиссия', subtotal: cny(comm)},
+      {label:'Комиссия Abapp', val: cny(comm)},
       ...(showRF ? logisticRows : []),
       ...(showTax ? [
-        {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+excise+nds+clear+util)},
+        {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+clear+util)},
         {label:'Таможенная пошлина', val: fmt(duty)},
-        ...(excise ? [{label:'Акциз', val: fmt(excise)}] : []),
-        ...(nds ? [{label:'НДС (22%)', val: fmt(nds)}] : []),
         {label:'Таможенное оформление', val: fmt(clear)},
         {label:'Утилизационный сбор', val: fmt(util)},
       ] : []),
-      {type:'sec', label:'Комиссия', subtotal: cny(comm)},
-      {label:'Комиссия Abapp', val: cny(comm)},
       {type:'total', label:'ИТОГО', val: fmt(total)},
       {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
     ];
@@ -1142,10 +1079,8 @@ function calc(silent=false){
   };
 
   const taxRows = showTax ? `
-    ${sec('Таможенные платежи', fmt(duty + excise + nds + clear + util))}
+    ${sec('Таможенные платежи', fmt(duty + clear + util))}
     ${row('Таможенная пошлина', fmt(duty))}
-    ${excise ? row('Акциз', fmt(excise)) : ''}
-    ${nds ? row('НДС (22%)', fmt(nds)) : ''}
     ${row('Таможенное оформление', fmt(clear))}
     ${row('Утилизационный сбор', fmt(util))}` : '';
 
@@ -1162,9 +1097,9 @@ function calc(silent=false){
       <div class="bbody hidden">
         ${commonRowsBase}
         ${chinaRows}
+        ${commRows}
         ${items}
         ${taxRows}
-        ${commRows}
         ${rowHL('ИТОГО', fmt(total))}
         <div class="br" style="padding:6px 0">
           <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно)</span>
@@ -1238,9 +1173,9 @@ function calc(silent=false){
   const commonRowsBase = `
     ${carName ? row('Автомобиль', carName) : ''}
     ${row('Город покупки в КНР', cityName || '—')}
-    ${sec('Стоимость', cny(pCny))}
+    ${sec('Стоимость', cny(age === 'new' ? pTax : pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
+    ${age === 'new' ? row('Таможенная стоимость (MSRP)', cny(pTax)) : ''}`;
 
   const commRows = `
     ${sec('Комиссия', cny(comm))}
@@ -1271,8 +1206,8 @@ function calc(silent=false){
     ${row('Экспертное заключение', fmt(expertiza))}
     ${row('Перевод сертификата', fmt(1500))}` : '';
 
-  const kyakSelfRows = (showRF ? `
-    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
+  const kyakSelfRows = kyakBase + (showRF ? `
+    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
     ${row('Перевозка Замын-Удэ–Алтанбулаг самоходом', cny(1200))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Билеты Алтанбулаг–Улан-Батор', fmt(5000))}
@@ -1280,24 +1215,22 @@ function calc(silent=false){
     ${row('Бензин', mnt(250000))}
     ${row('Суточные', mnt(200000))}
     ${row('Билеты до Замын-Удэ', mnt(80000))}
-    ${row('Брокер МНГ', mnt(450000+450000))}` : '') + kyakBase;
+    ${row('Брокер МНГ', mnt(450000+450000))}` : '');
 
-  const kyakEvacRows = (showRF ? `
+  const kyakEvacRows = kyakBase + (showRF ? `
     ${sec('Транзит по Монголии', fmt((50000+900000)*rMnt + 70000 + 15000))}
     ${row('Перевозка эвакуатором Замын-Удэ – Алтанбулаг', fmt(70000))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Стоянка Замын-Удэ', mnt(50000))}
-    ${row('Брокер МНГ', mnt(900000))}` : '') + kyakBase;
+    ${row('Брокер МНГ', mnt(900000))}` : '');
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny)+' ¥ = '+fmt(zabChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(manDelivCny)}] : []),
-    ...(showBrokerAndBorder ? [
-      {label:'Брокер КНР + ПРР', val: cny(1500)},
-      {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
-    ] : []),
+    {label:'Перевозка по Китаю до границы', val: cny(manDelivCny)},
+    {label:'Брокер КНР + ПРР', val: cny(1500)},
+    {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
   ];
   const zabLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000)},
@@ -1309,8 +1242,8 @@ function calc(silent=false){
   const alexChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
-    ...(showBrokerAndBorder ? [{label:'Перевозка Нур Жолы–Александров', val: cny(14500)}] : []),
+    {label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)},
+    {label:'Перевозка Нур Жолы–Александров', val: cny(14500)},
   ];
   const alexLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(35000+45000+10000)},
@@ -1322,11 +1255,9 @@ function calc(silent=false){
   const ussChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny)+' ¥ = '+fmt(ussChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)}] : []),
-    ...(showBrokerAndBorder ? [
-      {label:'Брокер КНР + ПРР', val: cny(500)},
-      {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
-    ] : []),
+    {label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)},
+    {label:'Брокер КНР + ПРР', val: cny(500)},
+    {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
   ];
   const ussLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(55000)},
@@ -1336,8 +1267,8 @@ function calc(silent=false){
   const kyakChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny)+' ¥ = '+fmt(kyakChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)}] : []),
-    ...(showBrokerAndBorder ? [{label:'Брокер КНР + ПРР', val: cny(2300)}] : []),
+    {label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)},
+    {label:'Брокер КНР + ПРР', val: cny(2300)},
   ];
   const kyakBaseLogExport = showRF ? [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal)},
@@ -1347,9 +1278,9 @@ function calc(silent=false){
     {label:'Экспертное заключение', val: fmt(expertiza)},
     {label:'Перевод сертификата', val: fmt(1500)},
   ] : [];
-  const kyakSelfLogExport = [
+  const kyakSelfLogExport = [...kyakBaseLogExport,
     ...(showRF ? [
-      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
       {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
       {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
       {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
@@ -1359,9 +1290,8 @@ function calc(silent=false){
       {label:'Билеты до Замын-Удэ', val: mnt(80000)},
       {label:'Брокер МНГ', val: mnt(900000)},
     ] : []),
-    ...kyakBaseLogExport,
   ];
-  const kyakEvacLogExport = [
+  const kyakEvacLogExport = [...kyakBaseLogExport,
     ...(showRF ? [
       {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000)},
       {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
@@ -1369,7 +1299,6 @@ function calc(silent=false){
       {label:'Стоянка Замын-Удэ', val: mnt(50000)},
       {label:'Брокер МНГ', val: mnt(900000)},
     ] : []),
-    ...kyakBaseLogExport,
   ];
 
   document.getElementById('res').innerHTML = `
@@ -1522,8 +1451,6 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   const logoEl = document.querySelector('.logo-wrap img');
   const logoSrc = logoEl ? logoEl.src : '';
   const carName = (document.getElementById('car_name') ? document.getElementById('car_name').value.trim() : '') || (window._carName || '').trim();
-  // Строка спецификации под названием
-  const carSpec = window._carSpec || '';
 
   const rowsHtml = rows.map(r => {
     const cls = r.cls === 'red' ? 'ec-val-red' : r.cls === 'tot' ? 'ec-val-tot' : r.cls === 'pct' ? 'ec-val-pct' : 'ec-val';
@@ -1550,15 +1477,14 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
       </div>
     </div>
     <div class="ec-city" style="color:#1a1a2e">${cityTitle}</div>
-    ${(carName || carSpec) ? `<div class="ec-city" style="color:#1a1a2e">${[carName, carSpec].filter(Boolean).join('  ·  ')}</div>` : ''}
+    ${carName ? `<div class="ec-city" style="color:#1a1a2e">${carName}</div>` : ''}
     <div class="ec-total-big">${fmt(total)}</div>
     <div class="ec-rates" id="ec-rates-${cityId}"></div>
     ${rowsHtml}
     <div class="ec-footer">
       * Расчёт стоимости произведён по курсам валют (курс банка ВТБ для совершения операций в интернет-банке/приложении и курс ЦБ РФ) на указанную ниже дату и может отличаться от конечной стоимости на момент заказа и/или после завершения процедуры растаможки автомобиля.<br>
       ** Расчёт стоимости не включает в себя любые банковские комиссии за перевод средств за рубеж.<br>
-      *** Расчёт стоимости является ориентировочным.<br><br>
-      Данный расчёт носит исключительно информационный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации.<br><br>
+      *** Расчёт стоимости является ориентировочным и не является публичной офертой.<br><br>
       Расчёт действителен на дату: ${today}<br>
       © Abapp · abappcn.ru/calculator/
     </div>`;
