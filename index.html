@@ -882,10 +882,13 @@ function calc_if_ready(){
   // Ждём паузу 600мс после последнего изменения — не пересчитываем при каждом нажатии
   clearTimeout(_calcTimer);
   _calcTimer = setTimeout(() => {
-    const hasCny = parseMasked('price_cny') > 0;
-    const etype = document.getElementById('etype').value;
-    const hasKw = etype === 'electric' || +document.getElementById('kw').value > 0;
-    if(hasCny && hasKw) calc(true);
+    // Запускаем расчёт как только хоть что-то введено — чтобы показать ошибки валидации
+    const hasAnyInput = parseMasked('price_cny') > 0
+      || parseMasked('cc') > 0
+      || +document.getElementById('kw').value > 0
+      || +document.getElementById('em_kw').value > 0
+      || parseMasked('price_max') > 0;
+    if(hasAnyInput) calc(true);
   }, 600);
 }
 
@@ -962,13 +965,26 @@ function calc(silent=false){
   const comm = commRaw || (document.getElementById('chk_to_border_only').checked ? 6800 : 11000);
   const deliveryManual = parseMasked('delivery_manual');
 
+  const missingFields = [];
   let hasError = false;
-  if(!pCny){ markError('price_cny', silent); hasError=true; }
-  if(!kw && etype!=='electric')  { markError('kw', silent); hasError=true; }
-  if(etype!=='electric' && !cc){ markError('cc', silent); hasError=true; }
-  if((age==='new' || etype==='electric') && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; }
-  if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw', silent); hasError=true; }
-  if(hasError) return;
+  if(!pCny){ markError('price_cny', silent); hasError=true; missingFields.push('Стоимость покупки авто в КНР'); }
+  if(!kw && etype!=='electric')  { markError('kw', silent); hasError=true; missingFields.push('Мощность ДВС'); }
+  if(etype!=='electric' && !cc){ markError('cc', silent); hasError=true; missingFields.push('Объём ДВС'); }
+  if((age==='new' || etype==='electric') && !parseMasked('price_max')){ markError('price_max', silent); hasError=true; missingFields.push('MSRP / рыночная цена'); }
+  if((etype==='electric'||etype==='parallel') && !+document.getElementById('em_kw').value){ markError('em_kw', silent); hasError=true; missingFields.push('Мощность электродвигателя'); }
+  if(hasError){
+    document.getElementById('res').innerHTML = `
+      <div class="panel">
+        <div class="phdr"><span>⚠️</span><span class="phdr-t">Результат расчёта</span></div>
+        <div class="pbody">
+          <div style="color:var(--red);font-size:13px;line-height:1.8">
+            <div style="font-weight:600;margin-bottom:10px">Не заполнены обязательные поля:</div>
+            ${missingFields.map(f => `<div style="display:flex;align-items:center;gap:8px"><span style="color:var(--red)">✕</span> ${f}</div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    return;
+  }
 
   const d = delivery();
 
@@ -1398,8 +1414,8 @@ function calc(silent=false){
         {html: cityDetail('zab','📍 Забайкальск','var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab), total: zabaikalsk},
         {html: cityDetail('alex','📍 Александров','var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex), total: alexandrov},
         {html: cityDetail('uss','📍 Уссурийск','var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss), total: ussuriysk},
-        {html: cityDetail('kyak-self','📍 Кяхта самоходом','var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak), total: kyakSelf},
-        {html: cityDetail('kyak-evac','📍 Кяхта на эвакуаторе','var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak), total: kyakEvac},
+        {html: cityDetail('kyak-self','📍 Кяхта (транзит самоходом)','var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak), total: kyakSelf},
+        {html: cityDetail('kyak-evac','📍 Кяхта (транзит на эвакуаторе)','var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak), total: kyakEvac},
       ].sort((a,b) => a.total - b.total).map(x => x.html).join('')}
 
       <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
