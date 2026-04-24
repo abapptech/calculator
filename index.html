@@ -787,14 +787,25 @@ function fmtInputThousands(el){ /* legacy */ }
 // Маска тысяч для текстовых полей ввода
 function maskThousands(el) {
   el.style.borderColor = '';
-  const pos = el.selectionStart;
+  const posBefore = el.selectionStart;
+  const rawBefore = el.value.replace(/\D/g,'');
   const raw = el.value.replace(/\s/g,'').replace(/[^\d]/g,'');
   if(!raw){ el.value=''; return; }
+
+  // Считаем сколько цифр было до курсора до форматирования
+  const digitsBeforeCursor = el.value.slice(0, posBefore).replace(/\D/g,'').length;
+
   const formatted = (+raw).toLocaleString('ru-RU');
   el.value = formatted;
-  // Восстанавливаем позицию курсора с поправкой на добавленные пробелы
-  const diff = formatted.length - el.value.length + formatted.length;
-  try { el.setSelectionRange(formatted.length, formatted.length); } catch(e){}
+
+  // Восстанавливаем курсор: находим позицию после N-й цифры в отформатированной строке
+  let digits = 0;
+  let newPos = formatted.length;
+  for(let i = 0; i < formatted.length; i++){
+    if(/\d/.test(formatted[i])) digits++;
+    if(digits === digitsBeforeCursor){ newPos = i + 1; break; }
+  }
+  try { el.setSelectionRange(newPos, newPos); } catch(e){}
 }
 
 // Читает число из поля с маской тысяч
