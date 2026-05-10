@@ -1791,9 +1791,73 @@ function updateCarNameDisplay() {
   });
 }
 
+// ── Чтение параметров из URL ─────────────────────────────────────────────────
+// Поддерживаемые параметры:
+// price     — цена покупки в CNY
+// price_max — MSRP / рыночная цена в CNY
+// cc        — объём ДВС, см³
+// kw        — мощность ДВС, кВт
+// em_kw     — мощность ЭД (суммарная), кВт
+// etype     — тип двигателя: petrol | electric | parallel
+// age       — возраст: new | mid | old
+// name      — название автомобиля
+// comm      — комиссия Abapp, CNY
+function applyURLParams() {
+  const p = new URLSearchParams(window.location.search);
+  if(!p.toString()) return; // нет параметров — ничего не делаем
+
+  if(p.has('name'))     document.getElementById('car_name').value = p.get('name');
+  if(p.has('etype'))    document.getElementById('etype').value = p.get('etype');
+  if(p.has('age'))      document.getElementById('age').value = p.get('age');
+
+  if(p.has('price')){
+    const val = +p.get('price');
+    document.getElementById('price_cny').value = val.toLocaleString('ru-RU');
+  }
+  if(p.has('price_max')){
+    const val = +p.get('price_max');
+    document.getElementById('price_max').value = val.toLocaleString('ru-RU');
+  }
+  if(p.has('cc')){
+    const val = +p.get('cc');
+    document.getElementById('cc').value = val.toLocaleString('ru-RU');
+  }
+  if(p.has('kw')){
+    document.getElementById('kw').value = p.get('kw');
+  }
+  if(p.has('em_kw')){
+    document.getElementById('em_kw').value = p.get('em_kw');
+  }
+  if(p.has('comm')){
+    const commVal = p.get('comm');
+    const sel = document.getElementById('comm_select');
+    // Проверяем есть ли такое значение в селекте
+    const opt = Array.from(sel.options).find(o => o.value === commVal);
+    if(opt){
+      sel.value = commVal;
+    } else {
+      sel.value = 'custom';
+      document.getElementById('comm_custom').style.display = 'block';
+      document.getElementById('comm_custom').value = (+commVal).toLocaleString('ru-RU');
+    }
+    document.getElementById('comm').value = commVal;
+  }
+
+  // Применяем UI-логику после заполнения полей
+  onType();
+  onAge();
+  updHP();
+  updEMHP();
+  updateCarNameDisplay();
+
+  // Запускаем расчёт
+  setTimeout(() => calc(true), 800);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   loadRates(); onAge(); updHP();
   document.getElementById('car_name').addEventListener('input', updateCarNameDisplay);
+  applyURLParams();
 });
 </script>
 
