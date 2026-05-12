@@ -1264,27 +1264,27 @@ function calc(silent=false){
   const alexChinaRows = `
     ${sec('Расходы в КНР', fmtN(alexChinaCnyAdj) + ' ¥ = ' + fmt(alexChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${showChinaDelivery ? row(`Перевозка по Китаю до границы${d.hor ? ' (' + d.hor + ' км)' : ''}`, cny(dManual ? deliveryManual : d.alex_cn)) : ''}
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(dManual ? deliveryManual : d.alex_cn)) : ''}
     ${showBrokerAndBorder ? row('Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', cny(12500)) : ''}`;
 
   const zabChinaRows = `
     ${sec('Расходы в КНР', fmtN(zabChinaCnyAdj) + ' ¥ = ' + fmt(zabChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${showChinaDelivery ? row(`Перевозка по Китаю до границы${d.man ? ' (' + d.man + ' км)' : ''}`, cny(manDelivCny)) : ''}
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(manDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(1500)) : ''}
     ${showBrokerAndBorder ? row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500)) : ''}`;
 
   const ussChinaRows = `
     ${sec('Расходы в КНР', fmtN(ussChinaCnyAdj) + ' ¥ = ' + fmt(ussChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${showChinaDelivery ? row(`Перевозка по Китаю до границы${d.sui ? ' (' + d.sui + ' км)' : ''}`, cny(suiDelivCny)) : ''}
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(suiDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}
     ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500)) : ''}`;
 
   const kyakChinaRows = `
     ${sec('Расходы в КНР', fmtN(kyakChinaCnyAdj) + ' ¥ = ' + fmt(kyakChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
-    ${showChinaDelivery ? row(`Перевозка по Китаю до границы${d.erl ? ' (' + d.erl + ' км)' : ''}`, cny(erlDelivCny)) : ''}
+    ${showChinaDelivery ? row('Перевозка по Китаю до границы', cny(erlDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(2300)) : ''}`;
 
   const commonRowsBase = `
@@ -1345,7 +1345,7 @@ function calc(silent=false){
   const zabChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny)+' ¥ = '+fmt(zabChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:`Перевозка по Китаю до границы${d.man ? ' (' + d.man + ' км)' : ''}`, val: cny(manDelivCny)}] : []),
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(manDelivCny)}] : []),
     ...(showBrokerAndBorder ? [
       {label:'Брокер КНР + ПРР', val: cny(1500)},
       {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
@@ -1361,7 +1361,7 @@ function calc(silent=false){
   const alexChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:`Перевозка по Китаю до границы${d.hor ? ' (' + d.hor + ' км)' : ''}`, val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
     ...(showBrokerAndBorder ? [{label:'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', val: cny(12500)}] : []),
   ];
   const alexLogExport = [
@@ -1374,7 +1374,7 @@ function calc(silent=false){
   const ussChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny)+' ¥ = '+fmt(ussChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:`Перевозка по Китаю до границы${d.sui ? ' (' + d.sui + ' км)' : ''}`, val: cny(suiDelivCny)}] : []),
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(suiDelivCny)}] : []),
     ...(showBrokerAndBorder ? [
       {label:'Брокер КНР + ПРР', val: cny(500)},
       {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
@@ -1388,7 +1388,7 @@ function calc(silent=false){
   const kyakChinaExport = [
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny)+' ¥ = '+fmt(kyakChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
-    ...(showChinaDelivery ? [{label:`Перевозка по Китаю до границы${d.erl ? ' (' + d.erl + ' км)' : ''}`, val: cny(erlDelivCny)}] : []),
+    ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы', val: cny(erlDelivCny)}] : []),
     ...(showBrokerAndBorder ? [{label:'Брокер КНР + ПРР', val: cny(2300)}] : []),
   ];
   const kyakBaseLogExport = showRF ? [
