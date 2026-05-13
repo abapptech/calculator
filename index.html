@@ -1157,20 +1157,10 @@ function calc(silent=false){
   window._carSpec = carSpec;
   updateCarNameDisplay();
 
-  // Общие статьи (одинаковы для всех городов)
-  const commonRows = `
-    ${carName ? row('Автомобиль', carName) : ''}
-    ${row('Город покупки в КНР', cityName || '—')}
-    ${sec('Стоимость')}
-    ${row('Цена авто в КНР', cny(pCny))}
-    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}
-    ${sec('Расходы в КНР')}
-    ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}`;
-
   // Строим массив строк для экспорта карточки
+  // Название авто не дублируем — оно уже в шапке карточки (ec-city)
   const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm) => {
     const base = [
-      ...((carName || carSpec) ? [{label: [carName, carSpec].filter(Boolean).join('  ·  '), val: '', cls:'tot'}] : []),
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
