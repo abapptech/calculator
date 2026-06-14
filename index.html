@@ -339,7 +339,7 @@ gtag('config','G-0T7CPPNW61');
           </div>
           <div class="frow">
             <div>Уссурийск: <span id="dc_sui" style="color:var(--accent2);font-weight:600"></span></div>
-            <div>Александров: <span id="dc_hor" style="color:var(--accent2);font-weight:600"></span></div>
+            <div>Хоргос: <span id="dc_hor" style="color:var(--accent2);font-weight:600"></span></div>
           </div>
         </div>
       </div>
@@ -462,12 +462,12 @@ async function loadDistances(cityName) {
       document.getElementById('dist_source').textContent='OSRM · реальные дороги';
       document.getElementById('city_reset_btn').style.display='block';
 
-      // Расчётная стоимость перевозки по формуле км×1.5+1400 (Александров: +12600)
+      // Расчётная стоимость перевозки по формуле км×1.5+1400 (справочно — до пограничного города КНР)
       const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
       document.getElementById('dc_man').textContent = fmtCny(man*1.5+1400);
       document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+1400);
       document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+1400);
-      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+1400+12600);
+      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+1400);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
       calc_if_ready();
