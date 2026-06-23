@@ -1058,7 +1058,7 @@ function calc(silent=false){
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
     + (showBrokerAndBorder ? 12600 : 0)
     + comm;
-  const alexRUB = (showRF ? 35000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+  const alexRUB = (showRF ? 40000+20000+5000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
   const alexandrov = alexCNY*rVtb + alexRUB;
 
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
@@ -1295,10 +1295,10 @@ function calc(silent=false){
     ${row('СВХ', fmt(10000))}` : '';
 
   const alexRows = showRF ? `
-    ${sec('Расходы в РФ', fmt(35000+45000+10000))}
-    ${row('Таможенный брокер в Александрове', fmt(35000))}
-    ${row('Лаборатория СБКТС+ЭПТС', fmt(45000))}
-    ${row('СВХ', fmt(10000))}` : '';
+    ${sec('Расходы в РФ', fmt(40000+20000+5000))}
+    ${row('Таможенный брокер в Александрове', fmt(40000))}
+    ${row('Лаборатория СБКТС+ЭПТС', fmt(20000))}
+    ${row('СВХ', fmt(5000))}` : '';
 
   const ussRows = showRF ? `
     ${sec('Расходы в РФ', fmt(55000))}
@@ -1355,10 +1355,10 @@ function calc(silent=false){
     ...(showBrokerAndBorder ? [{label:'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', val: cny(12600)}] : []),
   ];
   const alexLogExport = [
-    {type:'sec', label:'Расходы в РФ', subtotal: fmt(35000+45000+10000)},
-    {label:'Таможенный брокер Александров', val: fmt(35000)},
-    {label:'Лаборатория СБКТС+ЭПТС', val: fmt(45000)},
-    {label:'СВХ', val: fmt(10000)},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(40000+20000+5000)},
+    {label:'Таможенный брокер Александров', val: fmt(40000)},
+    {label:'Лаборатория СБКТС+ЭПТС', val: fmt(20000)},
+    {label:'СВХ', val: fmt(5000)},
   ];
 
   const ussChinaExport = [
