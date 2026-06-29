@@ -505,12 +505,12 @@ function hideDropdown() {
   if(val&&!currentDistances) loadDistances(val);
 }
 
-// Формула перевозки из таблицы: dist*1.5+1400 (+12600 для Хоргоса)
+// Формула перевозки из таблицы: dist*1.5+1400 (+15000 для Хоргоса)
 function delivery() {
   // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
   const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
   return {
-    alex:     d.hor ? d.hor*1.5+1400+12600 : 12600,
+    alex:     d.hor ? d.hor*1.5+1400+15000 : 15000,
     alex_cn:  d.hor ? d.hor*1.5+1400 : 0,
     man:  d.man ? d.man*1.5+1400 : 0,
     erl:  d.erl ? d.erl*1.5+1400 : 0,
@@ -1056,7 +1056,7 @@ function calc(silent=false){
   const alexDelivCny = dManual ? deliveryManual : d.alex;
   const alexCNY = pCny + ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? 12600 : 0)
+    + (showBrokerAndBorder ? 15000 : 0)
     + comm;
   const alexRUB = (showRF ? 40000+20000+5000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
   const alexandrov = alexCNY*rVtb + alexRUB;
@@ -1091,7 +1091,7 @@ function calc(silent=false){
   // Подитоги расходов в КНР (для vtbComm и секций)
   const alexChinaCny = ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? 12600 : 0);
+    + (showBrokerAndBorder ? 15000 : 0);
   const zabChinaCny = ovhdCny
     + (showChinaDelivery ? manDelivCny : 0)
     + (showBrokerAndBorder ? 1500+3500 : 0);
@@ -1240,7 +1240,7 @@ function calc(silent=false){
   // Пересчёт CNY-базы с учётом флагов
   const alexChinaCnyAdj = ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? 12600 : 0);
+    + (showBrokerAndBorder ? 15000 : 0);
   const zabChinaCnyAdj = ovhdCny
     + (showChinaDelivery ? manDelivCny : 0)
     + (showBrokerAndBorder ? 1500 + 3500 : 0);
@@ -1255,7 +1255,7 @@ function calc(silent=false){
     ${sec('Расходы в КНР', fmtN(alexChinaCnyAdj) + ' ¥ = ' + fmt(alexChinaCnyAdj * rVtb))}
     ${row('Накладные расходы в КНР (0.5%)', cny(ovhdCny))}
     ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), cny(dManual ? deliveryManual : d.alex_cn)) : ''}
-    ${showBrokerAndBorder ? row('Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', cny(12600)) : ''}`;
+    ${showBrokerAndBorder ? row('Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', cny(15000)) : ''}`;
 
   const zabChinaRows = `
     ${sec('Расходы в КНР', fmtN(zabChinaCnyAdj) + ' ¥ = ' + fmt(zabChinaCnyAdj * rVtb))}
@@ -1352,7 +1352,7 @@ function calc(silent=false){
     {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
     {label:'Накладные расходы в КНР (0.5%)', val: cny(ovhdCny)},
     ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
-    ...(showBrokerAndBorder ? [{label:'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', val: cny(12600)}] : []),
+    ...(showBrokerAndBorder ? [{label:'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)', val: cny(15000)}] : []),
   ];
   const alexLogExport = [
     {type:'sec', label:'Расходы в РФ', subtotal: fmt(40000+20000+5000)},
