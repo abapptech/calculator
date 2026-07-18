@@ -27,9 +27,20 @@ jobs:
           playwright install-deps chromium
 
       - name: Run parser
+        id: parser
         run: python parser.py
 
+      - name: Upload debug HTML on failure
+        if: failure() && steps.parser.conclusion == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: vtb-debug-html
+          path: vtb_debug.html
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Push vtb_rate.json via API
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
