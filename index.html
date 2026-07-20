@@ -206,6 +206,15 @@ gtag('config','G-0T7CPPNW61');
         <label>Наименование автомобиля <span style="color:var(--text3)">(необязательно)</span></label>
         <input type="text" id="car_name" placeholder="например: Toyota Camry 2.5 AT">
       </div>
+      <div id="rate-warning" style="display:none;background:#3a1a0a;border:1px solid var(--accent3);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:11px;color:#ffb090;line-height:1.5">
+        <div style="display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:14px">⚠️</span>
+          <div>
+            <div style="font-weight:600;color:#ff8060;margin-bottom:3px">Внимание: курсы могут быть неактуальны</div>
+            <div id="rate-warning-msg">Некоторые курсы не обновлялись более 12 часов. Проверьте актуальность перед расчётом.</div>
+          </div>
+        </div>
+      </div>
       <div id="rate-status" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:14px;font-size:10px;color:var(--text2);display:flex;align-items:center;gap:8px">
         <span id="rate-spinner" style="display:inline-block;width:10px;height:10px;border:2px solid var(--border);border-top-color:var(--accent2);border-radius:50%;animation:spin .8s linear infinite"></span>
         <span id="rate-msg">Загружаю актуальные курсы…</span>
@@ -1463,6 +1472,90 @@ function calc(silent=false){
 }
 
 // ── Автозагрузка курсов при открытии страницы ────────────────────────────────
+// ── Проверка актуальности курсов ────────────────────────────────────────────
+const RATE_STALE_HOURS = 12;     // порог для ВТБ (обновляется каждые 30 мин в рабочие часы)
+const CBR_STALE_HOURS  = 48;     // порог для ЦБ РФ (обновляется 1 раз в сутки, с учётом выходных)
+const PARSER_HOUR_START = 10; // начало рабочего окна парсера, МСК
+const PARSER_HOUR_END = 19;   // конец рабочего окна парсера, МСК
+
+// Хранилище дат обновления курсов (Date objects)
+const rateUpdatedAt = { vtb: null, cbr_cny: null, cbr_eur: null };
+
+// Парсит строку "2026-07-14 10:01 МСК" в Date (интерпретирует как МСК = UTC+3)
+function parseVtbUpdated(str) {
+  if (!str) return null;
+  const m = str.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})/);
+  if (!m) return null;
+  // Собираем ISO с указанием МСК-таймзоны (+03:00)
+  return new Date(`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:00+03:00`);
+}
+
+// Возвращает true если сейчас "рабочее время парсера ВТБ" (будни 10-19 МСК)
+function isVtbParserWorkTime(now = new Date()) {
+  // Переводим в МСК (UTC+3)
+  const mskOffsetMin = 3 * 60;
+  const localOffsetMin = -now.getTimezoneOffset();
+  const mskTime = new Date(now.getTime() + (mskOffsetMin - localOffsetMin) * 60000);
+  const day = mskTime.getUTCDay(); // 0=вс, 6=сб
+  const hour = mskTime.getUTCHours();
+  if (day === 0 || day === 6) return false; // выходные
+  return hour >= PARSER_HOUR_START && hour < PARSER_HOUR_END;
+}
+
+// Проверяет, устарел ли курс. Для ВТБ учитывает рабочее время парсера.
+// Возвращает { stale: bool, hoursAgo: number }
+function checkRateStale(updatedAt, thresholdHours, isVtb = false) {
+  if (!updatedAt) return { stale: false, hoursAgo: 0 };
+  const now = new Date();
+  const hoursAgo = (now - updatedAt) / 3600000;
+  if (hoursAgo <= thresholdHours) return { stale: false, hoursAgo };
+
+  // Для ВТБ: не алертим если сейчас вне рабочего окна парсера
+  // (парсер и не должен был обновляться — например ночью или в выходные)
+  if (isVtb && !isVtbParserWorkTime(now)) {
+    return { stale: false, hoursAgo };
+  }
+
+  return { stale: true, hoursAgo };
+}
+
+// Форматирует "12.5 ч" или "1.5 сут"
+function fmtHoursAgo(h) {
+  if (h < 48) return h.toFixed(1) + ' ч';
+  return (h / 24).toFixed(1) + ' сут';
+}
+
+// Обновляет визуальные индикаторы: цвет точек + баннер
+function updateRateFreshness() {
+  const checks = [
+    { id: 'vtb-badge',  key: 'vtb',     label: 'ВТБ',      threshold: RATE_STALE_HOURS, isVtb: true  },
+    { id: 'cbr-badge',  key: 'cbr_cny', label: 'ЦБ (CNY)', threshold: CBR_STALE_HOURS,  isVtb: false },
+    { id: 'eur-badge',  key: 'cbr_eur', label: 'ЦБ (EUR)', threshold: CBR_STALE_HOURS,  isVtb: false },
+  ];
+  const stale = [];
+  for (const c of checks) {
+    const badge = document.getElementById(c.id);
+    if (!badge || badge.style.display === 'none') continue; // курс не загружен
+    const res = checkRateStale(rateUpdatedAt[c.key], c.threshold, c.isVtb);
+    if (res.stale) {
+      badge.style.color = 'var(--accent3)';
+      badge.textContent = '● устарел (' + fmtHoursAgo(res.hoursAgo) + ')';
+      stale.push(c.label + ' — ' + fmtHoursAgo(res.hoursAgo));
+    } else {
+      badge.style.color = 'var(--accent2)';
+      badge.textContent = '● авто';
+    }
+  }
+  const banner = document.getElementById('rate-warning');
+  const bmsg = document.getElementById('rate-warning-msg');
+  if (stale.length) {
+    bmsg.textContent = 'Курсы не обновлялись длительное время: ' + stale.join(', ') + '. Проверьте актуальность вручную перед расчётом.';
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
 async function loadRates() {
   let vtbOk = false, eurOk = false;
 
@@ -1495,6 +1588,7 @@ async function loadRates() {
         if (d.updated) {
           document.getElementById('vtb-updated').textContent =
             'Обновлено: ' + d.updated + ' (ВТБ интернет-банк, продажа)';
+          rateUpdatedAt.vtb = parseVtbUpdated(d.updated);
         }
         vtbOk = true;
       }
@@ -1507,7 +1601,7 @@ async function loadRates() {
       'https://www.cbr-xml-daily.ru/daily_json.js',
       'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.cbr-xml-daily.ru/daily_json.js'),
     ];
-    let eurRate = null, cnyRate = null;
+    let eurRate = null, cnyRate = null, cbrDate = null;
     for (const url of urls) {
       try {
         const ctrl = new AbortController();
@@ -1518,6 +1612,7 @@ async function loadRates() {
           const d = await r.json();
           eurRate = d?.Valute?.EUR?.Value;
           cnyRate = d?.Valute?.CNY?.Value;
+          cbrDate = d?.Date;
           if (eurRate) break;
         }
       } catch(e) { console.warn('CBR mirror failed:', url, e.message); }
@@ -1525,11 +1620,13 @@ async function loadRates() {
     if (eurRate) {
       document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(4);
       document.getElementById('eur-badge').style.display = 'inline';
+      if (cbrDate) rateUpdatedAt.cbr_eur = new Date(cbrDate);
       eurOk = true;
     }
     if (cnyRate) {
       document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(4);
       document.getElementById('cbr-badge').style.display = 'inline';
+      if (cbrDate) rateUpdatedAt.cbr_cny = new Date(cbrDate);
     }
   } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e.message); }
 
@@ -1549,6 +1646,9 @@ async function loadRates() {
     msg.textContent = '⚠️ Не удалось загрузить курсы — введите вручную';
     msg.style.color = 'var(--accent3)';
   }
+
+  // Проверяем актуальность загруженных курсов
+  updateRateFreshness();
 }
 
 // ── Экспорт в JPG ────────────────────────────────────────────────────────────
