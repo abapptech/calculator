@@ -240,6 +240,7 @@ gtag('config','G-0T7CPPNW61');
         <div class="field">
           <label>Курс CNY/RUB (ЦБ РФ) <span id="cbr-badge" style="color:var(--accent2);display:none">● авто</span></label>
           <input type="number" id="rate_cbr" value="11.73" step="0.0001" oninput="calc_if_ready()">
+          <div class="fhint" id="cbr-date" style="display:none"></div>
           <div class="fhint">Для расчёта таможенной пошлины (новые авто)</div>
         </div>
       </div>
@@ -247,6 +248,7 @@ gtag('config','G-0T7CPPNW61');
         <div class="field">
           <label>Курс EUR/RUB (ЦБ РФ) <span id="eur-badge" style="color:var(--accent2);display:none">● авто</span></label>
           <input type="number" id="rate_eur" value="93.42" step="0.0001" oninput="calc_if_ready()">
+          <div class="fhint" id="eur-date" style="display:none"></div>
           <div class="fhint">Для расчёта таможенной пошлины</div>
         </div>
       </div>
@@ -1620,13 +1622,31 @@ async function loadRates() {
     if (eurRate) {
       document.getElementById('rate_eur').value = parseFloat(eurRate).toFixed(4);
       document.getElementById('eur-badge').style.display = 'inline';
-      if (cbrDate) rateUpdatedAt.cbr_eur = new Date(cbrDate);
+      if (cbrDate) {
+        rateUpdatedAt.cbr_eur = new Date(cbrDate);
+        const dt = new Date(cbrDate);
+        const dateStr = String(dt.getDate()).padStart(2,'0') + '.' +
+                        String(dt.getMonth()+1).padStart(2,'0') + '.' +
+                        dt.getFullYear();
+        const el = document.getElementById('eur-date');
+        el.textContent = 'Курс на ' + dateStr;
+        el.style.display = 'block';
+      }
       eurOk = true;
     }
     if (cnyRate) {
       document.getElementById('rate_cbr').value = parseFloat(cnyRate).toFixed(4);
       document.getElementById('cbr-badge').style.display = 'inline';
-      if (cbrDate) rateUpdatedAt.cbr_cny = new Date(cbrDate);
+      if (cbrDate) {
+        rateUpdatedAt.cbr_cny = new Date(cbrDate);
+        const dt = new Date(cbrDate);
+        const dateStr = String(dt.getDate()).padStart(2,'0') + '.' +
+                        String(dt.getMonth()+1).padStart(2,'0') + '.' +
+                        dt.getFullYear();
+        const el = document.getElementById('cbr-date');
+        el.textContent = 'Курс на ' + dateStr;
+        el.style.display = 'block';
+      }
     }
   } catch(e) { console.warn('EUR/CNY CBR rate fetch failed:', e.message); }
 
