@@ -1627,8 +1627,33 @@ async function loadRates() {
     }
   }, 10000);
 
-  // 1. Курс CNY/RUB ВТБ — из vtb_rate.json
+  // 1. Курс CNY/RUB ВТБ — свой API-эндпоинт (реальное время), с fallback на кэш vtb_rate.json
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    const r = await fetch(
+      'https://www.abapp.tech/api/car/vtb-rate',
+      { cache: 'no-store', signal: controller.signal }
+    );
+    clearTimeout(timeout);
+    if (r.ok) {
+      const d = await r.json();
+      const sell = parseFloat(d.cny_sell);
+      if (sell > 0) {
+        document.getElementById('rate_vtb').value = sell.toFixed(2);
+        document.getElementById('vtb-badge').style.display = 'inline';
+        if (d.updated) {
+          document.getElementById('vtb-updated').textContent =
+            'Обновлено: ' + d.updated + ' (ВТБ интернет-банк, продажа)';
+          rateUpdatedAt.vtb = parseVtbUpdated(d.updated);
+        }
+        vtbOk = true;
+      }
+    }
+  } catch(e) { console.warn('VTB API fetch failed:', e.message); }
+
+  // 1b. Fallback — кэш из vtb_rate.json, если основной API недоступен
+  if (!vtbOk) try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 6000);
     const r = await fetch(
