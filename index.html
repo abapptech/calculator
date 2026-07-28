@@ -325,12 +325,12 @@ gtag('config','G-0T7CPPNW61');
         <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Маршрут до Александрова</div>
         <div style="display:flex;gap:16px;margin-bottom:12px">
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
-            <input type="radio" name="alex_route" value="khorgos" checked onchange="calc_if_ready()"
+            <input type="radio" name="alex_route" value="khorgos" checked onchange="onAlexRouteTypeChange();calc_if_ready()"
               style="accent-color:var(--accent);cursor:pointer">
             Через Хоргос
           </label>
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
-            <input type="radio" name="alex_route" value="nurzholy" onchange="calc_if_ready()"
+            <input type="radio" name="alex_route" value="nurzholy" onchange="onAlexRouteTypeChange();calc_if_ready()"
               style="accent-color:var(--accent);cursor:pointer">
             Через Нур Жолы
           </label>
@@ -338,7 +338,10 @@ gtag('config','G-0T7CPPNW61');
         <div class="field" style="margin-bottom:0">
           <label>Стоимость перевозки до Александрова, ¥</label>
           <input type="text" inputmode="numeric" id="alex_route_price" placeholder="например: 15 000" oninput="maskThousands(this);calc_if_ready()">
-          <div class="fhint">Для маршрута "Нур Жолы" — уже включён переход границы Китай–Казахстан</div>
+        </div>
+        <div class="field" id="alex_border_fee_field" style="display:none;margin-top:12px;margin-bottom:0">
+          <label>Стоимость перехода границы Китай–Казахстан, ¥</label>
+          <input type="text" inputmode="numeric" id="alex_border_fee" value="4 855" oninput="maskThousands(this);calc_if_ready()">
         </div>
       </div>
 
@@ -930,6 +933,8 @@ function resetForm(){
   document.getElementById('alex_route_block').style.display = 'none';
   document.querySelector('input[name="alex_route"][value="khorgos"]').checked = true;
   document.getElementById('alex_route_price').value = '';
+  document.getElementById('alex_border_fee').value = '4 855';
+  document.getElementById('alex_border_fee_field').style.display = 'none';
   document.getElementById('comm_select').value = '12000';
   document.getElementById('comm').value = '12000';
   document.getElementById('comm_custom').value = '';
@@ -1009,7 +1014,13 @@ function onChkToBorderOnly(){
 function onChkAlexRoute(){
   const checked = document.getElementById('chk_alex_route').checked;
   document.getElementById('alex_route_block').style.display = checked ? 'block' : 'none';
+  onAlexRouteTypeChange();
   calc_if_ready();
+}
+
+function onAlexRouteTypeChange(){
+  const type = document.querySelector('input[name="alex_route"]:checked').value;
+  document.getElementById('alex_border_fee_field').style.display = type === 'nurzholy' ? 'block' : 'none';
 }
 
 function onCommSelect(){
@@ -1112,10 +1123,12 @@ function calc(silent=false){
   const alexRoutePriceRaw = parseMasked('alex_route_price');
   const isNurzholy = alexRouteOn && alexRouteType === 'nurzholy';
   // Стоимость перевозки Хоргос/Нур Жолы → Александров (в CNY)
-  // По умолчанию 15000 для Хоргоса. Для Нур Жолы к введённому + 4855 переход границы.
+  // По умолчанию 15000 для Хоргоса. Для Нур Жолы к введённому + стоимость перехода границы (поле, по умолчанию 4855).
+  const alexBorderFeeRaw = parseMasked('alex_border_fee');
+  const alexBorderFee = alexBorderFeeRaw > 0 ? alexBorderFeeRaw : 4855;
   let alexExtraCny;
   if (alexRouteOn && alexRoutePriceRaw > 0) {
-    alexExtraCny = isNurzholy ? (alexRoutePriceRaw + 4855) : alexRoutePriceRaw;
+    alexExtraCny = isNurzholy ? (alexRoutePriceRaw + alexBorderFee) : alexRoutePriceRaw;
   } else {
     alexExtraCny = 15000;
   }
