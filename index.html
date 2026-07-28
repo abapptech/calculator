@@ -1122,15 +1122,18 @@ function calc(silent=false){
   const alexRouteType = document.querySelector('input[name="alex_route"]:checked').value; // 'khorgos' | 'nurzholy'
   const alexRoutePriceRaw = parseMasked('alex_route_price');
   const isNurzholy = alexRouteOn && alexRouteType === 'nurzholy';
-  // Стоимость перевозки Хоргос/Нур Жолы → Александров (в CNY)
-  // По умолчанию 15000 для Хоргоса. Для Нур Жолы к введённому + стоимость перехода границы (поле, по умолчанию 4855).
+  // Стоимость перехода границы Китай–Казахстан (0, если поле пустое)
   const alexBorderFeeRaw = parseMasked('alex_border_fee');
-  const alexBorderFee = alexBorderFeeRaw > 0 ? alexBorderFeeRaw : 4855;
   let alexExtraCny;
-  if (alexRouteOn && alexRoutePriceRaw > 0) {
-    alexExtraCny = isNurzholy ? (alexRoutePriceRaw + alexBorderFee) : alexRoutePriceRaw;
-  } else {
+  if (!alexRouteOn) {
+    // Галочка выключена — маршрут по умолчанию (Хоргос, 15000)
     alexExtraCny = 15000;
+  } else if (isNurzholy) {
+    // Нур Жолы: сумма = введённая перевозка + переход границы (оба поля независимы, пустое = 0)
+    alexExtraCny = alexRoutePriceRaw + alexBorderFeeRaw;
+  } else {
+    // Хоргос с включённой галочкой: если сумма не указана — берём дефолт 15000
+    alexExtraCny = alexRoutePriceRaw > 0 ? alexRoutePriceRaw : 15000;
   }
   // Название статей для Александрова в зависимости от маршрута
   const alexChinaDelivLabel = isNurzholy ? 'Перевозка по Китаю до Нур Жолы' : 'Перевозка по Китаю до границы';
