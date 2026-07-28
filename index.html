@@ -1053,9 +1053,9 @@ function calc(silent=false){
 
   const pCny    = parseMasked('price_cny');
   const pMax    = parseMasked('price_max')||parseMasked('price_cny');
-  const rVtb    = +document.getElementById('rate_vtb').value||12.02;
+  const rVtb    = +document.getElementById('rate_vtb').value||0;
   const rCbr    = +document.getElementById('rate_cbr').value||rVtb; // курс ЦБ CNY/RUB
-  const rEur    = +document.getElementById('rate_eur').value||93.42;
+  const rEur    = +document.getElementById('rate_eur').value||0;
   const etype   = document.getElementById('etype').value;
   const age     = document.getElementById('age').value;
   const cc      = parseMasked('cc');
