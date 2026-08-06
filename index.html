@@ -1238,9 +1238,29 @@ function calc(silent=false){
 
   const carName = document.getElementById('car_name').value.trim();
   const cityName = document.getElementById('city_input').value.trim();
-  // Строка спецификации для карточек
-  // Спецификация: только объём ДВС (для не-электро)
-  const carSpec = (etype !== 'electric' && cc) ? `${cc.toLocaleString('ru-RU')} см³` : '';
+
+  // Строка спецификации для карточек: объём ДВС / мощность(и) в кВт (л.с.)
+  const fmtKwHp = (kwVal) => `${Math.round(kwVal)} кВт (${Math.round(kwVal*KW2HP)} л.с.)`;
+  let carSpec = '';
+  if (etype === 'parallel') {
+    // Параллельный гибрид: см³ / ДВС кВт(л.с.) + ЭД кВт(л.с.) — раздельно
+    const specParts = [];
+    if (cc) specParts.push(`${cc.toLocaleString('ru-RU')} см³`);
+    const powerParts = [];
+    if (kw) powerParts.push(`${fmtKwHp(kw)} ДВС`);
+    if (emKw) powerParts.push(`${fmtKwHp(emKw)} ЭД`);
+    if (powerParts.length) specParts.push(powerParts.join(' + '));
+    carSpec = specParts.join(' / ');
+  } else if (etype === 'electric') {
+    // Электро/последовательный гибрид: только суммарная мощность ЭД (без см³)
+    carSpec = emKw ? fmtKwHp(emKw) : '';
+  } else {
+    // Бензин/дизель: см³ / мощность ДВС
+    const specParts = [];
+    if (cc) specParts.push(`${cc.toLocaleString('ru-RU')} см³`);
+    if (kw) specParts.push(fmtKwHp(kw));
+    carSpec = specParts.join(' / ');
+  }
 
   // Сохраняем глобально для карточек
   window._carName = carName;
