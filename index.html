@@ -1818,7 +1818,7 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
 
   const rowsHtml = rows.map(r => {
     const cls = r.cls === 'red' ? 'ec-val-red' : r.cls === 'tot' ? 'ec-val-tot' : r.cls === 'pct' ? 'ec-val-pct' : 'ec-val';
-    if (r.type === 'sec') return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#cc2200;letter-spacing:.08em;text-transform:uppercase;margin:12px 0 5px;font-weight:600"><span>${r.label}</span>${r.subtotal ? `<span style="color:#cc2200;font-weight:700;letter-spacing:0">${r.subtotal}</span>` : ''}</div>`;
+    if (r.type === 'sec') return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#cc2200;letter-spacing:.08em;text-transform:uppercase;margin:11px 0 4px;font-weight:600"><span>${r.label}</span>${r.subtotal ? `<span style="color:#cc2200;font-weight:700;letter-spacing:0">${r.subtotal}</span>` : ''}</div>`;
     if (r.type === 'total') return `<div class="ec-total-row"><span class="ec-total-key">${r.label}</span><span class="ec-total-val">${r.val} <sup style="font-size:9px">* ** ***</sup></span></div>`;
     return `<div class="ec-row"><span class="ec-key">${r.label}</span><span class="${cls}">${r.val}</span></div>`;
   }).join('');
