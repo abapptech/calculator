@@ -412,6 +412,15 @@ gtag('config','G-0T7CPPNW61');
         <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
       </div>
 
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
+          <input type="checkbox" id="chk_custom_extras" onchange="onChkCustomExtras()"
+            style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+          Добавить произвольные статьи расходов
+        </label>
+      </div>
+      <div id="custom_extras_block" style="display:none;margin-bottom:14px"></div>
+
       <div style="margin-top:12px;text-align:center">
         <button onclick="resetForm()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 8px;font-family:'IBM Plex Mono',monospace;transition:color .2s" onmouseenter="this.style.color='var(--text2)'" onmouseleave="this.style.color='var(--text3)'">↺ сбросить данные</button>
       </div>
@@ -935,6 +944,9 @@ function resetForm(){
   document.getElementById('alex_route_price').value = '';
   document.getElementById('alex_border_fee').value = '4 855';
   document.getElementById('alex_border_fee_field').style.display = 'none';
+  document.getElementById('chk_custom_extras').checked = false;
+  document.getElementById('custom_extras_block').style.display = 'none';
+  clearAllCustomRows();
   document.getElementById('comm_select').value = '12000';
   document.getElementById('comm').value = '12000';
   document.getElementById('comm_custom').value = '';
@@ -1046,6 +1058,91 @@ function onCommSelect(){
   }
 }
 
+// ── Произвольные статьи расходов (пользовательские) ─────────────────────────
+const CUSTOM_CITIES = [
+  {key:'zab',       label:'Забайкальск',            sections:['china','rf']},
+  {key:'alex',      label:'Александров',            sections:['china','rf']},
+  {key:'uss',       label:'Уссурийск',              sections:['china','rf']},
+  {key:'kyak-self', label:'Кяхта (самоходом)',      sections:['china','rf','mongolia']},
+  {key:'kyak-evac', label:'Кяхта (эвакуатор)',      sections:['china','rf','mongolia']},
+];
+const CUSTOM_SECTION_LABEL = {china:'Расходы в КНР', rf:'Расходы в РФ', mongolia:'Транзит по Монголии'};
+const CUSTOM_SECTION_CUR   = {china:'¥', rf:'₽', mongolia:'₮'};
+const CUSTOM_MAX_ROWS = 5;
+
+function renderCustomExtrasUI(){
+  const block = document.getElementById('custom_extras_block');
+  block.innerHTML = CUSTOM_CITIES.map(city => `
+    <div class="bdown" style="margin-bottom:8px">
+      <div class="bhdr" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('.arr').classList.toggle('open')" style="cursor:pointer">
+        <span>${city.label}</span>
+        <svg class="arr" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="bbody hidden" style="padding:10px 14px">
+        ${city.sections.map(section => `
+          <div style="margin-bottom:10px">
+            <div style="font-size:9px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;font-weight:600">${CUSTOM_SECTION_LABEL[section]}</div>
+            <div id="custom_rows_${city.key}_${section}"></div>
+            <button type="button" id="custom_add_${city.key}_${section}" onclick="addCustomRow('${city.key}','${section}')"
+              style="background:none;border:1px dashed var(--border);color:var(--text2);font-size:10px;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:'IBM Plex Mono',monospace">
+              + Добавить статью
+            </button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function addCustomRow(cityKey, section){
+  const container = document.getElementById(`custom_rows_${cityKey}_${section}`);
+  if (container.querySelectorAll('.custom-row').length >= CUSTOM_MAX_ROWS) return;
+  const cur = CUSTOM_SECTION_CUR[section];
+  const div = document.createElement('div');
+  div.className = 'custom-row';
+  div.style.cssText = 'display:flex;gap:6px;margin-bottom:6px;align-items:center';
+  div.innerHTML = `
+    <input type="text" class="custom-row-label" placeholder="Название статьи"
+      style="flex:2;min-width:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 9px;outline:none"
+      oninput="calc_if_ready()">
+    <input type="text" inputmode="numeric" class="custom-row-val" placeholder="Сумма, ${cur}"
+      style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 9px;outline:none"
+      oninput="maskThousands(this);calc_if_ready()">
+    <button type="button" onclick="removeCustomRow(this,'${cityKey}','${section}')"
+      style="flex-shrink:0;background:none;border:none;color:var(--text3);font-size:16px;cursor:pointer;padding:2px 6px;line-height:1">×</button>`;
+  container.appendChild(div);
+  updateCustomAddBtn(cityKey, section);
+  calc_if_ready();
+}
+
+function removeCustomRow(btn, cityKey, section){
+  btn.closest('.custom-row').remove();
+  updateCustomAddBtn(cityKey, section);
+  calc_if_ready();
+}
+
+function updateCustomAddBtn(cityKey, section){
+  const container = document.getElementById(`custom_rows_${cityKey}_${section}`);
+  const addBtn = document.getElementById(`custom_add_${cityKey}_${section}`);
+  if (!container || !addBtn) return;
+  const atMax = container.querySelectorAll('.custom-row').length >= CUSTOM_MAX_ROWS;
+  addBtn.style.display = atMax ? 'none' : 'inline-block';
+}
+
+function onChkCustomExtras(){
+  const checked = document.getElementById('chk_custom_extras').checked;
+  document.getElementById('custom_extras_block').style.display = checked ? 'block' : 'none';
+  calc_if_ready();
+}
+
+function clearAllCustomRows(){
+  CUSTOM_CITIES.forEach(city => city.sections.forEach(section => {
+    const container = document.getElementById(`custom_rows_${city.key}_${section}`);
+    if (container) container.innerHTML = '';
+    updateCustomAddBtn(city.key, section);
+  }));
+}
+
 function calc(silent=false){
   const deliveryIncluded = document.getElementById('chk_delivery_included').checked;
   const toBorderOnly = document.getElementById('chk_to_border_only').checked;
@@ -1117,6 +1214,38 @@ function calc(silent=false){
   // Ручная перевозка или авто по расстоянию
   const dManual = deliveryManual > 0;
 
+  // Произвольные статьи расходов пользователя (если включена галочка)
+  const customOn = document.getElementById('chk_custom_extras').checked;
+  function customRowsFor(cityKey, section){
+    if (!customOn) return [];
+    const container = document.getElementById(`custom_rows_${cityKey}_${section}`);
+    if (!container) return [];
+    const out = [];
+    container.querySelectorAll('.custom-row').forEach(rowEl => {
+      const labelEl = rowEl.querySelector('.custom-row-label');
+      const valEl = rowEl.querySelector('.custom-row-val');
+      const label = labelEl.value.trim();
+      const amount = +(valEl.value.replace(/\s/g,'').replace(/[^\d.]/g,'')) || 0;
+      if (label && amount > 0) out.push({label, amount});
+    });
+    return out;
+  }
+  function customSumFor(cityKey, section){
+    return customRowsFor(cityKey, section).reduce((s,r) => s + r.amount, 0);
+  }
+  const zabCustomChina = customSumFor('zab','china');
+  const zabCustomRf    = customSumFor('zab','rf');
+  const alexCustomChina = customSumFor('alex','china');
+  const alexCustomRf    = customSumFor('alex','rf');
+  const ussCustomChina = customSumFor('uss','china');
+  const ussCustomRf    = customSumFor('uss','rf');
+  const kyakSelfCustomChina    = customSumFor('kyak-self','china');
+  const kyakSelfCustomRf       = customSumFor('kyak-self','rf');
+  const kyakSelfCustomMongolia = customSumFor('kyak-self','mongolia');
+  const kyakEvacCustomChina    = customSumFor('kyak-evac','china');
+  const kyakEvacCustomRf       = customSumFor('kyak-evac','rf');
+  const kyakEvacCustomMongolia = customSumFor('kyak-evac','mongolia');
+
   // Опция маршрута до Александрова
   const alexRouteOn = document.getElementById('chk_alex_route').checked;
   const alexRouteType = document.querySelector('input[name="alex_route"]:checked').value; // 'khorgos' | 'nurzholy'
@@ -1152,8 +1281,8 @@ function calc(silent=false){
   const alexCNY = pCny + ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
     + (showBrokerAndBorder ? alexExtraCny : 0)
-    + comm;
-  const alexRUB = (showRF ? 50000+20000+5000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+    + comm + alexCustomChina;
+  const alexRUB = (showRF ? 50000+20000+5000 : 0) + (showTax ? duty+excise+nds+clear+util : 0) + alexCustomRf;
   const alexandrov = alexCNY*rVtb + alexRUB;
 
   // ── ЗАБАЙКАЛЬСК ──────────────────────────────────────────────────────────
@@ -1161,8 +1290,8 @@ function calc(silent=false){
   const zabCNY = pCny + ovhdCny
     + (showChinaDelivery ? manDelivCny : 0)
     + (showBrokerAndBorder ? 1500+3500 : 0)
-    + comm;
-  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+    + comm + zabCustomChina;
+  const zabRUB = (showRF ? 30000+45000+10000 : 0) + (showTax ? duty+excise+nds+clear+util : 0) + zabCustomRf;
   const zabaikalsk = zabCNY*rVtb + zabRUB;
 
   // ── УССУРИЙСК ────────────────────────────────────────────────────────────
@@ -1170,8 +1299,8 @@ function calc(silent=false){
   const ussCNY = pCny + ovhdCny
     + (showChinaDelivery ? suiDelivCny : 0)
     + (showBrokerAndBorder ? 500+2500 : 0)
-    + comm;
-  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+excise+nds+clear+util : 0);
+    + comm + ussCustomChina;
+  const ussRUB = (showRF ? 55000 : 0) + (showTax ? duty+excise+nds+clear+util : 0) + ussCustomRf;
   const ussuriysk = ussCNY*rVtb + ussRUB;
 
   // ── КЯХТА ────────────────────────────────────────────────────────────────
@@ -1205,12 +1334,12 @@ function calc(silent=false){
   // Самоходом
   const dSelf = 50000+250000+200000+80000+450000+450000;
   const kyakSelfMongolia = showRF ? (1200*rVtb + 5000 + 15000 + dSelf*rMnt) : 0;
-  const kyakSelf = bKBase*rVtb + cKBase + kyakSelfMongolia;
+  const kyakSelf = bKBase*rVtb + kyakSelfCustomChina*rVtb + cKBase + kyakSelfCustomRf + kyakSelfMongolia + kyakSelfCustomMongolia*rMnt;
 
   // Эвакуатор: брокер МНГ 900 000 MNT + стоянка 50 000 MNT + эвакуатор 70 000 ₽
   const dEvacMnt = 50000+900000;
   const kyakEvacMongolia = showRF ? (dEvacMnt*rMnt + 70000 + 15000) : 0;
-  const kyakEvac = bKBase*rVtb + cKBase + kyakEvacMongolia;
+  const kyakEvac = bKBase*rVtb + kyakEvacCustomChina*rVtb + cKBase + kyakEvacCustomRf + kyakEvacMongolia + kyakEvacCustomMongolia*rMnt;
 
   // ── Рендер ──────────────────────────────────────────────────────────────
 
@@ -1367,30 +1496,40 @@ function calc(silent=false){
     + (showBrokerAndBorder ? 2300 : 0);
 
   const alexChinaRows = `
-    ${sec('Расходы в КНР', fmtN(alexChinaCnyAdj) + ' ¥ = ' + fmt(alexChinaCnyAdj * rVtb))}
+    ${sec('Расходы в КНР', fmtN(alexChinaCnyAdj + alexCustomChina) + ' ¥ = ' + fmt((alexChinaCnyAdj + alexCustomChina) * rVtb))}
     ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
     ${showChinaDelivery ? row(alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), cny(dManual ? deliveryManual : d.alex_cn)) : ''}
-    ${showBrokerAndBorder ? row(alexExtraLabel, cny(alexExtraCny)) : ''}`;
+    ${showBrokerAndBorder ? row(alexExtraLabel, cny(alexExtraCny)) : ''}
+    ${customRowsFor('alex','china').map(r => row(r.label, cny(r.amount))).join('')}`;
 
   const zabChinaRows = `
-    ${sec('Расходы в КНР', fmtN(zabChinaCnyAdj) + ' ¥ = ' + fmt(zabChinaCnyAdj * rVtb))}
+    ${sec('Расходы в КНР', fmtN(zabChinaCnyAdj + zabCustomChina) + ' ¥ = ' + fmt((zabChinaCnyAdj + zabCustomChina) * rVtb))}
     ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
     ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.man ? ' (' + currentDistances.man + ' км)' : ''), cny(manDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(1500)) : ''}
-    ${showBrokerAndBorder ? row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500)) : ''}`;
+    ${showBrokerAndBorder ? row('Перевозка через границу Маньчжурия–Забайкальск', cny(3500)) : ''}
+    ${customRowsFor('zab','china').map(r => row(r.label, cny(r.amount))).join('')}`;
 
   const ussChinaRows = `
-    ${sec('Расходы в КНР', fmtN(ussChinaCnyAdj) + ' ¥ = ' + fmt(ussChinaCnyAdj * rVtb))}
+    ${sec('Расходы в КНР', fmtN(ussChinaCnyAdj + ussCustomChina) + ' ¥ = ' + fmt((ussChinaCnyAdj + ussCustomChina) * rVtb))}
     ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
     ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), cny(suiDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}
-    ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500)) : ''}`;
+    ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500)) : ''}
+    ${customRowsFor('uss','china').map(r => row(r.label, cny(r.amount))).join('')}`;
 
-  const kyakChinaRows = `
-    ${sec('Расходы в КНР', fmtN(kyakChinaCnyAdj) + ' ¥ = ' + fmt(kyakChinaCnyAdj * rVtb))}
+  const kyakChinaRowsBody = `
     ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
     ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.erl ? ' (' + currentDistances.erl + ' км)' : ''), cny(erlDelivCny)) : ''}
     ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(2300)) : ''}`;
+  const kyakSelfChinaRows = `
+    ${sec('Расходы в КНР', fmtN(kyakChinaCnyAdj + kyakSelfCustomChina) + ' ¥ = ' + fmt((kyakChinaCnyAdj + kyakSelfCustomChina) * rVtb))}
+    ${kyakChinaRowsBody}
+    ${customRowsFor('kyak-self','china').map(r => row(r.label, cny(r.amount))).join('')}`;
+  const kyakEvacChinaRows = `
+    ${sec('Расходы в КНР', fmtN(kyakChinaCnyAdj + kyakEvacCustomChina) + ' ¥ = ' + fmt((kyakChinaCnyAdj + kyakEvacCustomChina) * rVtb))}
+    ${kyakChinaRowsBody}
+    ${customRowsFor('kyak-evac','china').map(r => row(r.label, cny(r.amount))).join('')}`;
 
   const commonRowsBase = `
     ${carName ? row('Автомобиль', carName) : ''}
@@ -1404,32 +1543,42 @@ function calc(silent=false){
     ${row('Комиссия Abapp', cny(comm))}`;
 
   const zabRows = showRF ? `
-    ${sec('Расходы в РФ', fmt(30000+45000+10000))}
+    ${sec('Расходы в РФ', fmt(30000+45000+10000+zabCustomRf))}
     ${row('Таможенный брокер в Забайкальске', fmt(30000))}
     ${row('Лаборатория СБКТС+ЭПТС (Забайкальск)', fmt(45000))}
-    ${row('СВХ', fmt(10000))}` : '';
+    ${row('СВХ', fmt(10000))}
+    ${customRowsFor('zab','rf').map(r => row(r.label, fmt(r.amount))).join('')}` : '';
 
   const alexRows = showRF ? `
-    ${sec('Расходы в РФ', fmt(50000+20000+5000))}
+    ${sec('Расходы в РФ', fmt(50000+20000+5000+alexCustomRf))}
     ${row('Таможенный брокер в г.Александров', fmt(50000))}
     ${row('Лаборатория СБКТС+ЭПТС', fmt(20000))}
-    ${row('СВХ', fmt(5000))}` : '';
+    ${row('СВХ', fmt(5000))}
+    ${customRowsFor('alex','rf').map(r => row(r.label, fmt(r.amount))).join('')}` : '';
 
   const ussRows = showRF ? `
-    ${sec('Расходы в РФ', fmt(55000))}
-    ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}` : '';
+    ${sec('Расходы в РФ', fmt(55000+ussCustomRf))}
+    ${row('Брокер + СБКТС+ЭПТС + СВХ', fmt(55000))}
+    ${customRowsFor('uss','rf').map(r => row(r.label, fmt(r.amount))).join('')}` : '';
 
   const kyakRFtotal = 40000+6000+20000+expertiza+1500;
-  const kyakBase = showRF ? `
-    ${sec('Расходы в РФ', fmt(kyakRFtotal))}
+  const kyakRFBody = `
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
     ${row('СВХ 3 дня', fmt(6000))}
     ${row('Таможенный брокер в Кяхте', fmt(20000))}
     ${row('Экспертное заключение', fmt(expertiza))}
-    ${row('Перевод сертификата', fmt(1500))}` : '';
+    ${row('Перевод сертификата', fmt(1500))}`;
+  const kyakSelfRFRows = showRF ? `
+    ${sec('Расходы в РФ', fmt(kyakRFtotal + kyakSelfCustomRf))}
+    ${kyakRFBody}
+    ${customRowsFor('kyak-self','rf').map(r => row(r.label, fmt(r.amount))).join('')}` : '';
+  const kyakEvacRFRows = showRF ? `
+    ${sec('Расходы в РФ', fmt(kyakRFtotal + kyakEvacCustomRf))}
+    ${kyakRFBody}
+    ${customRowsFor('kyak-evac','rf').map(r => row(r.label, fmt(r.amount))).join('')}` : '';
 
   const kyakSelfRows = (showRF ? `
-    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt))}
+    ${sec('Транзит по Монголии', fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt + kyakSelfCustomMongolia*rMnt))}
     ${row('Перевозка Замын-Удэ–Алтанбулаг самоходом', cny(1200))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Билеты Алтанбулаг–Улан-Батор', fmt(5000))}
@@ -1437,76 +1586,104 @@ function calc(silent=false){
     ${row('Бензин', mnt(250000))}
     ${row('Суточные', mnt(200000))}
     ${row('Билеты до Замын-Удэ', mnt(80000))}
-    ${row('Брокер МНГ', mnt(450000+450000))}` : '') + kyakBase;
+    ${row('Брокер МНГ', mnt(450000+450000))}
+    ${customRowsFor('kyak-self','mongolia').map(r => row(r.label, mnt(r.amount))).join('')}` : '') + kyakSelfRFRows;
 
   const kyakEvacRows = (showRF ? `
-    ${sec('Транзит по Монголии', fmt((50000+900000)*rMnt + 70000 + 15000))}
+    ${sec('Транзит по Монголии', fmt((50000+900000)*rMnt + 70000 + 15000 + kyakEvacCustomMongolia*rMnt))}
     ${row('Перевозка эвакуатором Замын-Удэ – Алтанбулаг', fmt(70000))}
     ${row('Перегон Алтанбулаг–Кяхта', fmt(15000))}
     ${row('Стоянка Замын-Удэ', mnt(50000))}
-    ${row('Брокер МНГ', mnt(900000))}` : '') + kyakBase;
+    ${row('Брокер МНГ', mnt(900000))}
+    ${customRowsFor('kyak-evac','mongolia').map(r => row(r.label, mnt(r.amount))).join('')}` : '') + kyakEvacRFRows;
 
   // ── Данные для экспорта карточек ────────────────────────────────────────
   const zabChinaExport = [
-    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny)+' ¥ = '+fmt(zabChinaCny*rVtb)},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(zabChinaCny + zabCustomChina)+' ¥ = '+fmt((zabChinaCny + zabCustomChina)*rVtb)},
     ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
     ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.man ? ' (' + currentDistances.man + ' км)' : ''), val: cny(manDelivCny)}] : []),
     ...(showBrokerAndBorder ? [
       {label:'Брокер КНР + ПРР', val: cny(1500)},
       {label:'Перевозка через границу Маньчжурия–Забайкальск', val: cny(3500)},
     ] : []),
+    ...customRowsFor('zab','china').map(r => ({label: r.label, val: cny(r.amount)})),
   ];
   const zabLogExport = [
-    {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000)},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000+zabCustomRf)},
     {label:'Таможенный брокер Забайкальск', val: fmt(30000)},
     {label:'Лаборатория СБКТС+ЭПТС (Забайкальск)', val: fmt(45000)},
     {label:'СВХ', val: fmt(10000)},
+    ...customRowsFor('zab','rf').map(r => ({label: r.label, val: fmt(r.amount)})),
   ];
 
   const alexChinaExport = [
-    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny)+' ¥ = '+fmt(alexChinaCny*rVtb)},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexChinaCny + alexCustomChina)+' ¥ = '+fmt((alexChinaCny + alexCustomChina)*rVtb)},
     ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
     ...(showChinaDelivery ? [{label: alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
     ...(showBrokerAndBorder ? [{label: alexExtraLabel, val: cny(alexExtraCny)}] : []),
+    ...customRowsFor('alex','china').map(r => ({label: r.label, val: cny(r.amount)})),
   ];
   const alexLogExport = [
-    {type:'sec', label:'Расходы в РФ', subtotal: fmt(50000+20000+5000)},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(50000+20000+5000+alexCustomRf)},
     {label:'Таможенный брокер в г.Александров', val: fmt(50000)},
     {label:'Лаборатория СБКТС+ЭПТС', val: fmt(20000)},
     {label:'СВХ', val: fmt(5000)},
+    ...customRowsFor('alex','rf').map(r => ({label: r.label, val: fmt(r.amount)})),
   ];
 
   const ussChinaExport = [
-    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny)+' ¥ = '+fmt(ussChinaCny*rVtb)},
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ussChinaCny + ussCustomChina)+' ¥ = '+fmt((ussChinaCny + ussCustomChina)*rVtb)},
     ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
     ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), val: cny(suiDelivCny)}] : []),
     ...(showBrokerAndBorder ? [
       {label:'Брокер КНР + ПРР', val: cny(500)},
       {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
     ] : []),
+    ...customRowsFor('uss','china').map(r => ({label: r.label, val: cny(r.amount)})),
   ];
   const ussLogExport = [
-    {type:'sec', label:'Расходы в РФ', subtotal: fmt(55000)},
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(55000+ussCustomRf)},
     {label:'Брокер + СБКТС+ЭПТС + СВХ', val: fmt(55000)},
+    ...customRowsFor('uss','rf').map(r => ({label: r.label, val: fmt(r.amount)})),
   ];
 
-  const kyakChinaExport = [
-    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny)+' ¥ = '+fmt(kyakChinaCny*rVtb)},
+  const kyakChinaExportBody = [
     ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
     ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.erl ? ' (' + currentDistances.erl + ' км)' : ''), val: cny(erlDelivCny)}] : []),
     ...(showBrokerAndBorder ? [{label:'Брокер КНР + ПРР', val: cny(2300)}] : []),
   ];
-  const kyakBaseLogExport = showRF ? [
-    {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal)},
+  const kyakSelfChinaExport = [
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny + kyakSelfCustomChina)+' ¥ = '+fmt((kyakChinaCny + kyakSelfCustomChina)*rVtb)},
+    ...kyakChinaExportBody,
+    ...customRowsFor('kyak-self','china').map(r => ({label: r.label, val: cny(r.amount)})),
+  ];
+  const kyakEvacChinaExport = [
+    {type:'sec', label:'Расходы в КНР', subtotal: fmtN(kyakChinaCny + kyakEvacCustomChina)+' ¥ = '+fmt((kyakChinaCny + kyakEvacCustomChina)*rVtb)},
+    ...kyakChinaExportBody,
+    ...customRowsFor('kyak-evac','china').map(r => ({label: r.label, val: cny(r.amount)})),
+  ];
+
+  const kyakRFExportBody = [
     {label:'Лаборатория СБКТС+ЭПТС (Кяхта)', val: fmt(40000)},
     {label:'СВХ 3 дня', val: fmt(6000)},
     {label:'Таможенный брокер Кяхта', val: fmt(20000)},
     {label:'Экспертное заключение', val: fmt(expertiza)},
     {label:'Перевод сертификата', val: fmt(1500)},
+  ];
+  const kyakSelfRFExport = showRF ? [
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal + kyakSelfCustomRf)},
+    ...kyakRFExportBody,
+    ...customRowsFor('kyak-self','rf').map(r => ({label: r.label, val: fmt(r.amount)})),
   ] : [];
+  const kyakEvacRFExport = showRF ? [
+    {type:'sec', label:'Расходы в РФ', subtotal: fmt(kyakRFtotal + kyakEvacCustomRf)},
+    ...kyakRFExportBody,
+    ...customRowsFor('kyak-evac','rf').map(r => ({label: r.label, val: fmt(r.amount)})),
+  ] : [];
+
   const kyakSelfLogExport = [
     ...(showRF ? [
-      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt)},
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt(1200*rVtb + 5000 + 15000 + (50000+250000+200000+80000+450000+450000)*rMnt + kyakSelfCustomMongolia*rMnt)},
       {label:'Перевозка Замын-Удэ–Алтанбулаг самоходом', val: cny(1200)},
       {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
       {label:'Билеты Алтанбулаг–Улан-Батор', val: fmt(5000)},
@@ -1515,18 +1692,20 @@ function calc(silent=false){
       {label:'Суточные', val: mnt(200000)},
       {label:'Билеты до Замын-Удэ', val: mnt(80000)},
       {label:'Брокер МНГ', val: mnt(900000)},
+      ...customRowsFor('kyak-self','mongolia').map(r => ({label: r.label, val: mnt(r.amount)})),
     ] : []),
-    ...kyakBaseLogExport,
+    ...kyakSelfRFExport,
   ];
   const kyakEvacLogExport = [
     ...(showRF ? [
-      {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000)},
+      {type:'sec', label:'Транзит по Монголии', subtotal: fmt((50000+900000)*rMnt + 70000 + 15000 + kyakEvacCustomMongolia*rMnt)},
       {label:'Перевозка эвакуатором Замын-Удэ – Алтанбулаг', val: fmt(70000)},
       {label:'Перегон Алтанбулаг–Кяхта', val: fmt(15000)},
       {label:'Стоянка Замын-Удэ', val: mnt(50000)},
       {label:'Брокер МНГ', val: mnt(900000)},
+      ...customRowsFor('kyak-evac','mongolia').map(r => ({label: r.label, val: mnt(r.amount)})),
     ] : []),
-    ...kyakBaseLogExport,
+    ...kyakEvacRFExport,
   ];
 
   document.getElementById('res').innerHTML = `
@@ -1555,8 +1734,8 @@ function calc(silent=false){
         {html: cityDetail('zab','📍 Забайкальск','var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab), total: zabaikalsk},
         {html: cityDetail('alex','📍 Александров','var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex), total: alexandrov},
         {html: cityDetail('uss','📍 Уссурийск','var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss), total: ussuriysk},
-        {html: cityDetail('kyak-self','📍 Кяхта (транзит самоходом)','var(--accent)',kyakChinaRows,kyakSelfRows,kyakChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak), total: kyakSelf},
-        {html: cityDetail('kyak-evac','📍 Кяхта (транзит на эвакуаторе)','var(--accent)',kyakChinaRows,kyakEvacRows,kyakChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak), total: kyakEvac},
+        {html: cityDetail('kyak-self','📍 Кяхта (транзит самоходом)','var(--accent)',kyakSelfChinaRows,kyakSelfRows,kyakSelfChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyak), total: kyakSelf},
+        {html: cityDetail('kyak-evac','📍 Кяхта (транзит на эвакуаторе)','var(--accent)',kyakEvacChinaRows,kyakEvacRows,kyakEvacChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyak), total: kyakEvac},
       ].sort((a,b) => a.total - b.total).map(x => x.html).join('')}
 
       <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
@@ -2094,7 +2273,7 @@ function applyURLParams() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  loadRates(); onAge(); updHP();
+  loadRates(); onAge(); updHP(); renderCustomExtrasUI();
   document.getElementById('car_name').addEventListener('input', updateCarNameDisplay);
   applyURLParams();
 });
