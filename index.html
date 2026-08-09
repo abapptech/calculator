@@ -1621,7 +1621,7 @@ function calc(silent=false){
         {label:'Комиссия Abapp', val: cny(comm)},
       ] : []),
       {type:'total', label:'ИТОГО', val: fmt(total)},
-      ...(includeVtbComm ? [{label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'}] : []),
+      ...(includeVtbComm ? [{label:'Комиссия ВТБ (~2.5% от CNY, справочно - не входит в итоговую сумму)', val: fmt(vtbComm), cls:'pct'}] : []),
     ];
     return JSON.stringify(base).replace(/"/g, '&quot;');
   };
@@ -1656,7 +1656,7 @@ function calc(silent=false){
         ${includeComm ? commRows : ''}
         ${rowHL('ИТОГО', fmt(total))}
         ${includeVtbComm ? `<div class="br" style="padding:6px 0">
-          <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно)</span>
+          <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно - не входит в итоговую сумму)</span>
           <span class="bv pct">${fmt(vtbComm)}</span>
         </div>` : ''}
         <div style="display:flex;gap:6px">
