@@ -423,6 +423,38 @@ gtag('config','G-0T7CPPNW61');
       <div id="custom_extras_block" style="display:none;margin-bottom:14px"></div>
 
       <div style="margin-top:12px;text-align:center">
+        <button type="button" id="brand_toggle_btn" onclick="toggleBrandPanel()" style="background:none;border:1px solid var(--border);color:var(--text2);font-size:11px;cursor:pointer;padding:8px 16px;border-radius:8px;font-family:'IBM Plex Mono',monospace;transition:all .2s" onmouseenter="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">🎨 Брендировать</button>
+      </div>
+      <div id="brand_panel" style="display:none;margin-top:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px">
+        <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Брендирование JPG-карточек</div>
+
+        <div class="field">
+          <label>Логотип</label>
+          <input type="file" id="brand_logo_input" accept="image/*" onchange="onBrandLogoChange(event)"
+            style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text2);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:8px;outline:none">
+          <div id="brand_logo_preview" style="display:none;align-items:center;gap:10px;margin-top:8px">
+            <img id="brand_logo_img" style="width:40px;height:40px;border-radius:8px;object-fit:cover;border:1px solid var(--border)">
+            <button type="button" onclick="removeBrandLogo()" style="background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;cursor:pointer;padding:5px 10px;border-radius:6px;font-family:'IBM Plex Mono',monospace">Удалить логотип</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Название компании</label>
+          <input type="text" id="brand_name_input" placeholder="Abapp" oninput="saveBrandSettings()">
+        </div>
+
+        <div class="field" style="margin-bottom:0">
+          <label>Подпись / сайт</label>
+          <input type="text" id="brand_subtitle_input" placeholder="Калькулятор стоимости авто из КНР · abappcn.ru/calculator/" oninput="saveBrandSettings()">
+          <div class="fhint">Логотип и текст сохраняются в этом браузере автоматически</div>
+        </div>
+
+        <div style="margin-top:10px;text-align:center">
+          <button type="button" onclick="resetBranding()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 8px;font-family:'IBM Plex Mono',monospace">↺ Сбросить бренд</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;text-align:center">
         <button onclick="resetForm()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 8px;font-family:'IBM Plex Mono',monospace;transition:color .2s" onmouseenter="this.style.color='var(--text2)'" onmouseleave="this.style.color='var(--text3)'">↺ сбросить данные</button>
       </div>
     </div>
@@ -1142,6 +1174,64 @@ function clearAllCustomRows(){
     if (container) container.innerHTML = '';
     updateCustomAddBtn(city.key, section);
   }));
+}
+
+// ── Брендирование JPG-карточек (white-label) ────────────────────────────────
+function toggleBrandPanel(){
+  const panel = document.getElementById('brand_panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function onBrandLogoChange(event){
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      localStorage.setItem('abapp_brand_logo', e.target.result);
+      showBrandLogoPreview(e.target.result);
+    } catch(err) {
+      alert('Не удалось сохранить логотип (возможно, файл слишком большой). Попробуйте изображение поменьше.');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function showBrandLogoPreview(dataUrl){
+  document.getElementById('brand_logo_img').src = dataUrl;
+  document.getElementById('brand_logo_preview').style.display = 'flex';
+}
+
+function removeBrandLogo(){
+  localStorage.removeItem('abapp_brand_logo');
+  document.getElementById('brand_logo_preview').style.display = 'none';
+  document.getElementById('brand_logo_input').value = '';
+}
+
+function saveBrandSettings(){
+  const name = document.getElementById('brand_name_input').value.trim();
+  const subtitle = document.getElementById('brand_subtitle_input').value.trim();
+  if (name) localStorage.setItem('abapp_brand_name', name); else localStorage.removeItem('abapp_brand_name');
+  if (subtitle) localStorage.setItem('abapp_brand_subtitle', subtitle); else localStorage.removeItem('abapp_brand_subtitle');
+}
+
+function resetBranding(){
+  localStorage.removeItem('abapp_brand_logo');
+  localStorage.removeItem('abapp_brand_name');
+  localStorage.removeItem('abapp_brand_subtitle');
+  document.getElementById('brand_logo_input').value = '';
+  document.getElementById('brand_logo_preview').style.display = 'none';
+  document.getElementById('brand_name_input').value = '';
+  document.getElementById('brand_subtitle_input').value = '';
+}
+
+function loadBrandSettings(){
+  const logo = localStorage.getItem('abapp_brand_logo');
+  if (logo) showBrandLogoPreview(logo);
+  const name = localStorage.getItem('abapp_brand_name');
+  if (name) document.getElementById('brand_name_input').value = name;
+  const subtitle = localStorage.getItem('abapp_brand_subtitle');
+  if (subtitle) document.getElementById('brand_subtitle_input').value = subtitle;
 }
 
 function calc(silent=false){
@@ -2013,7 +2103,16 @@ function buildCardFilename(cityId, total) {
 // ── Строим canvas карточки (общий для всех действий) ──────────────────────
 async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   const logoEl = document.querySelector('.logo-wrap img');
-  const logoSrc = logoEl ? logoEl.src : '';
+  const brandLogo = localStorage.getItem('abapp_brand_logo');
+  const brandName = localStorage.getItem('abapp_brand_name');
+  const brandSubtitle = localStorage.getItem('abapp_brand_subtitle');
+  const isCustomBrand = !!(brandLogo || brandName || brandSubtitle);
+  const logoSrc = brandLogo || (logoEl ? logoEl.src : '');
+  const displayName = brandName || 'Abapp';
+  const displaySubtitle = brandSubtitle || 'Калькулятор стоимости авто из КНР · abappcn.ru/calculator/';
+  const footerBrandLine = isCustomBrand
+    ? `© ${displayName}<br><span style="font-size:6px;color:#999">Расчёт выполнен на движке Abapp</span>`
+    : `© Abapp · abappcn.ru/calculator/`;
   const carName = (document.getElementById('car_name') ? document.getElementById('car_name').value.trim() : '') || (window._carName || '').trim();
   // Строка спецификации под названием
   const carSpec = window._carSpec || '';
@@ -2038,8 +2137,8 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
     <div class="ec-header">
       ${logoSrc ? `<img src="${logoSrc}" style="width:40px;height:40px;border-radius:8px">` : ''}
       <div>
-        <div class="ec-brand">Abapp</div>
-        <div class="ec-sub">Калькулятор стоимости авто из КНР · abappcn.ru/calculator/</div>
+        <div class="ec-brand">${displayName}</div>
+        <div class="ec-sub">${displaySubtitle}</div>
       </div>
     </div>
     <div class="ec-city" style="color:#1a1a2e">${cityTitle}</div>
@@ -2053,7 +2152,7 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
       *** Расчёт стоимости является ориентировочным.<br><br>
       Данный расчёт носит исключительно информационный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации.<br><br>
       Расчёт действителен на дату: ${today}<br>
-      © Abapp · abappcn.ru/calculator/
+      ${footerBrandLine}
     </div>`;
   document.body.appendChild(card);
 
@@ -2296,7 +2395,7 @@ function applyURLParams() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  loadRates(); onAge(); updHP(); renderCustomExtrasUI();
+  loadRates(); onAge(); updHP(); renderCustomExtrasUI(); loadBrandSettings();
   document.getElementById('car_name').addEventListener('input', updateCarNameDisplay);
   applyURLParams();
 });
