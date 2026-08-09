@@ -451,6 +451,9 @@ gtag('config','G-0T7CPPNW61');
         <div class="fhint">Нужно указать свои расходы на всех этапах</div>
       </div>
       <div id="custom_extras_block" style="display:none;margin-bottom:14px"></div>
+      <div id="custom_calc_reset_wrap" style="display:none;margin-top:-8px;margin-bottom:14px;text-align:center">
+        <button type="button" onclick="resetCustomCalc()" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 8px;font-family:'IBM Plex Mono',monospace">↺ Сбросить кастомный расчёт</button>
+      </div>
 
       <div style="margin-top:12px;text-align:center">
         <button type="button" id="brand_toggle_btn" onclick="toggleBrandPanel()" style="background:none;border:1px solid var(--border);color:var(--text2);font-size:11px;cursor:pointer;padding:8px 16px;border-radius:8px;font-family:'IBM Plex Mono',monospace;transition:all .2s" onmouseenter="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseleave="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">🎨 Брендировать</button>
@@ -1014,9 +1017,6 @@ function resetForm(){
   document.querySelector('input[name="alex_other_rf_mode"][value="default"]').checked = true;
   document.getElementById('alex_other_rf_custom_field').style.display = 'none';
   document.getElementById('alex_other_rf_custom').value = '';
-  document.getElementById('chk_custom_extras').checked = false;
-  document.getElementById('custom_extras_block').style.display = 'none';
-  clearAllCustomRows();
   document.getElementById('comm_select').value = '12000';
   document.getElementById('comm').value = '12000';
   document.getElementById('comm_custom').value = '';
@@ -1167,16 +1167,16 @@ function renderCustomExtrasUI(){
         ${city.isOwnCity ? `
           <div class="field">
             <label>Название города</label>
-            <input type="text" id="own_city_name" placeholder="например: Новосибирск" oninput="calc_if_ready()">
+            <input type="text" id="own_city_name" placeholder="например: Новосибирск" oninput="saveCustomCalcState();calc_if_ready()">
           </div>
           <div class="field">
             <label>Стоимость доставки Хоргос–город, ¥</label>
-            <input type="text" inputmode="numeric" id="own_city_delivery" placeholder="например: 20 000" oninput="maskThousands(this);calc_if_ready()">
+            <input type="text" inputmode="numeric" id="own_city_delivery" placeholder="например: 20 000" oninput="maskThousands(this);saveCustomCalcState();calc_if_ready()">
             <div class="fhint">Карточка появится в результатах, когда заполнены оба поля</div>
           </div>
           <div class="field">
             <label>Комиссия, ₽</label>
-            <input type="text" inputmode="numeric" id="own_city_comm" placeholder="например: 50 000" oninput="maskThousands(this);calc_if_ready()">
+            <input type="text" inputmode="numeric" id="own_city_comm" placeholder="например: 50 000" oninput="maskThousands(this);saveCustomCalcState();calc_if_ready()">
           </div>
         ` : ''}
         ${city.sections.map(section => `
@@ -1194,7 +1194,7 @@ function renderCustomExtrasUI(){
   `).join('');
 }
 
-function addCustomRow(cityKey, section){
+function addCustomRow(cityKey, section, skipSave){
   const container = document.getElementById(`custom_rows_${cityKey}_${section}`);
   if (container.querySelectorAll('.custom-row').length >= CUSTOM_MAX_ROWS) return;
   const cur = CUSTOM_SECTION_CUR[section];
@@ -1204,20 +1204,22 @@ function addCustomRow(cityKey, section){
   div.innerHTML = `
     <input type="text" class="custom-row-label" placeholder="Название статьи"
       style="flex:2;min-width:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 9px;outline:none"
-      oninput="calc_if_ready()">
+      oninput="saveCustomCalcState();calc_if_ready()">
     <input type="text" inputmode="numeric" class="custom-row-val" placeholder="Сумма, ${cur}"
       style="flex:1;min-width:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 9px;outline:none"
-      oninput="maskThousands(this);calc_if_ready()">
+      oninput="maskThousands(this);saveCustomCalcState();calc_if_ready()">
     <button type="button" onclick="removeCustomRow(this,'${cityKey}','${section}')"
       style="flex-shrink:0;background:none;border:none;color:var(--text3);font-size:16px;cursor:pointer;padding:2px 6px;line-height:1">×</button>`;
   container.appendChild(div);
   updateCustomAddBtn(cityKey, section);
+  if (!skipSave) saveCustomCalcState();
   calc_if_ready();
 }
 
 function removeCustomRow(btn, cityKey, section){
   btn.closest('.custom-row').remove();
   updateCustomAddBtn(cityKey, section);
+  saveCustomCalcState();
   calc_if_ready();
 }
 
@@ -1229,9 +1231,87 @@ function updateCustomAddBtn(cityKey, section){
   addBtn.style.display = atMax ? 'none' : 'inline-block';
 }
 
+// ── Сохранение кастомного расчёта между визитами (localStorage) ─────────────
+const CUSTOM_CALC_STORAGE_KEY = 'abapp_custom_calc';
+
+function saveCustomCalcState(){
+  const state = { enabled: document.getElementById('chk_custom_extras').checked, rows: {}, ownCity: {} };
+  CUSTOM_CITIES.forEach(city => {
+    state.rows[city.key] = {};
+    city.sections.forEach(section => {
+      const container = document.getElementById(`custom_rows_${city.key}_${section}`);
+      const rows = [];
+      if (container) {
+        container.querySelectorAll('.custom-row').forEach(rowEl => {
+          const label = rowEl.querySelector('.custom-row-label').value;
+          const val = rowEl.querySelector('.custom-row-val').value;
+          rows.push({label, val});
+        });
+      }
+      state.rows[city.key][section] = rows;
+    });
+  });
+  const ownName = document.getElementById('own_city_name');
+  const ownDeliv = document.getElementById('own_city_delivery');
+  const ownComm = document.getElementById('own_city_comm');
+  state.ownCity = {
+    name: ownName ? ownName.value : '',
+    delivery: ownDeliv ? ownDeliv.value : '',
+    comm: ownComm ? ownComm.value : '',
+  };
+  try { localStorage.setItem(CUSTOM_CALC_STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function loadCustomCalcState(){
+  let state;
+  try { state = JSON.parse(localStorage.getItem(CUSTOM_CALC_STORAGE_KEY) || 'null'); } catch(e) { state = null; }
+  if (!state) return;
+
+  if (state.enabled) {
+    document.getElementById('chk_custom_extras').checked = true;
+    document.getElementById('custom_extras_block').style.display = 'block';
+    document.getElementById('custom_calc_reset_wrap').style.display = 'block';
+  }
+
+  CUSTOM_CITIES.forEach(city => {
+    city.sections.forEach(section => {
+      const rows = (state.rows && state.rows[city.key] && state.rows[city.key][section]) || [];
+      rows.forEach(r => {
+        addCustomRow(city.key, section, true);
+        const container = document.getElementById(`custom_rows_${city.key}_${section}`);
+        const last = container.lastElementChild;
+        if (last) {
+          last.querySelector('.custom-row-label').value = r.label || '';
+          last.querySelector('.custom-row-val').value = r.val || '';
+        }
+      });
+    });
+  });
+
+  if (state.ownCity) {
+    const ownName = document.getElementById('own_city_name');
+    const ownDeliv = document.getElementById('own_city_delivery');
+    const ownComm = document.getElementById('own_city_comm');
+    if (ownName) ownName.value = state.ownCity.name || '';
+    if (ownDeliv) ownDeliv.value = state.ownCity.delivery || '';
+    if (ownComm) ownComm.value = state.ownCity.comm || '';
+  }
+}
+
+function resetCustomCalc(){
+  clearAllCustomRows();
+  document.getElementById('chk_custom_extras').checked = false;
+  document.getElementById('custom_extras_block').style.display = 'none';
+  document.getElementById('custom_calc_reset_wrap').style.display = 'none';
+  try { localStorage.removeItem(CUSTOM_CALC_STORAGE_KEY); } catch(e) {}
+  calc_if_ready();
+}
+
 function onChkCustomExtras(){
   const checked = document.getElementById('chk_custom_extras').checked;
   document.getElementById('custom_extras_block').style.display = checked ? 'block' : 'none';
+  document.getElementById('custom_calc_reset_wrap').style.display = checked ? 'block' : 'none';
+  saveCustomCalcState();
   calc_if_ready();
 }
 
@@ -2549,7 +2629,7 @@ function applyURLParams() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  loadRates(); onAge(); updHP(); renderCustomExtrasUI(); loadBrandSettings();
+  loadRates(); onAge(); updHP(); renderCustomExtrasUI(); loadBrandSettings(); loadCustomCalcState();
   document.getElementById('car_name').addEventListener('input', updateCarNameDisplay);
   applyURLParams();
 });
