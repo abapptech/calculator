@@ -1144,12 +1144,12 @@ function onCommSelect(){
 
 // ── Произвольные статьи расходов (пользовательские) ─────────────────────────
 const CUSTOM_CITIES = [
+  {key:'own',       label:'Свой город (полностью кастомный)', sections:['china','rf'], isOwnCity:true},
   {key:'zab',       label:'Забайкальск',            sections:['china','rf']},
   {key:'alex',      label:'Александров',            sections:['china','rf']},
   {key:'uss',       label:'Уссурийск',              sections:['china','rf']},
   {key:'kyak-self', label:'Кяхта (самоходом)',      sections:['china','rf','mongolia']},
   {key:'kyak-evac', label:'Кяхта (эвакуатор)',      sections:['china','rf','mongolia']},
-  {key:'own',       label:'Свой город (полностью кастомный)', sections:['china','rf'], isOwnCity:true},
 ];
 const CUSTOM_SECTION_LABEL = {china:'Расходы в КНР', rf:'Расходы в РФ', mongolia:'Транзит по Монголии'};
 const CUSTOM_SECTION_CUR   = {china:'¥', rf:'₽', mongolia:'₮'};
