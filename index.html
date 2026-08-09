@@ -121,8 +121,8 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .dl-btn:disabled{opacity:.5;cursor:wait}
 .export-card{position:fixed;left:-9999px;top:0;width:600px;background:#ffffff;padding:28px;font-family:Verdana,Geneva,sans-serif;color:#1a1a2e;line-height:1.4}
 .ec-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #e0e0e0}
-.ec-brand{font-size:13px;font-weight:700;color:#1a1a2e}
-.ec-sub{font-size:10px;color:#000;margin-top:2px}
+.ec-brand{font-size:16px;font-weight:700;color:#1a1a2e}
+.ec-sub{font-size:12px;color:#000;margin-top:2px}
 .ec-city{font-size:18px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
 .ec-total-big{font-size:30px;font-weight:900;color:#cc2200;margin-bottom:14px}
 .ec-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
@@ -2272,7 +2272,7 @@ async function buildCardCanvas(cityId, cityTitle, rows, total, color) {
   card.className = 'export-card';
   card.innerHTML = `
     <div class="ec-header">
-      ${logoSrc ? `<img src="${logoSrc}" style="width:40px;height:40px;border-radius:8px">` : ''}
+      ${logoSrc ? `<img src="${logoSrc}" style="width:56px;height:56px;border-radius:8px">` : ''}
       <div>
         <div class="ec-brand">${displayName}</div>
         <div class="ec-sub">${displaySubtitle}</div>
