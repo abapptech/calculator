@@ -134,7 +134,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .ec-val{color:#1a1a2e;font-weight:500}
 .ec-val-red{color:#cc2200;font-weight:500}
 .ec-val-tot{color:#cc2200;font-weight:700;font-size:15px}
-.ec-val-pct{color:#e05500;font-weight:500}
+.ec-val-pct{color:#e05500;font-weight:500;white-space:nowrap;flex-shrink:0;margin-left:10px}
 .ec-total-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fff3f0;border-radius:8px;margin-top:9px;border:1px solid #f0c0b0}
 .ec-total-key{font-size:19px;color:#aa3300;font-weight:600}
 .ec-total-val{font-size:19px;font-weight:700;color:#cc2200}
@@ -1663,7 +1663,7 @@ function calc(silent=false){
         ${rowHL('ИТОГО', fmt(total))}
         ${includeVtbComm ? `<div class="br" style="padding:6px 0">
           <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно - не входит в итоговую сумму)</span>
-          <span class="bv pct">${fmt(vtbComm)}</span>
+          <span class="bv pct" style="white-space:nowrap;flex-shrink:0;margin-left:10px">${fmt(vtbComm)}</span>
         </div>` : ''}
         <div style="display:flex;gap:6px">
           <button class="dl-btn" id="dlbtn-${id}" style="flex:1"
