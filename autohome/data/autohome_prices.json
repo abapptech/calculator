@@ -1,0 +1,457 @@
+{
+ "updated_at": "2026-08-09T20:26:28Z",
+ "source": "autohome.com.cn",
+ "max_age_years": 3,
+ "complete": true,
+ "counts": {
+  "brands": 1,
+  "models": 10,
+  "trims": 58
+ },
+ "brands": [
+  {
+   "brand": "极氪",
+   "brand_latin": null,
+   "models": [
+    {
+     "series_id": 6091,
+     "name": "极氪001",
+     "first_launch": "2025.10",
+     "price_min_cny": 269800,
+     "price_max_cny": 365000,
+     "trims": [
+      {
+       "spec_id": 75071,
+       "name": "2026款 95度四驱 Max版",
+       "price_cny": 269800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 75139,
+       "name": "2026款 103度后驱 Max版",
+       "price_cny": 269800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 75072,
+       "name": "2026款 103度四驱 Ultra版",
+       "price_cny": 299800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 74180,
+       "name": "2026款 103度四驱 Ultra+版",
+       "price_cny": 329800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 77069,
+       "name": "2026款 103度四驱 五周年纪念版",
+       "price_cny": 365000,
+       "launch": "2026.04"
+      }
+     ]
+    },
+    {
+     "series_id": 7698,
+     "name": "极氪001 FR",
+     "first_launch": "2024.08",
+     "price_min_cny": 769000,
+     "price_max_cny": 769000,
+     "trims": [
+      {
+       "spec_id": 69466,
+       "name": "2025款 FR版 100kWh",
+       "price_cny": 769000,
+       "launch": "2024.08"
+      }
+     ]
+    },
+    {
+     "series_id": 7491,
+     "name": "极氪007",
+     "first_launch": "2024.08",
+     "price_min_cny": 203900,
+     "price_max_cny": 299900,
+     "trims": [
+      {
+       "spec_id": 77106,
+       "name": "2026款 后驱Max版 75kWh",
+       "price_cny": 203900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 69444,
+       "name": "2025款 后驱智驾版 75kWh",
+       "price_cny": 209900,
+       "launch": "2024.08"
+      },
+      {
+       "spec_id": 77105,
+       "name": "2026款 后驱Max版 103kWh",
+       "price_cny": 223900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 69445,
+       "name": "2025款 长续航后驱智驾版 100kWh",
+       "price_cny": 229900,
+       "launch": "2024.08"
+      },
+      {
+       "spec_id": 69446,
+       "name": "2025款 四驱智驾版 75kWh",
+       "price_cny": 229900,
+       "launch": "2024.08"
+      },
+      {
+       "spec_id": 77104,
+       "name": "2026款 四驱Max版 75kWh",
+       "price_cny": 233900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76351,
+       "name": "2026款 四驱Ultra版 103kWh",
+       "price_cny": 243900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 69447,
+       "name": "2025款 长续航四驱智驾版 100kWh",
+       "price_cny": 259900,
+       "launch": "2024.08"
+      },
+      {
+       "spec_id": 69463,
+       "name": "2025款 四驱性能版 100kWh",
+       "price_cny": 299900,
+       "launch": "2024.08"
+      }
+     ]
+    },
+    {
+     "series_id": 8010,
+     "name": "极氪007GT",
+     "first_launch": "2025.04",
+     "price_min_cny": 202900,
+     "price_max_cny": 262900,
+     "trims": [
+      {
+       "spec_id": 71418,
+       "name": "2025款 后驱智驾版 75kWh",
+       "price_cny": 202900,
+       "launch": "2025.04"
+      },
+      {
+       "spec_id": 77107,
+       "name": "2026款 后驱Max版 75kWh",
+       "price_cny": 203900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 71394,
+       "name": "2025款 长续航后驱智驾版 100kWh",
+       "price_cny": 222900,
+       "launch": "2025.04"
+      },
+      {
+       "spec_id": 77115,
+       "name": "2026款 后驱Max版 103kWh",
+       "price_cny": 223900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 71332,
+       "name": "2025款 四驱智驾版 75kWh",
+       "price_cny": 232900,
+       "launch": "2025.04"
+      },
+      {
+       "spec_id": 77117,
+       "name": "2026款 四驱Max版 75kWh",
+       "price_cny": 233900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76350,
+       "name": "2026款 四驱Ultra版 103kWh",
+       "price_cny": 243900,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 71419,
+       "name": "2025款 长续航四驱智驾版 100kWh",
+       "price_cny": 262900,
+       "launch": "2025.04"
+      }
+     ]
+    },
+    {
+     "series_id": 6846,
+     "name": "极氪009",
+     "first_launch": "2024.04",
+     "price_min_cny": 439000,
+     "price_max_cny": 899000,
+     "trims": [
+      {
+       "spec_id": 68276,
+       "name": "2024款 七座过道版 108kWh",
+       "price_cny": 439000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 76817,
+       "name": "2026款 七座Ultra版",
+       "price_cny": 439800,
+       "launch": "2026.05"
+      },
+      {
+       "spec_id": 68278,
+       "name": "2024款 七座过道版四驱 108kWh",
+       "price_cny": 459000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 76820,
+       "name": "2026款 七座Ultra+齐家版",
+       "price_cny": 459800,
+       "launch": "2026.05"
+      },
+      {
+       "spec_id": 69218,
+       "name": "2024款 六座行政版四驱 108kWh",
+       "price_cny": 469000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 76818,
+       "name": "2026款 六座Ultra+行政版",
+       "price_cny": 469800,
+       "launch": "2026.05"
+      },
+      {
+       "spec_id": 68275,
+       "name": "2024款 七座过道版 140kWh",
+       "price_cny": 489000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 69222,
+       "name": "2024款 七座过道版四驱 140kWh",
+       "price_cny": 509000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 68277,
+       "name": "2024款 六座行政版四驱 140kWh",
+       "price_cny": 519000,
+       "launch": "2024.07"
+      },
+      {
+       "spec_id": 66649,
+       "name": "2024款 光辉",
+       "price_cny": 789000,
+       "launch": "2024.04"
+      },
+      {
+       "spec_id": 72276,
+       "name": "2024款 光辉典藏版",
+       "price_cny": 899000,
+       "launch": "2025.04"
+      }
+     ]
+    },
+    {
+     "series_id": 7777,
+     "name": "极氪7X",
+     "first_launch": "2025.10",
+     "price_min_cny": 229800,
+     "price_max_cny": 269800,
+     "trims": [
+      {
+       "spec_id": 75351,
+       "name": "2026款 75kWh 后驱MAX版",
+       "price_cny": 229800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 75352,
+       "name": "2026款 103kWh 后驱MAX版",
+       "price_cny": 249800,
+       "launch": "2025.10"
+      },
+      {
+       "spec_id": 75350,
+       "name": "2026款 103kWh 四驱Ultra版",
+       "price_cny": 269800,
+       "launch": "2025.10"
+      }
+     ]
+    },
+    {
+     "series_id": 8148,
+     "name": "极氪8X",
+     "first_launch": "2026.04",
+     "price_min_cny": 356800,
+     "price_max_cny": 500800,
+     "trims": [
+      {
+       "spec_id": 76850,
+       "name": "2026款 Max版 55kWh",
+       "price_cny": 356800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76233,
+       "name": "2026款 Max版 70kWh",
+       "price_cny": 371800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76851,
+       "name": "2026款 Ultra版 55kWh",
+       "price_cny": 376800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76856,
+       "name": "2026款 Ultra版 70kWh",
+       "price_cny": 391800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 77402,
+       "name": "2026款 Ultra+版 55kWh",
+       "price_cny": 411800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76140,
+       "name": "2026款 Ultra+版 70kWh",
+       "price_cny": 426800,
+       "launch": "2026.04"
+      },
+      {
+       "spec_id": 76554,
+       "name": "2026款 曜影 70kWh",
+       "price_cny": 500800,
+       "launch": "2026.04"
+      }
+     ]
+    },
+    {
+     "series_id": 7835,
+     "name": "极氪9X",
+     "first_launch": "2025.09",
+     "price_min_cny": 465900,
+     "price_max_cny": 599900,
+     "trims": [
+      {
+       "spec_id": 74471,
+       "name": "2025款 Max版 55kWh 六座",
+       "price_cny": 465900,
+       "launch": "2025.09"
+      },
+      {
+       "spec_id": 78680,
+       "name": "2026款 Ultra版 55kWh 五座",
+       "price_cny": 471900,
+       "launch": "2026.07"
+      },
+      {
+       "spec_id": 74432,
+       "name": "2025款 Ultra版 55kWh 六座",
+       "price_cny": 485900,
+       "launch": "2025.09"
+      },
+      {
+       "spec_id": 78681,
+       "name": "2026款 Ultra版 70kWh 五座",
+       "price_cny": 486900,
+       "launch": "2026.07"
+      },
+      {
+       "spec_id": 75103,
+       "name": "2025款 Ultra版 70kWh 六座",
+       "price_cny": 500900,
+       "launch": "2025.09"
+      },
+      {
+       "spec_id": 78414,
+       "name": "2026款 Hyper版 70kWh 五座",
+       "price_cny": 545900,
+       "launch": "2026.07"
+      },
+      {
+       "spec_id": 73246,
+       "name": "2025款 Hyper版 70kWh 六座",
+       "price_cny": 559900,
+       "launch": "2025.09"
+      },
+      {
+       "spec_id": 78682,
+       "name": "2026款 曜黑版 70kWh 五座",
+       "price_cny": 585900,
+       "launch": "2026.07"
+      },
+      {
+       "spec_id": 75101,
+       "name": "2025款 曜黑版 70kWh 六座",
+       "price_cny": 599900,
+       "launch": "2025.09"
+      }
+     ]
+    },
+    {
+     "series_id": 7631,
+     "name": "极氪MIX",
+     "first_launch": "2024.10",
+     "price_min_cny": 279900,
+     "price_max_cny": 299900,
+     "trims": [
+      {
+       "spec_id": 67799,
+       "name": "2025款 智驾版",
+       "price_cny": 279900,
+       "launch": "2024.10"
+      },
+      {
+       "spec_id": 67165,
+       "name": "2025款 长续航智驾版",
+       "price_cny": 299900,
+       "launch": "2024.10"
+      }
+     ]
+    },
+    {
+     "series_id": 7028,
+     "name": "极氪X",
+     "first_launch": "2025.11",
+     "price_min_cny": 155800,
+     "price_max_cny": 175800,
+     "trims": [
+      {
+       "spec_id": 75579,
+       "name": "2026款 Max五座版",
+       "price_cny": 155800,
+       "launch": "2025.11"
+      },
+      {
+       "spec_id": 75578,
+       "name": "2026款 Max四座版",
+       "price_cny": 159800,
+       "launch": "2025.11"
+      },
+      {
+       "spec_id": 75557,
+       "name": "2026款 Ultra五座版",
+       "price_cny": 175800,
+       "launch": "2025.11"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
