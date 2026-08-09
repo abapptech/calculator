@@ -323,7 +323,7 @@ gtag('config','G-0T7CPPNW61');
 
       <div id="alex_route_block" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px">
         <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Маршрут до Александрова</div>
-        <div style="display:flex;gap:16px;margin-bottom:12px">
+        <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap">
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
             <input type="radio" name="alex_route" value="khorgos" checked onchange="onAlexRouteTypeChange();calc_if_ready()"
               style="accent-color:var(--accent);cursor:pointer">
@@ -334,14 +334,41 @@ gtag('config','G-0T7CPPNW61');
               style="accent-color:var(--accent);cursor:pointer">
             Через Нур Жолы
           </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
+            <input type="radio" name="alex_route" value="other" onchange="onAlexRouteTypeChange();calc_if_ready()"
+              style="accent-color:var(--accent);cursor:pointer">
+            Другой город
+          </label>
+        </div>
+        <div class="field" id="alex_other_city_field" style="display:none">
+          <label>Название города</label>
+          <input type="text" id="alex_other_city_name" placeholder="например: Новосибирск" oninput="onAlexRouteTypeChange();calc_if_ready()">
         </div>
         <div class="field" style="margin-bottom:0">
-          <label>Стоимость перевозки до Александрова, ¥</label>
+          <label id="alex_route_price_label">Стоимость перевозки до Александрова, ¥</label>
           <input type="text" inputmode="numeric" id="alex_route_price" placeholder="например: 15 000" oninput="maskThousands(this);calc_if_ready()">
         </div>
         <div class="field" id="alex_border_fee_field" style="display:none;margin-top:12px;margin-bottom:0">
           <label>Стоимость перехода границы Китай–Казахстан, ¥</label>
           <input type="text" inputmode="numeric" id="alex_border_fee" value="4 855" oninput="maskThousands(this);calc_if_ready()">
+        </div>
+        <div id="alex_other_rf_block" style="display:none;margin-top:12px">
+          <div style="display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
+              <input type="radio" name="alex_other_rf_mode" value="default" checked onchange="onAlexOtherRfModeChange();calc_if_ready()"
+                style="accent-color:var(--accent);cursor:pointer">
+              Расходы в РФ как для Александрова
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
+              <input type="radio" name="alex_other_rf_mode" value="custom" onchange="onAlexOtherRfModeChange();calc_if_ready()"
+                style="accent-color:var(--accent);cursor:pointer">
+              Указать свою сумму
+            </label>
+          </div>
+          <div class="field" id="alex_other_rf_custom_field" style="display:none;margin-bottom:0">
+            <label>Расходы в РФ, ₽</label>
+            <input type="text" inputmode="numeric" id="alex_other_rf_custom" placeholder="например: 75 000" oninput="maskThousands(this);calc_if_ready()">
+          </div>
         </div>
       </div>
 
@@ -977,6 +1004,13 @@ function resetForm(){
   document.getElementById('alex_route_price').value = '';
   document.getElementById('alex_border_fee').value = '4 855';
   document.getElementById('alex_border_fee_field').style.display = 'none';
+  document.getElementById('alex_other_city_field').style.display = 'none';
+  document.getElementById('alex_other_city_name').value = '';
+  document.getElementById('alex_route_price_label').textContent = 'Стоимость перевозки до Александрова, ¥';
+  document.getElementById('alex_other_rf_block').style.display = 'none';
+  document.querySelector('input[name="alex_other_rf_mode"][value="default"]').checked = true;
+  document.getElementById('alex_other_rf_custom_field').style.display = 'none';
+  document.getElementById('alex_other_rf_custom').value = '';
   document.getElementById('chk_custom_extras').checked = false;
   document.getElementById('custom_extras_block').style.display = 'none';
   clearAllCustomRows();
@@ -1066,6 +1100,20 @@ function onChkAlexRoute(){
 function onAlexRouteTypeChange(){
   const type = document.querySelector('input[name="alex_route"]:checked').value;
   document.getElementById('alex_border_fee_field').style.display = type === 'nurzholy' ? 'block' : 'none';
+  document.getElementById('alex_other_city_field').style.display = type === 'other' ? 'block' : 'none';
+  document.getElementById('alex_other_rf_block').style.display = type === 'other' ? 'block' : 'none';
+  const priceLabel = document.getElementById('alex_route_price_label');
+  if (type === 'other') {
+    const cityName = document.getElementById('alex_other_city_name').value.trim();
+    priceLabel.textContent = 'Стоимость перевозки до ' + (cityName || 'города') + ', ¥';
+  } else {
+    priceLabel.textContent = 'Стоимость перевозки до Александрова, ¥';
+  }
+}
+
+function onAlexOtherRfModeChange(){
+  const mode = document.querySelector('input[name="alex_other_rf_mode"]:checked').value;
+  document.getElementById('alex_other_rf_custom_field').style.display = mode === 'custom' ? 'block' : 'none';
 }
 
 function onCommSelect(){
@@ -1098,6 +1146,7 @@ const CUSTOM_CITIES = [
   {key:'uss',       label:'Уссурийск',              sections:['china','rf']},
   {key:'kyak-self', label:'Кяхта (самоходом)',      sections:['china','rf','mongolia']},
   {key:'kyak-evac', label:'Кяхта (эвакуатор)',      sections:['china','rf','mongolia']},
+  {key:'own',       label:'Свой город (полностью кастомный)', sections:['china','rf'], isOwnCity:true},
 ];
 const CUSTOM_SECTION_LABEL = {china:'Расходы в КНР', rf:'Расходы в РФ', mongolia:'Транзит по Монголии'};
 const CUSTOM_SECTION_CUR   = {china:'¥', rf:'₽', mongolia:'₮'};
@@ -1112,6 +1161,17 @@ function renderCustomExtrasUI(){
         <svg class="arr" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="#8892a4" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <div class="bbody hidden" style="padding:10px 14px">
+        ${city.isOwnCity ? `
+          <div class="field">
+            <label>Название города</label>
+            <input type="text" id="own_city_name" placeholder="например: Новосибирск" oninput="calc_if_ready()">
+          </div>
+          <div class="field">
+            <label>Стоимость доставки Хоргос–город, ¥</label>
+            <input type="text" inputmode="numeric" id="own_city_delivery" placeholder="например: 20 000" oninput="maskThousands(this);calc_if_ready()">
+            <div class="fhint">Карточка появится в результатах, когда заполнены оба поля</div>
+          </div>
+        ` : ''}
         ${city.sections.map(section => `
           <div style="margin-bottom:10px">
             <div style="font-size:9px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;font-weight:600">${CUSTOM_SECTION_LABEL[section]}</div>
@@ -1174,6 +1234,10 @@ function clearAllCustomRows(){
     if (container) container.innerHTML = '';
     updateCustomAddBtn(city.key, section);
   }));
+  const ownName = document.getElementById('own_city_name');
+  const ownDeliv = document.getElementById('own_city_delivery');
+  if (ownName) ownName.value = '';
+  if (ownDeliv) ownDeliv.value = '';
 }
 
 // ── Брендирование JPG-карточек (white-label) ────────────────────────────────
@@ -1342,9 +1406,14 @@ function calc(silent=false){
 
   // Опция маршрута до Александрова
   const alexRouteOn = document.getElementById('chk_alex_route').checked;
-  const alexRouteType = document.querySelector('input[name="alex_route"]:checked').value; // 'khorgos' | 'nurzholy'
+  const alexRouteType = document.querySelector('input[name="alex_route"]:checked').value; // 'khorgos' | 'nurzholy' | 'other'
   const alexRoutePriceRaw = parseMasked('alex_route_price');
   const isNurzholy = alexRouteOn && alexRouteType === 'nurzholy';
+  const isOtherCity = alexRouteOn && alexRouteType === 'other';
+  const otherCityNameRaw = document.getElementById('alex_other_city_name').value.trim();
+  const alexDisplayCity = (isOtherCity && otherCityNameRaw) ? otherCityNameRaw : 'Александров';
+  const alexOtherRfMode = document.querySelector('input[name="alex_other_rf_mode"]:checked').value; // 'default' | 'custom'
+  const alexOtherRfCustomRaw = parseMasked('alex_other_rf_custom');
   // Стоимость перехода границы Китай–Казахстан (0, если поле пустое)
   const alexBorderFeeRaw = parseMasked('alex_border_fee');
   let alexExtraCny;
@@ -1355,14 +1424,16 @@ function calc(silent=false){
     // Нур Жолы: сумма = введённая перевозка + переход границы (оба поля независимы, пустое = 0)
     alexExtraCny = alexRoutePriceRaw + alexBorderFeeRaw;
   } else {
-    // Хоргос с включённой галочкой: если сумма не указана — берём дефолт 15000
+    // Хоргос или другой город с включённой галочкой: если сумма не указана — берём дефолт 15000
     alexExtraCny = alexRoutePriceRaw > 0 ? alexRoutePriceRaw : 15000;
   }
-  // Название статей для Александрова в зависимости от маршрута
+  // Название статей для Александрова/другого города в зависимости от маршрута
   const alexChinaDelivLabel = isNurzholy ? 'Перевозка по Китаю до Нур Жолы' : 'Перевозка по Китаю до границы';
   const alexExtraLabel = isNurzholy
     ? 'Перевозка Нур Жолы (Казахстан) — Александров'
-    : 'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)';
+    : (isOtherCity
+        ? `Перевозка Хоргос–${alexDisplayCity}`
+        : 'Перевозка Хоргос–Александров (с учётом расходов на переход границы КНР–Казахстан)');
 
   // Флаги: что включать в итог
   const showChinaDelivery = !deliveryIncluded;
@@ -1377,7 +1448,10 @@ function calc(silent=false){
     + (showBrokerAndBorder ? alexExtraCny : 0);
   const alexHasCustomChina = hasCustom('alex','china');
   const alexEffChina = alexHasCustomChina ? alexCustomChina : alexOfficialChina;
-  const alexOfficialRf = showRF ? 50000+20000+5000 : 0;
+  const alexBaseRfDefault = 50000+20000+5000;
+  const alexOfficialRf = showRF
+    ? ((isOtherCity && alexOtherRfMode === 'custom') ? alexOtherRfCustomRaw : alexBaseRfDefault)
+    : 0;
   const alexHasCustomRf = hasCustom('alex','rf');
   const alexEffRf = alexHasCustomRf ? alexCustomRf : alexOfficialRf;
   const alexCNY = pCny + alexEffChina + comm;
@@ -1520,7 +1594,10 @@ function calc(silent=false){
 
   // Строим массив строк для экспорта карточки
   // Название авто не дублируем — оно уже в шапке карточки (ec-city)
-  const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm) => {
+  const makeExportRows = (chinaExportRows, logisticRows, total, vtbComm, opts={}) => {
+    const includeTax = opts.includeTax !== false;
+    const includeComm = opts.includeComm !== false;
+    const includeVtbComm = opts.includeVtbComm !== false;
     const base = [
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
@@ -1528,7 +1605,7 @@ function calc(silent=false){
       ...((age === 'new' || etype === 'electric') ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
       ...chinaExportRows,
       ...(showRF ? logisticRows : []),
-      ...(showTax ? [
+      ...(includeTax && showTax ? [
         {type:'sec', label:'Таможенные платежи', subtotal: fmt(duty+excise+nds+clear+util)},
         {label:'Таможенная пошлина', val: fmt(duty)},
         ...(excise ? [{label:'Акциз', val: fmt(excise)}] : []),
@@ -1536,10 +1613,12 @@ function calc(silent=false){
         {label:'Таможенное оформление', val: fmt(clear)},
         {label:'Утилизационный сбор', val: fmt(util)},
       ] : []),
-      {type:'sec', label:'Комиссия', subtotal: cny(comm)},
-      {label:'Комиссия Abapp', val: cny(comm)},
+      ...(includeComm ? [
+        {type:'sec', label:'Комиссия', subtotal: cny(comm)},
+        {label:'Комиссия Abapp', val: cny(comm)},
+      ] : []),
       {type:'total', label:'ИТОГО', val: fmt(total)},
-      {label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'},
+      ...(includeVtbComm ? [{label:'Комиссия ВТБ (~2.5% от CNY, справочно)', val: fmt(vtbComm), cls:'pct'}] : []),
     ];
     return JSON.stringify(base).replace(/"/g, '&quot;');
   };
@@ -1553,7 +1632,11 @@ function calc(silent=false){
     ${row('Утилизационный сбор', fmt(util))}` : '';
 
   // Детализация по городу с кнопкой экспорта
-  const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total, vtbComm) => `
+  const cityDetail = (id, title, color, chinaRows, items, chinaExportRows, logisticExportRows, total, vtbComm, opts={}) => {
+    const includeTax = opts.includeTax !== false;
+    const includeComm = opts.includeComm !== false;
+    const includeVtbComm = opts.includeVtbComm !== false;
+    return `
     <div class="bdown" style="margin-bottom:10px">
       <div class="bhdr" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('.arr').classList.toggle('open')">
         <span style="color:${color}">${title}</span>
@@ -1566,32 +1649,33 @@ function calc(silent=false){
         ${commonRowsBase}
         ${chinaRows}
         ${items}
-        ${taxRows}
-        ${commRows}
+        ${includeTax ? taxRows : ''}
+        ${includeComm ? commRows : ''}
         ${rowHL('ИТОГО', fmt(total))}
-        <div class="br" style="padding:6px 0">
+        ${includeVtbComm ? `<div class="br" style="padding:6px 0">
           <span class="bk" style="font-size:10px;color:var(--text3)">Комиссия ВТБ (~2.5% от CNY, справочно)</span>
           <span class="bv pct">${fmt(vtbComm)}</span>
-        </div>
+        </div>` : ''}
         <div style="display:flex;gap:6px">
           <button class="dl-btn" id="dlbtn-${id}" style="flex:1"
             onclick="previewCard('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
-            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
+            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm, opts)}">
             🔍 Просмотр
           </button>
           <button class="dl-btn" id="shbtn-${id}" style="flex:1"
             onclick="shareCard('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
-            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
+            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm, opts)}">
             📤 Поделиться
           </button>
           <button class="dl-btn" id="dwbtn-${id}" style="flex:1"
             onclick="downloadCardDirect('${id}','${title.replace(/'/g,'\\\'').replace(/"/g,'&quot;')}',JSON.parse(this.dataset.rows),${total},'${color}')"
-            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm)}">
+            data-rows="${makeExportRows(chinaExportRows, logisticExportRows, total, vtbComm, opts)}">
             📥 Скачать
           </button>
         </div>
       </div>
     </div>`;
+  };
 
   // ── Расходы в КНР — либо официальный расчёт, либо (если введены кастомные статьи) — только они ──
   const alexChinaRows = alexHasCustomChina
@@ -1651,15 +1735,19 @@ function calc(silent=false){
     ? `${sec('Расходы в РФ', fmt(zabCustomRf))}
        ${customRowsFor('zab','rf').map(r => row(r.label, fmt(r.amount))).join('')}`
     : `${sec('Расходы в РФ', fmt(30000+45000+10000))}
-       ${row('Таможенный брокер в Забайкальске', fmt(30000))}
+       ${row('Таможенный брокер', fmt(30000))}
        ${row('Лаборатория СБКТС+ЭПТС (Забайкальск)', fmt(45000))}
        ${row('СВХ', fmt(10000))}`;
 
+  const alexOtherRfSingle = isOtherCity && alexOtherRfMode === 'custom' && !alexHasCustomRf;
   const alexRows = !showRF ? '' : alexHasCustomRf
     ? `${sec('Расходы в РФ', fmt(alexCustomRf))}
        ${customRowsFor('alex','rf').map(r => row(r.label, fmt(r.amount))).join('')}`
+    : alexOtherRfSingle
+    ? `${sec('Расходы в РФ', fmt(alexOtherRfCustomRaw))}
+       ${row('Расходы в РФ', fmt(alexOtherRfCustomRaw))}`
     : `${sec('Расходы в РФ', fmt(50000+20000+5000))}
-       ${row('Таможенный брокер в г.Александров', fmt(50000))}
+       ${row('Таможенный брокер', fmt(50000))}
        ${row('Лаборатория СБКТС+ЭПТС', fmt(20000))}
        ${row('СВХ', fmt(5000))}`;
 
@@ -1673,7 +1761,7 @@ function calc(silent=false){
   const kyakRFBody = `
     ${row('Лаборатория СБКТС+ЭПТС (Кяхта)', fmt(40000))}
     ${row('СВХ 3 дня', fmt(6000))}
-    ${row('Таможенный брокер в Кяхте', fmt(20000))}
+    ${row('Таможенный брокер', fmt(20000))}
     ${row('Экспертное заключение', fmt(expertiza))}
     ${row('Перевод сертификата', fmt(1500))}`;
   const kyakSelfRFRows = !showRF ? '' : kyakSelfHasCustomRf
@@ -1726,7 +1814,7 @@ function calc(silent=false){
     ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(zabCustomRf)}, ...customRowsFor('zab','rf').map(r => ({label: r.label, val: fmt(r.amount)}))]
     : [
         {type:'sec', label:'Расходы в РФ', subtotal: fmt(30000+45000+10000)},
-        {label:'Таможенный брокер Забайкальск', val: fmt(30000)},
+        {label:'Таможенный брокер', val: fmt(30000)},
         {label:'Лаборатория СБКТС+ЭПТС (Забайкальск)', val: fmt(45000)},
         {label:'СВХ', val: fmt(10000)},
       ];
@@ -1741,9 +1829,11 @@ function calc(silent=false){
       ];
   const alexLogExport = !showRF ? [] : alexHasCustomRf
     ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(alexCustomRf)}, ...customRowsFor('alex','rf').map(r => ({label: r.label, val: fmt(r.amount)}))]
+    : alexOtherRfSingle
+    ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(alexOtherRfCustomRaw)}, {label:'Расходы в РФ', val: fmt(alexOtherRfCustomRaw)}]
     : [
         {type:'sec', label:'Расходы в РФ', subtotal: fmt(50000+20000+5000)},
-        {label:'Таможенный брокер в г.Александров', val: fmt(50000)},
+        {label:'Таможенный брокер', val: fmt(50000)},
         {label:'Лаборатория СБКТС+ЭПТС', val: fmt(20000)},
         {label:'СВХ', val: fmt(5000)},
       ];
@@ -1781,7 +1871,7 @@ function calc(silent=false){
   const kyakRFExportOfficial = [
     {label:'Лаборатория СБКТС+ЭПТС (Кяхта)', val: fmt(40000)},
     {label:'СВХ 3 дня', val: fmt(6000)},
-    {label:'Таможенный брокер Кяхта', val: fmt(20000)},
+    {label:'Таможенный брокер', val: fmt(20000)},
     {label:'Экспертное заключение', val: fmt(expertiza)},
     {label:'Перевод сертификата', val: fmt(1500)},
   ];
@@ -1821,6 +1911,49 @@ function calc(silent=false){
     ...kyakEvacRFExport,
   ];
 
+  // ── СВОЙ ГОРОД (полностью кастомный, для команды Abapp) ─────────────────
+  const ownCityName = document.getElementById('own_city_name').value.trim();
+  const ownCityDeliveryRaw = parseMasked('own_city_delivery');
+  const ownCityReady = customOn && !!(ownCityName && ownCityDeliveryRaw > 0);
+  let ownCityCardHtml = '';
+  let ownCityTotal = 0;
+  if (ownCityReady) {
+    const ownCustomChinaRows = customRowsFor('own','china');
+    const ownCustomRfRows = customRowsFor('own','rf');
+    const ownCustomChinaSum = ownCustomChinaRows.reduce((s,r) => s + r.amount, 0);
+    const ownCustomRfSum = ownCustomRfRows.reduce((s,r) => s + r.amount, 0);
+    const ownChinaTotal = ownCityDeliveryRaw + ownCustomChinaSum;
+
+    const ownChinaRows = `
+      ${sec('Расходы в КНР', fmtN(ownChinaTotal) + ' ¥ = ' + fmt(ownChinaTotal * rVtb))}
+      ${row('Перевозка Хоргос–' + ownCityName, cny(ownCityDeliveryRaw))}
+      ${ownCustomChinaRows.map(r => row(r.label, cny(r.amount))).join('')}`;
+
+    const ownRfRows = ownCustomRfRows.length
+      ? `${sec('Расходы в РФ', fmt(ownCustomRfSum))}
+         ${ownCustomRfRows.map(r => row(r.label, fmt(r.amount))).join('')}`
+      : '';
+
+    const ownChinaExport = [
+      {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ownChinaTotal) + ' ¥ = ' + fmt(ownChinaTotal * rVtb)},
+      {label:'Перевозка Хоргос–' + ownCityName, val: cny(ownCityDeliveryRaw)},
+      ...ownCustomChinaRows.map(r => ({label: r.label, val: cny(r.amount)})),
+    ];
+    const ownRfExport = ownCustomRfRows.length
+      ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(ownCustomRfSum)}, ...ownCustomRfRows.map(r => ({label: r.label, val: fmt(r.amount)}))]
+      : [];
+
+    const ownCNY = pCny + ownChinaTotal;
+    const ownRUB = ownCustomRfSum;
+    ownCityTotal = ownCNY * rVtb + ownRUB;
+
+    ownCityCardHtml = cityDetail(
+      'own', '📍 ' + ownCityName, 'var(--accent3)',
+      ownChinaRows, ownRfRows, ownChinaExport, ownRfExport, ownCityTotal, 0,
+      { includeTax: false, includeComm: false, includeVtbComm: false }
+    );
+  }
+
   document.getElementById('res').innerHTML = `
   <div class="panel">
     <div class="phdr"><span>📊</span><span class="phdr-t">Результат расчёта</span></div>
@@ -1845,10 +1978,11 @@ function calc(silent=false){
 
       ${[
         {html: cityDetail('zab','📍 Забайкальск','var(--accent2)',zabChinaRows,zabRows,zabChinaExport,zabLogExport,zabaikalsk,vtbCommZab), total: zabaikalsk},
-        {html: cityDetail('alex','📍 Александров','var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex), total: alexandrov},
+        {html: cityDetail('alex','📍 ' + alexDisplayCity,'var(--text)',alexChinaRows,alexRows,alexChinaExport,alexLogExport,alexandrov,vtbCommAlex), total: alexandrov},
         {html: cityDetail('uss','📍 Уссурийск','var(--text)',ussChinaRows,ussRows,ussChinaExport,ussLogExport,ussuriysk,vtbCommUss), total: ussuriysk},
         {html: cityDetail('kyak-self','📍 Кяхта (транзит самоходом)','var(--accent)',kyakSelfChinaRows,kyakSelfRows,kyakSelfChinaExport,kyakSelfLogExport,kyakSelf,vtbCommKyakSelf), total: kyakSelf},
         {html: cityDetail('kyak-evac','📍 Кяхта (транзит на эвакуаторе)','var(--accent)',kyakEvacChinaRows,kyakEvacRows,kyakEvacChinaExport,kyakEvacLogExport,kyakEvac,vtbCommKyakEvac), total: kyakEvac},
+        ...(ownCityReady ? [{html: ownCityCardHtml, total: ownCityTotal}] : []),
       ].sort((a,b) => a.total - b.total).map(x => x.html).join('')}
 
       <div class="fnote">© Abapp. All rights reserved. Все права защищены.</div>
