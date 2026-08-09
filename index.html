@@ -1174,6 +1174,10 @@ function renderCustomExtrasUI(){
             <input type="text" inputmode="numeric" id="own_city_delivery" placeholder="например: 20 000" oninput="maskThousands(this);calc_if_ready()">
             <div class="fhint">Карточка появится в результатах, когда заполнены оба поля</div>
           </div>
+          <div class="field">
+            <label>Комиссия, ₽</label>
+            <input type="text" inputmode="numeric" id="own_city_comm" placeholder="например: 50 000" oninput="maskThousands(this);calc_if_ready()">
+          </div>
         ` : ''}
         ${city.sections.map(section => `
           <div style="margin-bottom:10px">
@@ -1239,8 +1243,10 @@ function clearAllCustomRows(){
   }));
   const ownName = document.getElementById('own_city_name');
   const ownDeliv = document.getElementById('own_city_delivery');
+  const ownComm = document.getElementById('own_city_comm');
   if (ownName) ownName.value = '';
   if (ownDeliv) ownDeliv.value = '';
+  if (ownComm) ownComm.value = '';
 }
 
 // ── Брендирование JPG-карточек (white-label) ────────────────────────────────
@@ -1914,7 +1920,7 @@ function calc(silent=false){
     ...kyakEvacRFExport,
   ];
 
-  // ── СВОЙ ГОРОД (полностью кастомный, для команды Abapp) ─────────────────
+  // ── СВОЙ ГОРОД (кастомный расход КНР/РФ + авто-таможня + своя комиссия) ──
   const ownCityName = document.getElementById('own_city_name').value.trim();
   const ownCityDeliveryRaw = parseMasked('own_city_delivery');
   const ownCityReady = customOn && !!(ownCityName && ownCityDeliveryRaw > 0);
@@ -1926,34 +1932,45 @@ function calc(silent=false){
     const ownCustomChinaSum = ownCustomChinaRows.reduce((s,r) => s + r.amount, 0);
     const ownCustomRfSum = ownCustomRfRows.reduce((s,r) => s + r.amount, 0);
     const ownChinaTotal = ownCityDeliveryRaw + ownCustomChinaSum;
+    const ownCommRaw = parseMasked('own_city_comm');
 
     const ownChinaRows = `
       ${sec('Расходы в КНР', fmtN(ownChinaTotal) + ' ¥ = ' + fmt(ownChinaTotal * rVtb))}
       ${row('Перевозка Хоргос–' + ownCityName, cny(ownCityDeliveryRaw))}
       ${ownCustomChinaRows.map(r => row(r.label, cny(r.amount))).join('')}`;
 
-    const ownRfRows = ownCustomRfRows.length
+    const ownRfSection = ownCustomRfRows.length
       ? `${sec('Расходы в РФ', fmt(ownCustomRfSum))}
          ${ownCustomRfRows.map(r => row(r.label, fmt(r.amount))).join('')}`
       : '';
+    const ownCommSection = ownCommRaw > 0
+      ? `${sec('Комиссия', fmt(ownCommRaw))}
+         ${row('Комиссия', fmt(ownCommRaw))}`
+      : '';
+    const ownItems = !showRF ? '' : (ownRfSection + ownCommSection);
 
     const ownChinaExport = [
       {type:'sec', label:'Расходы в КНР', subtotal: fmtN(ownChinaTotal) + ' ¥ = ' + fmt(ownChinaTotal * rVtb)},
       {label:'Перевозка Хоргос–' + ownCityName, val: cny(ownCityDeliveryRaw)},
       ...ownCustomChinaRows.map(r => ({label: r.label, val: cny(r.amount)})),
     ];
-    const ownRfExport = ownCustomRfRows.length
+    const ownRfExportArr = ownCustomRfRows.length
       ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(ownCustomRfSum)}, ...ownCustomRfRows.map(r => ({label: r.label, val: fmt(r.amount)}))]
       : [];
+    const ownCommExportArr = ownCommRaw > 0
+      ? [{type:'sec', label:'Комиссия', subtotal: fmt(ownCommRaw)}, {label:'Комиссия', val: fmt(ownCommRaw)}]
+      : [];
+    const ownLogExport = [...ownRfExportArr, ...ownCommExportArr];
 
     const ownCNY = pCny + ownChinaTotal;
-    const ownRUB = ownCustomRfSum;
+    const ownRUB = ownCustomRfSum + ownCommRaw + (showTax ? duty+excise+nds+clear+util : 0);
     ownCityTotal = ownCNY * rVtb + ownRUB;
+    const vtbCommOwn = (stoimostCny + ownChinaTotal) * rVtb * 0.025;
 
     ownCityCardHtml = cityDetail(
       'own', '📍 ' + ownCityName, 'var(--accent3)',
-      ownChinaRows, ownRfRows, ownChinaExport, ownRfExport, ownCityTotal, 0,
-      { includeTax: false, includeComm: false, includeVtbComm: false }
+      ownChinaRows, ownItems, ownChinaExport, ownLogExport, ownCityTotal, vtbCommOwn,
+      { includeTax: true, includeComm: false, includeVtbComm: true }
     );
   }
 
