@@ -317,27 +317,30 @@ gtag('config','G-0T7CPPNW61');
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;color:var(--text2)">
           <input type="checkbox" id="chk_alex_route" onchange="onChkAlexRoute()"
             style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
-          Изменить перевозку до Александрова
+          Изменить транзит через Казахстан
         </label>
       </div>
 
       <div id="alex_route_block" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:14px">
-        <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Маршрут до Александрова</div>
+        <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Транзит через Казахстан</div>
         <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap">
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
             <input type="radio" name="alex_route" value="khorgos" checked onchange="onAlexRouteTypeChange();calc_if_ready()"
               style="accent-color:var(--accent);cursor:pointer">
-            Через Хоргос
+            Из Хоргоса
           </label>
           <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
             <input type="radio" name="alex_route" value="nurzholy" onchange="onAlexRouteTypeChange();calc_if_ready()"
               style="accent-color:var(--accent);cursor:pointer">
-            Через Нур Жолы
+            Из Нур Жолы
           </label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--text)">
-            <input type="radio" name="alex_route" value="other" onchange="onAlexRouteTypeChange();calc_if_ready()"
-              style="accent-color:var(--accent);cursor:pointer">
-            Другой город
+          <label style="display:flex;flex-direction:column;gap:2px;cursor:pointer;font-size:12px;color:var(--text)">
+            <span style="display:flex;align-items:center;gap:6px">
+              <input type="radio" name="alex_route" value="other" onchange="onAlexRouteTypeChange();calc_if_ready()"
+                style="accent-color:var(--accent);cursor:pointer">
+              Изменить на другой город доставки в РФ
+            </span>
+            <span style="font-size:10px;color:var(--text3);margin-left:22px">по умолчанию Александров</span>
           </label>
         </div>
         <div class="field" id="alex_other_city_field" style="display:none">
