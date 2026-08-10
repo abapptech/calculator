@@ -206,6 +206,26 @@ gtag('config','G-0T7CPPNW61');
         <label>Наименование автомобиля <span style="color:var(--text3)">(необязательно)</span></label>
         <input type="text" id="car_name" placeholder="например: Toyota Camry 2.5 AT">
       </div>
+      <div class="field" id="field_catalog">
+        <label>Подбор авто из каталога <span style="color:var(--text3)">(необязательно)</span></label>
+        <div class="cat-box">
+          <div class="cat-ac">
+            <input type="text" id="cat_brand" autocomplete="off" placeholder="Марка — введите BYD, Zeekr, 比亚迪…">
+            <div class="cat-dd" id="cat_brand_dd"></div>
+          </div>
+          <select id="cat_model" class="cat-sel" disabled>
+            <option value="">Сначала выберите марку</option>
+          </select>
+          <select id="cat_trim" class="cat-sel" disabled>
+            <option value="">Сначала выберите модель</option>
+          </select>
+          <div class="cat-foot">
+            <span id="cat_status">Каталог: авто не старше 3 лет</span>
+            <button type="button" id="cat_reset" class="cat-reset" style="display:none">Сбросить</button>
+          </div>
+        </div>
+        <div class="fhint">Подставит MSRP и название автомобиля. Поле MSRP остаётся доступным для ручного ввода — можно ввести или изменить цену самостоятельно, подбор не обязателен</div>
+      </div>
       <div id="rate-warning" style="display:none;background:#3a1a0a;border:1px solid var(--accent3);border-radius:8px;padding:11px 14px;margin-bottom:10px;font-size:11px;color:#ffb090;line-height:1.5">
         <div style="display:flex;align-items:flex-start;gap:8px">
           <span style="font-size:14px">⚠️</span>
@@ -989,6 +1009,7 @@ function markError(id, silent=false) {
 // ── РАСЧЁТ ──────────────────────────────────────────────────────────────────
 function resetForm(){
   // Сбрасываем все поля формы
+  if(typeof window.catalogReset === 'function') window.catalogReset();
   document.getElementById('car_name').value = '';
   document.getElementById('price_cny').value = '';
   document.getElementById('price_max').value = '';
@@ -2646,5 +2667,299 @@ window.addEventListener('DOMContentLoaded', () => {
     </div>
   </div>
 </div>
+<style>
+/* ── Подбор авто из каталога autohome ─────────────────────────────────── */
+.cat-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:7px}
+.cat-ac{position:relative}
+.cat-ac input{width:100%}
+.cat-sel{width:100%}
+.cat-sel:disabled{opacity:.5}
+.cat-dd{position:absolute;top:calc(100% + 3px);left:0;right:0;z-index:60;background:var(--surface);border:1px solid var(--border);border-radius:8px;max-height:230px;overflow-y:auto;display:none;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.cat-dd.open{display:block}
+.cat-item{padding:8px 11px;font-size:12px;cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:baseline;border-bottom:1px solid var(--border)}
+.cat-item:last-child{border-bottom:none}
+.cat-item:hover,.cat-item.sel{background:var(--surface2)}
+.cat-item .cn{color:var(--text3);font-size:10px;flex-shrink:0}
+.cat-empty{padding:9px 11px;font-size:11px;color:var(--text3)}
+.cat-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;color:var(--text3);min-height:16px}
+.cat-reset{background:none;border:none;color:var(--accent2);font-size:10px;cursor:pointer;padding:0;text-decoration:underline}
+.cat-msrp-note{font-size:10px;color:var(--accent2);margin-top:3px}
+</style>
+<script>
+/* ── Подбор авто из каталога autohome ───────────────────────────────────
+   Данные собираются парсером в autohome/data/ (см. autohome/README.md).
+   index.json грузится один раз по первому обращению, комплектации — по выбору
+   модели. Поле MSRP при этом остаётся обычным полем ввода: подбор только
+   подставляет значение, ручной ввод и правка всегда доступны. */
+(function(){
+  var BASES = [
+    'autohome/data',
+    '/calculator/autohome/data',
+    'https://raw.githubusercontent.com/abapptech/calculator/main/autohome/data'
+  ];
+  var base = null, index = null, loading = false;
+  var specCache = {};
+  var brand = null, model = null;
+
+  var elBrand  = document.getElementById('cat_brand');
+  var elDD     = document.getElementById('cat_brand_dd');
+  var elModel  = document.getElementById('cat_model');
+  var elTrim   = document.getElementById('cat_trim');
+  var elStatus = document.getElementById('cat_status');
+  var elReset  = document.getElementById('cat_reset');
+  if(!elBrand) return;
+
+  function status(text){ if(elStatus) elStatus.textContent = text; }
+
+  function fetchJSON(path){
+    if(base) return fetch(base + '/' + path).then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+    // первый запрос — подбираем рабочий базовый путь
+    var i = 0;
+    function attempt(){
+      if(i >= BASES.length) return Promise.reject(new Error('каталог недоступен'));
+      var b = BASES[i++];
+      return fetch(b + '/' + path).then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json().then(function(j){ base = b; return j; });
+      }).catch(attempt);
+    }
+    return attempt();
+  }
+
+  function loadIndex(){
+    if(index || loading) return;
+    loading = true;
+    status('Загружаю каталог…');
+    fetchJSON('index.json').then(function(data){
+      index = data;
+      loading = false;
+      var c = data.counts || {};
+      status('Каталог: ' + (c.models || 0) + ' моделей, авто не старше ' +
+             (data.max_age_years || 3) + ' лет');
+    }).catch(function(){
+      loading = false;
+      status('Каталог недоступен — введите MSRP вручную');
+    });
+  }
+
+  function norm(s){ return (s || '').toString().toLowerCase(); }
+
+  function searchBrands(q){
+    if(!index) return [];
+    q = norm(q).trim();
+    var list = index.brands || [];
+    if(!q) return list.slice(0, 40);
+    var out = [];
+    for(var i = 0; i < list.length; i++){
+      var b = list[i];
+      if(norm(b.brand_en).indexOf(q) > -1 || norm(b.brand).indexOf(q) > -1 ||
+         norm(b.latin).indexOf(q) > -1){
+        out.push(b);
+        if(out.length >= 40) break;
+      }
+    }
+    return out;
+  }
+
+  function renderDD(items){
+    if(!items.length){
+      elDD.innerHTML = '<div class="cat-empty">' +
+        (index ? 'Ничего не найдено' : 'Каталог загружается…') + '</div>';
+      elDD.classList.add('open');
+      return;
+    }
+    var html = '';
+    for(var i = 0; i < items.length; i++){
+      var b = items[i];
+      var cn = b.brand && b.brand !== b.brand_en ? b.brand : '';
+      html += '<div class="cat-item" data-i="' + i + '">' +
+              '<span>' + esc(b.brand_en) + '</span>' +
+              '<span class="cn">' + esc(cn) + ' · ' +
+              (b.models ? b.models.length : 0) + '</span></div>';
+    }
+    elDD.innerHTML = html;
+    elDD.classList.add('open');
+    var nodes = elDD.querySelectorAll('.cat-item');
+    for(var j = 0; j < nodes.length; j++){
+      nodes[j].addEventListener('mousedown', (function(item){
+        return function(ev){ ev.preventDefault(); pickBrand(item); };
+      })(items[+nodes[j].getAttribute('data-i')]));
+    }
+  }
+
+  function esc(s){
+    return (s == null ? '' : String(s)).replace(/[&<>"]/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];
+    });
+  }
+
+  function fmt(n){
+    return n == null ? '—' : Math.round(n).toLocaleString('ru-RU');
+  }
+
+  function pickBrand(b){
+    brand = b; model = null;
+    elBrand.value = b.brand_en + (b.brand && b.brand !== b.brand_en ? ' · ' + b.brand : '');
+    elDD.classList.remove('open');
+
+    var models = (b.models || []).slice().sort(function(x, y){
+      return (x.name_en || '').localeCompare(y.name_en || '');
+    });
+    var html = '<option value="">Модель — выберите (' + models.length + ')</option>';
+    for(var i = 0; i < models.length; i++){
+      var m = models[i];
+      var range = m.min ? (fmt(m.min) + (m.max && m.max !== m.min ? '–' + fmt(m.max) : '') + ' ¥') : 'цена не указана';
+      html += '<option value="' + m.id + '">' + esc(m.name_en) + ' — ' + range + '</option>';
+    }
+    elModel.innerHTML = html;
+    elModel.disabled = false;
+    elTrim.innerHTML = '<option value="">Сначала выберите модель</option>';
+    elTrim.disabled = true;
+    elReset.style.display = '';
+    status('Марка: ' + b.brand_en + ' · моделей ' + models.length);
+  }
+
+  function pickModel(){
+    var id = elModel.value;
+    if(!id){
+      elTrim.innerHTML = '<option value="">Сначала выберите модель</option>';
+      elTrim.disabled = true;
+      return;
+    }
+    model = null;
+    for(var i = 0; i < brand.models.length; i++){
+      if(String(brand.models[i].id) === String(id)) model = brand.models[i];
+    }
+    elTrim.disabled = true;
+    elTrim.innerHTML = '<option value="">Загружаю комплектации…</option>';
+
+    var done = function(spec){
+      specCache[id] = spec;
+      var trims = (spec.trims || []).slice().sort(function(a, b){
+        // без цены — в конец, остальные по возрастанию
+        return (a.price_cny || Infinity) - (b.price_cny || Infinity);
+      });
+      var html = '<option value="">Комплектация — выберите (' + trims.length + ')</option>';
+      for(var i = 0; i < trims.length; i++){
+        var t = trims[i];
+        html += '<option value="' + i + '"' + (t.price_cny ? '' : ' disabled') + '>' +
+                esc(t.name_en) + ' — ' +
+                (t.price_cny ? fmt(t.price_cny) + ' ¥' : 'нет цены') + '</option>';
+      }
+      elTrim.innerHTML = html;
+      elTrim.disabled = false;
+      elTrim._trims = trims;
+      status('Комплектаций: ' + trims.length + ' — выберите нужную');
+    };
+
+    if(specCache[id]) return done(specCache[id]);
+    fetchJSON('specs/' + id + '.json').then(done).catch(function(){
+      elTrim.innerHTML = '<option value="">Не удалось загрузить</option>';
+      status('Комплектации недоступны — введите MSRP вручную');
+    });
+  }
+
+  function pickTrim(){
+    var idx = elTrim.value;
+    if(idx === '' || !elTrim._trims) return;
+    var t = elTrim._trims[+idx];
+    if(!t || !t.price_cny) return;
+
+    // MSRP: подставляем значение, поле остаётся редактируемым
+    var msrp = document.getElementById('price_max');
+    if(msrp){
+      msrp.value = String(t.price_cny);
+      if(typeof maskThousands === 'function') maskThousands(msrp);
+      msrp.dataset.autofilled = '1';
+      showMsrpNote('Подставлено из каталога — можно изменить вручную');
+    }
+
+    // название авто: не перетираем то, что пользователь ввёл сам
+    var nameEl = document.getElementById('car_name');
+    if(nameEl && (!nameEl.value.trim() || nameEl.dataset.autofilled === '1')){
+      var mn = (model && model.name_en) || '';
+      var bn = (brand && brand.brand_en) || '';
+      var full = (mn.toLowerCase().indexOf(bn.toLowerCase()) === 0) ? mn : (bn + ' ' + mn);
+      nameEl.value = (full + ' ' + (t.name_en || '')).replace(/\s+/g, ' ').trim();
+      nameEl.dataset.autofilled = '1';
+      try { nameEl.dispatchEvent(new Event('input')); } catch(e){}
+    }
+
+    status('MSRP подставлен: ' + fmt(t.price_cny) + ' ¥');
+    if(typeof calc_if_ready === 'function') calc_if_ready();
+  }
+
+  function showMsrpNote(text){
+    var field = document.getElementById('field_price_max');
+    if(!field) return;
+    var note = document.getElementById('cat_msrp_note');
+    if(!note){
+      note = document.createElement('div');
+      note.id = 'cat_msrp_note';
+      note.className = 'cat-msrp-note';
+      field.appendChild(note);
+    }
+    note.textContent = text;
+  }
+
+  function resetPicker(){
+    brand = null; model = null;
+    elBrand.value = '';
+    elModel.innerHTML = '<option value="">Сначала выберите марку</option>';
+    elModel.disabled = true;
+    elTrim.innerHTML = '<option value="">Сначала выберите модель</option>';
+    elTrim.disabled = true;
+    elReset.style.display = 'none';
+    var note = document.getElementById('cat_msrp_note');
+    if(note) note.remove();
+    var nameEl = document.getElementById('car_name');
+    if(nameEl && nameEl.dataset.autofilled === '1'){
+      nameEl.value = '';
+      nameEl.dataset.autofilled = '';
+      try { nameEl.dispatchEvent(new Event('input')); } catch(e){}
+    }
+    var msrp = document.getElementById('price_max');
+    if(msrp) msrp.dataset.autofilled = '';
+    if(index){
+      var c = index.counts || {};
+      status('Каталог: ' + (c.models || 0) + ' моделей, авто не старше ' +
+             (index.max_age_years || 3) + ' лет');
+    }
+  }
+
+  elBrand.addEventListener('focus', function(){
+    loadIndex();
+    renderDD(searchBrands(elBrand.value));
+  });
+  elBrand.addEventListener('input', function(){
+    loadIndex();
+    renderDD(searchBrands(elBrand.value));
+  });
+  elBrand.addEventListener('blur', function(){
+    setTimeout(function(){ elDD.classList.remove('open'); }, 120);
+  });
+  elBrand.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') elDD.classList.remove('open');
+  });
+  elModel.addEventListener('change', pickModel);
+  elTrim.addEventListener('change', pickTrim);
+  elReset.addEventListener('click', resetPicker);
+  window.catalogReset = resetPicker;
+
+  // если пользователь правит MSRP руками — отмечаем это и не мешаем
+  var msrpEl = document.getElementById('price_max');
+  if(msrpEl){
+    msrpEl.addEventListener('input', function(){
+      if(msrpEl.dataset.autofilled === '1'){
+        msrpEl.dataset.autofilled = '';
+        showMsrpNote('Введено вручную');
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
