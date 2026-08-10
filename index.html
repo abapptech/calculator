@@ -206,7 +206,7 @@ gtag('config','G-0T7CPPNW61');
         <label>Наименование автомобиля <span style="color:var(--text3)">(необязательно)</span></label>
         <input type="text" id="car_name" placeholder="например: Toyota Camry 2.5 AT">
       </div>
-      <div class="field" id="field_catalog">
+      <div class="field" id="field_catalog" style="display:none">
         <label>Подбор авто из каталога <span style="color:var(--text3)">(необязательно)</span></label>
         <div class="cat-box">
           <div class="cat-ac">
@@ -989,6 +989,20 @@ function updatePriceMaxField() {
   } else {
     fieldMax.style.display = 'none';
     input.value = '';
+  }
+
+  // Подбор из каталога — только для авто до 3 лет: парсер собирает
+  // с autohome лишь такие модели, для остальных каталог заведомо пуст.
+  // Привязка строго к возрасту, а не к видимости поля MSRP: у б/у электро
+  // таможне нужна рыночная цена подержанного авто, а не MSRP новой машины.
+  const fieldCatalog = document.getElementById('field_catalog');
+  if (fieldCatalog) {
+    if (isNew) {
+      fieldCatalog.style.display = 'block';
+    } else {
+      fieldCatalog.style.display = 'none';
+      if (typeof window.catalogReset === 'function') window.catalogReset();
+    }
   }
 }
 
