@@ -21,6 +21,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from translate import enrich_full_dump, enrich_index, enrich_spec_file
 from parser import (
     Fetcher,
     fetch_brands,
@@ -283,8 +284,9 @@ def finish(state, args, partial):
 
     # --- полный файл (для отладки и как единый дамп)
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    full_payload = enrich_full_dump({**meta, "brands": brands_out})
     OUTPUT_FILE.write_text(
-        json.dumps({**meta, "brands": brands_out}, ensure_ascii=False, indent=1),
+        json.dumps(full_payload, ensure_ascii=False, indent=1),
         encoding="utf-8",
     )
 
@@ -310,18 +312,18 @@ def finish(state, args, partial):
                     "n": len(m["trims"]),
                 }
             )
+            spec_payload = enrich_spec_file(
+                {
+                    "id": m["series_id"],
+                    "name": m["name"],
+                    "brand": b["brand"],
+                    "updated_at": updated_at,
+                    "trims": m["trims"],
+                }
+            )
             (specs_dir / f"{m['series_id']}.json").write_text(
-                json.dumps(
-                    {
-                        "id": m["series_id"],
-                        "name": m["name"],
-                        "brand": b["brand"],
-                        "updated_at": updated_at,
-                        "trims": m["trims"],
-                    },
-                    ensure_ascii=False,
-                    separators=(",", ":"),
-                ),
+                json.dumps(spec_payload, ensure_ascii=False,
+                           separators=(",", ":")),
                 encoding="utf-8",
             )
         index_brands.append(
@@ -333,9 +335,9 @@ def finish(state, args, partial):
         )
 
     index_file = OUTPUT_FILE.parent / "index.json"
+    index_payload = enrich_index({**meta, "brands": index_brands})
     index_file.write_text(
-        json.dumps({**meta, "brands": index_brands},
-                   ensure_ascii=False, separators=(",", ":")),
+        json.dumps(index_payload, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
 

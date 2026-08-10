@@ -1,1 +1,1 @@
-{"id":5062,"name":"迈腾 PHEV","brand":"大众","updated_at":"2026-08-10T04:00:03Z","trims":[{"spec_id":78093,"name":"2026款 PRO","price_cny":199900,"launch":"2026.06"},{"spec_id":76238,"name":"2026款 PRIME","price_cny":224900,"launch":"2026.06"}]}
+{"id":5062,"name":"迈腾 PHEV","brand":"大众","updated_at":"2026-08-10T04:00:03Z","trims":[{"spec_id":78093,"name":"2026款 PRO","price_cny":199900,"launch":"2026.06","name_en":"2026 MY PRO"},{"spec_id":76238,"name":"2026款 PRIME","price_cny":224900,"launch":"2026.06","name_en":"2026 MY PRIME"}],"brand_en":"Volkswagen","name_en":"Maiteng PHEV"}
