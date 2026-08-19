@@ -291,6 +291,12 @@ gtag('config','G-0T7CPPNW61');
           <option value="mid" selected>Проходной (3–5 лет)</option>
           <option value="old">Непроходной (5+ лет)</option>
         </select>
+        <label id="chk_new_car_wrap" style="display:none;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text2);margin-top:8px">
+          <input type="checkbox" id="chk_new_car" checked onchange="calc_if_ready()"
+            style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
+          Новая
+        </label>
+        <div class="fhint" id="chk_new_car_hint" style="display:none">Если отмечено — накладные расходы по умолчанию 0%. Если снять галочку — 1%, как для б/у</div>
       </div>
       <div class="frow">
         <div class="field" id="fcc">
@@ -299,7 +305,7 @@ gtag('config','G-0T7CPPNW61');
         </div>
         <div class="field">
           <label>Мощность ДВС, кВт</label>
-          <input type="number" id="kw" value="110" oninput="updHP();this.style.borderColor='';calc_if_ready()">
+          <input type="number" id="kw" placeholder="обязательно" oninput="updHP();this.style.borderColor='';calc_if_ready()">
         </div>
       </div>
       <div id="fem" style="display:none">
@@ -442,8 +448,8 @@ gtag('config','G-0T7CPPNW61');
 
       <div class="field">
         <label>Накладные расходы, % от цены авто</label>
-        <input type="number" id="ovhd_pct" placeholder="По умолчанию: 1% для б/у, 0% для новых" step="0.1" min="0" oninput="calc_if_ready()">
-        <div class="fhint">По умолчанию: 1% для б/у, 0% для новых. Введите 0 чтобы отключить</div>
+        <input type="number" id="ovhd_pct" placeholder="По умолчанию: 1% (0% для новых с галочкой «Новая»)" step="0.1" min="0" oninput="calc_if_ready()">
+        <div class="fhint">По умолчанию: 1%. Для авто до 3 лет с отметкой «Новая» — 0%. Введите 0 чтобы отключить</div>
       </div>
 
       <div class="field">
@@ -958,6 +964,12 @@ function parseMasked(id) {
 function toggle(){ document.getElementById('bbd').classList.toggle('hidden'); document.getElementById('barr').classList.toggle('open') }
 
 function onAge() {
+  const age = document.getElementById('age').value;
+  const wrap = document.getElementById('chk_new_car_wrap');
+  const hint = document.getElementById('chk_new_car_hint');
+  const isNew = age === 'new';
+  wrap.style.display = isNew ? 'flex' : 'none';
+  hint.style.display = isNew ? 'block' : 'none';
   updatePriceMaxField();
 }
 
@@ -1028,12 +1040,15 @@ function resetForm(){
   document.getElementById('price_cny').value = '';
   document.getElementById('price_max').value = '';
   document.getElementById('cc').value = '';
-  document.getElementById('kw').value = '110';
-  document.getElementById('hp').value = (110 * KW2HP).toFixed(1);
+  document.getElementById('kw').value = '';
+  document.getElementById('hp').value = '';
   document.getElementById('em_kw').value = '';
   document.getElementById('em_kw2').value = '0';
   document.getElementById('etype').value = 'petrol';
   document.getElementById('age').value = 'mid';
+  document.getElementById('chk_new_car').checked = true;
+  document.getElementById('chk_new_car_wrap').style.display = 'none';
+  document.getElementById('chk_new_car_hint').style.display = 'none';
   document.getElementById('city_input').value = '';
   document.getElementById('delivery_manual').value = '';
   document.getElementById('ovhd_pct').value = '';
@@ -1468,10 +1483,11 @@ function calc(silent=false){
   // Таможенная цена = MAX(цена покупки, макс официальная)
   const pTax = Math.max(pCny, pMax);
 
-  // Накладные в КНР (0% для новых, 1% для б/у) — в CNY
-  // Накладные расходы: если поле пустое — по умолчанию (1% для б/у, 0% для новых), иначе введённый %
+  // Накладные в КНР (0% для новых при отмеченной галочке «Новая», иначе 1%) — в CNY
+  // Накладные расходы: если поле пустое — берём дефолт по галочке «Новая», иначе введённый %
   const ovhdPctRaw = document.getElementById('ovhd_pct').value.trim();
-  const ovhdPct = ovhdPctRaw === '' ? (age==='new' ? 0 : 1) : +ovhdPctRaw;
+  const isCheckedNewCar = age === 'new' && document.getElementById('chk_new_car').checked;
+  const ovhdPct = ovhdPctRaw === '' ? (isCheckedNewCar ? 0 : 1) : +ovhdPctRaw;
   const ovhdCny = pCny * ovhdPct / 100;
   // Форматирование процента: 0.5 → "0.5%", 1 → "1%", 1.5 → "1.5%"
   const ovhdPctStr = (ovhdPct % 1 === 0 ? ovhdPct.toFixed(0) : ovhdPct.toString()) + '%';
