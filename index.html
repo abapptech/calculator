@@ -247,9 +247,9 @@ gtag('config','G-0T7CPPNW61');
         <div class="fhint">Фактическая цена покупки у продавца</div>
       </div>
       <div class="field" id="field_price_max">
-        <label id="price_max_label">MSRP / рыночная цена, ¥</label>
+        <label id="price_max_label">Invoice/MSRP, ¥</label>
         <input type="text" inputmode="numeric" id="price_max" placeholder="например: 103 920" oninput="maskThousands(this);calc_if_ready()">
-        <div class="fhint" id="price_max_hint">Для новых авто — MSRP (официальная цена производителя). Для электро/гибридов любого возраста — рыночная цена, от которой таможня исчисляет пошлину</div>
+        <div class="fhint" id="price_max_hint">Для новых авто и авто до 3-ех лет таможенная пошлина считается от MSRP (официальная цена производителя) или от стоимости в инвойсе</div>
       </div>
       <div class="frow">
         <div class="field">
@@ -994,8 +994,8 @@ function updatePriceMaxField() {
       hint.textContent  = 'Для электро таможня использует MSRP или рыночную цену — укажите большую из двух';
       input.placeholder = 'Обязательно';
     } else {
-      label.textContent = 'MSRP, ¥';
-      hint.textContent  = 'Для новых авто таможня считается от MSRP (официальная цена производителя)';
+      label.textContent = 'Invoice/MSRP, ¥';
+      hint.textContent  = 'Для новых авто и авто до 3-ех лет таможенная пошлина считается от MSRP (официальная цена производителя) или от стоимости в инвойсе';
       input.placeholder = 'Обязательно для нового авто';
     }
   } else {
