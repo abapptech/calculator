@@ -1489,6 +1489,11 @@ function calc(silent=false){
   const ovhdPctRaw = document.getElementById('ovhd_pct').value.trim();
   const isCheckedNewCar = age === 'new' && document.getElementById('chk_new_car').checked;
   const ovhdPct = ovhdPctRaw === '' ? (isCheckedNewCar ? 0 : 1) : +ovhdPctRaw;
+  // Подпись строки MSRP в карточках: для отмеченных "новыми" — старая формулировка,
+  // для остальных (0-3 года без галочки, либо электро/гибрид любого возраста) — с "Рыночная цена"
+  const msrpLabel = isCheckedNewCar
+    ? 'MSRP (справочно, для расчёта пошлины)'
+    : 'MSRP/Рыночная цена (справочно, для расчёта пошлины)';
   const ovhdCny = pCny * ovhdPct / 100;
   // Форматирование процента: 0.5 → "0.5%", 1 → "1%", 1.5 → "1.5%"
   const ovhdPctStr = (ovhdPct % 1 === 0 ? ovhdPct.toFixed(0) : ovhdPct.toString()) + '%';
@@ -1743,7 +1748,7 @@ function calc(silent=false){
       {label:'Город покупки в КНР', val: cityName || '—'},
       {type:'sec', label:'Стоимость', subtotal: cny(pCny)},
       {label:'Цена авто в КНР', val: cny(pCny)},
-      ...((age === 'new' || etype === 'electric') ? [{label:'MSRP (справочно, для расчёта пошлины)', val: cny(pTax)}] : []),
+      ...((age === 'new' || etype === 'electric') ? [{label: msrpLabel, val: cny(pMax)}] : []),
       ...chinaExportRows,
       ...(showRF ? logisticRows : []),
       ...(includeTax && showTax ? [
@@ -1865,7 +1870,7 @@ function calc(silent=false){
     ${row('Город покупки в КНР', cityName || '—')}
     ${sec('Стоимость', cny(pCny))}
     ${row('Цена авто в КНР', cny(pCny))}
-    ${(age === 'new' || etype === 'electric') ? row('MSRP (справочно, для расчёта пошлины)', cny(pTax)) : ''}`;
+    ${(age === 'new' || etype === 'electric') ? row(msrpLabel, cny(pMax)) : ''}`;
 
   const commRows = `
     ${sec('Комиссия', cny(comm))}
