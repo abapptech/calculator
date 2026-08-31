@@ -2735,6 +2735,7 @@ window.addEventListener('DOMContentLoaded', () => {
   ];
   var base = null, index = null, loading = false;
   var specCache = {};
+  var manualSpecs = null, manualSpecsLoading = false;
   var brand = null, model = null;
 
   var elBrand  = document.getElementById('cat_brand');
@@ -2746,6 +2747,18 @@ window.addEventListener('DOMContentLoaded', () => {
   if(!elBrand) return;
 
   function status(text){ if(elStatus) elStatus.textContent = text; }
+
+  function loadManualSpecs(){
+    if(manualSpecs || manualSpecsLoading) return;
+    manualSpecsLoading = true;
+    fetchJSON('manual_specs.json').then(function(data){
+      manualSpecs = data || {};
+      manualSpecsLoading = false;
+    }).catch(function(){
+      manualSpecs = {}; // файла нет/недоступен — просто работаем без доп. данных
+      manualSpecsLoading = false;
+    });
+  }
 
   function fetchJSON(path){
     if(base) return fetch(base + '/' + path).then(function(r){
@@ -2769,6 +2782,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if(index || loading) return;
     loading = true;
     status('Загружаю каталог…');
+    loadManualSpecs();
     fetchJSON('index.json').then(function(data){
       index = data;
       loading = false;
@@ -2924,7 +2938,33 @@ window.addEventListener('DOMContentLoaded', () => {
       try { nameEl.dispatchEvent(new Event('input')); } catch(e){}
     }
 
-    status('MSRP подставлен: ' + fmt(t.price_cny) + ' ¥');
+    // Мощность/объём — только если для этой комплектации есть ручные данные (manual_specs.json)
+    var extra = (manualSpecs && t.spec_id != null) ? manualSpecs[String(t.spec_id)] : null;
+    var extraMsg = '';
+    if(extra){
+      var ccEl = document.getElementById('cc');
+      if(ccEl && extra.cc && (!ccEl.value.trim() || ccEl.dataset.autofilled === '1')){
+        ccEl.value = String(extra.cc);
+        if(typeof maskThousands === 'function') maskThousands(ccEl);
+        ccEl.dataset.autofilled = '1';
+        ccEl.style.borderColor = '';
+      }
+      var kwEl = document.getElementById('kw');
+      if(kwEl && extra.kw && (!kwEl.value.trim() || kwEl.dataset.autofilled === '1')){
+        kwEl.value = String(extra.kw);
+        kwEl.dataset.autofilled = '1';
+        kwEl.style.borderColor = '';
+        if(typeof updHP === 'function') updHP();
+      }
+      var parts = [];
+      if(extra.hp) parts.push(extra.hp + ' л.с.');
+      if(extra.torque_nm) parts.push(extra.torque_nm + ' Н·м');
+      if(extra.transmission) parts.push(extra.transmission);
+      if(extra.drive) parts.push(extra.drive);
+      if(parts.length) extraMsg = ' · ' + parts.join(', ') + ' (по каталогу, можно изменить)';
+    }
+
+    status('MSRP подставлен: ' + fmt(t.price_cny) + ' ¥' + extraMsg);
     if(typeof calc_if_ready === 'function') calc_if_ready();
   }
 
