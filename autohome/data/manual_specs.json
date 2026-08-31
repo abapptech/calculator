@@ -1,0 +1,8 @@
+{
+  "_comment": "Ручные данные по мощности/трансмиссии для отдельных комплектаций. Ключ — spec_id из specs/{model_id}.json. Этот файл НЕ трогает автопарсер (main.py/parser.py) — можно редактировать вручную без риска перезаписи.",
+  "74072": {"cc": 1500, "kw": 81, "hp": 110, "torque_nm": 141, "transmission": "6AT", "drive": "FWD", "note": "VW Tharu 1.5L 锐进版"},
+  "74073": {"cc": 1500, "kw": 81, "hp": 110, "torque_nm": 141, "transmission": "6AT", "drive": "FWD", "note": "VW Tharu 1.5L 锐意版"},
+  "74046": {"cc": 1500, "kw": 81, "hp": 110, "torque_nm": 141, "transmission": "6AT", "drive": "FWD", "note": "VW Tharu 1.5L 锐享版"},
+  "74074": {"cc": 1500, "kw": 118, "hp": 160, "torque_nm": 250, "transmission": "7-DSG", "drive": "FWD", "note": "VW Tharu 300TSI 锐意版"},
+  "74075": {"cc": 1500, "kw": 118, "hp": 160, "torque_nm": 250, "transmission": "7-DSG", "drive": "FWD", "note": "VW Tharu 300TSI 锐享版"}
+}
