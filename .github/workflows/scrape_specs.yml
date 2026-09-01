@@ -1,0 +1,81 @@
+name: Scrape Engine Specs
+
+on:
+  workflow_dispatch:   # ручной запуск из GitHub Actions UI
+  schedule:
+    - cron: '0 3 * * 0'  # каждое воскресенье в 03:00 UTC (после парсера цен в понедельник)
+
+jobs:
+  scrape-specs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300   # 5 часов — с запасом для 1500+ серий
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run engine specs scraper
+        run: |
+          python autohome/specs_scraper.py \
+            --data-dir autohome/data \
+            2>&1 | tee /tmp/specs_scraper.log
+          echo "Exit code: $?"
+
+      - name: Show summary
+        run: |
+          echo "=== Last 30 lines of scraper log ==="
+          tail -30 /tmp/specs_scraper.log
+          echo ""
+          echo "=== manual_specs.json stats ==="
+          python3 -c "
+          import json
+          d = json.load(open('autohome/data/manual_specs.json'))
+          specs = {k:v for k,v in d.items() if k.isdigit()}
+          with_cc = sum(1 for v in specs.values() if v.get('cc'))
+          with_kw = sum(1 for v in specs.values() if v.get('kw'))
+          skip = sum(1 for v in specs.values() if v.get('skip_motor'))
+          print(f'Total specs: {len(specs)}')
+          print(f'  with cc:  {with_cc}')
+          print(f'  with kw:  {with_kw}')
+          print(f'  skip (EV/hybrid): {skip}')
+          "
+          echo ""
+          echo "=== Progress ==="
+          python3 -c "
+          import json, pathlib
+          p = pathlib.Path('autohome/data/.specs_progress.json')
+          if p.exists():
+              d = json.load(p.open())
+              done = len(d.get('done_series',[]))
+              total = d.get('total', 0)
+              print(f'Done: {done}/{total} series ({100*done//max(total,1)}%)')
+          else:
+              print('No progress file yet')
+          "
+
+      - name: Commit updated manual_specs.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add autohome/data/manual_specs.json autohome/data/.specs_progress.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            SPEC_COUNT=$(python3 -c "
+          import json
+          d = json.load(open('autohome/data/manual_specs.json'))
+          print(sum(1 for k in d if k.isdigit()))
+          ")
+            git commit -m "autohome: engine specs update — ${SPEC_COUNT} specs in manual_specs.json [skip ci]"
+            git push
+          fi
