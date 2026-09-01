@@ -150,6 +150,191 @@ MODEL_EN = {
     "宾理": "Binli", "睿蓝": "Livan", "枭龙MAX": "Xiaolong Max",
     "旗舰": "Flagship", "长安之星": "Changan Star",
     "神行者": "Shenxingzhe", "征服者": "Conqueror",
+
+    # ── Toyota ──────────────────────────────────────────────────────────────
+    "凯美瑞": "Camry", "卡罗拉": "Corolla", "雷凌": "Levin",
+    "亚洲龙": "Avalon", "皇冠": "Crown", "皇冠陆放": "Crown Land Cruiser",
+    "埃尔法": "Alphard", "威尔法": "Vellfire", "格瑞维亚": "Granvia",
+    "赛那": "Sienna", "普拉多": "Prado", "兰德酷路泽": "Land Cruiser",
+    "威兰达": "Venza", "威飒": "Wildlander", "凌尚": "Camry Sport",
+    "锋兰达": "Frontlander", "卡罗拉锐放": "Corolla Cross",
+    "铂智3X": "bZ3X", "铂智4X": "bZ4X", "铂智7": "bZ7",
+    "丰田bZ3": "bZ3", "丰田bZ5": "bZ5",
+    "RAV4荣放": "RAV4", "RAV4荣放双擎E+": "RAV4 PHEV",
+    "T-ROC探歌": "T-ROC", "陆放": "Land Cruiser Prado",
+    "海狮": "HiAce", "海狮Pro": "HiAce Pro",
+
+    # ── Volkswagen ───────────────────────────────────────────────────────────
+    "帕萨特": "Passat", "迈腾": "Magotan", "朗逸": "Lavida",
+    "宝来": "Bora", "速腾": "Sagitar", "高尔夫": "Golf",
+    "高尔夫GTI": "Golf GTI", "途观L": "Tiguan L",
+    "途观L插电混动": "Tiguan L PHEV", "途岳": "Tharu",
+    "探岳": "Tayron", "探岳X": "Tayron X", "探岳L PHEV": "Tayron L PHEV",
+    "途昂": "Teramont", "途锐": "Touareg", "揽境": "Talagon",
+    "揽巡": "Tayron GT", "凌渡": "Lamando", "威然": "Viloran",
+    "途安": "Touran", "一汽-大众CC": "VW CC",
+    "帕萨特插电混动": "Passat PHEV", "迈腾 PHEV": "Magotan PHEV",
+    "大众ID.3": "ID.3", "与众06": "ID.6", "与众07": "Yuzhong 07",
+    "与众08": "Yuzhong 08",
+
+    # ── Honda ────────────────────────────────────────────────────────────────
+    "雅阁": "Accord", "思域": "Civic", "奥德赛": "Odyssey",
+    "艾力绅": "Elysion", "冠道": "Avancier", "皓影": "Breeze",
+    "皓影新能源": "Breeze PHEV", "缤智": "Vezel",
+    "英仕派": "Inspire", "英仕派新能源": "Inspire NEV",
+    "型格": "Integra", "本田CR-V": "CR-V", "本田HR-V": "HR-V",
+    "本田UR-V": "UR-V", "本田XR-V": "XR-V",
+    "猎光e:NS2": "e:NS2", "东风本田S7": "Honda S7",
+    "广汽本田P7": "Honda P7",
+
+    # ── Nissan ───────────────────────────────────────────────────────────────
+    "轩逸": "Sylphy", "天籁": "Teana", "奇骏": "X-Trail",
+    "逍客": "Qashqai", "骐达TIIDA": "Tiida", "纳瓦拉": "Navara",
+    "探陆": "Pathfinder", "日产N6": "Nissan N6", "日产N7": "Nissan N7",
+    "日产NX8": "Nissan NX8",
+    "锋坦Frontier Pro": "Frontier Pro", "锋坦Frontier Pro PHEV": "Frontier Pro PHEV",
+
+    # ── Mazda ────────────────────────────────────────────────────────────────
+    "马自达3 昂克赛拉": "Mazda 3 Axela", "马自达CX-30": "CX-30",
+    "马自达CX-5": "CX-5", "马自达CX-50行也": "CX-50",
+    "马自达EZ-6": "EZ-6", "马自达EZ-60": "EZ-60",
+
+    # ── Hyundai ──────────────────────────────────────────────────────────────
+    "伊兰特": "Elantra", "伊兰特Elantra N": "Elantra N",
+    "途胜": "Tucson", "胜达": "Santa Fe", "索纳塔": "Sonata",
+    "库斯途": "Custin", "帕里斯帝": "Palisade",
+    "北京现代ix35": "ix35", "IONIQ 5 N(艾尼氪5N)": "IONIQ 5 N",
+    "EO 羿欧": "IONIQ 6",
+
+    # ── Kia ──────────────────────────────────────────────────────────────────
+    "起亚K3": "K3", "起亚K5": "K5", "起亚EV5": "EV5", "起亚EV6": "EV6",
+    "奕跑": "Stonic", "嘉华": "Carnival",
+    "狮铂拓界": "Sportage", "索奈": "Sonet", "赛图斯": "Seltos",
+
+    # ── Subaru ───────────────────────────────────────────────────────────────
+    "森林人": "Forester", "傲虎": "Outback",
+    "斯巴鲁BRZ": "BRZ", "斯巴鲁WRX": "WRX",
+
+    # ── Lexus ────────────────────────────────────────────────────────────────
+    "雷克萨斯ES": "ES", "雷克萨斯GX": "GX", "雷克萨斯IS": "IS",
+    "雷克萨斯LC": "LC", "雷克萨斯LM": "LM", "雷克萨斯LS": "LS",
+    "雷克萨斯LX": "LX", "雷克萨斯NX": "NX", "雷克萨斯NX新能源": "NX PHEV",
+    "雷克萨斯RX": "RX", "雷克萨斯RX新能源": "RX PHEV", "雷克萨斯RZ": "RZ",
+    "雷克萨斯UX": "UX",
+
+    # ── BMW ──────────────────────────────────────────────────────────────────
+    "宝马2系": "2 Series", "宝马2系(进口)": "2 Series (Import)",
+    "宝马3系": "3 Series", "宝马4系": "4 Series",
+    "宝马5系": "5 Series", "宝马5系(进口)": "5 Series (Import)",
+    "宝马7系": "7 Series", "宝马M2": "M2", "宝马M235L": "M235L",
+    "宝马M240i": "M240i", "宝马M3": "M3", "宝马M4": "M4",
+    "宝马M5新能源": "M5 PHEV", "宝马M760Le": "M760Le",
+    "宝马X1": "X1", "宝马X1 M35Li": "X1 M35Li",
+    "宝马X2 M35i": "X2 M35i", "宝马X2(进口)": "X2 (Import)",
+    "宝马X3": "X3", "宝马X3 M50": "X3 M50",
+    "宝马X5": "X5", "宝马X6": "X6", "宝马X7": "X7",
+    "宝马X7 M60i": "X7 M60i", "宝马XM": "XM",
+    "宝马i3": "i3", "宝马i4": "i4", "宝马i4 M": "i4 M",
+    "宝马i5": "i5", "宝马i5 M60": "i5 M60",
+    "宝马i7": "i7", "宝马i7 M70L": "i7 M70L", "宝马iX1": "iX1",
+
+    # ── Mercedes-Benz ────────────────────────────────────────────────────────
+    "奔驰A级": "A-Class", "奔驰A级AMG": "A-Class AMG",
+    "奔驰A级AMG(进口)": "A-Class AMG (Import)",
+    "奔驰C级": "C-Class", "奔驰C级AMG": "C-Class AMG",
+    "奔驰C级新能源": "C-Class PHEV", "奔驰C级AMG新能源": "C-Class AMG PHEV",
+    "奔驰E级": "E-Class", "奔驰E级(进口)": "E-Class (Import)",
+    "奔驰E级新能源": "E-Class PHEV",
+    "奔驰S级": "S-Class", "奔驰S级新能源": "S-Class PHEV",
+    "奔驰S级AMG新能源": "S-Class AMG PHEV",
+    "奔驰G级": "G-Class", "奔驰G级AMG": "G-Class AMG",
+    "奔驰G级新能源": "G-Class EV",
+    "奔驰GLA": "GLA", "奔驰GLA AMG": "GLA AMG",
+    "奔驰GLB": "GLB", "奔驰GLB AMG": "GLB AMG",
+    "奔驰GLC": "GLC", "奔驰GLC AMG": "GLC AMG",
+    "奔驰GLC新能源": "GLC PHEV", "奔驰GLC轿跑": "GLC Coupe",
+    "奔驰GLC轿跑 AMG": "GLC Coupe AMG",
+    "奔驰GLE(进口)": "GLE", "奔驰GLE AMG": "GLE AMG",
+    "奔驰GLE新能源": "GLE PHEV", "奔驰GLE轿跑": "GLE Coupe",
+    "奔驰GLE轿跑 AMG": "GLE Coupe AMG",
+    "奔驰GLS": "GLS", "奔驰GLS AMG": "GLS AMG",
+    "奔驰SL级AMG": "SL AMG",
+    "奔驰CLA(进口)": "CLA", "奔驰CLA AMG": "CLA AMG",
+    "奔驰CLA新能源": "CLA EV", "奔驰CLE": "CLE", "奔驰CLE AMG": "CLE AMG",
+    "奔驰EQA": "EQA", "奔驰EQB": "EQB",
+    "奔驰EQE": "EQE", "奔驰EQE SUV": "EQE SUV",
+    "奔驰EQE SUV AMG": "EQE SUV AMG",
+    "奔驰EQS": "EQS", "奔驰EQS SUV": "EQS SUV",
+    "奔驰V级": "V-Class", "威霆": "Vito",
+    "迈巴赫S级": "Maybach S-Class", "迈巴赫GLS": "Maybach GLS",
+    "迈巴赫EQS SUV": "Maybach EQS SUV",
+
+    # ── Audi ─────────────────────────────────────────────────────────────────
+    "奥迪A3": "A3", "奥迪A4L": "A4L", "奥迪A4(进口)": "A4 (Import)",
+    "奥迪A5(进口)": "A5 (Import)", "奥迪A5L": "A5L",
+    "奥迪A5L Sportback": "A5L Sportback",
+    "奥迪A6L": "A6L", "奥迪A6(进口)": "A6 (Import)",
+    "奥迪A6L e-tron": "A6L e-tron",
+    "奥迪A7": "A7", "奥迪A7L": "A7L",
+    "奥迪A8": "A8",
+    "奥迪Q2L": "Q2L", "奥迪Q3": "Q3",
+    "奥迪Q4 e-tron": "Q4 e-tron", "奥迪Q5 e-tron": "Q5 e-tron",
+    "奥迪Q5L": "Q5L", "奥迪Q5L Sportback": "Q5L Sportback",
+    "奥迪Q6": "Q6", "奥迪Q6L e-tron": "Q6L e-tron",
+    "奥迪Q6L Sportback e-tron": "Q6L Sportback e-tron",
+    "奥迪Q7": "Q7", "奥迪Q8": "Q8",
+    "奥迪RS 4": "RS 4", "奥迪RS 5": "RS 5", "奥迪RS 6": "RS 6",
+    "奥迪RS 7": "RS 7", "奥迪RS Q8": "RS Q8",
+    "奥迪S4": "S4", "奥迪S5": "S5", "奥迪S6": "S6",
+    "奥迪S7": "S7", "奥迪S8": "S8",
+    "奥迪SQ5": "SQ5", "奥迪SQ5 Sportback": "SQ5 Sportback",
+    "奥迪SQ7": "SQ7", "奥迪SQ8": "SQ8",
+
+    # ── Volvo ────────────────────────────────────────────────────────────────
+    "沃尔沃S60": "S60", "沃尔沃S90": "S90",
+    "沃尔沃S90插电式混动": "S90 PHEV",
+    "沃尔沃V60": "V60", "沃尔沃V90": "V90",
+    "沃尔沃XC40": "XC40", "沃尔沃XC60": "XC60",
+    "沃尔沃XC60插电式混动": "XC60 PHEV",
+    "沃尔沃XC70插电式混动": "XC70 PHEV",
+    "沃尔沃XC90": "XC90", "沃尔沃XC90插电式混动": "XC90 PHEV",
+    "沃尔沃EX30": "EX30", "沃尔沃EX90": "EX90",
+    "沃尔沃EM90": "EM90", "沃尔沃ES90": "ES90",
+
+    # ── Land Rover ───────────────────────────────────────────────────────────
+    "揽胜": "Range Rover", "揽胜新能源": "Range Rover PHEV",
+    "揽胜运动": "Range Rover Sport", "揽胜运动新能源": "Range Rover Sport PHEV",
+    "揽胜星脉": "Range Rover Velar", "揽胜极光": "Range Rover Evoque",
+    "发现": "Discovery", "路虎卫士": "Defender",
+
+    # ── Ford ─────────────────────────────────────────────────────────────────
+    "蒙迪欧": "Mondeo", "锐界": "Edge", "锐际": "Escape",
+    "探险者": "Explorer", "全顺": "Transit", "E全顺": "E-Transit",
+    "全顺T8": "Transit T8", "途睿欧": "Tourneo",
+    "福特F-150猛禽": "F-150 Raptor", "游骑侠Ranger": "Ranger",
+    "福特烈马": "Bronco", "福特智趣烈马": "Bronco Sport",
+    "领睿": "Equator", "领睿新能源": "Equator PHEV",
+    "领裕新能源": "Territory PHEV",
+
+    # ── Cadillac / Buick ─────────────────────────────────────────────────────
+    "凯迪拉克CT5": "CT5", "凯迪拉克CT6": "CT6",
+    "凯迪拉克XT4": "XT4", "凯迪拉克XT5": "XT5", "凯迪拉克XT6": "XT6",
+    "IQ锐歌": "LYRIQ", "IQ傲歌": "OPTIQ", "凯威德": "Escalade",
+    "别克GL8": "GL8", "别克GL8新能源": "GL8 PHEV",
+    "君威": "Regal", "君越": "LaCrosse",
+    "昂科威Plus": "Envision Plus", "昂科威S": "Envision S",
+    "微蓝6": "Velite 6", "别克E5": "Electra E5",
+    "世纪": "Buick Century",
+    "别克至境E7": "Electra E7", "别克至境L7": "Electra L7",
+    "别克至境世家": "Electra Shijia",
+
+    # ── Infiniti ─────────────────────────────────────────────────────────────
+    "英菲尼迪QX50": "QX50", "英菲尼迪QX60": "QX60",
+    "英菲尼迪QX80": "QX80",
+
+    # ── Mitsubishi ───────────────────────────────────────────────────────────
+    "帕杰罗": "Pajero", "欧蓝德": "Outlander",
+    "奕歌": "Eclipse Cross", "劲炫": "ASX",
 }
 
 
