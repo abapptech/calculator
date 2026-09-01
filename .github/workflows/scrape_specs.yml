@@ -77,5 +77,6 @@ jobs:
           print(sum(1 for k in d if k.isdigit()))
           ")
             git commit -m "autohome: engine specs update — ${SPEC_COUNT} specs in manual_specs.json [skip ci]"
+            git pull --rebase origin main
             git push
           fi
