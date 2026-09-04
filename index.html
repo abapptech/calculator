@@ -473,7 +473,7 @@ gtag('config','G-0T7CPPNW61');
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
           <input type="checkbox" id="chk_custom_extras" onchange="onChkCustomExtras()"
             style="width:16px;height:16px;padding:0;background:none;border:none;border-radius:0;-webkit-appearance:checkbox;appearance:checkbox;accent-color:var(--accent);cursor:pointer;flex-shrink:0">
-          <span class="slabel" style="margin-bottom:0">Собрать кастомизированный расчет</span>
+          <span class="slabel" style="margin-bottom:0">Собрать кастомизированный расчет</span><span id="custom_extras_check_icon" style="display:none;color:var(--accent);font-size:14px;margin-left:6px">✓</span>
         </label>
         <div class="fhint">Нужно указать свои расходы на всех этапах</div>
       </div>
@@ -1317,6 +1317,7 @@ function loadCustomCalcState(){
     document.getElementById('chk_custom_extras').checked = true;
     document.getElementById('custom_extras_block').style.display = 'block';
     document.getElementById('custom_calc_reset_wrap').style.display = 'block';
+    updateCustomExtrasIcon();
   }
 
   CUSTOM_CITIES.forEach(city => {
@@ -1353,10 +1354,17 @@ function resetCustomCalc(){
   calc_if_ready();
 }
 
+function updateCustomExtrasIcon(){
+  const checked = document.getElementById('chk_custom_extras').checked;
+  const icon = document.getElementById('custom_extras_check_icon');
+  if (icon) icon.style.display = checked ? 'inline' : 'none';
+}
+
 function onChkCustomExtras(){
   const checked = document.getElementById('chk_custom_extras').checked;
   document.getElementById('custom_extras_block').style.display = checked ? 'block' : 'none';
   document.getElementById('custom_calc_reset_wrap').style.display = checked ? 'block' : 'none';
+  updateCustomExtrasIcon();
   saveCustomCalcState();
   calc_if_ready();
 }
