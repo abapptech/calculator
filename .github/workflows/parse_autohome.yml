@@ -65,7 +65,7 @@ jobs:
 
       - name: Run parser
         run: |
-          ARGS="--years ${{ github.event.inputs.years || '3' }}"
+          ARGS="--years ${{ github.event.inputs.years || '6' }}"
           ARGS="$ARGS --time-budget ${{ github.event.inputs.time_budget || '300' }}"
           if [ -n "${{ github.event.inputs.brands }}" ]; then
             ARGS="$ARGS --brands ${{ github.event.inputs.brands }}"
