@@ -221,7 +221,7 @@ gtag('config','G-0T7CPPNW61');
             <option value="">Сначала выберите модель</option>
           </select>
           <div class="cat-foot">
-            <span id="cat_status">Каталог: авто не старше 3 лет</span>
+            <span id="cat_status">Каталог: авто не старше 6 лет</span>
             <button type="button" id="cat_reset" class="cat-reset" style="display:none">Сбросить</button>
           </div>
         </div>
@@ -1010,12 +1010,7 @@ function updatePriceMaxField() {
   // таможне нужна рыночная цена подержанного авто, а не MSRP новой машины.
   const fieldCatalog = document.getElementById('field_catalog');
   if (fieldCatalog) {
-    if (isNew) {
-      fieldCatalog.style.display = 'block';
-    } else {
-      fieldCatalog.style.display = 'none';
-      if (typeof window.catalogReset === 'function') window.catalogReset();
-    }
+    fieldCatalog.style.display = 'block';
   }
 }
 
