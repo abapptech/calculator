@@ -366,7 +366,7 @@ def finish(state, args, partial):
 
 def main():
     p = argparse.ArgumentParser(description="Парсер каталога autohome -> JSON")
-    p.add_argument("--years", type=int, default=3,
+    p.add_argument("--years", type=int, default=6,
                    help="максимальный возраст авто в годах (по умолчанию 3)")
     p.add_argument("--time-budget", type=int, default=300,
                    help="лимит времени в минутах (по умолчанию 300)")
