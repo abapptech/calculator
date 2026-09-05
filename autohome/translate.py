@@ -429,7 +429,7 @@ TERMS = {
     "国V": "China V", "国五": "China V",
 
     # прочее
-    "改款": "Facelift", "款": " MY", "度": " kWh", "米": "m",
+    "改款": "Facelift", "款": "", "度": " kWh", "米": "m",
     "两厢": "Hatchback", "三厢": "Sedan", "轿跑": "Coupe",
     "旅行版": "Wagon", "敞篷": "Convertible",
     "创始版": "Founder Ed.", "首发版": "Launch Ed.",
