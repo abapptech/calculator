@@ -1,12 +1,12 @@
 {
- "updated_at": "2026-09-04T18:28:48Z",
+ "updated_at": "2026-09-07T07:08:47Z",
  "source": "autohome.com.cn",
- "max_age_years": 6,
+ "max_age_years": 8,
  "complete": true,
  "counts": {
-  "brands": 236,
-  "models": 1674,
-  "trims": 15737
+  "brands": 237,
+  "models": 1691,
+  "trims": 15961
  },
  "brands": [
   {
@@ -5751,6 +5751,156 @@
      "name_en": "Yufeng EM27"
     },
     {
+     "series_id": 4486,
+     "name": "御风P16",
+     "first_launch": "2017.08",
+     "price_min_cny": 84800,
+     "price_max_cny": 136800,
+     "trims": [
+      {
+       "spec_id": 1007090,
+       "name": "2019款 2.4L汽油两驱标准型4G69S4N",
+       "price_cny": 84800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Standard 4G69S4N"
+      },
+      {
+       "spec_id": 1007091,
+       "name": "2019款 2.4L汽油两驱标准型长轴4G69S4N",
+       "price_cny": 86800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Standard LWB 4G69S4N"
+      },
+      {
+       "spec_id": 1007088,
+       "name": "2019款 2.4L汽油两驱豪华型4G69S4N",
+       "price_cny": 89800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Luxury 4G69S4N"
+      },
+      {
+       "spec_id": 1007089,
+       "name": "2019款 2.4L汽油两驱豪华型长轴4G69S4N",
+       "price_cny": 91800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Luxury LWB 4G69S4N"
+      },
+      {
+       "spec_id": 1009243,
+       "name": "2020款 2.4T汽油两驱舒适型国VI 4K22D4T",
+       "price_cny": 96800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Comfort China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009244,
+       "name": "2020款 2.4T汽油两驱舒适型长轴国VI 4K22D4T",
+       "price_cny": 98800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Comfort LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009241,
+       "name": "2020款 2.4T汽油两驱豪华型国VI 4K22D4T",
+       "price_cny": 100800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Luxury China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1007085,
+       "name": "2019款 2.4L汽油四驱豪华型4G69S4N",
+       "price_cny": 100800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol AWD Luxury 4G69S4N"
+      },
+      {
+       "spec_id": 1009242,
+       "name": "2020款 2.4T汽油两驱豪华型长轴国VI 4K22D4T",
+       "price_cny": 102800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Luxury LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1007084,
+       "name": "2019款 2.4L汽油四驱豪华型长轴4G69S4N",
+       "price_cny": 102800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol AWD Luxury LWB 4G69S4N"
+      },
+      {
+       "spec_id": 1007087,
+       "name": "2019款 2.4L汽油两驱旗舰型4G69S4N",
+       "price_cny": 112800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Flagship 4G69S4N"
+      },
+      {
+       "spec_id": 1007086,
+       "name": "2019款 2.4L汽油两驱旗舰型长轴4G69S4N",
+       "price_cny": 114800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol 2WD Flagship LWB 4G69S4N"
+      },
+      {
+       "spec_id": 1009237,
+       "name": "2020款 2.4T汽油四驱豪华型国VI 4K22D4T",
+       "price_cny": 115800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol AWD Luxury China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009238,
+       "name": "2020款 2.4T汽油四驱豪华型长轴国VI 4K22D4T",
+       "price_cny": 117800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol AWD Luxury LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009239,
+       "name": "2020款 2.4T汽油两驱旗舰型国VI 4K22D4T",
+       "price_cny": 119800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Flagship China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009240,
+       "name": "2020款 2.4T汽油两驱旗舰型长轴国VI 4K22D4T",
+       "price_cny": 121800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol 2WD Flagship LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1007083,
+       "name": "2019款 2.4L汽油四驱旗舰型4G69S4N",
+       "price_cny": 126800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol AWD Flagship 4G69S4N"
+      },
+      {
+       "spec_id": 1007082,
+       "name": "2019款 2.4L汽油四驱旗舰型长轴4G69S4N",
+       "price_cny": 128800,
+       "launch": "2018.12",
+       "name_en": "2019 2.4L Petrol AWD Flagship LWB 4G69S4N"
+      },
+      {
+       "spec_id": 1009235,
+       "name": "2020款 2.4T汽油四驱旗舰型国VI 4K22D4T",
+       "price_cny": 134800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol AWD Flagship China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009236,
+       "name": "2020款 2.4T汽油四驱旗舰型长轴国VI 4K22D4T",
+       "price_cny": 136800,
+       "launch": "2020.03",
+       "name_en": "2020 2.4T Petrol AWD Flagship LWB China VI 4K22D4T"
+      }
+     ],
+     "name_en": "Yufeng P16"
+    },
+    {
      "series_id": 6290,
      "name": "猛士M50",
      "first_launch": "2022.09",
@@ -8744,6 +8894,13 @@
        "name_en": "2025 1.6L C31S Jingdian"
       },
       {
+       "spec_id": 1007884,
+       "name": "2019款 1.5L标准型国VI DK15",
+       "price_cny": 38900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Standard China VI DK15"
+      },
+      {
        "spec_id": 1012909,
        "name": "2022款 1.6L C31S LV0 SFG16",
        "price_cny": 40900,
@@ -8794,6 +8951,13 @@
        "price_cny": 41900,
        "launch": "2024.08",
        "name_en": "2025 1.6L C32S Jingdian"
+      },
+      {
+       "spec_id": 1007886,
+       "name": "2019款 1.5L标准型国VI DK15",
+       "price_cny": 41900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Standard China VI DK15"
       },
       {
        "spec_id": 1012911,
@@ -8853,6 +9017,13 @@
        "price_cny": 51900,
        "launch": "2025.08",
        "name_en": "2025 Comfort"
+      },
+      {
+       "spec_id": 1008078,
+       "name": "2019款 1.5L基本型Ⅱ厢车国VI DK15",
+       "price_cny": 53800,
+       "launch": "2019.08",
+       "name_en": "2019 1.5L Base Ⅱ Xiangche China VI DK15"
       },
       {
        "spec_id": 1022159,
@@ -8927,12 +9098,43 @@
      "name_en": "Dongfeng Sokon C36II"
     },
     {
+     "series_id": 2865,
+     "name": "东风小康C37",
+     "first_launch": "2019.07",
+     "price_min_cny": 57900,
+     "price_max_cny": 58900,
+     "trims": [
+      {
+       "spec_id": 1007879,
+       "name": "2019款 1.5L精典型II 国VI DK15",
+       "price_cny": 57900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Jingdian II China VI DK15"
+      },
+      {
+       "spec_id": 1007880,
+       "name": "2019款 1.5L舒适型 国VI DK15",
+       "price_cny": 58900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Comfort China VI DK15"
+      }
+     ],
+     "name_en": "Dongfeng Sokon C37"
+    },
+    {
      "series_id": 5581,
      "name": "东风小康C51",
      "first_launch": "2020.01",
-     "price_min_cny": 47900,
-     "price_max_cny": 49900,
+     "price_min_cny": 46900,
+     "price_max_cny": 50900,
      "trims": [
+      {
+       "spec_id": 1008951,
+       "name": "2020款 1.5L 标准型国VI DK15",
+       "price_cny": 46900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Standard China VI DK15"
+      },
       {
        "spec_id": 1010275,
        "name": "2021款 1.6L C51L 标准型国VI SFG16C",
@@ -8946,6 +9148,13 @@
        "price_cny": 49900,
        "launch": "2020.09",
        "name_en": "2021 1.6L C51L Luxury China VI SFG16C"
+      },
+      {
+       "spec_id": 1008950,
+       "name": "2020款 1.5L 豪华型国VI DK15",
+       "price_cny": 50900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury China VI DK15"
       }
      ],
      "name_en": "Dongfeng Sokon C51"
@@ -8954,9 +9163,16 @@
      "series_id": 5582,
      "name": "东风小康C52",
      "first_launch": "2020.01",
-     "price_min_cny": 50900,
-     "price_max_cny": 52900,
+     "price_min_cny": 49900,
+     "price_max_cny": 53900,
      "trims": [
+      {
+       "spec_id": 1008953,
+       "name": "2020款 1.5L 标准型国VI DK15",
+       "price_cny": 49900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Standard China VI DK15"
+      },
       {
        "spec_id": 1010279,
        "name": "2021款 1.6L C52L 标准型国VI SFG16C",
@@ -8970,16 +9186,47 @@
        "price_cny": 52900,
        "launch": "2020.09",
        "name_en": "2021 1.6L C52L Luxury China VI SFG16C"
+      },
+      {
+       "spec_id": 1008952,
+       "name": "2020款 1.5L 豪华型国VI DK15",
+       "price_cny": 53900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury China VI DK15"
       }
      ],
      "name_en": "Dongfeng Sokon C52"
+    },
+    {
+     "series_id": 5862,
+     "name": "东风小康C56",
+     "first_launch": "2020.08",
+     "price_min_cny": 55800,
+     "price_max_cny": 59800,
+     "trims": [
+      {
+       "spec_id": 1009934,
+       "name": "2020款 1.5L舒适型I DK15C",
+       "price_cny": 55800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5L Comfort I DK15C"
+      },
+      {
+       "spec_id": 1009932,
+       "name": "2020款 1.5L豪华型I DK15C",
+       "price_cny": 59800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5L Luxury I DK15C"
+      }
+     ],
+     "name_en": "Dongfeng Sokon C56"
     },
     {
      "series_id": 5034,
      "name": "东风小康D51",
      "first_launch": "2019.07",
      "price_min_cny": 47900,
-     "price_max_cny": 50500,
+     "price_max_cny": 53900,
      "trims": [
       {
        "spec_id": 1010765,
@@ -8989,6 +9236,13 @@
        "name_en": "2021 1.5L Standard SRW China VI"
       },
       {
+       "spec_id": 1007892,
+       "name": "2019款 1.5L改款基本型后单轮国VI DK15",
+       "price_cny": 48900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Facelift Base SRW China VI DK15"
+      },
+      {
        "spec_id": 1010766,
        "name": "2021款 1.5L标准型后双轮国VI",
        "price_cny": 48900,
@@ -8996,11 +9250,32 @@
        "name_en": "2021 1.5L Standard DRW China VI"
       },
       {
+       "spec_id": 1007893,
+       "name": "2019款 1.5L改款基本型后双轮国VI DK15",
+       "price_cny": 49900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Facelift Base DRW China VI DK15"
+      },
+      {
        "spec_id": 1010764,
        "name": "2021款 1.5L舒适型后双轮国VI",
        "price_cny": 50500,
        "launch": "2021.01",
        "name_en": "2021 1.5L Comfort DRW China VI"
+      },
+      {
+       "spec_id": 1008946,
+       "name": "2020款 1.5L豪华型后单轮国VI DK15",
+       "price_cny": 52900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury SRW China VI DK15"
+      },
+      {
+       "spec_id": 1008947,
+       "name": "2020款 1.5L豪华型后双轮国VI DK15",
+       "price_cny": 53900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury DRW China VI DK15"
       }
      ],
      "name_en": "Dongfeng Sokon D51"
@@ -9010,7 +9285,7 @@
      "name": "东风小康D52",
      "first_launch": "2019.07",
      "price_min_cny": 50900,
-     "price_max_cny": 53500,
+     "price_max_cny": 56900,
      "trims": [
       {
        "spec_id": 1010768,
@@ -9020,6 +9295,13 @@
        "name_en": "2021 1.5L Standard SRW China VI"
       },
       {
+       "spec_id": 1007894,
+       "name": "2019款 1.5L改款基本型后单轮国VI DK15",
+       "price_cny": 51900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Facelift Base SRW China VI DK15"
+      },
+      {
        "spec_id": 1010769,
        "name": "2021款 1.5L标准型后双轮国VI",
        "price_cny": 51900,
@@ -9027,11 +9309,32 @@
        "name_en": "2021 1.5L Standard DRW China VI"
       },
       {
+       "spec_id": 1007895,
+       "name": "2019款 1.5L改款基本型后双轮国VI DK15",
+       "price_cny": 52900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Facelift Base DRW China VI DK15"
+      },
+      {
        "spec_id": 1010767,
        "name": "2021款 1.5L舒适型后双轮国VI",
        "price_cny": 53500,
        "launch": "2021.01",
        "name_en": "2021 1.5L Comfort DRW China VI"
+      },
+      {
+       "spec_id": 1008948,
+       "name": "2020款 1.5L豪华型后单轮国VI DK15",
+       "price_cny": 55900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury SRW China VI DK15"
+      },
+      {
+       "spec_id": 1008949,
+       "name": "2020款 1.5L豪华型后双轮国VI DK15",
+       "price_cny": 56900,
+       "launch": "2020.01",
+       "name_en": "2020 1.5L Luxury DRW China VI DK15"
       }
      ],
      "name_en": "Dongfeng Sokon D52"
@@ -9515,9 +9818,16 @@
      "series_id": 3697,
      "name": "东风小康K07S",
      "first_launch": "2019.07",
-     "price_min_cny": 34900,
+     "price_min_cny": 33900,
      "price_max_cny": 36900,
      "trims": [
+      {
+       "spec_id": 1007883,
+       "name": "2019款 1.2L实用型 国VI DK12",
+       "price_cny": 33900,
+       "launch": "2019.07",
+       "name_en": "2019 1.2L Shiyong China VI DK12"
+      },
       {
        "spec_id": 1012680,
        "name": "2022款 1.3L高功版基本型",
@@ -10132,9 +10442,23 @@
      "series_id": 3829,
      "name": "风光330",
      "first_launch": "2019.07",
-     "price_min_cny": 42900,
+     "price_min_cny": 41900,
      "price_max_cny": 68800,
      "trims": [
+      {
+       "spec_id": 1007900,
+       "name": "2019款 1.5L手动实用型I 国VI",
+       "price_cny": 41900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Manual Shiyong I China VI"
+      },
+      {
+       "spec_id": 1007901,
+       "name": "2019款 1.5L手动实用型II 国VI",
+       "price_cny": 42900,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Manual Shiyong II China VI"
+      },
       {
        "spec_id": 1017184,
        "name": "2023款 1.5L 330S 手动实用型 国VI",
@@ -10625,9 +10949,30 @@
      "series_id": 4759,
      "name": "风光ix5",
      "first_launch": "2020.08",
-     "price_min_cny": 165900,
+     "price_min_cny": 99800,
      "price_max_cny": 165900,
      "trims": [
+      {
+       "spec_id": 46036,
+       "name": "2021款 1.5T 手动都市活力版",
+       "price_cny": 99800,
+       "launch": "2020.08",
+       "name_en": "2021 1.5T Manual Dushihuoli Ed."
+      },
+      {
+       "spec_id": 47375,
+       "name": "2021款 1.5T CVT都市活力版",
+       "price_cny": 109800,
+       "launch": "2020.08",
+       "name_en": "2021 1.5T CVT Dushihuoli Ed."
+      },
+      {
+       "spec_id": 47376,
+       "name": "2021款 1.5T CVT都市激情版",
+       "price_cny": 119800,
+       "launch": "2020.08",
+       "name_en": "2021 1.5T CVT Dushijiqing Ed."
+      },
       {
        "spec_id": 57206,
        "name": "2022款 1.5T CVT都市豪情版",
@@ -13917,15 +14262,36 @@
      "series_id": 2519,
      "name": "威虎",
      "first_launch": "2019.07",
-     "price_min_cny": 71800,
+     "price_min_cny": 69800,
      "price_max_cny": 97300,
      "trims": [
+      {
+       "spec_id": 1007969,
+       "name": "2019款 1.5T越野版汽油国VI两驱标准型标双",
+       "price_cny": 69800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI 2WD Standard Biaoshuang"
+      },
+      {
+       "spec_id": 1007970,
+       "name": "2019款 1.5T越野版汽油国VI两驱标准型大双",
+       "price_cny": 70800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI 2WD Standard Dashuang"
+      },
       {
        "spec_id": 1013526,
        "name": "2022款 2.4L经典版汽油两驱标准型中双",
        "price_cny": 71800,
        "launch": "2022.03",
        "name_en": "2022 2.4L Jingdian Ed. Petrol 2WD Standard Zhongshuang"
+      },
+      {
+       "spec_id": 1009958,
+       "name": "2020款 1.5T越野版汽油国VI平底货箱两驱标准型大双",
+       "price_cny": 71800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5T Off-Road Petrol China VI Pingdihuoxiang 2WD Standard Dashuang"
       },
       {
        "spec_id": 1013527,
@@ -13935,11 +14301,32 @@
        "name_en": "2022 2.4L Jingdian Ed. Petrol 2WD Standard Dashuang"
       },
       {
+       "spec_id": 1007973,
+       "name": "2019款 1.5T越野版汽油国VI两驱豪华型标双",
+       "price_cny": 72800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI 2WD Luxury Biaoshuang"
+      },
+      {
        "spec_id": 1013528,
        "name": "2022款 2.4L经典版汽油两驱标准型大双平底货箱",
        "price_cny": 73800,
        "launch": "2022.03",
        "name_en": "2022 2.4L Jingdian Ed. Petrol 2WD Standard Dashuangpingdihuoxiang"
+      },
+      {
+       "spec_id": 1007974,
+       "name": "2019款 1.5T越野版汽油国VI两驱豪华型大双",
+       "price_cny": 73800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI 2WD Luxury Dashuang"
+      },
+      {
+       "spec_id": 1009956,
+       "name": "2020款 1.5T越野版汽油国VI平底货箱两驱豪华型大双",
+       "price_cny": 74800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5T Off-Road Petrol China VI Pingdihuoxiang 2WD Luxury Dashuang"
       },
       {
        "spec_id": 1015937,
@@ -13963,11 +14350,25 @@
        "name_en": "2022 2.8T Jingdian Ed. Diesel 2WD Standard Zhongshuang"
       },
       {
+       "spec_id": 1007971,
+       "name": "2019款 1.5T越野版汽油国VI四驱标准型标双",
+       "price_cny": 79800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI AWD Standard Biaoshuang"
+      },
+      {
        "spec_id": 1013542,
        "name": "2022款 2.8T经典版柴油两驱标准型大双平底货箱",
        "price_cny": 80800,
        "launch": "2022.03",
        "name_en": "2022 2.8T Jingdian Ed. Diesel 2WD Standard Dashuangpingdihuoxiang"
+      },
+      {
+       "spec_id": 1007972,
+       "name": "2019款 1.5T越野版汽油国VI四驱标准型大双",
+       "price_cny": 80800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI AWD Standard Dashuang"
       },
       {
        "spec_id": 1013523,
@@ -13977,11 +14378,25 @@
        "name_en": "2022 2.4L Jingdian Ed. Petrol AWD Standard Zhongshuang"
       },
       {
+       "spec_id": 1009957,
+       "name": "2020款 1.5T越野版汽油国VI平底货箱四驱标准型大双",
+       "price_cny": 81800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5T Off-Road Petrol China VI Pingdihuoxiang AWD Standard Dashuang"
+      },
+      {
        "spec_id": 1013524,
        "name": "2022款 2.4L经典版汽油四驱标准型大双",
        "price_cny": 82800,
        "launch": "2022.03",
        "name_en": "2022 2.4L Jingdian Ed. Petrol AWD Standard Dashuang"
+      },
+      {
+       "spec_id": 1007975,
+       "name": "2019款 1.5T越野版汽油国VI四驱豪华型标双",
+       "price_cny": 82800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI AWD Luxury Biaoshuang"
       },
       {
        "spec_id": 1013531,
@@ -13998,11 +14413,25 @@
        "name_en": "2022 2.4L Jingdian Ed. Petrol AWD Dashuangpingdihuoxiang"
       },
       {
+       "spec_id": 1007976,
+       "name": "2019款 1.5T越野版汽油国VI四驱豪华型大双",
+       "price_cny": 83800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Off-Road Petrol China VI AWD Luxury Dashuang"
+      },
+      {
        "spec_id": 1012772,
        "name": "2022款 2.8T柴油两驱豪华型大双JE493ZLQ6E",
        "price_cny": 84800,
        "launch": "2021.12",
        "name_en": "2022 2.8T Diesel 2WD Luxury Dashuang JE493ZLQ6E"
+      },
+      {
+       "spec_id": 1009955,
+       "name": "2020款 1.5T越野版汽油国VI平底货箱四驱豪华型大双",
+       "price_cny": 84800,
+       "launch": "2020.08",
+       "name_en": "2020 1.5T Off-Road Petrol China VI Pingdihuoxiang AWD Luxury Dashuang"
       },
       {
        "spec_id": 1012773,
@@ -14151,6 +14580,62 @@
        "name_en": "2021 2.4L Xinshangyong Ed. Petrol AWD Dashuang 4K22D4M"
       },
       {
+       "spec_id": 1009449,
+       "name": "2020款 2.4T商用版汽油国VI两驱手动标准型标双4K22D4T",
+       "price_cny": 94800,
+       "launch": "2020.05",
+       "name_en": "2020 2.4T Shangyong Ed. Petrol China VI 2WD Manual Standard Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009450,
+       "name": "2020款 2.4T商用版汽油国VI两驱手动标准型大双4K22D4T",
+       "price_cny": 96800,
+       "launch": "2020.05",
+       "name_en": "2020 2.4T Shangyong Ed. Petrol China VI 2WD Manual Standard Dashuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009905,
+       "name": "2021款 2.4T乘用版汽油两驱超豪华型标双4K22D4T",
+       "price_cny": 99800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol 2WD Chao Luxury Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009903,
+       "name": "2021款 2.4T乘用版汽油两驱超豪华型大双4K22D4T",
+       "price_cny": 99800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol 2WD Chao Luxury Dashuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009447,
+       "name": "2020款 2.4T商用版汽油国VI四驱手动标准型标双4K22D4T",
+       "price_cny": 106800,
+       "launch": "2020.05",
+       "name_en": "2020 2.4T Shangyong Ed. Petrol China VI AWD Manual Standard Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009448,
+       "name": "2020款 2.4T商用版汽油国VI四驱手动标准型大双4K22D4T",
+       "price_cny": 108800,
+       "launch": "2020.05",
+       "name_en": "2020 2.4T Shangyong Ed. Petrol China VI AWD Manual Standard Dashuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009904,
+       "name": "2021款 2.4T乘用版汽油四驱超豪华型标双4K22D4T",
+       "price_cny": 112800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol AWD Chao Luxury Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009763,
+       "name": "2021款 2.4T乘用版汽油四驱超豪华型大双4K22D4T",
+       "price_cny": 112800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol AWD Chao Luxury Dashuang 4K22D4T"
+      },
+      {
        "spec_id": 1010582,
        "name": "2021款 2.4T厢货乘用版汽油两驱豪华型标双4K22D4T",
        "price_cny": 112900,
@@ -14179,6 +14664,13 @@
        "name_en": "2021 2.4T Box Truck Chengyong Ed. Petrol AWD Luxury Biaoshuang 4K22D4T"
       },
       {
+       "spec_id": 1009902,
+       "name": "2021款 2.4T乘用版汽油两驱旗舰型标双4K22D4T",
+       "price_cny": 128800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol 2WD Flagship Biaoshuang 4K22D4T"
+      },
+      {
        "spec_id": 1013415,
        "name": "2022款 2.4T汽油四驱超越版标双4K22D4T",
        "price_cny": 134800,
@@ -14191,6 +14683,13 @@
        "price_cny": 137800,
        "launch": "2022.02",
        "name_en": "2022 2.4T Petrol AWD Chaoyue Ed. Dashuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009430,
+       "name": "2021款 2.4T乘用版汽油四驱旗舰型标双4K22D4T",
+       "price_cny": 141800,
+       "launch": "2020.08",
+       "name_en": "2021 2.4T Chengyong Ed. Petrol AWD Flagship Biaoshuang 4K22D4T"
       },
       {
        "spec_id": 1010580,
@@ -16224,6 +16723,65 @@
      "name_en": "Prado"
     },
     {
+     "series_id": 2527,
+     "name": "柯斯达",
+     "first_launch": "2019.11",
+     "price_min_cny": 418400,
+     "price_max_cny": 558900,
+     "trims": [
+      {
+       "spec_id": 1009303,
+       "name": "2019款 4.0L高级车GRB53L-ZEMSK 23座9GR",
+       "price_cny": 418400,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Gaojiche GRB53L-ZEMSK 23-seat 9GR"
+      },
+      {
+       "spec_id": 1009301,
+       "name": "2019款 4.0L高级车GRB53L-ZCMSK 20座9GR",
+       "price_cny": 420900,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Gaojiche GRB53L-ZCMSK 20-seat 9GR"
+      },
+      {
+       "spec_id": 1009302,
+       "name": "2019款 4.0L高级车GRB53L-ZEMSK 23座升级版9GR",
+       "price_cny": 422900,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Gaojiche GRB53L-ZEMSK 23-seat Shengji Ed. 9GR"
+      },
+      {
+       "spec_id": 1009300,
+       "name": "2019款 4.0L高级车GRB53L-ZCMSK 20座特别版9GR",
+       "price_cny": 450000,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Gaojiche GRB53L-ZCMSK 20-seat Special 9GR"
+      },
+      {
+       "spec_id": 1009299,
+       "name": "2019款 4.0L豪华车GRB53L-ZEMNK 23座无扶手9GR",
+       "price_cny": 552700,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Luxury Che GRB53L-ZEMNK 23-seat Wufushou 9GR"
+      },
+      {
+       "spec_id": 1009298,
+       "name": "2019款 4.0L豪华车GRB53L-ZEMNK 23座扶手9GR",
+       "price_cny": 555700,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Luxury Che GRB53L-ZEMNK 23-seat Fushou 9GR"
+      },
+      {
+       "spec_id": 1009297,
+       "name": "2019款 4.0L豪华车GRB53L-ZCMEK 20座9GR",
+       "price_cny": 558900,
+       "launch": "2019.11",
+       "name_en": "2019 4.0L Luxury Che GRB53L-ZCMEK 20-seat 9GR"
+      }
+     ],
+     "name_en": "Kesida"
+    },
+    {
      "series_id": 6672,
      "name": "格瑞维亚",
      "first_launch": "2025.10",
@@ -17340,6 +17898,30 @@
      "name_en": "Joylong C6"
     },
     {
+     "series_id": 5016,
+     "name": "九龙EM3",
+     "first_launch": "2019.10",
+     "price_min_cny": 85800,
+     "price_max_cny": 101800,
+     "trims": [
+      {
+       "spec_id": 1008497,
+       "name": "2020款 基本续航型 27KWh",
+       "price_cny": 85800,
+       "launch": "2019.10",
+       "name_en": "2020 Jibenxuhang 27KWh"
+      },
+      {
+       "spec_id": 1006956,
+       "name": "2020款 长续航型 41KWh",
+       "price_cny": 101800,
+       "launch": "2019.10",
+       "name_en": "2020 Long Range 41KWh"
+      }
+     ],
+     "name_en": "Joylong EM3"
+    },
+    {
      "series_id": 6315,
      "name": "九龙EW5",
      "first_launch": "2021.07",
@@ -18236,6 +18818,13 @@
        "name_en": "2021 3.0T Diesel Manual AWD Chaozhi Ed. Biaozhou 4KH1CT6H1"
       },
       {
+       "spec_id": 1007073,
+       "name": "2018款 3.0T连体皮卡两驱精英版",
+       "price_cny": 124300,
+       "launch": "2018.12",
+       "name_en": "2018 3.0T Liantipika 2WD Elite"
+      },
+      {
        "spec_id": 1010963,
        "name": "2021款 3.0T柴油手动四驱超值版长轴4KH1CT6H1",
        "price_cny": 124800,
@@ -18637,6 +19226,20 @@
        "name_en": "2025 2.0T Petrol Automatic 2WD Standard 5-seat"
       },
       {
+       "spec_id": 43182,
+       "name": "2020款 1.9T 柴油自动两驱劲悦版 5座 国VI",
+       "price_cny": 181800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic 2WD Jinyue Ed. 5-seat China VI"
+      },
+      {
+       "spec_id": 43183,
+       "name": "2020款 1.9T 柴油自动两驱劲悦版 7座 国VI",
+       "price_cny": 187800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic 2WD Jinyue Ed. 7-seat China VI"
+      },
+      {
        "spec_id": 57037,
        "name": "2022款 2.0T 汽油自动四驱劲悦型 5座",
        "price_cny": 197800,
@@ -18644,11 +19247,25 @@
        "name_en": "2022 2.0T Petrol Automatic AWD Jinyue 5-seat"
       },
       {
+       "spec_id": 43184,
+       "name": "2020款 1.9T 柴油自动两驱劲享版 5座 国VI",
+       "price_cny": 198800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic 2WD Jinxiang Ed. 5-seat China VI"
+      },
+      {
        "spec_id": 57038,
        "name": "2022款 2.0T 汽油自动四驱劲悦型 7座",
        "price_cny": 203800,
        "launch": "2022.05",
        "name_en": "2022 2.0T Petrol Automatic AWD Jinyue 7-seat"
+      },
+      {
+       "spec_id": 43185,
+       "name": "2020款 1.9T 柴油自动两驱劲享版 7座 国VI",
+       "price_cny": 204800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic 2WD Jinxiang Ed. 7-seat China VI"
       },
       {
        "spec_id": 69212,
@@ -18663,6 +19280,13 @@
        "price_cny": 205800,
        "launch": "2023.03",
        "name_en": "2022 2.0T Petrol Automatic AWD Jinyue Luxury 5-seat"
+      },
+      {
+       "spec_id": 43186,
+       "name": "2020款 1.9T 柴油自动四驱劲悦版 5座 国VI",
+       "price_cny": 212800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic AWD Jinyue Ed. 5-seat China VI"
       },
       {
        "spec_id": 75054,
@@ -18684,6 +19308,13 @@
        "price_cny": 215800,
        "launch": "2025.04",
        "name_en": "2025 2.0T Petrol Automatic AWD Jinyao Ed. 5-seat"
+      },
+      {
+       "spec_id": 43187,
+       "name": "2020款 1.9T 柴油自动四驱劲悦版 7座 国VI",
+       "price_cny": 218800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic AWD Jinyue Ed. 7-seat China VI"
       },
       {
        "spec_id": 63938,
@@ -18714,6 +19345,13 @@
        "name_en": "2022 2.0T Petrol Automatic AWD Jinyue Ultimate 5-seat"
       },
       {
+       "spec_id": 43188,
+       "name": "2020款 1.9T 柴油自动四驱劲享版 5座 国VI",
+       "price_cny": 229800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic AWD Jinxiang Ed. 5-seat China VI"
+      },
+      {
        "spec_id": 67219,
        "name": "2024款 2.0T 汽油自动四驱劲尊版 7座",
        "price_cny": 232800,
@@ -18728,11 +19366,32 @@
        "name_en": "2025 2.0T Petrol Automatic AWD Jinzun Ed. 7-seat"
       },
       {
+       "spec_id": 43189,
+       "name": "2020款 1.9T 柴油自动四驱劲享版 7座 国VI",
+       "price_cny": 235800,
+       "launch": "2019.12",
+       "name_en": "2020 1.9T Diesel Automatic AWD Jinxiang Ed. 7-seat China VI"
+      },
+      {
+       "spec_id": 46521,
+       "name": "2020款 1.9T 柴油自动四驱X-POWER版 5座 国VI",
+       "price_cny": 247800,
+       "launch": "2020.07",
+       "name_en": "2020 1.9T Diesel Automatic AWD X-POWER Ed. 5-seat China VI"
+      },
+      {
        "spec_id": 78562,
        "name": "2026款 2.0T 汽油自动四驱劲炫版 5座",
        "price_cny": 248800,
        "launch": "2026.07",
        "name_en": "2026 2.0T Petrol Automatic AWD Jinxuan Ed. 5-seat"
+      },
+      {
+       "spec_id": 46522,
+       "name": "2020款 1.9T 柴油自动四驱X-POWER版 7座 国VI",
+       "price_cny": 253800,
+       "launch": "2020.07",
+       "name_en": "2020 1.9T Diesel Automatic AWD X-POWER Ed. 7-seat China VI"
       },
       {
        "spec_id": 63931,
@@ -19904,9 +20563,30 @@
      "series_id": 2456,
      "name": "五菱之光",
      "first_launch": "2020.03",
-     "price_min_cny": 37900,
+     "price_min_cny": 35100,
      "price_max_cny": 37900,
      "trims": [
+      {
+       "spec_id": 1009158,
+       "name": "2020款 1.2L 实用型 国VI LSI",
+       "price_cny": 35100,
+       "launch": "2020.03",
+       "name_en": "2020 1.2L Shiyong China VI LSI"
+      },
+      {
+       "spec_id": 1009451,
+       "name": "2020款 1.2L 厢式运输车实用型 国VI 2座 LSI",
+       "price_cny": 36500,
+       "launch": "2020.05",
+       "name_en": "2020 1.2L Box Van Shiyong China VI 2-seat LSI"
+      },
+      {
+       "spec_id": 1009452,
+       "name": "2020款 1.2L 厢式运输车实用型 国VI 5座 LSI",
+       "price_cny": 36800,
+       "launch": "2020.05",
+       "name_en": "2020 1.2L Box Van Shiyong China VI 5-seat LSI"
+      },
       {
        "spec_id": 1015448,
        "name": "2023款 1.5L 实用型 5/7座",
@@ -19928,9 +20608,16 @@
      "series_id": 3946,
      "name": "五菱之光小卡",
      "first_launch": "2020.03",
-     "price_min_cny": 36900,
+     "price_min_cny": 34900,
      "price_max_cny": 39900,
      "trims": [
+      {
+       "spec_id": 1009159,
+       "name": "2020款 1.2L 单排",
+       "price_cny": 34900,
+       "launch": "2020.03",
+       "name_en": "2020 1.2L Single Cab"
+      },
       {
        "spec_id": 1015743,
        "name": "2023款 1.5L 单排LAR",
@@ -19944,6 +20631,13 @@
        "price_cny": 36900,
        "launch": "2023.04",
        "name_en": "2023 1.5L Single Cab Zhongzai Ed. LAR"
+      },
+      {
+       "spec_id": 1009160,
+       "name": "2020款 1.2L 双排",
+       "price_cny": 37900,
+       "launch": "2020.03",
+       "name_en": "2020 1.2L Double Cab"
       },
       {
        "spec_id": 1015745,
@@ -20143,9 +20837,23 @@
      "series_id": 2139,
      "name": "五菱宏光",
      "first_launch": "2020.03",
-     "price_min_cny": 53900,
+     "price_min_cny": 46000,
      "price_max_cny": 60900,
      "trims": [
+      {
+       "spec_id": 1009161,
+       "name": "2020款 1.2L S基本型国VI LSI",
+       "price_cny": 46000,
+       "launch": "2020.03",
+       "name_en": "2020 1.2L S Base China VI LSI"
+      },
+      {
+       "spec_id": 1009162,
+       "name": "2020款 1.2L S基本型封窗车国VI LSI",
+       "price_cny": 46850,
+       "launch": "2020.03",
+       "name_en": "2020 1.2L S Base Fengchuangche China VI LSI"
+      },
       {
        "spec_id": 1014138,
        "name": "2021款 改款 1.5L S基本型 液压助力LAR",
@@ -20218,6 +20926,96 @@
       }
      ],
      "name_en": "Wuling Hongguang"
+    },
+    {
+     "series_id": 5450,
+     "name": "五菱宏光PLUS",
+     "first_launch": "2020.05",
+     "price_min_cny": 58800,
+     "price_max_cny": 67800,
+     "trims": [
+      {
+       "spec_id": 45567,
+       "name": "2020款 1.5L 手动标准型 5座",
+       "price_cny": 58800,
+       "launch": "2020.05",
+       "name_en": "2020 1.5L Manual Standard 5-seat"
+      },
+      {
+       "spec_id": 45675,
+       "name": "2020款 1.5L 手动标准型 7座",
+       "price_cny": 59900,
+       "launch": "2020.05",
+       "name_en": "2020 1.5L Manual Standard 7-seat"
+      },
+      {
+       "spec_id": 45676,
+       "name": "2020款 1.5L 手动标准型 8座",
+       "price_cny": 60800,
+       "launch": "2020.05",
+       "name_en": "2020 1.5L Manual Standard 8-seat"
+      },
+      {
+       "spec_id": 45569,
+       "name": "2020款 1.5L 手动舒适型 7座",
+       "price_cny": 67800,
+       "launch": "2020.05",
+       "name_en": "2020 1.5L Manual Comfort 7-seat"
+      }
+     ],
+     "name_en": "Wuling Hongguang PLUS"
+    },
+    {
+     "series_id": 4408,
+     "name": "五菱宏光S3",
+     "first_launch": "2019.07",
+     "price_min_cny": 60100,
+     "price_max_cny": 82800,
+     "trims": [
+      {
+       "spec_id": 40331,
+       "name": "2019款 1.5L 手动标准型 国VI",
+       "price_cny": 60100,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Manual Standard China VI"
+      },
+      {
+       "spec_id": 40334,
+       "name": "2019款 1.5T 手动标准型 国VI",
+       "price_cny": 66100,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Manual Standard China VI"
+      },
+      {
+       "spec_id": 40332,
+       "name": "2019款 1.5L 手动舒适型 国VI",
+       "price_cny": 68800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Manual Comfort China VI"
+      },
+      {
+       "spec_id": 40333,
+       "name": "2019款 1.5L 手动豪华型 国VI",
+       "price_cny": 74800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5L Manual Luxury China VI"
+      },
+      {
+       "spec_id": 40335,
+       "name": "2019款 1.5T 手动舒适型 国VI",
+       "price_cny": 74800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Manual Comfort China VI"
+      },
+      {
+       "spec_id": 40336,
+       "name": "2019款 1.5T 手动豪华型 国VI",
+       "price_cny": 82800,
+       "launch": "2019.07",
+       "name_en": "2019 1.5T Manual Luxury China VI"
+      }
+     ],
+     "name_en": "Wuling Hongguang S3"
     },
     {
      "series_id": 5174,
@@ -21728,6 +22526,13 @@
        "name_en": "2021 1.5L Single Cab Yikaiqishouhuoche Electric Feiyi L3C"
       },
       {
+       "spec_id": 1009478,
+       "name": "2020款 1.5L单排翼开启售货车L3C",
+       "price_cny": 58800,
+       "launch": "2020.06",
+       "name_en": "2020 1.5L Single Cab Yikaiqishouhuoche L3C"
+      },
+      {
        "spec_id": 1016932,
        "name": "2023款 1.5L 加长单排翼开启",
        "price_cny": 69600,
@@ -22136,6 +22941,13 @@
        "name_en": "2021 1.8L Single Cab Dancenghuoguiche LJ479Q6"
       },
       {
+       "spec_id": 1009479,
+       "name": "2020款 1.8L单排翼开启售货车LJ479Q6",
+       "price_cny": 69800,
+       "launch": "2020.06",
+       "name_en": "2020 1.8L Single Cab Yikaiqishouhuoche LJ479Q6"
+      },
+      {
        "spec_id": 1016924,
        "name": "2023款 2.0L单排加长双后轮翼开启",
        "price_cny": 88600,
@@ -22172,6 +22984,23 @@
       }
      ],
      "name_en": "Wuling Rongguang Xinkazhuanyongche"
+    },
+    {
+     "series_id": 7379,
+     "name": "五菱荣光新卡房车",
+     "first_launch": "2023.09",
+     "price_min_cny": 196000,
+     "price_max_cny": 196000,
+     "trims": [
+      {
+       "spec_id": 1016928,
+       "name": "2023款 加长 双后轮 房车",
+       "price_cny": 196000,
+       "launch": "2023.09",
+       "name_en": "2023 Extended Shuanghoulun Motorhome"
+      }
+     ],
+     "name_en": "Wuling Rongguang Xinka Motorhome"
     },
     {
      "series_id": 7199,
@@ -26855,9 +27684,37 @@
      "series_id": 3277,
      "name": "Huracán",
      "first_launch": "2019.01",
-     "price_min_cny": 3900000,
+     "price_min_cny": 2540000,
      "price_max_cny": 3900000,
      "trims": [
+      {
+       "spec_id": 43460,
+       "name": "2020款 Huracán EVO RWD",
+       "price_cny": 2540000,
+       "launch": "2020.03",
+       "name_en": "2020 Huracán EVO RWD"
+      },
+      {
+       "spec_id": 45377,
+       "name": "2020款 Huracán EVO RWD Spyder",
+       "price_cny": 2794000,
+       "launch": "2020.05",
+       "name_en": "2020 Huracán EVO RWD Spyder"
+      },
+      {
+       "spec_id": 37533,
+       "name": "2019款 Huracán EVO",
+       "price_cny": 3213000,
+       "launch": "2019.01",
+       "name_en": "2019 Huracán EVO"
+      },
+      {
+       "spec_id": 37959,
+       "name": "2019款 Huracán EVO Spyder",
+       "price_cny": 3556000,
+       "launch": "2019.02",
+       "name_en": "2019 Huracán EVO Spyder"
+      },
       {
        "spec_id": 48779,
        "name": "2021款 Huracán STO",
@@ -26906,9 +27763,16 @@
      "series_id": 2775,
      "name": "Urus",
      "first_launch": "2020.05",
-     "price_min_cny": 2970000,
+     "price_min_cny": 2941120,
      "price_max_cny": 3297290,
      "trims": [
+      {
+       "spec_id": 45727,
+       "name": "2021款 4.0T V8",
+       "price_cny": 2941120,
+       "launch": "2020.05",
+       "name_en": "2021 4.0T V8"
+      },
       {
        "spec_id": 59871,
        "name": "2023款 4.0T V8 S",
@@ -31637,6 +32501,30 @@
      "name_en": "Ruishengwangpai M7 NEV"
     },
     {
+     "series_id": 2915,
+     "name": "锐铃",
+     "first_launch": "2019.05",
+     "price_min_cny": 79300,
+     "price_max_cny": 80800,
+     "trims": [
+      {
+       "spec_id": 1007742,
+       "name": "2019款 2.8T两驱3035轴距基本型JE493ZLQ5D",
+       "price_cny": 79300,
+       "launch": "2019.06",
+       "name_en": "2019 2.8T 2WD 3035 WB Base JE493ZLQ5D"
+      },
+      {
+       "spec_id": 1007608,
+       "name": "2019款 2.8T两驱长轴基本型JE493ZLQ5D",
+       "price_cny": 80800,
+       "launch": "2019.05",
+       "name_en": "2019 2.8T 2WD LWB Base JE493ZLQ5D"
+      }
+     ],
+     "name_en": "Ruiling"
+    },
+    {
      "series_id": 6623,
      "name": "鲸卡T6",
      "first_launch": "2022.01",
@@ -35575,7 +36463,7 @@
      "name": "启辰D60EV",
      "first_launch": "2020.07",
      "price_min_cny": 139800,
-     "price_max_cny": 153050,
+     "price_max_cny": 158050,
      "trims": [
       {
        "spec_id": 60139,
@@ -35697,11 +36585,32 @@
        "name_en": "2022 Standard Range Smart"
       },
       {
+       "spec_id": 46380,
+       "name": "2020款 标准续航舒适版",
+       "price_cny": 150050,
+       "launch": "2020.07",
+       "name_en": "2020 Standard Range Comfort"
+      },
+      {
+       "spec_id": 46381,
+       "name": "2020款 标准续航智行版",
+       "price_cny": 150050,
+       "launch": "2020.07",
+       "name_en": "2020 Standard Range Zhixing Ed."
+      },
+      {
        "spec_id": 58556,
        "name": "2020款 标准续航智行版-网约车大屏版",
        "price_cny": 153050,
        "launch": "2022.08",
        "name_en": "2020 Standard Range Zhixing Ed. - Wangyuechedaping Ed."
+      },
+      {
+       "spec_id": 46382,
+       "name": "2020款 标准续航智享版",
+       "price_cny": 158050,
+       "launch": "2020.07",
+       "name_en": "2020 Standard Range Smart"
       }
      ],
      "name_en": "Venucia D60EV"
@@ -39713,15 +40622,50 @@
      "series_id": 5744,
      "name": "大运皮卡",
      "first_launch": "2020.04",
-     "price_min_cny": 93800,
+     "price_min_cny": 89800,
      "price_max_cny": 150800,
      "trims": [
+      {
+       "spec_id": 1009696,
+       "name": "2020款 2.4T汽油两驱手动青年版标轴4K22D4T",
+       "price_cny": 89800,
+       "launch": "2020.07",
+       "name_en": "2020 2.4T Petrol 2WD Manual Qingnian Ed. Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009697,
+       "name": "2020款 2.4T汽油两驱手动青年版长轴4K22D4T",
+       "price_cny": 92300,
+       "launch": "2020.07",
+       "name_en": "2020 2.4T Petrol 2WD Manual Qingnian Ed. LWB 4K22D4T"
+      },
       {
        "spec_id": 1010739,
        "name": "2021款 2.4T汽油两驱手动精英版标轴4K22D4T",
        "price_cny": 93800,
        "launch": "2021.01",
        "name_en": "2021 2.4T Petrol 2WD Manual Elite Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009356,
+       "name": "2020款 2.4T汽油两驱手动精英型标轴4K22D4T",
+       "price_cny": 93800,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol 2WD Manual Elite Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009357,
+       "name": "2020款 2.4T汽油两驱手动精英型长轴4K22D4T",
+       "price_cny": 95300,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol 2WD Manual Elite LWB 4K22D4T"
+      },
+      {
+       "spec_id": 1009692,
+       "name": "2020款 2.0T柴油两驱手动青年版标轴4F20TC",
+       "price_cny": 99800,
+       "launch": "2020.07",
+       "name_en": "2020 2.0T Diesel 2WD Manual Qingnian Ed. Biaozhou 4F20TC"
       },
       {
        "spec_id": 1010751,
@@ -39731,11 +40675,74 @@
        "name_en": "2021 2.4T Petrol 2WD Manual Premium Biaozhou 4K22D4T"
       },
       {
+       "spec_id": 1009352,
+       "name": "2020款 2.4T汽油两驱手动尊享型标轴4K22D4T",
+       "price_cny": 100800,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol 2WD Manual Premium Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009353,
+       "name": "2020款 2.4T汽油两驱手动尊享型长轴4K22D4T",
+       "price_cny": 102300,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol 2WD Manual Premium LWB 4K22D4T"
+      },
+      {
+       "spec_id": 1009693,
+       "name": "2020款 2.0T柴油两驱手动青年版长轴4F20TC",
+       "price_cny": 102300,
+       "launch": "2020.07",
+       "name_en": "2020 2.0T Diesel 2WD Manual Qingnian Ed. LWB 4F20TC"
+      },
+      {
+       "spec_id": 1009694,
+       "name": "2020款 2.4T汽油四驱手动青年版标轴4K22D4T",
+       "price_cny": 103800,
+       "launch": "2020.07",
+       "name_en": "2020 2.4T Petrol AWD Manual Qingnian Ed. Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009695,
+       "name": "2020款 2.4T汽油四驱手动青年版长轴4K22D4T",
+       "price_cny": 105300,
+       "launch": "2020.07",
+       "name_en": "2020 2.4T Petrol AWD Manual Qingnian Ed. LWB 4K22D4T"
+      },
+      {
+       "spec_id": 1009348,
+       "name": "2020款 2.0T柴油两驱手动精英型标轴4F20TC",
+       "price_cny": 105800,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel 2WD Manual Elite Biaozhou 4F20TC"
+      },
+      {
        "spec_id": 1010738,
        "name": "2021款 2.4T汽油四驱手动精英版标轴4K22D4T",
        "price_cny": 106800,
        "launch": "2021.01",
        "name_en": "2021 2.4T Petrol AWD Manual Elite Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009354,
+       "name": "2020款 2.4T汽油四驱手动精英型标轴4K22D4T",
+       "price_cny": 106800,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol AWD Manual Elite Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009349,
+       "name": "2020款 2.0T柴油两驱手动精英型长轴4F20TC",
+       "price_cny": 107300,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel 2WD Manual Elite LWB 4F20TC"
+      },
+      {
+       "spec_id": 1009355,
+       "name": "2020款 2.4T汽油四驱手动精英型长轴4K22D4T",
+       "price_cny": 108300,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol AWD Manual Elite LWB 4K22D4T"
       },
       {
        "spec_id": 1011816,
@@ -39745,11 +40752,53 @@
        "name_en": "2021 2.4T Petrol 2WD Manual Fengchi Ed. Biaozhou 4K22D4T"
       },
       {
+       "spec_id": 1009344,
+       "name": "2020款 2.0T柴油两驱手动尊享型标轴4F20TC",
+       "price_cny": 111800,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel 2WD Manual Premium Biaozhou 4F20TC"
+      },
+      {
+       "spec_id": 1009345,
+       "name": "2020款 2.0T柴油两驱手动尊享型长轴4F20TC",
+       "price_cny": 113300,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel 2WD Manual Premium LWB 4F20TC"
+      },
+      {
        "spec_id": 1010750,
        "name": "2021款 2.4T汽油四驱手动尊享版标轴4K22D4T",
        "price_cny": 113800,
        "launch": "2021.01",
        "name_en": "2021 2.4T Petrol AWD Manual Premium Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009350,
+       "name": "2020款 2.4T汽油四驱手动尊享型标轴4K22D4T",
+       "price_cny": 113800,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol AWD Manual Premium Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009690,
+       "name": "2020款 2.0T柴油四驱手动青年版标轴4F20TC",
+       "price_cny": 113800,
+       "launch": "2020.07",
+       "name_en": "2020 2.0T Diesel AWD Manual Qingnian Ed. Biaozhou 4F20TC"
+      },
+      {
+       "spec_id": 1009351,
+       "name": "2020款 2.4T汽油四驱手动尊享型长轴4K22D4T",
+       "price_cny": 115300,
+       "launch": "2020.04",
+       "name_en": "2020 2.4T Petrol AWD Manual Premium LWB 4K22D4T"
+      },
+      {
+       "spec_id": 1009691,
+       "name": "2020款 2.0T柴油四驱手动青年版长轴4F20TC",
+       "price_cny": 115300,
+       "launch": "2020.07",
+       "name_en": "2020 2.0T Diesel AWD Manual Qingnian Ed. LWB 4F20TC"
       },
       {
        "spec_id": 1011818,
@@ -39759,11 +40808,25 @@
        "name_en": "2021 2.0T Diesel 2WD Manual Fengchi Ed. LWB 4F20TC"
       },
       {
+       "spec_id": 1009346,
+       "name": "2020款 2.0T柴油四驱手动精英型标轴4F20TC",
+       "price_cny": 118800,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel AWD Manual Elite Biaozhou 4F20TC"
+      },
+      {
        "spec_id": 1011633,
        "name": "2021款 2.4T汽油两驱手动大运牛标轴4K22D4T",
        "price_cny": 119800,
        "launch": "2021.05",
        "name_en": "2021 2.4T Petrol 2WD Manual Dayunniubiaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009347,
+       "name": "2020款 2.0T柴油四驱手动精英型长轴4F20TC",
+       "price_cny": 120300,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel AWD Manual Elite LWB 4F20TC"
       },
       {
        "spec_id": 1012682,
@@ -39778,6 +40841,20 @@
        "price_cny": 121800,
        "launch": "2021.07",
        "name_en": "2021 2.4T Petrol AWD Manual Fengchi Ed. Biaozhou 4K22D4T"
+      },
+      {
+       "spec_id": 1009342,
+       "name": "2020款 2.0T柴油四驱手动尊享型标轴4F20TC",
+       "price_cny": 124800,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel AWD Manual Premium Biaozhou 4F20TC"
+      },
+      {
+       "spec_id": 1009343,
+       "name": "2020款 2.0T柴油四驱手动尊享型长轴4F20TC",
+       "price_cny": 126300,
+       "launch": "2020.04",
+       "name_en": "2020 2.0T Diesel AWD Manual Premium LWB 4F20TC"
       },
       {
        "spec_id": 1014166,
@@ -52288,6 +53365,30 @@
    "brand_en": "Baojun"
   },
   {
+   "brand": "容大智造",
+   "brand_latin": null,
+   "models": [
+    {
+     "series_id": 5442,
+     "name": "迈乔",
+     "first_launch": "2019.09",
+     "price_min_cny": 108000,
+     "price_max_cny": 108000,
+     "trims": [
+      {
+       "spec_id": 1008258,
+       "name": "2019款 标准型",
+       "price_cny": 108000,
+       "launch": "2019.09",
+       "name_en": "2019 Standard"
+      }
+     ],
+     "name_en": "Maiqiao"
+    }
+   ],
+   "brand_en": "Rongdazhizao"
+  },
+  {
    "brand": "宾利",
    "brand_latin": "BENTLEY",
    "models": [
@@ -53691,10 +54792,24 @@
     {
      "series_id": 7728,
      "name": "岚图知音",
-     "first_launch": "2025.08",
-     "price_min_cny": 202900,
+     "first_launch": "2024.10",
+     "price_min_cny": 196900,
      "price_max_cny": 242900,
      "trims": [
+      {
+       "spec_id": 68300,
+       "name": "2024款 长续航智享版",
+       "price_cny": 196900,
+       "launch": "2024.10",
+       "name_en": "2024 Long Range Smart"
+      },
+      {
+       "spec_id": 68301,
+       "name": "2024款 长续航超充版",
+       "price_cny": 202900,
+       "launch": "2024.10",
+       "name_en": "2024 Long Range Chaochong Ed."
+      },
       {
        "spec_id": 73955,
        "name": "2025款 后驱乾崑版",
@@ -53708,6 +54823,13 @@
        "price_cny": 222900,
        "launch": "2025.08",
        "name_en": "2025 AWD Qiankun Ed."
+      },
+      {
+       "spec_id": 68150,
+       "name": "2024款 超长续航智享版",
+       "price_cny": 236900,
+       "launch": "2024.10",
+       "name_en": "2024 Extended Range Smart"
       },
       {
        "spec_id": 77336,
@@ -62299,30 +63421,6 @@
       }
      ],
      "name_en": "Qashqai"
-    },
-    {
-     "series_id": 264,
-     "name": "途乐",
-     "first_launch": "2022.07",
-     "price_min_cny": 798000,
-     "price_max_cny": 838000,
-     "trims": [
-      {
-       "spec_id": 58532,
-       "name": "2023款 ARMADA 5.6L 无敌舰队铂金版",
-       "price_cny": 798000,
-       "launch": "2022.07",
-       "name_en": "2023 ARMADA 5.6L Wudijianduibojin Ed."
-      },
-      {
-       "spec_id": 57831,
-       "name": "2023款 ARMADA 5.6L 无敌舰队旗舰版",
-       "price_cny": 838000,
-       "launch": "2022.07",
-       "name_en": "2023 ARMADA 5.6L Wudijiandui Flagship"
-      }
-     ],
-     "name_en": "Tule"
     },
     {
      "series_id": 8316,
@@ -70994,6 +72092,13 @@
        "name_en": "2022 2.0T Diesel 2WD Gongcheng Ed."
       },
       {
+       "spec_id": 1009364,
+       "name": "2020款 2.0L 汽油两驱舒适型国VI LJ481Q6",
+       "price_cny": 86800,
+       "launch": "2020.04",
+       "name_en": "2020 2.0L Petrol 2WD Comfort China VI LJ481Q6"
+      },
+      {
        "spec_id": 1012181,
        "name": "2022款 2.0T柴油两驱工程版长轴",
        "price_cny": 86800,
@@ -71022,11 +72127,25 @@
        "name_en": "2023 2.0T Diesel 2WD Gongcheng Luxury Biaozhou"
       },
       {
+       "spec_id": 1009374,
+       "name": "2020款 2.0L 汽油两驱舒适型长轴国VI LJ481Q6",
+       "price_cny": 88800,
+       "launch": "2020.05",
+       "name_en": "2020 2.0L Petrol 2WD Comfort LWB China VI LJ481Q6"
+      },
+      {
        "spec_id": 1010322,
        "name": "2020款 2.4T汽油两驱精英型国VI 4K22D4T",
        "price_cny": 88800,
        "launch": "2020.10",
        "name_en": "2020 2.4T Petrol 2WD Elite China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009422,
+       "name": "2020款 2.0T柴油两驱精英型国VI HFC4DB2-2E",
+       "price_cny": 89800,
+       "launch": "2020.05",
+       "name_en": "2020 2.0T Diesel 2WD Elite China VI HFC4DB2-2E"
       },
       {
        "spec_id": 1023544,
@@ -71048,6 +72167,13 @@
        "price_cny": 90800,
        "launch": "2020.10",
        "name_en": "2020 2.4T Petrol 2WD Elite LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009423,
+       "name": "2020款 2.0T柴油两驱精英型长轴国VI HFC4DB2-2E",
+       "price_cny": 91800,
+       "launch": "2020.05",
+       "name_en": "2020 2.0T Diesel 2WD Elite LWB China VI HFC4DB2-2E"
       },
       {
        "spec_id": 1017364,
@@ -71134,6 +72260,13 @@
        "name_en": "2023 2.0T Diesel 2WD Gongcheng Elite LWB"
       },
       {
+       "spec_id": 1009418,
+       "name": "2020款 2.0T柴油四驱精英型国VI HFC4DB2-2E",
+       "price_cny": 102800,
+       "launch": "2020.05",
+       "name_en": "2020 2.0T Diesel AWD Elite China VI HFC4DB2-2E"
+      },
+      {
        "spec_id": 1023545,
        "name": "2025款 2.0T 手动四驱舒适型CNG",
        "price_cny": 102800,
@@ -71160,6 +72293,13 @@
        "price_cny": 103800,
        "launch": "2020.10",
        "name_en": "2020 2.4T Petrol AWD Elite LWB China VI 4K22D4T"
+      },
+      {
+       "spec_id": 1009419,
+       "name": "2020款 2.0T柴油四驱精英型长轴国VI HFC4DB2-2E",
+       "price_cny": 104800,
+       "launch": "2020.05",
+       "name_en": "2020 2.0T Diesel AWD Elite LWB China VI HFC4DB2-2E"
       },
       {
        "spec_id": 1011224,
@@ -71319,6 +72459,13 @@
        "name_en": "2026 2.4T Manual Petrol AWD Luxury Dashuang"
       },
       {
+       "spec_id": 1009468,
+       "name": "2020款 2.0T柴油两驱豪华型标双HFC4DB2-2E",
+       "price_cny": 105800,
+       "launch": "2020.06",
+       "name_en": "2020 2.0T Diesel 2WD Luxury Biaoshuang HFC4DB2-2E"
+      },
+      {
        "spec_id": 1021253,
        "name": "2025款 2.4T PRO 手动汽油两驱运动版大双",
        "price_cny": 105800,
@@ -71352,6 +72499,13 @@
        "price_cny": 107800,
        "launch": "2020.10",
        "name_en": "2021 2.4T PRO Petrol 2WD Ruishang Ed. Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009469,
+       "name": "2020款 2.0T柴油两驱豪华型大双HFC4DB2-2E",
+       "price_cny": 107800,
+       "launch": "2020.06",
+       "name_en": "2020 2.0T Diesel 2WD Luxury Dashuang HFC4DB2-2E"
       },
       {
        "spec_id": 1012640,
@@ -71487,6 +72641,13 @@
        "name_en": "2025 2.0T PRO Automatic Diesel 2WD Champion Biaoshuang"
       },
       {
+       "spec_id": 1009464,
+       "name": "2020款 2.0T柴油四驱豪华型标双HFC4DB2-2E",
+       "price_cny": 118800,
+       "launch": "2020.06",
+       "name_en": "2020 2.0T Diesel AWD Luxury Biaoshuang HFC4DB2-2E"
+      },
+      {
        "spec_id": 1021255,
        "name": "2025款 2.4T PRO 手动汽油四驱运动版大双",
        "price_cny": 118800,
@@ -71527,6 +72688,13 @@
        "price_cny": 120800,
        "launch": "2020.10",
        "name_en": "2021 2.4T PRO Petrol AWD Ruishang Ed. Biaoshuang 4K22D4T"
+      },
+      {
+       "spec_id": 1009465,
+       "name": "2020款 2.0T柴油四驱豪华型大双HFC4DB2-2E",
+       "price_cny": 120800,
+       "launch": "2020.06",
+       "name_en": "2020 2.0T Diesel AWD Luxury Dashuang HFC4DB2-2E"
       },
       {
        "spec_id": 1012644,
@@ -82005,6 +83173,37 @@
       }
      ],
      "name_en": "ix35"
+    },
+    {
+     "series_id": 5915,
+     "name": "名图新能源",
+     "first_launch": "2021.03",
+     "price_min_cny": 178800,
+     "price_max_cny": 203800,
+     "trims": [
+      {
+       "spec_id": 49987,
+       "name": "2021款 GLX精英版",
+       "price_cny": 178800,
+       "launch": "2021.03",
+       "name_en": "2021 GLX Elite"
+      },
+      {
+       "spec_id": 49988,
+       "name": "2021款 LUX尊贵版",
+       "price_cny": 188800,
+       "launch": "2021.03",
+       "name_en": "2021 LUX Deluxe"
+      },
+      {
+       "spec_id": 47940,
+       "name": "2021款 TOP旗舰版",
+       "price_cny": 203800,
+       "launch": "2021.03",
+       "name_en": "2021 TOP Flagship"
+      }
+     ],
+     "name_en": "Mingtu NEV"
     },
     {
      "series_id": 5003,
@@ -92701,6 +93900,177 @@
      "name_en": "Zhilanjingling E7"
     },
     {
+     "series_id": 4893,
+     "name": "祥菱M",
+     "first_launch": "2018.07",
+     "price_min_cny": 47000,
+     "price_max_cny": 61500,
+     "trims": [
+      {
+       "spec_id": 1006987,
+       "name": "2018款 1.2L半承载单排后单胎(载货)4W12M1",
+       "price_cny": 47000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai Single Cab SRW (Cargo)4W12M1"
+      },
+      {
+       "spec_id": 1006998,
+       "name": "2018款 1.2L非承载单排后单胎(载货)4W12M1",
+       "price_cny": 47400,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Feichengzai Single Cab SRW (Cargo)4W12M1"
+      },
+      {
+       "spec_id": 1006986,
+       "name": "2018款 1.2L半承载排半后单胎(载货)4W12M1",
+       "price_cny": 48200,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai-row Ban SRW (Cargo)4W12M1"
+      },
+      {
+       "spec_id": 1006962,
+       "name": "2018款 1.5L半承载单排后单胎(载货)DAM15L",
+       "price_cny": 49400,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai Single Cab SRW (Cargo)DAM15L"
+      },
+      {
+       "spec_id": 1006997,
+       "name": "2018款 1.2L非承载双排后单胎(载货)4W12M1",
+       "price_cny": 50000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Feichengzai Double Cab SRW (Cargo)4W12M1"
+      },
+      {
+       "spec_id": 1006985,
+       "name": "2018款 1.2L半承载双排后单胎(载货)4W12M1",
+       "price_cny": 50200,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai Double Cab SRW (Cargo)4W12M1"
+      },
+      {
+       "spec_id": 1006961,
+       "name": "2018款 1.5L半承载排半后单胎(载货)DAM15L",
+       "price_cny": 50600,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai-row Ban SRW (Cargo)DAM15L"
+      },
+      {
+       "spec_id": 1006996,
+       "name": "2018款 1.2L非承载单排后单胎(厢式)4W12M1",
+       "price_cny": 51000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Feichengzai Single Cab SRW (Xiangshi)4W12M1"
+      },
+      {
+       "spec_id": 1006960,
+       "name": "2018款 1.5L半承载双排后单胎(载货)DAM15L",
+       "price_cny": 52600,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai Double Cab SRW (Cargo)DAM15L"
+      },
+      {
+       "spec_id": 1007003,
+       "name": "2018款 1.5L M2非承载单排后双胎(载货)DAM15L",
+       "price_cny": 53800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L M2 Feichengzai Single Cab DRW (Cargo)DAM15L"
+      },
+      {
+       "spec_id": 1006992,
+       "name": "2018款 1.5L非承载单排后双胎(载货)双燃料DAM15L",
+       "price_cny": 55200,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai Single Cab DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1006991,
+       "name": "2018款 1.5L非承载排半后双胎(载货)双燃料DAM15L",
+       "price_cny": 55800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai-row Ban DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1006990,
+       "name": "2018款 1.5L非承载双排后双胎(载货)双燃料DAM15L",
+       "price_cny": 55800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai Double Cab DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007004,
+       "name": "2018款 1.5L M2非承载排半后双胎(厢式)DAM15L",
+       "price_cny": 57000,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L M2 Feichengzai-row Ban DRW (Xiangshi)DAM15L"
+      },
+      {
+       "spec_id": 1006995,
+       "name": "2018款 1.5L非承载单排后双胎(厢式)双燃料DAM15L",
+       "price_cny": 58500,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai Single Cab DRW (Xiangshi) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1006993,
+       "name": "2018款 1.5L非承载双排后双胎(厢式)双燃料DAM15L",
+       "price_cny": 59000,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai Double Cab DRW (Xiangshi) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1006994,
+       "name": "2018款 1.5L非承载排半后双胎(厢式)双燃料DAM15L",
+       "price_cny": 59100,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Feichengzai-row Ban DRW (Xiangshi) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007011,
+       "name": "2018款 1.5LM2非承载单排后双胎(载货)双燃料DAM15L",
+       "price_cny": 59700,
+       "launch": "2018.11",
+       "name_en": "2018 1.5LM2 Feichengzai Single Cab DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007005,
+       "name": "2018款 1.5L M2非承载双排后双胎(厢式)DAM15L",
+       "price_cny": 59800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L M2 Feichengzai Double Cab DRW (Xiangshi)DAM15L"
+      },
+      {
+       "spec_id": 1007010,
+       "name": "2018款 1.5LM2非承载排半后双胎(载货)双燃料DAM15L",
+       "price_cny": 60300,
+       "launch": "2018.11",
+       "name_en": "2018 1.5LM2 Feichengzai-row Ban DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007009,
+       "name": "2018款 1.5LM2非承载双排后双胎(载货)双燃料DAM15L",
+       "price_cny": 60900,
+       "launch": "2018.11",
+       "name_en": "2018 1.5LM2 Feichengzai Double Cab DRW (Cargo) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007017,
+       "name": "2018款 1.5LM2非承载单排后双胎(厢式)双燃料DAM15L",
+       "price_cny": 61000,
+       "launch": "2018.11",
+       "name_en": "2018 1.5LM2 Feichengzai Single Cab DRW (Xiangshi) Bi-fuel DAM15L"
+      },
+      {
+       "spec_id": 1007016,
+       "name": "2018款 1.5LM2非承载排半后双胎(厢式)双燃料DAM15L",
+       "price_cny": 61500,
+       "launch": "2018.11",
+       "name_en": "2018 1.5LM2 Feichengzai-row Ban DRW (Xiangshi) Bi-fuel DAM15L"
+      }
+     ],
+     "name_en": "Xiangling M"
+    },
+    {
      "series_id": 6749,
      "name": "祥菱M新能源",
      "first_launch": "2023.04",
@@ -92786,6 +94156,68 @@
       }
      ],
      "name_en": "Xiangling M NEV"
+    },
+    {
+     "series_id": 7369,
+     "name": "祥菱Q EV",
+     "first_launch": "2023.08",
+     "price_min_cny": 167800,
+     "price_max_cny": 168800,
+     "trims": [
+      {
+       "spec_id": 1016879,
+       "name": "2023款 宁德时代41.86kWh单排短轴",
+       "price_cny": 167800,
+       "launch": "2023.08",
+       "name_en": "2023 CATL 41.86kWh Single Cab SWB"
+      },
+      {
+       "spec_id": 1016881,
+       "name": "2023款 宁德时代41.86kWh双排短轴",
+       "price_cny": 167800,
+       "launch": "2023.08",
+       "name_en": "2023 CATL 41.86kWh Double Cab SWB"
+      },
+      {
+       "spec_id": 1016880,
+       "name": "2023款 宁德时代41.86kWh单排长轴",
+       "price_cny": 168800,
+       "launch": "2023.08",
+       "name_en": "2023 CATL 41.86kWh Single Cab LWB"
+      },
+      {
+       "spec_id": 1016878,
+       "name": "2023款 宁德时代41.86kWh双排长轴",
+       "price_cny": 168800,
+       "launch": "2023.08",
+       "name_en": "2023 CATL 41.86kWh Double Cab LWB"
+      }
+     ],
+     "name_en": "Xiangling Q EV"
+    },
+    {
+     "series_id": 5018,
+     "name": "祥菱S",
+     "first_launch": "2018.11",
+     "price_min_cny": 52200,
+     "price_max_cny": 52500,
+     "trims": [
+      {
+       "spec_id": 1006959,
+       "name": "2019款 1.5L多用途乘用车DAM15DR",
+       "price_cny": 52200,
+       "launch": "2018.11",
+       "name_en": "2019 1.5L Duoyongtuchengyongche DAM15DR"
+      },
+      {
+       "spec_id": 1006958,
+       "name": "2019款 1.5L厢式车DAM15DR",
+       "price_cny": 52500,
+       "launch": "2018.11",
+       "name_en": "2019 1.5L Xiangshiche DAM15DR"
+      }
+     ],
+     "name_en": "Xiangling S"
     },
     {
      "series_id": 8227,
@@ -93240,6 +94672,240 @@
       }
      ],
      "name_en": "Xiangling U8"
+    },
+    {
+     "series_id": 4165,
+     "name": "祥菱V",
+     "first_launch": "2018.11",
+     "price_min_cny": 40300,
+     "price_max_cny": 56400,
+     "trims": [
+      {
+       "spec_id": 1007021,
+       "name": "2018款 1.2L 半承载3070轴距(平板)4W12M1",
+       "price_cny": 40300,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007032,
+       "name": "2018款 1.2L 半承载3070轴距(平板)LJ469Q-1AE9",
+       "price_cny": 40300,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB (Pingban)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1007018,
+       "name": "2018款 1.2L 半承载3170轴距(平板)4W12M1",
+       "price_cny": 42300,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3170 WB (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007020,
+       "name": "2018款 1.2L 半承载3070轴距双排(平板)4W12M1",
+       "price_cny": 42900,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB Double Cab (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007040,
+       "name": "2018款 1.2L 半承载3070轴距双排(平板)LJ469Q-1AE9",
+       "price_cny": 42900,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB Double Cab (Pingban)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1006624,
+       "name": "2018款 1.2L 半承载3070轴距(厢车)4W12M1",
+       "price_cny": 43500,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1006626,
+       "name": "2018款 1.2L 半承载3070轴距(厢车)LJ469Q-1AE9",
+       "price_cny": 43500,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB (Xiangche)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1006618,
+       "name": "2018款 1.5L 半承载3170轴距(平板)DAM15R",
+       "price_cny": 44300,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3170 WB (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1007026,
+       "name": "2018款 1.2L CNG半承载3070轴距(平板)4W12M1",
+       "price_cny": 44800,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007035,
+       "name": "2018款 1.2L CNG半承载3070轴距(平板)LJ469Q-1AE9",
+       "price_cny": 44800,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB (Pingban)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1007041,
+       "name": "2018款 1.2L 半承载3170轴距双排(平板)4W12M1",
+       "price_cny": 44900,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3170 WB Double Cab (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007019,
+       "name": "2018款 1.2L 半承载3170轴距(厢车)4W12M1",
+       "price_cny": 45700,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3170 WB (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1006625,
+       "name": "2018款 1.2L 半承载3070轴距双排(厢车)4W12M1",
+       "price_cny": 45700,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB Double Cab (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1007039,
+       "name": "2018款 1.2L 半承载3070轴距双排(厢车)LJ469Q-1AE9",
+       "price_cny": 45700,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3070 WB Double Cab (Xiangche)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1006620,
+       "name": "2018款 1.5L 半承载3170轴距双排(平板)DAM15R",
+       "price_cny": 46900,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3170 WB Double Cab (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1007027,
+       "name": "2018款 1.2L CNG半承载3070轴距双排(平板)4W12M1",
+       "price_cny": 47400,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB Double Cab (Pingban)4W12M1"
+      },
+      {
+       "spec_id": 1007036,
+       "name": "2018款 1.2L CNG半承载3070轴距双排(平板)LJ469Q-1AE9",
+       "price_cny": 47400,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB Double Cab (Pingban)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1006619,
+       "name": "2018款 1.5L 半承载3170轴距(厢车)DAM15R",
+       "price_cny": 47700,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3170 WB (Xiangche)DAM15R"
+      },
+      {
+       "spec_id": 1006628,
+       "name": "2018款 1.2L CNG半承载3070轴距(厢车)4W12M1",
+       "price_cny": 48000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1007033,
+       "name": "2018款 1.2L CNG半承载3070轴距(厢车)LJ469Q-1AE9",
+       "price_cny": 48000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB (Xiangche)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1007042,
+       "name": "2018款 1.2L 半承载3170轴距双排(厢车)4W12M1",
+       "price_cny": 48000,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L Banchengzai 3170 WB Double Cab (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1006622,
+       "name": "2018款 1.5L 半承载3400轴距双排(平板）DAM15R",
+       "price_cny": 48400,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3400 WB Double Cab (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1007023,
+       "name": "2018款 1.5L CNG半承载3170轴距(平板)DAM15R",
+       "price_cny": 48800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3170 WB (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1006621,
+       "name": "2018款 1.5L 半承载3170轴距双排(厢车)DAM15R",
+       "price_cny": 50000,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3170 WB Double Cab (Xiangche)DAM15R"
+      },
+      {
+       "spec_id": 1007025,
+       "name": "2018款 1.2L CNG半承载3070轴距双排(厢车)4W12M1",
+       "price_cny": 50200,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB Double Cab (Xiangche)4W12M1"
+      },
+      {
+       "spec_id": 1007034,
+       "name": "2018款 1.2L CNG半承载3070轴距双排(厢车)LJ469Q-1AE9",
+       "price_cny": 50200,
+       "launch": "2018.11",
+       "name_en": "2018 1.2L CNG Banchengzai 3070 WB Double Cab (Xiangche)LJ469Q-1AE9"
+      },
+      {
+       "spec_id": 1007024,
+       "name": "2018款 1.5L CNG半承载3170轴距双排(平板)DAM15R",
+       "price_cny": 51400,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3170 WB Double Cab (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1006623,
+       "name": "2018款 1.5L 半承载3400轴距双排(厢车)DAM15R",
+       "price_cny": 51800,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L Banchengzai 3400 WB Double Cab (Xiangche)DAM15R"
+      },
+      {
+       "spec_id": 1006632,
+       "name": "2018款 1.5L CNG半承载3170轴距(厢车)DAM15R",
+       "price_cny": 52200,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3170 WB (Xiangche)DAM15R"
+      },
+      {
+       "spec_id": 1006634,
+       "name": "2018款 1.5L CNG半承载3400轴距双排(平板）DAM15R",
+       "price_cny": 53000,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3400 WB Double Cab (Pingban)DAM15R"
+      },
+      {
+       "spec_id": 1007022,
+       "name": "2018款 1.5L CNG半承载3170轴距双排(厢车)DAM15R",
+       "price_cny": 54500,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3170 WB Double Cab (Xiangche)DAM15R"
+      },
+      {
+       "spec_id": 1006635,
+       "name": "2018款 1.5L CNG半承载3400轴距双排(厢车)DAM15R",
+       "price_cny": 56400,
+       "launch": "2018.11",
+       "name_en": "2018 1.5L CNG Banchengzai 3400 WB Double Cab (Xiangche)DAM15R"
+      }
+     ],
+     "name_en": "Xiangling V"
     },
     {
      "series_id": 7259,
@@ -102267,6 +103933,30 @@
      "name_en": "Zhipao"
     },
     {
+     "series_id": 4387,
+     "name": "焕驰",
+     "first_launch": "2020.06",
+     "price_min_cny": 66900,
+     "price_max_cny": 70900,
+     "trims": [
+      {
+       "spec_id": 47347,
+       "name": "2020款 改款 1.4L 自动舒适天窗版",
+       "price_cny": 66900,
+       "launch": "2020.06",
+       "name_en": "2020 Facelift 1.4L Automatic Comfort Sunroof Ed."
+      },
+      {
+       "spec_id": 47348,
+       "name": "2020款 改款 1.4L 自动精英互联版",
+       "price_cny": 70900,
+       "launch": "2020.06",
+       "name_en": "2020 Facelift 1.4L Automatic Jingyinghulian Ed."
+      }
+     ],
+     "name_en": "Huanchi"
+    },
+    {
      "series_id": 6853,
      "name": "狮铂拓界",
      "first_launch": "2025.04",
@@ -103318,6 +105008,23 @@
       }
      ],
      "name_en": "Chechiqiche Vito"
+    },
+    {
+     "series_id": 5177,
+     "name": "车驰V系列",
+     "first_launch": "2019.06",
+     "price_min_cny": 1180000,
+     "price_max_cny": 1180000,
+     "trims": [
+      {
+       "spec_id": 38132,
+       "name": "2022款 2.0T 图拉真臻享",
+       "price_cny": 1180000,
+       "launch": "2019.06",
+       "name_en": "2022 2.0T Tulazhenzhenxiang"
+      }
+     ],
+     "name_en": "Chechiqiche V Xilie"
     }
    ],
    "brand_en": "Chechiqiche"
@@ -103431,6 +105138,23 @@
       }
      ],
      "name_en": "Mansory G Ji"
+    },
+    {
+     "series_id": 6119,
+     "name": "迈莎锐Urus",
+     "first_launch": "2021.04",
+     "price_min_cny": 5980000,
+     "price_max_cny": 5980000,
+     "trims": [
+      {
+       "spec_id": 50777,
+       "name": "2021款 4.0T V8 标准版",
+       "price_cny": 5980000,
+       "launch": "2021.04",
+       "name_en": "2021 4.0T V8 Standard"
+      }
+     ],
+     "name_en": "Mansory Urus"
     },
     {
      "series_id": 6136,
@@ -105940,6 +107664,23 @@
       }
      ],
      "name_en": "Lingte"
+    },
+    {
+     "series_id": 5836,
+     "name": "领特新能源",
+     "first_launch": "2020.07",
+     "price_min_cny": 298000,
+     "price_max_cny": 298000,
+     "trims": [
+      {
+       "spec_id": 1009858,
+       "name": "2020款 龙运GLE1300",
+       "price_cny": 298000,
+       "launch": "2020.07",
+       "name_en": "2020 Longyun GLE1300"
+      }
+     ],
+     "name_en": "Lingte NEV"
     }
    ],
    "brand_en": "Golden Dragon"
@@ -107890,23 +109631,6 @@
       }
      ],
      "name_en": "Kairuihaoke"
-    },
-    {
-     "series_id": 6848,
-     "name": "浩锐",
-     "first_launch": "2022.07",
-     "price_min_cny": 409000,
-     "price_max_cny": 409000,
-     "trims": [
-      {
-       "spec_id": 1014226,
-       "name": "2022款 3.0T XMQ6716AYD6T进取版 YCY30150-60A",
-       "price_cny": 409000,
-       "launch": "2022.07",
-       "name_en": "2022 3.0T XMQ6716AYD6T Progressive YCY30150-60A"
-      }
-     ],
-     "name_en": "Haorui"
     },
     {
      "series_id": 2986,
@@ -115652,7 +117376,7 @@
      "name": "长安睿行M80",
      "first_launch": "2020.08",
      "price_min_cny": 63200,
-     "price_max_cny": 71300,
+     "price_max_cny": 77100,
      "trims": [
       {
        "spec_id": 1011253,
@@ -115697,11 +117421,32 @@
        "name_en": "2021 1.6L Comfort 2-seat Danzheng A/C China VI High Roof Split Doors DAM16KR"
       },
       {
+       "spec_id": 1009992,
+       "name": "2020款 1.6L舒适型国VI平顶背掀门2座CNG DAM16KRC",
+       "price_cny": 71100,
+       "launch": "2020.08",
+       "name_en": "2020 1.6L Comfort China VI Pingdingbeixianmen 2-seat CNG DAM16KRC"
+      },
+      {
        "spec_id": 1011248,
        "name": "2021款 1.6L舒适型4座单蒸空调国VI高顶对开门DAM16KR",
        "price_cny": 71300,
        "launch": "2021.03",
        "name_en": "2021 1.6L Comfort 4-seat Danzheng A/C China VI High Roof Split Doors DAM16KR"
+      },
+      {
+       "spec_id": 1009993,
+       "name": "2020款 1.6L舒适型国VI平顶对开门4座CNG DAM16KRC",
+       "price_cny": 75100,
+       "launch": "2020.08",
+       "name_en": "2020 1.6L Comfort China VI Pingding Split Doors 4-seat CNG DAM16KRC"
+      },
+      {
+       "spec_id": 1009994,
+       "name": "2020款 1.6L舒适型国VI高顶对开门4座CNG DAM16KRC",
+       "price_cny": 77100,
+       "launch": "2020.08",
+       "name_en": "2020 1.6L Comfort China VI High Roof Split Doors 4-seat CNG DAM16KRC"
       }
      ],
      "name_en": "Changan Ruixing M80"
