@@ -1,12 +1,12 @@
 {
- "updated_at": "2026-09-21T07:46:42Z",
+ "updated_at": "2026-09-28T11:20:45Z",
  "source": "autohome.com.cn",
  "max_age_years": 8,
  "complete": true,
  "counts": {
-  "brands": 237,
-  "models": 1689,
-  "trims": 15958
+  "brands": 238,
+  "models": 1698,
+  "trims": 16078
  },
  "brands": [
   {
@@ -1210,6 +1210,79 @@
      "name_en": "ARCFOX Aerfa T6"
     },
     {
+     "series_id": 8702,
+     "name": "极狐 阿尔法T7",
+     "first_launch": "2026.09",
+     "price_min_cny": 136800,
+     "price_max_cny": 172800,
+     "trims": [
+      {
+       "spec_id": 78145,
+       "name": "2026款 增程 1315 PLUS",
+       "price_cny": 136800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1315 PLUS"
+      },
+      {
+       "spec_id": 78970,
+       "name": "2026款 纯电 650 PLUS",
+       "price_cny": 139800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 650 PLUS"
+      },
+      {
+       "spec_id": 78967,
+       "name": "2026款 增程 1315 MAX",
+       "price_cny": 148800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1315 MAX"
+      },
+      {
+       "spec_id": 78971,
+       "name": "2026款 纯电 715 MAX",
+       "price_cny": 153800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 715 MAX"
+      },
+      {
+       "spec_id": 78968,
+       "name": "2026款 增程 1315 MAX乾崑版",
+       "price_cny": 157800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1315 MAX Qiankun Ed."
+      },
+      {
+       "spec_id": 78972,
+       "name": "2026款 纯电 715 MAX乾崑版",
+       "price_cny": 162800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 715 MAX Qiankun Ed."
+      },
+      {
+       "spec_id": 78973,
+       "name": "2026款 纯电 715 ULTRA",
+       "price_cny": 163800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 715 ULTRA"
+      },
+      {
+       "spec_id": 78969,
+       "name": "2026款 增程 1315 ULTRA乾崑版",
+       "price_cny": 167800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1315 ULTRA Qiankun Ed."
+      },
+      {
+       "spec_id": 78144,
+       "name": "2026款 纯电 715 ULTRA乾崑版",
+       "price_cny": 172800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 715 ULTRA Qiankun Ed."
+      }
+     ],
+     "name_en": "ARCFOX Aerfa T7"
+    },
+    {
      "series_id": 8190,
      "name": "极狐贝塔S3",
      "first_launch": "2026.05",
@@ -2400,10 +2473,17 @@
       },
       {
        "spec_id": 61887,
-       "name": "2024款 VS600MX 湾流·七座",
+       "name": "2024款 VS600MX 湾流 七座",
        "price_cny": 1688000,
        "launch": "2023.03",
-       "name_en": "2024 VS600MX Wanliu · 7-seat"
+       "name_en": "2024 VS600MX Wanliu 7-seat"
+      },
+      {
+       "spec_id": 79273,
+       "name": "2026款 VS600MX 湾流 七座",
+       "price_cny": 1688000,
+       "launch": "2026.09",
+       "name_en": "2026 VS600MX Wanliu 7-seat"
       },
       {
        "spec_id": 78100,
@@ -2414,17 +2494,17 @@
       },
       {
        "spec_id": 58188,
-       "name": "2024款 VS600MX 湾流·四座",
+       "name": "2024款 VS600MX 湾流 四座",
        "price_cny": 1988000,
        "launch": "2022.07",
-       "name_en": "2024 VS600MX Wanliu · 4-seat"
+       "name_en": "2024 VS600MX Wanliu 4-seat"
       },
       {
        "spec_id": 78717,
-       "name": "2026款 VS600MX 湾流·四座",
+       "name": "2026款 VS600MX 湾流 四座",
        "price_cny": 1988000,
        "launch": "2026.07",
-       "name_en": "2026 VS600MX Wanliu · 4-seat"
+       "name_en": "2026 VS600MX Wanliu 4-seat"
       },
       {
        "spec_id": 78415,
@@ -2589,31 +2669,31 @@
      "trims": [
       {
        "spec_id": 78630,
-       "name": "2026款 平顶七座两驱版",
+       "name": "2026款 两驱尊享版",
        "price_cny": 329900,
        "launch": "2026.07",
-       "name_en": "2026 Pingding 7-seat 2WD Ed."
+       "name_en": "2026 2WD Premium"
       },
       {
        "spec_id": 78631,
-       "name": "2026款 平顶七座四驱版",
+       "name": "2026款 四驱尊享版",
        "price_cny": 349900,
        "launch": "2026.07",
-       "name_en": "2026 Pingding 7-seat AWD Ed."
+       "name_en": "2026 AWD Premium"
       },
       {
        "spec_id": 78829,
-       "name": "2026款 高顶七座两驱版",
+       "name": "2026款 两驱高顶至尊版",
        "price_cny": 399900,
        "launch": "2026.08",
-       "name_en": "2026 High Roof 7-seat 2WD Ed."
+       "name_en": "2026 2WD High Roof Ultimate"
       },
       {
        "spec_id": 78830,
-       "name": "2026款 高顶七座四驱版",
+       "name": "2026款 四驱高顶至尊版",
        "price_cny": 449900,
        "launch": "2026.08",
-       "name_en": "2026 High Roof 7-seat AWD Ed."
+       "name_en": "2026 AWD High Roof Ultimate"
       },
       {
        "spec_id": 78672,
@@ -2934,6 +3014,13 @@
        "name_en": "2026 437 Ziyou Ed."
       },
       {
+       "spec_id": 79331,
+       "name": "2026款 530周年限量版",
+       "price_cny": 88800,
+       "launch": "2026.09",
+       "name_en": "2026 530 Anniversary Limited"
+      },
+      {
        "spec_id": 77333,
        "name": "2026款 改款 437 智趣版",
        "price_cny": 89800,
@@ -3135,11 +3222,25 @@
        "name_en": "2025 2.0T COOPER S Yishujia 5-door Ed."
       },
       {
+       "spec_id": 77640,
+       "name": "2026款 2.0T COOPER S 酷不列颠特别版 三门版",
+       "price_cny": 295800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T COOPER S Kubuliedian Special 3-door Ed."
+      },
+      {
        "spec_id": 78471,
        "name": "2026款 2.0T COOPER S 银色调频 三门版",
        "price_cny": 303800,
        "launch": "2026.07",
        "name_en": "2026 2.0T COOPER S Yinsediaopin 3-door Ed."
+      },
+      {
+       "spec_id": 79256,
+       "name": "2026款 2.0T COOPER S 酷不列颠特别版 五门版",
+       "price_cny": 305800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T COOPER S Kubuliedian Special 5-door Ed."
       },
       {
        "spec_id": 78484,
@@ -3163,6 +3264,13 @@
        "name_en": "2025 2.0T COOPER S CABRIO Saicheshou"
       },
       {
+       "spec_id": 77639,
+       "name": "2026款 2.0T COOPER S CABRIO 酷不列颠特别版",
+       "price_cny": 332800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T COOPER S CABRIO Kubuliedian Special"
+      },
+      {
        "spec_id": 77960,
        "name": "2026款 2.0T COOPER S CABRIO 赛车手 黑标特别版",
        "price_cny": 343800,
@@ -3171,6 +3279,65 @@
       }
      ],
      "name_en": "MINI"
+    },
+    {
+     "series_id": 750,
+     "name": "MINI COUNTRYMAN",
+     "first_launch": "2022.10",
+     "price_min_cny": 249800,
+     "price_max_cny": 357600,
+     "trims": [
+      {
+       "spec_id": 61475,
+       "name": "2023款 改款 1.5T COOPER 经典派",
+       "price_cny": 249800,
+       "launch": "2022.12",
+       "name_en": "2023 Facelift 1.5T COOPER Jingdianpai"
+      },
+      {
+       "spec_id": 61476,
+       "name": "2023款 改款 1.5T COOPER 鉴赏家",
+       "price_cny": 275300,
+       "launch": "2022.12",
+       "name_en": "2023 Facelift 1.5T COOPER Jianshangjia"
+      },
+      {
+       "spec_id": 60206,
+       "name": "2023款 改款 1.5T COOPER ALL4 鉴赏家",
+       "price_cny": 295300,
+       "launch": "2022.10",
+       "name_en": "2023 Facelift 1.5T COOPER ALL4 Jianshangjia"
+      },
+      {
+       "spec_id": 60208,
+       "name": "2023款 1.5T COOPER ALL4 不羁特别版",
+       "price_cny": 313300,
+       "launch": "2022.10",
+       "name_en": "2023 1.5T COOPER ALL4 Buji Special"
+      },
+      {
+       "spec_id": 61477,
+       "name": "2023款 改款二 2.0T COOPER S ALL4 鉴赏家",
+       "price_cny": 353100,
+       "launch": "2022.12",
+       "name_en": "2023 Facelift 2 2.0T COOPER S ALL4 Jianshangjia"
+      },
+      {
+       "spec_id": 65774,
+       "name": "2023款 改款 2.0T COOPER S ALL4 留白特别版",
+       "price_cny": 353100,
+       "launch": "2023.11",
+       "name_en": "2023 Facelift 2.0T COOPER S ALL4 Liubai Special"
+      },
+      {
+       "spec_id": 61478,
+       "name": "2023款 改款 2.0T COOPER S ALL4 不羁特别版",
+       "price_cny": 357600,
+       "launch": "2022.12",
+       "name_en": "2023 Facelift 2.0T COOPER S ALL4 Buji Special"
+      }
+     ],
+     "name_en": "MINI COUNTRYMAN"
     },
     {
      "series_id": 3178,
@@ -3348,6 +3515,13 @@
        "price_cny": 259800,
        "launch": "2026.03",
        "name_en": "2026 463km COOPER SE Saicheshou"
+      },
+      {
+       "spec_id": 77641,
+       "name": "2026款 463km COOPER SE 酷不列颠特别版",
+       "price_cny": 266800,
+       "launch": "2026.09",
+       "name_en": "2026 463km COOPER SE Kubuliedian Special"
       },
       {
        "spec_id": 78474,
@@ -6371,6 +6545,13 @@
        "name_en": "2026 Shandi Ed. 2.3T Manual Diesel AWD Jinxiang Ed. Zhanghuoxiang"
       },
       {
+       "spec_id": 1023234,
+       "name": "2026款 2.3T 自动柴油四驱劲享版标箱",
+       "price_cny": 145900,
+       "launch": "2026.09",
+       "name_en": "2026 2.3T Automatic Diesel AWD Jinxiang Ed. Biaoxiang"
+      },
+      {
        "spec_id": 1020550,
        "name": "2025款 2.0T 自动汽油四驱劲享版",
        "price_cny": 146900,
@@ -6383,6 +6564,13 @@
        "price_cny": 146900,
        "launch": "2026.06",
        "name_en": "2026 Jingdian Ed. 2.0T Automatic Petrol AWD Jinxiang Ed. Biaoxiang"
+      },
+      {
+       "spec_id": 1023239,
+       "name": "2026款 2.3T 自动柴油四驱劲享版长货箱",
+       "price_cny": 147900,
+       "launch": "2026.09",
+       "name_en": "2026 2.3T Automatic Diesel AWD Jinxiang Ed. Zhanghuoxiang"
       },
       {
        "spec_id": 1020557,
@@ -11587,6 +11775,13 @@
        "name_en": "2026 185KM Zhenxiang Ed."
       },
       {
+       "spec_id": 79274,
+       "name": "2026款 160KM 技客云版",
+       "price_cny": 236800,
+       "launch": "2026.09",
+       "name_en": "2026 160KM Jikeyun Ed."
+      },
+      {
        "spec_id": 76359,
        "name": "2026款 112KM 超想版",
        "price_cny": 239900,
@@ -12150,21 +12345,42 @@
      "name": "星海V6",
      "first_launch": "2026.08",
      "price_min_cny": 89900,
-     "price_max_cny": 104900,
+     "price_max_cny": 124900,
      "trims": [
       {
        "spec_id": 78350,
-       "name": "2026款 400km 豪华型",
+       "name": "2027款 400km 豪华型",
        "price_cny": 89900,
        "launch": "2026.08",
-       "name_en": "2026 400km Luxury"
+       "name_en": "2027 400km Luxury"
       },
       {
        "spec_id": 78352,
-       "name": "2026款 510km 尊贵型",
+       "name": "2027款 510km 尊贵型",
        "price_cny": 104900,
        "launch": "2026.08",
-       "name_en": "2026 510km Deluxe"
+       "name_en": "2027 510km Deluxe"
+      },
+      {
+       "spec_id": 78351,
+       "name": "2027款 400km 尊享型 乾崑智驾ADS SE版",
+       "price_cny": 104900,
+       "launch": "2026.09",
+       "name_en": "2027 400km Premium Qiankun ADAS ADS SE Ed."
+      },
+      {
+       "spec_id": 77416,
+       "name": "2027款 510km 尊贵型 乾崑智驾ADS SE版",
+       "price_cny": 114900,
+       "launch": "2026.09",
+       "name_en": "2027 510km Deluxe Qiankun ADAS ADS SE Ed."
+      },
+      {
+       "spec_id": 78353,
+       "name": "2027款 510km 旗舰型 乾崑智驾ADS SE版",
+       "price_cny": 124900,
+       "launch": "2026.09",
+       "name_en": "2027 510km Flagship Qiankun ADAS ADS SE Ed."
       }
      ],
      "name_en": "Xinghai V6"
@@ -12595,6 +12811,13 @@
        "name_en": "2025 1.5T Manual Comfort 9-seat"
       },
       {
+       "spec_id": 79355,
+       "name": "2027款 2.0L CNG基本型 7座",
+       "price_cny": 109900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Base 7-seat"
+      },
+      {
        "spec_id": 73880,
        "name": "2025款 2.0L 手动舒适型CNG 7座",
        "price_cny": 112900,
@@ -12651,11 +12874,25 @@
        "name_en": "2025 2.0L Manual Standard CNG 9-seat"
       },
       {
+       "spec_id": 79356,
+       "name": "2027款 2.0L CNG豪华型 7座",
+       "price_cny": 137900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Luxury 7-seat"
+      },
+      {
        "spec_id": 73882,
        "name": "2025款 2.0L 手动豪华型CNG 7座",
        "price_cny": 140900,
        "launch": "2025.07",
        "name_en": "2025 2.0L Manual Luxury CNG 7-seat"
+      },
+      {
+       "spec_id": 79357,
+       "name": "2027款 2.0L CNG豪华型 9座",
+       "price_cny": 140900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Luxury 9-seat"
       },
       {
        "spec_id": 73888,
@@ -12700,11 +12937,32 @@
        "name_en": "2026 2.0L Elite 7-seat CNG"
       },
       {
+       "spec_id": 79358,
+       "name": "2027款 2.0L CNG精英型 7座",
+       "price_cny": 146900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Elite 7-seat"
+      },
+      {
+       "spec_id": 79360,
+       "name": "2027款 2.0L CNG尊享型 7座",
+       "price_cny": 148900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Premium 7-seat"
+      },
+      {
        "spec_id": 78258,
        "name": "2026款 2.0L 精英型9座 CNG",
        "price_cny": 149900,
        "launch": "2026.06",
        "name_en": "2026 2.0L Elite 9-seat CNG"
+      },
+      {
+       "spec_id": 79359,
+       "name": "2027款 2.0L CNG精英型 9座",
+       "price_cny": 149900,
+       "launch": "2026.09",
+       "name_en": "2027 2.0L CNG Elite 9-seat"
       },
       {
        "spec_id": 73893,
@@ -12735,7 +12993,7 @@
      "name": "菱智新能源",
      "first_launch": "2025.05",
      "price_min_cny": 109800,
-     "price_max_cny": 196900,
+     "price_max_cny": 160900,
      "trims": [
       {
        "spec_id": 73089,
@@ -12794,25 +13052,11 @@
        "name_en": "2025 110km EREV Luxury 7-seat"
       },
       {
-       "spec_id": 73611,
-       "name": "2025款 460km 基本型 7座",
-       "price_cny": 157900,
-       "launch": "2025.06",
-       "name_en": "2025 460km Base 7-seat"
-      },
-      {
        "spec_id": 75892,
        "name": "2025款 410km 营运版标准型 7座",
        "price_cny": 158900,
        "launch": "2025.12",
        "name_en": "2025 410km Commercial Ed. Standard 7-seat"
-      },
-      {
-       "spec_id": 73612,
-       "name": "2025款 460km 基本型 9座",
-       "price_cny": 159900,
-       "launch": "2025.06",
-       "name_en": "2025 460km Base 9-seat"
       },
       {
        "spec_id": 75893,
@@ -12834,34 +13078,6 @@
        "price_cny": 160900,
        "launch": "2026.01",
        "name_en": "2025 410km Putong Ed. Luxury 9-seat"
-      },
-      {
-       "spec_id": 76269,
-       "name": "2025款 460km 营运版标准型 7座",
-       "price_cny": 182900,
-       "launch": "2026.01",
-       "name_en": "2025 460km Commercial Ed. Standard 7-seat"
-      },
-      {
-       "spec_id": 76270,
-       "name": "2025款 460km 营运版标准型 9座",
-       "price_cny": 184900,
-       "launch": "2026.01",
-       "name_en": "2025 460km Commercial Ed. Standard 9-seat"
-      },
-      {
-       "spec_id": 76271,
-       "name": "2025款 460km 营运版尊贵型 7座",
-       "price_cny": 192900,
-       "launch": "2026.01",
-       "name_en": "2025 460km Commercial Ed. Deluxe 7-seat"
-      },
-      {
-       "spec_id": 76272,
-       "name": "2025款 460km 营运版尊贵型 9座",
-       "price_cny": 196900,
-       "launch": "2026.01",
-       "name_en": "2025 460km Commercial Ed. Deluxe 9-seat"
       }
      ],
      "name_en": "Lingzhi NEV"
@@ -18431,6 +18647,13 @@
        "name_en": "2023 2.5T Diesel Manual AWD Chimai Ed. Pingdihuoxiang"
       },
       {
+       "spec_id": 1024564,
+       "name": "2026款 2.8T 手动 四驱 标箱山地版 柴油",
+       "price_cny": 107800,
+       "launch": "2026.09",
+       "name_en": "2026 2.8T Manual AWD Biaoxiangshandi Ed. Diesel"
+      },
+      {
        "spec_id": 1022548,
        "name": "2026款 2.5T 自动 两驱 标箱 柴油",
        "price_cny": 108800,
@@ -18450,6 +18673,13 @@
        "price_cny": 109800,
        "launch": "2025.11",
        "name_en": "2026 2.8T Automatic AWD Biaoxiang Diesel"
+      },
+      {
+       "spec_id": 1024565,
+       "name": "2026款 2.8T 手动 四驱 长箱山地版 柴油",
+       "price_cny": 109800,
+       "launch": "2026.09",
+       "name_en": "2026 2.8T Manual AWD Zhangxiangshandi Ed. Diesel"
       },
       {
        "spec_id": 1022549,
@@ -18522,6 +18752,13 @@
        "name_en": "2023 2.5T Diesel Manual AWD Haomai Ed. LWB"
       },
       {
+       "spec_id": 1024566,
+       "name": "2026款 2.8T 自动 四驱 标箱山地版 柴油",
+       "price_cny": 117800,
+       "launch": "2026.09",
+       "name_en": "2026 2.8T Automatic AWD Biaoxiangshandi Ed. Diesel"
+      },
+      {
        "spec_id": 1016692,
        "name": "2023款 2.5T 柴油 手动 四驱 豪迈版 平底货箱",
        "price_cny": 119800,
@@ -18534,6 +18771,13 @@
        "price_cny": 119800,
        "launch": "2024.04",
        "name_en": "2024 2.4L Petrol Manual AWD Chaomai Ed. Biaozhou"
+      },
+      {
+       "spec_id": 1024567,
+       "name": "2026款 2.8T 自动 四驱 长箱山地版 柴油",
+       "price_cny": 119800,
+       "launch": "2026.09",
+       "name_en": "2026 2.8T Automatic AWD Zhangxiangshandi Ed. Diesel"
       },
       {
        "spec_id": 1022551,
@@ -20209,6 +20453,23 @@
    "brand": "五菱汽车",
    "brand_latin": null,
    "models": [
+    {
+     "series_id": 8809,
+     "name": "vala kcar",
+     "first_launch": "2026.09",
+     "price_min_cny": 99800,
+     "price_max_cny": 99800,
+     "trims": [
+      {
+       "spec_id": 1024575,
+       "name": "2026款 标准版",
+       "price_cny": 99800,
+       "launch": "2026.09",
+       "name_en": "2026 Standard"
+      }
+     ],
+     "name_en": "vala kcar"
+    },
     {
      "series_id": 6719,
      "name": "五菱Air ev晴空",
@@ -26776,7 +27037,7 @@
      "name": "克慕勒阿尔法AL系列",
      "first_launch": "2025.02",
      "price_min_cny": 828000,
-     "price_max_cny": 1058000,
+     "price_max_cny": 1088000,
      "trims": [
       {
        "spec_id": 78702,
@@ -26816,7 +27077,7 @@
       {
        "spec_id": 78256,
        "name": "2026款 AL980 龙焱·观天下",
-       "price_cny": 1058000,
+       "price_cny": 1088000,
        "launch": "2026.06",
        "name_en": "2026 AL980 Longyan · Guantianxia"
       }
@@ -28810,7 +29071,7 @@
     {
      "series_id": 4856,
      "name": "凯迪拉克XT4",
-     "first_launch": "2023.05",
+     "first_launch": "2026.03",
      "price_min_cny": 229700,
      "price_max_cny": 275700,
      "trims": [
@@ -28820,20 +29081,6 @@
        "price_cny": 229700,
        "launch": "2026.03",
        "name_en": "2026 25T Duhui"
-      },
-      {
-       "spec_id": 63276,
-       "name": "2024款 25T 两驱风尚型",
-       "price_cny": 229700,
-       "launch": "2023.05",
-       "name_en": "2024 25T 2WD Fengshang"
-      },
-      {
-       "spec_id": 61261,
-       "name": "2024款 28T 两驱豪华型",
-       "price_cny": 257700,
-       "launch": "2023.05",
-       "name_en": "2024 28T 2WD Luxury"
       },
       {
        "spec_id": 76725,
@@ -28848,13 +29095,6 @@
        "price_cny": 275700,
        "launch": "2026.03",
        "name_en": "2026 28T Zhiyu Deluxe"
-      },
-      {
-       "spec_id": 63270,
-       "name": "2024款 28T 两驱尊贵型",
-       "price_cny": 275700,
-       "launch": "2023.05",
-       "name_en": "2024 28T 2WD Deluxe"
       }
      ],
      "name_en": "XT4"
@@ -30089,6 +30329,13 @@
      "price_max_cny": 199900,
      "trims": [
       {
+       "spec_id": 79303,
+       "name": "2026款 改款 1600 大满配版",
+       "price_cny": 159900,
+       "launch": "2026.09",
+       "name_en": "2026 Facelift 1600 Damanpei Ed."
+      },
+      {
        "spec_id": 77272,
        "name": "2026款 1600 大满配版",
        "price_cny": 159900,
@@ -30101,6 +30348,13 @@
        "price_cny": 179900,
        "launch": "2026.04",
        "name_en": "2026 1600 Chaomanpei Ed."
+      },
+      {
+       "spec_id": 79304,
+       "name": "2026款 1600 超满配Pro版",
+       "price_cny": 189900,
+       "launch": "2026.09",
+       "name_en": "2026 1600 Chaomanpei Pro Ed."
       },
       {
        "spec_id": 76217,
@@ -30455,30 +30709,6 @@
      "name_en": "Gusite"
     },
     {
-     "series_id": 265,
-     "name": "幻影",
-     "first_launch": "2023.02",
-     "price_min_cny": 8470000,
-     "price_max_cny": 9860000,
-     "trims": [
-      {
-       "spec_id": 57073,
-       "name": "2024款 标准轴距版 系列II",
-       "price_cny": 8470000,
-       "launch": "2023.02",
-       "name_en": "2024 Biaozhun WB Ed. Xilie II"
-      },
-      {
-       "spec_id": 57074,
-       "name": "2024款 长轴距版 系列II",
-       "price_cny": 9860000,
-       "launch": "2023.02",
-       "name_en": "2024 LWB Ed. Xilie II"
-      }
-     ],
-     "name_en": "Huanying"
-    },
-    {
      "series_id": 3778,
      "name": "库里南",
      "first_launch": "2023.02",
@@ -30658,30 +30888,6 @@
    "brand": "北京汽车制造厂",
    "brand_latin": null,
    "models": [
-    {
-     "series_id": 3035,
-     "name": "212经典",
-     "first_launch": "2022.12",
-     "price_min_cny": 99900,
-     "price_max_cny": 105900,
-     "trims": [
-      {
-       "spec_id": 60930,
-       "name": "2023款 狙击手 2.4T 手动轻装款",
-       "price_cny": 99900,
-       "launch": "2022.12",
-       "name_en": "2023 Jujishou 2.4T Manual Qingzhuang"
-      },
-      {
-       "spec_id": 65083,
-       "name": "2023款 狙击手 2.4T 手动加强版",
-       "price_cny": 105900,
-       "launch": "2023.09",
-       "name_en": "2023 Jujishou 2.4T Manual Jiaqiang Ed."
-      }
-     ],
-     "name_en": "212 Jingdian"
-    },
     {
      "series_id": 7592,
      "name": "vala pro",
@@ -33080,6 +33286,13 @@
        "name_en": "2026 Long Range 201 Max"
       },
       {
+       "spec_id": 79334,
+       "name": "2026款 黑曜版",
+       "price_cny": 184800,
+       "launch": "2026.09",
+       "name_en": "2026 Heiyao Ed."
+      },
+      {
        "spec_id": 78444,
        "name": "2026款 公务版",
        "price_cny": 198800,
@@ -33272,7 +33485,7 @@
     },
     {
      "series_id": 8721,
-     "name": "泰钽700",
+     "name": "北汽泰钽700",
      "first_launch": "2026.07",
      "price_min_cny": 275800,
      "price_max_cny": 429800,
@@ -33313,7 +33526,7 @@
        "name_en": "2026 Linghang Ed."
       }
      ],
-     "name_en": "Taitan 700"
+     "name_en": "Beiqitaitan 700"
     }
    ],
    "brand_en": "BAIC Off-Road"
@@ -34358,14 +34571,35 @@
      "name": "博越L",
      "first_launch": "2025.05",
      "price_min_cny": 99900,
-     "price_max_cny": 129900,
+     "price_max_cny": 136900,
      "trims": [
+      {
+       "spec_id": 79223,
+       "name": "2027款 第四代 1.5TD Pro DCT 扬帆",
+       "price_cny": 99900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD Pro DCT Yangfan"
+      },
       {
        "spec_id": 72737,
        "name": "2025款 第四代 1.5TD DCT 扬帆",
        "price_cny": 99900,
        "launch": "2025.05",
        "name_en": "2025 Di 4 Dai 1.5TD DCT Yangfan"
+      },
+      {
+       "spec_id": 79332,
+       "name": "2027款 第四代 1.5TD i-HEV 启行",
+       "price_cny": 106900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD i-HEV Qixing"
+      },
+      {
+       "spec_id": 79224,
+       "name": "2027款 第四代 1.5TD Pro DCT 启程",
+       "price_cny": 106900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD Pro DCT Qicheng"
       },
       {
        "spec_id": 72738,
@@ -34375,11 +34609,32 @@
        "name_en": "2025 Di 4 Dai 1.5TD DCT Qicheng"
       },
       {
+       "spec_id": 77663,
+       "name": "2027款 第四代 1.5TD i-HEV 稳行",
+       "price_cny": 112900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD i-HEV Wenxing"
+      },
+      {
+       "spec_id": 79190,
+       "name": "2027款 第四代 1.5TD Pro DCT 山河",
+       "price_cny": 116900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD Pro DCT Shanhe"
+      },
+      {
        "spec_id": 72706,
        "name": "2025款 第四代 1.5TD DCT 山河",
        "price_cny": 116900,
        "launch": "2025.05",
        "name_en": "2025 Di 4 Dai 1.5TD DCT Shanhe"
+      },
+      {
+       "spec_id": 79019,
+       "name": "2027款 第四代 1.5TD i-HEV 致行",
+       "price_cny": 122900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD i-HEV Zhixing"
       },
       {
        "spec_id": 72481,
@@ -34396,11 +34651,32 @@
        "name_en": "2025 Di 4 Dai 2.0TD DCT Reai"
       },
       {
+       "spec_id": 79051,
+       "name": "2027款 第四代 1.5TD Pro DCT 千里锦绣",
+       "price_cny": 129900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD Pro DCT Qianlijinxiu"
+      },
+      {
+       "spec_id": 79225,
+       "name": "2027款 第四代 2.0TD DCT 热爱",
+       "price_cny": 129900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 2.0TD DCT Reai"
+      },
+      {
        "spec_id": 76920,
        "name": "2026款 第四代 1.5TD DCT 小蓝灯版",
        "price_cny": 129900,
        "launch": "2026.04",
        "name_en": "2026 Di 4 Dai 1.5TD DCT Xiaolandeng Ed."
+      },
+      {
+       "spec_id": 79068,
+       "name": "2027款 第四代 1.5TD i-HEV 千里远行",
+       "price_cny": 136900,
+       "launch": "2026.09",
+       "name_en": "2027 Di 4 Dai 1.5TD i-HEV Qianliyuanxing"
       }
      ],
      "name_en": "Boyue L"
@@ -35096,7 +35372,7 @@
     {
      "series_id": 7806,
      "name": "星愿",
-     "first_launch": "2025.10",
+     "first_launch": "2026.05",
      "price_min_cny": 64800,
      "price_max_cny": 94800,
      "trims": [
@@ -35106,13 +35382,6 @@
        "price_cny": 64800,
        "launch": "2026.05",
        "name_en": "2026 310km Xiangwang Ed."
-      },
-      {
-       "spec_id": 75134,
-       "name": "2026款 310km 青春版",
-       "price_cny": 68800,
-       "launch": "2025.10",
-       "name_en": "2026 310km Qingchun Ed."
       },
       {
        "spec_id": 77987,
@@ -35129,20 +35398,6 @@
        "name_en": "2026 410km Xiangwang Ed."
       },
       {
-       "spec_id": 75147,
-       "name": "2026款 310km 梦想版",
-       "price_cny": 76800,
-       "launch": "2025.10",
-       "name_en": "2026 310km Mengxiang Ed."
-      },
-      {
-       "spec_id": 75137,
-       "name": "2026款 410km 自在版",
-       "price_cny": 76800,
-       "launch": "2025.10",
-       "name_en": "2026 410km Zizai Ed."
-      },
-      {
        "spec_id": 77945,
        "name": "2026款 410km 乘风版",
        "price_cny": 78800,
@@ -35150,25 +35405,11 @@
        "name_en": "2026 410km Chengfeng Ed."
       },
       {
-       "spec_id": 75136,
-       "name": "2026款 410km 自由版",
-       "price_cny": 81800,
-       "launch": "2025.10",
-       "name_en": "2026 410km Ziyou Ed."
-      },
-      {
        "spec_id": 77988,
        "name": "2026款 480km 探索版",
        "price_cny": 86800,
        "launch": "2026.05",
        "name_en": "2026 480km Explorer"
-      },
-      {
-       "spec_id": 75146,
-       "name": "2026款 410km 探索版",
-       "price_cny": 87800,
-       "launch": "2025.10",
-       "name_en": "2026 410km Explorer"
       },
       {
        "spec_id": 77946,
@@ -35413,15 +35654,29 @@
      "series_id": 7650,
      "name": "银河E5",
      "first_launch": "2025.07",
-     "price_min_cny": 109800,
+     "price_min_cny": 107800,
      "price_max_cny": 179800,
      "trims": [
+      {
+       "spec_id": 79310,
+       "name": "2027款 530 全球经典版",
+       "price_cny": 107800,
+       "launch": "2026.09",
+       "name_en": "2027 530 Quanqiujingdian Ed."
+      },
       {
        "spec_id": 73945,
        "name": "2026款 530km 启航版",
        "price_cny": 109800,
        "launch": "2025.07",
        "name_en": "2026 530km Qihang Ed."
+      },
+      {
+       "spec_id": 79311,
+       "name": "2027款 550 智充启航版",
+       "price_cny": 117800,
+       "launch": "2026.09",
+       "name_en": "2027 550 Zhichongqihang Ed."
       },
       {
        "spec_id": 73952,
@@ -35431,11 +35686,25 @@
        "name_en": "2026 530km Explorer"
       },
       {
+       "spec_id": 79312,
+       "name": "2027款 550 智充探索版",
+       "price_cny": 125800,
+       "launch": "2026.09",
+       "name_en": "2027 550 Zhichong Explorer"
+      },
+      {
        "spec_id": 73949,
        "name": "2026款 610km 远航版",
        "price_cny": 125800,
        "launch": "2025.07",
        "name_en": "2026 610km Yuanhang Ed."
+      },
+      {
+       "spec_id": 79313,
+       "name": "2027款 635 智充探索+版",
+       "price_cny": 135800,
+       "launch": "2026.09",
+       "name_en": "2027 635 Zhichongtansuo + Ed."
       },
       {
        "spec_id": 73943,
@@ -35445,11 +35714,25 @@
        "name_en": "2026 610km Tansuo + Ed."
       },
       {
+       "spec_id": 79266,
+       "name": "2027款 550 智充激光版",
+       "price_cny": 137800,
+       "launch": "2026.09",
+       "name_en": "2027 550 Zhichongjiguang Ed."
+      },
+      {
        "spec_id": 73944,
        "name": "2026款 610km 星舰版",
        "price_cny": 145800,
        "launch": "2025.07",
        "name_en": "2026 610km Xingjian Ed."
+      },
+      {
+       "spec_id": 78132,
+       "name": "2027款 635 智充激光版",
+       "price_cny": 147800,
+       "launch": "2026.09",
+       "name_en": "2027 635 Zhichongjiguang Ed."
       },
       {
        "spec_id": 73702,
@@ -36381,6 +36664,37 @@
       }
      ],
      "name_en": "Qijing GT7"
+    },
+    {
+     "series_id": 8677,
+     "name": "启境GX7",
+     "first_launch": "2026.09",
+     "price_min_cny": 239900,
+     "price_max_cny": 301900,
+     "trims": [
+      {
+       "spec_id": 79091,
+       "name": "2027款 Ultra",
+       "price_cny": 239900,
+       "launch": "2026.09",
+       "name_en": "2027 Ultra"
+      },
+      {
+       "spec_id": 78002,
+       "name": "2027款 Ultra 双电机 四驱",
+       "price_cny": 259900,
+       "launch": "2026.09",
+       "name_en": "2027 Ultra Dual Motor AWD"
+      },
+      {
+       "spec_id": 78519,
+       "name": "2027款 Ultra 三电机 四驱",
+       "price_cny": 301900,
+       "launch": "2026.09",
+       "name_en": "2027 Ultra Tri Motor AWD"
+      }
+     ],
+     "name_en": "Qijing GX7"
     }
    ],
    "brand_en": "Qijing"
@@ -37108,7 +37422,7 @@
     {
      "series_id": 5770,
      "name": "哈弗大狗",
-     "first_launch": "2023.07",
+     "first_launch": "2025.07",
      "price_min_cny": 123900,
      "price_max_cny": 149900,
      "trims": [
@@ -37120,13 +37434,6 @@
        "name_en": "2026 1.5T DCT Labuladuo Ed."
       },
       {
-       "spec_id": 63803,
-       "name": "2024款 1.5T DCT拉布拉多版",
-       "price_cny": 123900,
-       "launch": "2023.07",
-       "name_en": "2024 1.5T DCT Labuladuo Ed."
-      },
-      {
        "spec_id": 73743,
        "name": "2026款 1.5T DCT边牧版",
        "price_cny": 129900,
@@ -37134,25 +37441,11 @@
        "name_en": "2026 1.5T DCT Bianmu Ed."
       },
       {
-       "spec_id": 63727,
-       "name": "2024款 1.5T DCT边牧版",
-       "price_cny": 129900,
-       "launch": "2023.07",
-       "name_en": "2024 1.5T DCT Bianmu Ed."
-      },
-      {
        "spec_id": 73589,
        "name": "2026款 2.0T DCT中华田园犬版",
        "price_cny": 149900,
        "launch": "2025.07",
        "name_en": "2026 2.0T DCT Zhonghuatianyuanquan Ed."
-      },
-      {
-       "spec_id": 63728,
-       "name": "2024款 2.0T DCT中华田园犬版",
-       "price_cny": 149900,
-       "launch": "2023.07",
-       "name_en": "2024 2.0T DCT Zhonghuatianyuanquan Ed."
       }
      ],
      "name_en": "Haval Big Dog"
@@ -37428,11 +37721,25 @@
        "name_en": "2026 Hi4 195 Max Linghang Ed."
       },
       {
+       "spec_id": 79294,
+       "name": "2026款 Hi4 255 Ultra",
+       "price_cny": 189800,
+       "launch": "2026.09",
+       "name_en": "2026 Hi4 255 Ultra"
+      },
+      {
        "spec_id": 77544,
        "name": "2026款 Hi4 192 Max 七座领航版",
        "price_cny": 193800,
        "launch": "2026.05",
        "name_en": "2026 Hi4 192 Max 7-seat Linghang Ed."
+      },
+      {
+       "spec_id": 77521,
+       "name": "2026款 Hi4 255 力魂版",
+       "price_cny": 196800,
+       "launch": "2026.09",
+       "name_en": "2026 Hi4 255 Lihun Ed."
       },
       {
        "spec_id": 76551,
@@ -38287,7 +38594,7 @@
      "name": "AION i60",
      "first_launch": "2025.11",
      "price_min_cny": 102800,
-     "price_max_cny": 135800,
+     "price_max_cny": 142800,
      "trims": [
       {
        "spec_id": 76661,
@@ -38318,6 +38625,13 @@
        "name_en": "2026 530 CATL Standard"
       },
       {
+       "spec_id": 79199,
+       "name": "2027款 520 宁德版",
+       "price_cny": 114800,
+       "launch": "2026.09",
+       "name_en": "2027 520 CATL Ed."
+      },
+      {
        "spec_id": 74159,
        "name": "2026款 210 进阶版",
        "price_cny": 115800,
@@ -38346,11 +38660,46 @@
        "name_en": "2026 650 Standard"
       },
       {
+       "spec_id": 79078,
+       "name": "2027款 520 宁德激光版",
+       "price_cny": 126800,
+       "launch": "2026.09",
+       "name_en": "2027 520 CATL Jiguang Ed."
+      },
+      {
+       "spec_id": 79200,
+       "name": "2027款 700长续航版",
+       "price_cny": 129800,
+       "launch": "2026.09",
+       "name_en": "2027 700 Long Range Ed."
+      },
+      {
+       "spec_id": 79080,
+       "name": "2027款 1738 超级增程版",
+       "price_cny": 132800,
+       "launch": "2026.09",
+       "name_en": "2027 1738 Chaoji EREV Ed."
+      },
+      {
        "spec_id": 75528,
        "name": "2026款 650 进阶版",
        "price_cny": 135800,
        "launch": "2025.11",
        "name_en": "2026 650 Jinjie Ed."
+      },
+      {
+       "spec_id": 79073,
+       "name": "2027款 700 激光雷达版",
+       "price_cny": 139800,
+       "launch": "2026.09",
+       "name_en": "2027 700 LiDAR Ed."
+      },
+      {
+       "spec_id": 79198,
+       "name": "2027款 1738 激光雷达版",
+       "price_cny": 142800,
+       "launch": "2026.09",
+       "name_en": "2027 1738 LiDAR Ed."
       }
      ],
      "name_en": "AION i60"
@@ -38506,6 +38855,44 @@
       }
      ],
      "name_en": "ID.6 X"
+    },
+    {
+     "series_id": 8584,
+     "name": "ID.AURA T6",
+     "first_launch": "2026.09",
+     "price_min_cny": 129900,
+     "price_max_cny": 166900,
+     "trims": [
+      {
+       "spec_id": 79007,
+       "name": "2026款 540 Pro",
+       "price_cny": 129900,
+       "launch": "2026.09",
+       "name_en": "2026 540 Pro"
+      },
+      {
+       "spec_id": 79008,
+       "name": "2026款 660 Pro",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2026 660 Pro"
+      },
+      {
+       "spec_id": 79009,
+       "name": "2026款 660 Max 激光雷达版",
+       "price_cny": 149900,
+       "launch": "2026.09",
+       "name_en": "2026 660 Max LiDAR Ed."
+      },
+      {
+       "spec_id": 77144,
+       "name": "2026款 660 Ultra 激光雷达版",
+       "price_cny": 166900,
+       "launch": "2026.09",
+       "name_en": "2026 660 Ultra LiDAR Ed."
+      }
+     ],
+     "name_en": "ID.AURA T6"
     },
     {
      "series_id": 8651,
@@ -41548,9 +41935,9 @@
     {
      "series_id": 6148,
      "name": "大家9",
-     "first_launch": "2023.12",
+     "first_launch": "2025.07",
      "price_min_cny": 269900,
-     "price_max_cny": 409900,
+     "price_max_cny": 350200,
      "trims": [
       {
        "spec_id": 73674,
@@ -41574,20 +41961,6 @@
        "name_en": "2027 Luxury"
       },
       {
-       "spec_id": 69655,
-       "name": "2025款 长续航 行政七座版",
-       "price_cny": 289900,
-       "launch": "2024.08",
-       "name_en": "2025 Long Range Xingzheng 7-seat Ed."
-      },
-      {
-       "spec_id": 75903,
-       "name": "2025款 改款 长续航 行政七座版",
-       "price_cny": 290900,
-       "launch": "2025.12",
-       "name_en": "2025 Facelift Long Range Xingzheng 7-seat Ed."
-      },
-      {
        "spec_id": 73676,
        "name": "2025款 超混 超长续航森林版 七座",
        "price_cny": 309900,
@@ -41602,13 +41975,6 @@
        "name_en": "2027 Business"
       },
       {
-       "spec_id": 69656,
-       "name": "2025款 长续航 草原七座版",
-       "price_cny": 309900,
-       "launch": "2024.08",
-       "name_en": "2025 Long Range Caoyuan 7-seat Ed."
-      },
-      {
        "spec_id": 79155,
        "name": "2027款 旗舰版",
        "price_cny": 339900,
@@ -41616,46 +41982,11 @@
        "name_en": "2027 Flagship"
       },
       {
-       "spec_id": 69657,
-       "name": "2025款 长续航 森林七座版",
-       "price_cny": 339900,
-       "launch": "2024.08",
-       "name_en": "2025 Long Range Senlin 7-seat Ed."
-      },
-      {
        "spec_id": 74450,
        "name": "2025款 超混 超长续航高山出行版 七座",
        "price_cny": 350200,
        "launch": "2025.08",
        "name_en": "2025 Chaohun Extended Range Gaoshanchuxing Ed. 7-seat"
-      },
-      {
-       "spec_id": 66215,
-       "name": "2024款 长续航 福捷版(单侧福捷座椅)",
-       "price_cny": 359900,
-       "launch": "2023.12",
-       "name_en": "2024 Long Range Fujie Ed. (Dancefujie Seats)"
-      },
-      {
-       "spec_id": 68884,
-       "name": "2024款 长续航 山河七座版",
-       "price_cny": 362900,
-       "launch": "2024.06",
-       "name_en": "2024 Long Range Shanhe 7-seat Ed."
-      },
-      {
-       "spec_id": 68885,
-       "name": "2024款 长续航 山河六座版",
-       "price_cny": 372900,
-       "launch": "2024.06",
-       "name_en": "2024 Long Range Shanhe 6-seat Ed."
-      },
-      {
-       "spec_id": 66216,
-       "name": "2024款 长续航 福捷版(双侧福捷座椅)",
-       "price_cny": 409900,
-       "launch": "2023.12",
-       "name_en": "2024 Long Range Fujie Ed. (Shuangcefujie Seats)"
       }
      ],
      "name_en": "Dajia 9"
@@ -41823,30 +42154,6 @@
       }
      ],
      "name_en": "Dana M1"
-    },
-    {
-     "series_id": 7406,
-     "name": "大拿T1",
-     "first_launch": "2023.09",
-     "price_min_cny": 199800,
-     "price_max_cny": 221800,
-     "trims": [
-      {
-       "spec_id": 1016987,
-       "name": "2023款 86km 经典版",
-       "price_cny": 199800,
-       "launch": "2023.09",
-       "name_en": "2023 86km Jingdian Ed."
-      },
-      {
-       "spec_id": 1016988,
-       "name": "2023款 86km 国际版",
-       "price_cny": 221800,
-       "launch": "2023.09",
-       "name_en": "2023 86km Guoji Ed."
-      }
-     ],
-     "name_en": "Dana T1"
     },
     {
      "series_id": 7276,
@@ -42193,9 +42500,16 @@
      "series_id": 7924,
      "name": "大通G50插电混动",
      "first_launch": "2025.10",
-     "price_min_cny": 139800,
+     "price_min_cny": 136800,
      "price_max_cny": 198900,
      "trims": [
+      {
+       "spec_id": 79265,
+       "name": "2026款 行政版",
+       "price_cny": 136800,
+       "launch": "2026.09",
+       "name_en": "2026 Xingzheng Ed."
+      },
       {
        "spec_id": 75372,
        "name": "2025款 改款 领航版",
@@ -44668,6 +44982,13 @@
        "name_en": "2025 2.5T Luxury"
       },
       {
+       "spec_id": 1024560,
+       "name": "2027款 2.5T 越野初阶版",
+       "price_cny": 169800,
+       "launch": "2026.09",
+       "name_en": "2027 2.5T Yueyechujie Ed."
+      },
+      {
        "spec_id": 1019726,
        "name": "2025款 2.5T 越野版",
        "price_cny": 183600,
@@ -44675,11 +44996,32 @@
        "name_en": "2025 2.5T Off-Road"
       },
       {
+       "spec_id": 1024558,
+       "name": "2027款 2.5T 豪华版",
+       "price_cny": 185800,
+       "launch": "2026.09",
+       "name_en": "2027 2.5T Luxury"
+      },
+      {
+       "spec_id": 1024561,
+       "name": "2027款 2.5T 越野进阶版",
+       "price_cny": 189800,
+       "launch": "2026.09",
+       "name_en": "2027 2.5T Yueyejinjie Ed."
+      },
+      {
        "spec_id": 1019725,
        "name": "2025款 2.5T 旗舰版",
        "price_cny": 209800,
        "launch": "2024.12",
        "name_en": "2025 2.5T Flagship"
+      },
+      {
+       "spec_id": 1024559,
+       "name": "2027款 2.5T 旗舰版",
+       "price_cny": 219800,
+       "launch": "2026.09",
+       "name_en": "2027 2.5T Flagship"
       },
       {
        "spec_id": 1021325,
@@ -44704,6 +45046,13 @@
        "price_cny": 195800,
        "launch": "2025.08",
        "name_en": "2025 Standard"
+      },
+      {
+       "spec_id": 79248,
+       "name": "2027款 真乘用版",
+       "price_cny": 235800,
+       "launch": "2026.09",
+       "name_en": "2027 Zhenchengyong Ed."
       },
       {
        "spec_id": 74134,
@@ -45935,7 +46284,7 @@
      "name": "QQ3 EV",
      "first_launch": "2026.03",
      "price_min_cny": 58900,
-     "price_max_cny": 78900,
+     "price_max_cny": 88900,
      "trims": [
       {
        "spec_id": 76768,
@@ -45964,6 +46313,13 @@
        "price_cny": 78900,
        "launch": "2026.03",
        "name_en": "2026 420 Fenxiang Ed."
+      },
+      {
+       "spec_id": 78928,
+       "name": "2026款 420摩登版",
+       "price_cny": 88900,
+       "launch": "2026.09",
+       "name_en": "2026 420 Modeng Ed."
       }
      ],
      "name_en": "QQ3 EV"
@@ -46390,6 +46746,13 @@
        "price_cny": 184900,
        "launch": "2026.08",
        "name_en": "2027 260 ULTRA"
+      },
+      {
+       "spec_id": 79272,
+       "name": "2027款 致享版",
+       "price_cny": 189900,
+       "launch": "2026.09",
+       "name_en": "2027 Zhixiang Ed."
       },
       {
        "spec_id": 75467,
@@ -47149,6 +47512,13 @@
        "name_en": "2026 222km Shanyaoma"
       },
       {
+       "spec_id": 79320,
+       "name": "2026款 222km 开心马",
+       "price_cny": 41900,
+       "launch": "2026.09",
+       "name_en": "2026 222km Kaixinma"
+      },
+      {
        "spec_id": 73972,
        "name": "2026款 222km 伶俐马",
        "price_cny": 42900,
@@ -47168,6 +47538,13 @@
        "price_cny": 45900,
        "launch": "2026.01",
        "name_en": "2026 222km Modengma"
+      },
+      {
+       "spec_id": 79319,
+       "name": "2026款 222km 幸运马",
+       "price_cny": 45900,
+       "launch": "2026.09",
+       "name_en": "2026 222km Xingyunma"
       }
      ],
      "name_en": "Bestune Xiaoma"
@@ -47316,11 +47693,32 @@
        "name_en": "2025 150km Xinyue Ed."
       },
       {
+       "spec_id": 79201,
+       "name": "2027款 150km 心悦版",
+       "price_cny": 124900,
+       "launch": "2026.09",
+       "name_en": "2027 150km Xinyue Ed."
+      },
+      {
+       "spec_id": 79202,
+       "name": "2027款 235km 乐享版",
+       "price_cny": 129900,
+       "launch": "2026.09",
+       "name_en": "2027 235km Lexiang Ed."
+      },
+      {
        "spec_id": 72913,
        "name": "2025款 210km 乐享版",
        "price_cny": 129900,
        "launch": "2025.05",
        "name_en": "2025 210km Lexiang Ed."
+      },
+      {
+       "spec_id": 78148,
+       "name": "2027款 235km 悠享版",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2027 235km Youxiang Ed."
       },
       {
        "spec_id": 71040,
@@ -48595,6 +48993,51 @@
      "name_en": "GLC Coupe AMG"
     },
     {
+     "series_id": 8479,
+     "name": "奔驰GLE",
+     "first_launch": "2026.09",
+     "price_min_cny": 599800,
+     "price_max_cny": 767800,
+     "trims": [
+      {
+       "spec_id": 78944,
+       "name": "2027款 350L 4MATIC 皓雅版",
+       "price_cny": 599800,
+       "launch": "2026.09",
+       "name_en": "2027 350L 4MATIC Haoya Ed."
+      },
+      {
+       "spec_id": 75987,
+       "name": "2027款 350L 4MATIC 晖银版",
+       "price_cny": 633800,
+       "launch": "2026.09",
+       "name_en": "2027 350L 4MATIC Huiyin Ed."
+      },
+      {
+       "spec_id": 78945,
+       "name": "2027款 450L 4MATIC 鎏金版",
+       "price_cny": 716800,
+       "launch": "2026.09",
+       "name_en": "2027 450L 4MATIC Liujin Ed."
+      },
+      {
+       "spec_id": 77781,
+       "name": "2027款 450L 4MATIC 140周年纪念版",
+       "price_cny": 726800,
+       "launch": "2026.09",
+       "name_en": "2027 450L 4MATIC 140 Anniversary Ed."
+      },
+      {
+       "spec_id": 78946,
+       "name": "2027款 450L 4MATIC 星铂版",
+       "price_cny": 767800,
+       "launch": "2026.09",
+       "name_en": "2027 450L 4MATIC Xingbo Ed."
+      }
+     ],
+     "name_en": "Mercedes-Benz GLE"
+    },
+    {
      "series_id": 3704,
      "name": "奔驰GLE AMG",
      "first_launch": "2025.06",
@@ -49124,9 +49567,16 @@
      "series_id": 3665,
      "name": "迈巴赫S级",
      "first_launch": "2025.11",
-     "price_min_cny": 1468000,
-     "price_max_cny": 3643000,
+     "price_min_cny": 1398000,
+     "price_max_cny": 3353000,
      "trims": [
+      {
+       "spec_id": 79262,
+       "name": "2027款 S 480 4MATIC",
+       "price_cny": 1398000,
+       "launch": "2026.09",
+       "name_en": "2027 S 480 4MATIC"
+      },
       {
        "spec_id": 74599,
        "name": "2026款 S 480 4MATIC",
@@ -49149,6 +49599,20 @@
        "name_en": "2026 S 580 4MATIC"
       },
       {
+       "spec_id": 79333,
+       "name": "2027款 S 580 4MATIC",
+       "price_cny": 2527000,
+       "launch": "2026.09",
+       "name_en": "2027 S 580 4MATIC"
+      },
+      {
+       "spec_id": 77000,
+       "name": "2027款 S 580 4MATIC 极夜御型版",
+       "price_cny": 2699000,
+       "launch": "2026.09",
+       "name_en": "2027 S 580 4MATIC Jiyeyu Ed."
+      },
+      {
        "spec_id": 75675,
        "name": "2026款 S 580 4MATIC 极夜版",
        "price_cny": 2875000,
@@ -49163,11 +49627,11 @@
        "name_en": "2026 S 680 4MATIC"
       },
       {
-       "spec_id": 75676,
-       "name": "2026款 S 680 4MATIC 极夜版",
-       "price_cny": 3643000,
-       "launch": "2025.11",
-       "name_en": "2026 S 680 4MATIC Jiye Ed."
+       "spec_id": 76960,
+       "name": "2027款 S 680 4MATIC",
+       "price_cny": 3353000,
+       "launch": "2026.09",
+       "name_en": "2027 S 680 4MATIC"
       }
      ],
      "name_en": "Maybach S-Class"
@@ -49191,6 +49655,51 @@
     }
    ],
    "brand_en": "Mercedes-Benz"
+  },
+  {
+   "brand": "奕境",
+   "brand_latin": null,
+   "models": [
+    {
+     "series_id": 8527,
+     "name": "奕境X9",
+     "first_launch": "2026.09",
+     "price_min_cny": 289800,
+     "price_max_cny": 369800,
+     "trims": [
+      {
+       "spec_id": 77447,
+       "name": "2026款 增程 Max 长续航版",
+       "price_cny": 289800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV Max Long Range Ed."
+      },
+      {
+       "spec_id": 77476,
+       "name": "2026款 增程 四驱 Ultra",
+       "price_cny": 299800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV AWD Ultra"
+      },
+      {
+       "spec_id": 78889,
+       "name": "2026款 增程 四驱 Ultra+ 长续航版",
+       "price_cny": 329800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV AWD Ultra+ Long Range Ed."
+      },
+      {
+       "spec_id": 76426,
+       "name": "2026款 增程 四驱 Ultra+旗舰 长续航版",
+       "price_cny": 369800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV AWD Ultra+ Qijian Long Range Ed."
+      }
+     ],
+     "name_en": "Yijing X9"
+    }
+   ],
+   "brand_en": "Yijing"
   },
   {
    "brand": "奥迪",
@@ -49345,9 +49854,9 @@
     {
      "series_id": 692,
      "name": "奥迪A4L",
-     "first_launch": "2025.02",
+     "first_launch": "2026.06",
      "price_min_cny": 289800,
-     "price_max_cny": 362800,
+     "price_max_cny": 329800,
      "trims": [
       {
        "spec_id": 73306,
@@ -49357,13 +49866,6 @@
        "name_en": "2026 200 Wanliangyuexiang Ed. 40 TFSI Shishangdonggan"
       },
       {
-       "spec_id": 69122,
-       "name": "2025款 200万辆悦享版 40 TFSI 时尚动感型",
-       "price_cny": 289800,
-       "launch": "2025.02",
-       "name_en": "2025 200 Wanliangyuexiang Ed. 40 TFSI Shishangdonggan"
-      },
-      {
        "spec_id": 73307,
        "name": "2026款 200万辆悦享版 40 TFSI 豪华动感型",
        "price_cny": 309800,
@@ -49371,32 +49873,11 @@
        "name_en": "2026 200 Wanliangyuexiang Ed. 40 TFSI Luxury Donggan"
       },
       {
-       "spec_id": 69123,
-       "name": "2025款 200万辆悦享版 40 TFSI 豪华动感型",
-       "price_cny": 309800,
-       "launch": "2025.02",
-       "name_en": "2025 200 Wanliangyuexiang Ed. 40 TFSI Luxury Donggan"
-      },
-      {
        "spec_id": 73308,
        "name": "2026款 200万辆悦享版 40 TFSI 豪华动感型 B&O 星夜版",
        "price_cny": 329800,
        "launch": "2026.06",
        "name_en": "2026 200 Wanliangyuexiang Ed. 40 TFSI Luxury Donggan B&O Xingye Ed."
-      },
-      {
-       "spec_id": 69124,
-       "name": "2025款 200万辆悦享版 40 TFSI 豪华动感型 B&O 星夜版",
-       "price_cny": 329800,
-       "launch": "2025.02",
-       "name_en": "2025 200 Wanliangyuexiang Ed. 40 TFSI Luxury Donggan B&O Xingye Ed."
-      },
-      {
-       "spec_id": 69125,
-       "name": "2025款 200万辆悦享版 45 TFSI quattro 臻选动感型",
-       "price_cny": 362800,
-       "launch": "2025.02",
-       "name_en": "2025 200 Wanliangyuexiang Ed. 45 TFSI quattro Zhenxuandonggan"
       }
      ],
      "name_en": "A4L"
@@ -49688,10 +50169,10 @@
       },
       {
        "spec_id": 79169,
-       "name": "2026款 典藏版",
+       "name": "2026款 45 TFSI 典藏版",
        "price_cny": 454900,
        "launch": "2026.09",
-       "name_en": "2026 Diancang Ed."
+       "name_en": "2026 45 TFSI Diancang Ed."
       },
       {
        "spec_id": 73299,
@@ -50823,9 +51304,16 @@
      "series_id": 2734,
      "name": "奥迪S5",
      "first_launch": "2023.11",
-     "price_min_cny": 631800,
+     "price_min_cny": 571800,
      "price_max_cny": 708800,
      "trims": [
+      {
+       "spec_id": 79236,
+       "name": "2027款 Avant 首发版",
+       "price_cny": 571800,
+       "launch": "2026.09",
+       "name_en": "2027 Avant Launch Ed."
+      },
       {
        "spec_id": 66010,
        "name": "2024款 S5 3.0T Sportback",
@@ -54120,6 +54608,58 @@
      "name_en": "XPeng G9"
     },
     {
+     "series_id": 8659,
+     "name": "小鹏G9L",
+     "first_launch": "2026.09",
+     "price_min_cny": 241800,
+     "price_max_cny": 319800,
+     "trims": [
+      {
+       "spec_id": 77839,
+       "name": "2026款 纯电 702 Max",
+       "price_cny": 241800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 702 Max"
+      },
+      {
+       "spec_id": 78832,
+       "name": "2026款 纯电 660 四驱Ultra SE",
+       "price_cny": 259800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 660 AWD Ultra SE"
+      },
+      {
+       "spec_id": 78833,
+       "name": "2026款 增程 1602 四驱Ultra SE",
+       "price_cny": 259800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1602 AWD Ultra SE"
+      },
+      {
+       "spec_id": 78831,
+       "name": "2026款 纯电 660 四驱Ultra",
+       "price_cny": 289800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 660 AWD Ultra"
+      },
+      {
+       "spec_id": 77778,
+       "name": "2026款 增程 1602 四驱Ultra旗舰版",
+       "price_cny": 309800,
+       "launch": "2026.09",
+       "name_en": "2026 EREV 1602 AWD Ultra Flagship"
+      },
+      {
+       "spec_id": 77790,
+       "name": "2026款 纯电 755 四驱Ultra旗舰版",
+       "price_cny": 319800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric 755 AWD Ultra Flagship"
+      }
+     ],
+     "name_en": "XPeng G9L"
+    },
+    {
      "series_id": 8224,
      "name": "小鹏GX",
      "first_launch": "2026.05",
@@ -54671,16 +55211,9 @@
      "series_id": 6459,
      "name": "岚图梦想家",
      "first_launch": "2023.10",
-     "price_min_cny": 315900,
+     "price_min_cny": 329900,
      "price_max_cny": 709900,
      "trims": [
-      {
-       "spec_id": 77264,
-       "name": "2027款 PHEV 冠军版",
-       "price_cny": 315900,
-       "launch": "2026.04",
-       "name_en": "2027 PHEV Champion"
-      },
       {
        "spec_id": 69683,
        "name": "2025款 PHEV 四驱卓越鲲鹏版",
@@ -54780,11 +55313,25 @@
        "name_en": "2024 EV Extended Range Deluxe"
       },
       {
+       "spec_id": 79082,
+       "name": "2026款 梦想家9 PHEV Ultra",
+       "price_cny": 419900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 PHEV Ultra"
+      },
+      {
        "spec_id": 74089,
        "name": "2026款 PHEV 乾崑Ultra",
        "price_cny": 429900,
        "launch": "2025.09",
        "name_en": "2026 PHEV Qiankun Ultra"
+      },
+      {
+       "spec_id": 79084,
+       "name": "2026款 梦想家9 EV Ultra",
+       "price_cny": 429900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 EV Ultra"
       },
       {
        "spec_id": 74470,
@@ -54801,11 +55348,39 @@
        "name_en": "2026 PHEV Diancang Ed."
       },
       {
+       "spec_id": 79083,
+       "name": "2026款 梦想家9 PHEV Ultra+",
+       "price_cny": 459900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 PHEV Ultra+"
+      },
+      {
        "spec_id": 65106,
        "name": "2024款 EV 超长续航旗舰版",
        "price_cny": 469900,
        "launch": "2023.10",
        "name_en": "2024 EV Extended Range Flagship"
+      },
+      {
+       "spec_id": 78509,
+       "name": "2026款 梦想家9 EV Ultra+",
+       "price_cny": 469900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 EV Ultra+"
+      },
+      {
+       "spec_id": 78440,
+       "name": "2026款 梦想家9 PHEV 礼尊版",
+       "price_cny": 519900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 PHEV Lizun Ed."
+      },
+      {
+       "spec_id": 79278,
+       "name": "2026款 梦想家9 EV 礼尊版",
+       "price_cny": 529900,
+       "launch": "2026.09",
+       "name_en": "2026 Mengxiangjia 9 EV Lizun Ed."
       },
       {
        "spec_id": 72806,
@@ -55433,13 +56008,6 @@
        "name_en": "2026 MAX 1.5T DCT Zunrong Ed."
       },
       {
-       "spec_id": 78843,
-       "name": "2026款 MAX 1.5T DCT悦享版",
-       "price_cny": 123800,
-       "launch": "2026.08",
-       "name_en": "2026 MAX 1.5T DCT Yuexiang Ed."
-      },
-      {
        "spec_id": 60948,
        "name": "2023款 PRO 270T DCT豪华版",
        "price_cny": 129800,
@@ -55507,13 +56075,6 @@
        "price_cny": 289800,
        "launch": "2026.06",
        "name_en": "2026 PHEV L AWD Max"
-      },
-      {
-       "spec_id": 79168,
-       "name": "2026款 宗师悦享版",
-       "price_cny": 299800,
-       "launch": "2026.09",
-       "name_en": "2026 Zongshiyuexiang Ed."
       },
       {
        "spec_id": 77965,
@@ -55663,6 +56224,44 @@
       }
      ],
      "name_en": "Trumpchi Xiangwang S9"
+    },
+    {
+     "series_id": 8627,
+     "name": "传祺越7",
+     "first_launch": "2026.09",
+     "price_min_cny": 169800,
+     "price_max_cny": 215800,
+     "trims": [
+      {
+       "spec_id": 79052,
+       "name": "2026款 两驱Pro版",
+       "price_cny": 169800,
+       "launch": "2026.09",
+       "name_en": "2026 2WD Pro Ed."
+      },
+      {
+       "spec_id": 79053,
+       "name": "2026款 两驱Max版",
+       "price_cny": 185800,
+       "launch": "2026.09",
+       "name_en": "2026 2WD Max Ed."
+      },
+      {
+       "spec_id": 79054,
+       "name": "2026款 四驱Max版",
+       "price_cny": 205800,
+       "launch": "2026.09",
+       "name_en": "2026 AWD Max Ed."
+      },
+      {
+       "spec_id": 78027,
+       "name": "2026款 四驱Ultra版",
+       "price_cny": 215800,
+       "launch": "2026.09",
+       "name_en": "2026 AWD Ultra Ed."
+      }
+     ],
+     "name_en": "Trumpchi Yue 7"
     },
     {
      "series_id": 5944,
@@ -59319,9 +59918,9 @@
     {
      "series_id": 5193,
      "name": "捷达VS7",
-     "first_launch": "2025.10",
+     "first_launch": "2024.04",
      "price_min_cny": 97900,
-     "price_max_cny": 120900,
+     "price_max_cny": 141900,
      "trims": [
       {
        "spec_id": 75281,
@@ -59357,6 +59956,13 @@
        "price_cny": 120900,
        "launch": "2025.10",
        "name_en": "2026 Qianlijiangshan 280TSI Automatic Honor"
+      },
+      {
+       "spec_id": 67303,
+       "name": "2024款 280TSI 自动旗舰版",
+       "price_cny": 141900,
+       "launch": "2024.04",
+       "name_en": "2024 280TSI Automatic Flagship"
       }
      ],
      "name_en": "Jetta VS7"
@@ -62447,6 +63053,79 @@
    "brand_latin": null,
    "models": [
     {
+     "series_id": 8596,
+     "name": "方程S",
+     "first_launch": "2026.09",
+     "price_min_cny": 189900,
+     "price_max_cny": 239900,
+     "trims": [
+      {
+       "spec_id": 77573,
+       "name": "2026款 730KM云辇C后驱版",
+       "price_cny": 189900,
+       "launch": "2026.09",
+       "name_en": "2026 730KM Yunnian C RWD Ed."
+      },
+      {
+       "spec_id": 79228,
+       "name": "2026款 900KM云辇A后驱版",
+       "price_cny": 209900,
+       "launch": "2026.09",
+       "name_en": "2026 900KM Yunnian A RWD Ed."
+      },
+      {
+       "spec_id": 78158,
+       "name": "2026款 900KM云辇M后驱版",
+       "price_cny": 209900,
+       "launch": "2026.09",
+       "name_en": "2026 900KM Yunnian M RWD Ed."
+      },
+      {
+       "spec_id": 79226,
+       "name": "2026款 GT 850KM云辇A后驱版",
+       "price_cny": 219900,
+       "launch": "2026.09",
+       "name_en": "2026 GT 850KM Yunnian A RWD Ed."
+      },
+      {
+       "spec_id": 78157,
+       "name": "2026款 GT 850KM云辇M后驱版",
+       "price_cny": 219900,
+       "launch": "2026.09",
+       "name_en": "2026 GT 850KM Yunnian M RWD Ed."
+      },
+      {
+       "spec_id": 78156,
+       "name": "2026款 750KM云辇A四驱版",
+       "price_cny": 229900,
+       "launch": "2026.09",
+       "name_en": "2026 750KM Yunnian A AWD Ed."
+      },
+      {
+       "spec_id": 79229,
+       "name": "2026款 750KM云辇M四驱版",
+       "price_cny": 229900,
+       "launch": "2026.09",
+       "name_en": "2026 750KM Yunnian M AWD Ed."
+      },
+      {
+       "spec_id": 79227,
+       "name": "2026款 GT 730KM云辇A四驱版",
+       "price_cny": 239900,
+       "launch": "2026.09",
+       "name_en": "2026 GT 730KM Yunnian A AWD Ed."
+      },
+      {
+       "spec_id": 77574,
+       "name": "2026款 GT 730KM云辇M四驱版",
+       "price_cny": 239900,
+       "launch": "2026.09",
+       "name_en": "2026 GT 730KM Yunnian M AWD Ed."
+      }
+     ],
+     "name_en": "Fangcheng S"
+    },
+    {
      "series_id": 7177,
      "name": "豹5",
      "first_launch": "2025.02",
@@ -63187,6 +63866,13 @@
      "price_max_cny": 158900,
      "trims": [
       {
+       "spec_id": 79279,
+       "name": "2027款 510 Air",
+       "price_cny": 119900,
+       "launch": "2026.09",
+       "name_en": "2027 510 Air"
+      },
+      {
        "spec_id": 72878,
        "name": "2025款 510 Air",
        "price_cny": 119900,
@@ -63194,11 +63880,32 @@
        "name_en": "2025 510 Air"
       },
       {
+       "spec_id": 79280,
+       "name": "2027款 510 Pro",
+       "price_cny": 129900,
+       "launch": "2026.09",
+       "name_en": "2027 510 Pro"
+      },
+      {
        "spec_id": 72879,
        "name": "2025款 510 Pro",
        "price_cny": 129900,
        "launch": "2025.04",
        "name_en": "2025 510 Pro"
+      },
+      {
+       "spec_id": 79281,
+       "name": "2027款 625 Pro",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2027 625 Pro"
+      },
+      {
+       "spec_id": 79282,
+       "name": "2027款 510 Max 激光雷达版",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2027 510 Max LiDAR Ed."
       },
       {
        "spec_id": 71933,
@@ -63229,11 +63936,25 @@
        "name_en": "2026 625 Pro Laiyinqishi"
       },
       {
+       "spec_id": 79144,
+       "name": "2027款 625 Max 激光雷达版",
+       "price_cny": 149900,
+       "launch": "2026.09",
+       "name_en": "2027 625 Max LiDAR Ed."
+      },
+      {
        "spec_id": 70809,
        "name": "2025款 625 Max",
        "price_cny": 149900,
        "launch": "2025.04",
        "name_en": "2025 625 Max"
+      },
+      {
+       "spec_id": 79283,
+       "name": "2027款 615 Max 黑骑士 激光雷达版",
+       "price_cny": 156900,
+       "launch": "2026.09",
+       "name_en": "2027 615 Max Heiqishi LiDAR Ed."
       },
       {
        "spec_id": 77571,
@@ -63592,6 +64313,30 @@
       }
      ],
      "name_en": "Qashqai"
+    },
+    {
+     "series_id": 264,
+     "name": "途乐",
+     "first_launch": "2022.07",
+     "price_min_cny": 798000,
+     "price_max_cny": 838000,
+     "trims": [
+      {
+       "spec_id": 58532,
+       "name": "2023款 ARMADA 5.6L 无敌舰队铂金版",
+       "price_cny": 798000,
+       "launch": "2022.07",
+       "name_en": "2023 ARMADA 5.6L Wudijianduibojin Ed."
+      },
+      {
+       "spec_id": 57831,
+       "name": "2023款 ARMADA 5.6L 无敌舰队旗舰版",
+       "price_cny": 838000,
+       "launch": "2022.07",
+       "name_en": "2023 ARMADA 5.6L Wudijiandui Flagship"
+      }
+     ],
+     "name_en": "Tule"
     },
     {
      "series_id": 8316,
@@ -64798,7 +65543,7 @@
      "name": "智己L7",
      "first_launch": "2024.02",
      "price_min_cny": 299900,
-     "price_max_cny": 419900,
+     "price_max_cny": 299900,
      "trims": [
       {
        "spec_id": 66834,
@@ -64806,27 +65551,6 @@
        "price_cny": 299900,
        "launch": "2024.02",
        "name_en": "2024 MAX Extended Range Ed."
-      },
-      {
-       "spec_id": 66715,
-       "name": "2024款 MAX 长续航性能版",
-       "price_cny": 349900,
-       "launch": "2024.02",
-       "name_en": "2024 MAX Long Range Performance"
-      },
-      {
-       "spec_id": 66716,
-       "name": "2024款 MAX 长续航旗舰版",
-       "price_cny": 389900,
-       "launch": "2024.02",
-       "name_en": "2024 MAX Long Range Flagship"
-      },
-      {
-       "spec_id": 66850,
-       "name": "2024款 MAX SP 特别版",
-       "price_cny": 419900,
-       "launch": "2024.02",
-       "name_en": "2024 MAX SP Special"
       }
      ],
      "name_en": "IM Motors L7"
@@ -64835,9 +65559,23 @@
      "series_id": 7305,
      "name": "智己LS6",
      "first_launch": "2025.09",
-     "price_min_cny": 229900,
+     "price_min_cny": 202900,
      "price_max_cny": 264900,
      "trims": [
+      {
+       "spec_id": 79139,
+       "name": "2027款 纯电 Max",
+       "price_cny": 202900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Max"
+      },
+      {
+       "spec_id": 78966,
+       "name": "2027款 纯电 Pro Max",
+       "price_cny": 222900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Pro Max"
+      },
       {
        "spec_id": 74251,
        "name": "2026款 增程 52 Max",
@@ -64858,6 +65596,13 @@
        "price_cny": 244900,
        "launch": "2025.10",
        "name_en": "2026 EREV 52 Max+"
+      },
+      {
+       "spec_id": 79146,
+       "name": "2027款 纯电 Ultra",
+       "price_cny": 264900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Ultra"
       },
       {
        "spec_id": 73161,
@@ -64987,9 +65732,16 @@
      "series_id": 7730,
      "name": "智界R7",
      "first_launch": "2025.08",
-     "price_min_cny": 249800,
+     "price_min_cny": 239800,
      "price_max_cny": 319800,
      "trims": [
+      {
+       "spec_id": 79362,
+       "name": "2027款 纯电 Max",
+       "price_cny": 239800,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Max"
+      },
       {
        "spec_id": 74141,
        "name": "2026款 纯电 Max(192线激光雷达）",
@@ -65003,6 +65755,13 @@
        "price_cny": 249800,
        "launch": "2025.08",
        "name_en": "2026 EREV Max(192-line LiDAR)"
+      },
+      {
+       "spec_id": 79363,
+       "name": "2027款 纯电 Max+",
+       "price_cny": 259800,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Max+"
       },
       {
        "spec_id": 76931,
@@ -65047,6 +65806,13 @@
        "name_en": "2026 EREV Max+(896-line LiDAR)"
       },
       {
+       "spec_id": 79364,
+       "name": "2027款 纯电 Max+ 长续航版",
+       "price_cny": 289800,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Max+ Long Range Ed."
+      },
+      {
        "spec_id": 74052,
        "name": "2026款 纯电 UItra(192线激光雷达）",
        "price_cny": 309800,
@@ -65059,6 +65825,13 @@
        "price_cny": 309800,
        "launch": "2025.08",
        "name_en": "2026 EREV Ultra(192-line LiDAR)"
+      },
+      {
+       "spec_id": 78535,
+       "name": "2027款 纯电 Ultra",
+       "price_cny": 319800,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Ultra"
       },
       {
        "spec_id": 76933,
@@ -65076,6 +65849,58 @@
       }
      ],
      "name_en": "Luxeed R7"
+    },
+    {
+     "series_id": 8684,
+     "name": "智界RX",
+     "first_launch": "2026.09",
+     "price_min_cny": 259800,
+     "price_max_cny": 389800,
+     "trims": [
+      {
+       "spec_id": 79264,
+       "name": "2026款 Max",
+       "price_cny": 259800,
+       "launch": "2026.09",
+       "name_en": "2026 Max"
+      },
+      {
+       "spec_id": 78155,
+       "name": "2026款 Max 长续航版",
+       "price_cny": 289800,
+       "launch": "2026.09",
+       "name_en": "2026 Max Long Range Ed."
+      },
+      {
+       "spec_id": 79263,
+       "name": "2026款 Ultra",
+       "price_cny": 319800,
+       "launch": "2026.09",
+       "name_en": "2026 Ultra"
+      },
+      {
+       "spec_id": 78916,
+       "name": "2026款 Ultra 长续航版",
+       "price_cny": 349800,
+       "launch": "2026.09",
+       "name_en": "2026 Ultra Long Range Ed."
+      },
+      {
+       "spec_id": 78055,
+       "name": "2026款 Ultra 四驱版",
+       "price_cny": 369800,
+       "launch": "2026.09",
+       "name_en": "2026 Ultra AWD Ed."
+      },
+      {
+       "spec_id": 78917,
+       "name": "2026款 Ultra+",
+       "price_cny": 389800,
+       "launch": "2026.09",
+       "name_en": "2026 Ultra+"
+      }
+     ],
+     "name_en": "Luxeed RX"
     },
     {
      "series_id": 7355,
@@ -65368,15 +66193,36 @@
      "series_id": 880,
      "name": "奥德赛",
      "first_launch": "2025.08",
-     "price_min_cny": 235800,
+     "price_min_cny": 184800,
      "price_max_cny": 328800,
      "trims": [
+      {
+       "spec_id": 79230,
+       "name": "2027款 PRO",
+       "price_cny": 184800,
+       "launch": "2026.09",
+       "name_en": "2027 PRO"
+      },
+      {
+       "spec_id": 79352,
+       "name": "2027款 PRO+",
+       "price_cny": 231800,
+       "launch": "2026.09",
+       "name_en": "2027 PRO+"
+      },
       {
        "spec_id": 73968,
        "name": "2026款 2.0L e:HEV 锐·悦享版",
        "price_cny": 235800,
        "launch": "2025.08",
        "name_en": "2026 2.0L e:HEV Rui · Yuexiang Ed."
+      },
+      {
+       "spec_id": 79351,
+       "name": "2027款 MAX",
+       "price_cny": 241800,
+       "launch": "2026.09",
+       "name_en": "2027 MAX"
       },
       {
        "spec_id": 74421,
@@ -67036,6 +67882,13 @@
      "price_max_cny": 168700,
      "trims": [
       {
+       "spec_id": 77608,
+       "name": "2027款 360THP Max",
+       "price_cny": 159700,
+       "launch": "2026.09",
+       "name_en": "2027 360THP Max"
+      },
+      {
        "spec_id": 68940,
        "name": "2024款 360THP 驾趣版",
        "price_cny": 159700,
@@ -67122,11 +67975,25 @@
        "name_en": "2026 Guoji Ed."
       },
       {
+       "spec_id": 79295,
+       "name": "2027款 400THP Pro",
+       "price_cny": 169700,
+       "launch": "2026.09",
+       "name_en": "2027 400THP Pro"
+      },
+      {
        "spec_id": 72120,
        "name": "2025款 豪华版",
        "price_cny": 178700,
        "launch": "2025.03",
        "name_en": "2025 Luxury"
+      },
+      {
+       "spec_id": 79158,
+       "name": "2027款 400THP Max",
+       "price_cny": 179700,
+       "launch": "2026.09",
+       "name_en": "2027 400THP Max"
       },
       {
        "spec_id": 72121,
@@ -68114,11 +68981,46 @@
        "name_en": "2025 301KM Linghang"
       },
       {
+       "spec_id": 79231,
+       "name": "2027款 飞驰版 301KM 领航型",
+       "price_cny": 74800,
+       "launch": "2026.09",
+       "name_en": "2027 Feichi Ed. 301KM Linghang"
+      },
+      {
+       "spec_id": 79175,
+       "name": "2027款 飞驰版 401KM 领航型",
+       "price_cny": 81800,
+       "launch": "2026.09",
+       "name_en": "2027 Feichi Ed. 401KM Linghang"
+      },
+      {
+       "spec_id": 79188,
+       "name": "2027款 飞驰版 401KM 活力型",
+       "price_cny": 89800,
+       "launch": "2026.09",
+       "name_en": "2027 Feichi Ed. 401KM Huoli"
+      },
+      {
+       "spec_id": 77044,
+       "name": "2027款 飞驰版 501KM 超越型",
+       "price_cny": 94800,
+       "launch": "2026.09",
+       "name_en": "2027 Feichi Ed. 501KM Chaoyue"
+      },
+      {
        "spec_id": 71683,
        "name": "2025款 智驾版 401KM 活力版",
        "price_cny": 99800,
        "launch": "2025.02",
        "name_en": "2025 ADAS 401KM Huoli Ed."
+      },
+      {
+       "spec_id": 77045,
+       "name": "2027款 飞驰版 501KM 卓越型",
+       "price_cny": 104800,
+       "launch": "2026.09",
+       "name_en": "2027 Feichi Ed. 501KM Excellence"
       },
       {
        "spec_id": 71256,
@@ -68615,75 +69517,6 @@
       }
      ],
      "name_en": "Song Ultra"
-    },
-    {
-     "series_id": 6671,
-     "name": "护卫舰07",
-     "first_launch": "2024.03",
-     "price_min_cny": 179800,
-     "price_max_cny": 259800,
-     "trims": [
-      {
-       "spec_id": 67250,
-       "name": "2024款 荣耀版 DM-i 100KM 精英型",
-       "price_cny": 179800,
-       "launch": "2024.03",
-       "name_en": "2024 Honor DM-i 100KM Elite"
-      },
-      {
-       "spec_id": 67271,
-       "name": "2024款 荣耀版 DM-i 100KM 豪华型",
-       "price_cny": 189800,
-       "launch": "2024.03",
-       "name_en": "2024 Honor DM-i 100KM Luxury"
-      },
-      {
-       "spec_id": 67272,
-       "name": "2024款 荣耀版 DM-i 100KM 尊贵型",
-       "price_cny": 202800,
-       "launch": "2024.03",
-       "name_en": "2024 Honor DM-i 100KM Deluxe"
-      },
-      {
-       "spec_id": 67273,
-       "name": "2024款 荣耀版 DM-i 205KM 旗舰型",
-       "price_cny": 229800,
-       "launch": "2024.03",
-       "name_en": "2024 Honor DM-i 205KM Flagship"
-      },
-      {
-       "spec_id": 67274,
-       "name": "2024款 荣耀版 DM-p 175KM 四驱旗舰型",
-       "price_cny": 259800,
-       "launch": "2024.03",
-       "name_en": "2024 Honor DM-p 175KM AWD Flagship"
-      }
-     ],
-     "name_en": "Frigate 07"
-    },
-    {
-     "series_id": 5825,
-     "name": "比亚迪D1",
-     "first_launch": "2022.11",
-     "price_min_cny": 160800,
-     "price_max_cny": 169800,
-     "trims": [
-      {
-       "spec_id": 60414,
-       "name": "2022款 标准版",
-       "price_cny": 160800,
-       "launch": "2022.11",
-       "name_en": "2022 Standard"
-      },
-      {
-       "spec_id": 63696,
-       "name": "2023款 超越版",
-       "price_cny": 169800,
-       "launch": "2023.07",
-       "name_en": "2023 Chaoyue Ed."
-      }
-     ],
-     "name_en": "BYD D1"
     },
     {
      "series_id": 8184,
@@ -81293,11 +82126,32 @@
      "price_max_cny": 505900,
      "trims": [
       {
+       "spec_id": 79214,
+       "name": "2027款 B5 智逸豪华版",
+       "price_cny": 406900,
+       "launch": "2026.09",
+       "name_en": "2027 B5 Zhiyi Luxury"
+      },
+      {
        "spec_id": 72950,
        "name": "2026款 B5 智逸豪华版",
        "price_cny": 406900,
        "launch": "2025.05",
        "name_en": "2026 B5 Zhiyi Luxury"
+      },
+      {
+       "spec_id": 79104,
+       "name": "2027款 B5 智远豪华版",
+       "price_cny": 450900,
+       "launch": "2026.09",
+       "name_en": "2027 B5 Zhiyuan Luxury"
+      },
+      {
+       "spec_id": 79215,
+       "name": "2027款 B5 智远运动版",
+       "price_cny": 450900,
+       "launch": "2026.09",
+       "name_en": "2027 B5 Zhiyuan Sport"
       },
       {
        "spec_id": 72951,
@@ -81312,6 +82166,13 @@
        "price_cny": 450900,
        "launch": "2025.05",
        "name_en": "2026 B5 Zhiyuan Sport"
+      },
+      {
+       "spec_id": 79216,
+       "name": "2027款 B5 智雅豪华版",
+       "price_cny": 505900,
+       "launch": "2026.09",
+       "name_en": "2027 B5 Zhiya Luxury"
       },
       {
        "spec_id": 72952,
@@ -82636,31 +83497,31 @@
      "trims": [
       {
        "spec_id": 75116,
-       "name": "2025款 改款 后轮驱动版",
+       "name": "2026款 后轮驱动版",
        "price_cny": 235500,
        "launch": "2025.10",
-       "name_en": "2025 Facelift Houlunqudong Ed."
+       "name_en": "2026 Houlunqudong Ed."
       },
       {
        "spec_id": 75117,
-       "name": "2025款 改款 长续航后轮驱动版",
+       "name": "2026款 长续航后轮驱动版",
        "price_cny": 259500,
        "launch": "2025.10",
-       "name_en": "2025 Facelift Long Range Houlunqudong Ed."
+       "name_en": "2026 Long Range Houlunqudong Ed."
       },
       {
        "spec_id": 75118,
-       "name": "2025款 改款 长续航全轮驱动版",
+       "name": "2026款 长续航全轮驱动版",
        "price_cny": 285500,
        "launch": "2025.10",
-       "name_en": "2025 Facelift Long Range Quanlunqudong Ed."
+       "name_en": "2026 Long Range Quanlunqudong Ed."
       },
       {
        "spec_id": 75119,
-       "name": "2025款 改款 高性能全轮驱动版",
+       "name": "2026款 高性能全轮驱动版",
        "price_cny": 339500,
        "launch": "2025.10",
-       "name_en": "2025 Facelift Gaoxingnengquanlunqudong Ed."
+       "name_en": "2026 Gaoxingnengquanlunqudong Ed."
       }
      ],
      "name_en": "Model 3"
@@ -83082,6 +83943,30 @@
       }
      ],
      "name_en": "Levante"
+    },
+    {
+     "series_id": 8204,
+     "name": "Mcpura",
+     "first_launch": "2026.09",
+     "price_min_cny": 2370000,
+     "price_max_cny": 2700000,
+     "trims": [
+      {
+       "spec_id": 73762,
+       "name": "2027款 硬顶版",
+       "price_cny": 2370000,
+       "launch": "2026.09",
+       "name_en": "2027 Yingding Ed."
+      },
+      {
+       "spec_id": 73763,
+       "name": "2027款 敞篷版",
+       "price_cny": 2700000,
+       "launch": "2026.09",
+       "name_en": "2027 Convertible Ed."
+      }
+     ],
+     "name_en": "Mcpura"
     },
     {
      "series_id": 5646,
@@ -83779,6 +84664,23 @@
       }
      ],
      "name_en": "Li Auto i8"
+    },
+    {
+     "series_id": 8727,
+     "name": "理想i9",
+     "first_launch": "2026.09",
+     "price_min_cny": 369800,
+     "price_max_cny": 369800,
+     "trims": [
+      {
+       "spec_id": 78523,
+       "name": "2026款 Home",
+       "price_cny": 369800,
+       "launch": "2026.09",
+       "name_en": "2026 Home"
+      }
+     ],
+     "name_en": "Li Auto i9"
     }
    ],
    "brand_en": "Li Auto"
@@ -84878,6 +85780,48 @@
        "price_cny": 69900,
        "launch": "2024.05",
        "name_en": "2024 EC31L Stake Body Pioneer II"
+      },
+      {
+       "spec_id": 1024570,
+       "name": "2027款 EC31L 栏板 先锋型",
+       "price_cny": 102900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31L Flatbed Pioneer"
+      },
+      {
+       "spec_id": 1024569,
+       "name": "2027款 EC31 厢式 先锋型",
+       "price_cny": 103900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31 Xiangshi Pioneer"
+      },
+      {
+       "spec_id": 1024572,
+       "name": "2027款 EC31S 栏板 先锋型",
+       "price_cny": 104900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31S Flatbed Pioneer"
+      },
+      {
+       "spec_id": 1024571,
+       "name": "2027款 EC31L 仓栅 先锋型",
+       "price_cny": 105900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31L Stake Body Pioneer"
+      },
+      {
+       "spec_id": 1024573,
+       "name": "2027款 EC31S 仓栅 先锋型",
+       "price_cny": 106900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31S Stake Body Pioneer"
+      },
+      {
+       "spec_id": 1024574,
+       "name": "2027款 EC31S 厢式 先锋型",
+       "price_cny": 107900,
+       "launch": "2026.09",
+       "name_en": "2027 EC31S Xiangshi Pioneer"
       },
       {
        "spec_id": 1018689,
@@ -87525,156 +88469,6 @@
       }
      ],
      "name_en": "Explorer"
-    },
-    {
-     "series_id": 2524,
-     "name": "新世代全顺",
-     "first_launch": "2020.12",
-     "price_min_cny": 163800,
-     "price_max_cny": 253000,
-     "trims": [
-      {
-       "spec_id": 1010659,
-       "name": "2021款 2.2T手动厢式货车Pro短轴3座低顶国VI",
-       "price_cny": 163800,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro SWB 3-seat Low Roof China VI"
-      },
-      {
-       "spec_id": 1010660,
-       "name": "2021款 2.2T手动厢式货车Pro短轴3座中顶国VI",
-       "price_cny": 166000,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro SWB 3-seat Mid Roof China VI"
-      },
-      {
-       "spec_id": 1010651,
-       "name": "2021款 2.2T自动厢式货车Pro短轴3座低顶国VI",
-       "price_cny": 169600,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Automatic Xiangshihuoche Pro SWB 3-seat Low Roof China VI"
-      },
-      {
-       "spec_id": 1010661,
-       "name": "2021款 2.2T手动厢式货车Pro长轴3座中顶国VI",
-       "price_cny": 191900,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro LWB 3-seat Mid Roof China VI"
-      },
-      {
-       "spec_id": 1010662,
-       "name": "2021款 2.2T手动厢式货车Pro长轴3座高顶国VI",
-       "price_cny": 193800,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro LWB 3-seat High Roof China VI"
-      },
-      {
-       "spec_id": 1014819,
-       "name": "2022款 2.2T手动物流车Pro中轴7座中高顶",
-       "price_cny": 196800,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Manual Wuliuche Pro Zhongzhou 7-seat Zhong High Roof"
-      },
-      {
-       "spec_id": 1014820,
-       "name": "2022款 2.2T手动物流车Pro中轴7座高顶",
-       "price_cny": 200300,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Manual Wuliuche Pro Zhongzhou 7-seat High Roof"
-      },
-      {
-       "spec_id": 1010663,
-       "name": "2021款 2.2T手动厢式货车Pro5.9米长轴后双胎3座中顶国VI",
-       "price_cny": 201900,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro5.9 m LWB DRW 3-seat Mid Roof China VI"
-      },
-      {
-       "spec_id": 1014821,
-       "name": "2022款 2.2T自动物流车Pro中轴7座中高顶",
-       "price_cny": 202800,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Automatic Wuliuche Pro Zhongzhou 7-seat Zhong High Roof"
-      },
-      {
-       "spec_id": 1010664,
-       "name": "2021款 2.2T手动厢式货车Pro5.9米长轴后双胎3座高顶国VI",
-       "price_cny": 203800,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro5.9 m LWB DRW 3-seat High Roof China VI"
-      },
-      {
-       "spec_id": 1014822,
-       "name": "2022款 2.2T自动物流车Pro中轴7座高顶",
-       "price_cny": 206300,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Automatic Wuliuche Pro Zhongzhou 7-seat High Roof"
-      },
-      {
-       "spec_id": 1010665,
-       "name": "2021款 2.2T手动厢式货车Pro加长轴后双胎3座中顶国VI",
-       "price_cny": 216800,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro Extended Zhou DRW 3-seat Mid Roof China VI"
-      },
-      {
-       "spec_id": 1010666,
-       "name": "2021款 2.2T手动厢式货车Pro加长轴后双胎3座高顶国VI",
-       "price_cny": 223600,
-       "launch": "2020.12",
-       "name_en": "2021 2.2T Manual Xiangshihuoche Pro Extended Zhou DRW 3-seat High Roof China VI"
-      },
-      {
-       "spec_id": 1014823,
-       "name": "2022款 2.2T手动普通型客车Pro中轴9座中高顶",
-       "price_cny": 229200,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Manual Putong Bus Pro Zhongzhou 9-seat Zhong High Roof"
-      },
-      {
-       "spec_id": 1014824,
-       "name": "2022款 2.2T手动普通型客车Pro中轴9座高顶",
-       "price_cny": 232700,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Manual Putong Bus Pro Zhongzhou 9-seat High Roof"
-      },
-      {
-       "spec_id": 1014825,
-       "name": "2022款 2.2T自动普通型客车Pro中轴9座中高顶",
-       "price_cny": 235200,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Automatic Putong Bus Pro Zhongzhou 9-seat Zhong High Roof"
-      },
-      {
-       "spec_id": 1014826,
-       "name": "2022款 2.2T自动普通型客车Pro中轴9座高顶",
-       "price_cny": 238700,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Automatic Putong Bus Pro Zhongzhou 9-seat High Roof"
-      },
-      {
-       "spec_id": 1014827,
-       "name": "2022款 2.2T手动豪华型客车Pro中轴9座中高顶",
-       "price_cny": 246500,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Manual Luxury Bus Pro Zhongzhou 9-seat Zhong High Roof"
-      },
-      {
-       "spec_id": 1014828,
-       "name": "2022款 2.2T自动豪华型客车Pro中轴9座高顶",
-       "price_cny": 252500,
-       "launch": "2022.11",
-       "name_en": "2022 2.2T Automatic Luxury Bus Pro Zhongzhou 9-seat High Roof"
-      },
-      {
-       "spec_id": 1015770,
-       "name": "2023款 2.2T自动普通型客车长轴后双胎10-15座高顶",
-       "price_cny": 253000,
-       "launch": "2023.04",
-       "name_en": "2023 2.2T Automatic Putong Bus LWB DRW 10-15-seat High Roof"
-      }
-     ],
-     "name_en": "Xinshidaiquanshun"
     },
     {
      "series_id": 6931,
@@ -94291,44 +95085,6 @@
      "name_en": "Xiangling M NEV"
     },
     {
-     "series_id": 7369,
-     "name": "祥菱Q EV",
-     "first_launch": "2023.08",
-     "price_min_cny": 167800,
-     "price_max_cny": 168800,
-     "trims": [
-      {
-       "spec_id": 1016879,
-       "name": "2023款 宁德时代41.86kWh单排短轴",
-       "price_cny": 167800,
-       "launch": "2023.08",
-       "name_en": "2023 CATL 41.86kWh Single Cab SWB"
-      },
-      {
-       "spec_id": 1016881,
-       "name": "2023款 宁德时代41.86kWh双排短轴",
-       "price_cny": 167800,
-       "launch": "2023.08",
-       "name_en": "2023 CATL 41.86kWh Double Cab SWB"
-      },
-      {
-       "spec_id": 1016880,
-       "name": "2023款 宁德时代41.86kWh单排长轴",
-       "price_cny": 168800,
-       "launch": "2023.08",
-       "name_en": "2023 CATL 41.86kWh Single Cab LWB"
-      },
-      {
-       "spec_id": 1016878,
-       "name": "2023款 宁德时代41.86kWh双排长轴",
-       "price_cny": 168800,
-       "launch": "2023.08",
-       "name_en": "2023 CATL 41.86kWh Double Cab LWB"
-      }
-     ],
-     "name_en": "Xiangling Q EV"
-    },
-    {
      "series_id": 5018,
      "name": "祥菱S",
      "first_launch": "2018.11",
@@ -97017,16 +97773,9 @@
      "series_id": 7940,
      "name": "风景i",
      "first_launch": "2025.02",
-     "price_min_cny": 84000,
+     "price_min_cny": 100800,
      "price_max_cny": 210000,
      "trims": [
-      {
-       "spec_id": 1024513,
-       "name": "2026款 i7 多功能 宁德时代43.53kWh 平顶短轴单胎 4座",
-       "price_cny": 84000,
-       "launch": "2026.09",
-       "name_en": "2026 i7 Duogongneng CATL 43.53kWh Pingding SWB Dantai 4-seat"
-      },
       {
        "spec_id": 1024283,
        "name": "2026款 i7 多功能 爱易科40.18kWh 平顶短轴单胎 6座",
@@ -97054,6 +97803,13 @@
        "price_cny": 104800,
        "launch": "2025.04",
        "name_en": "2025 i7 Duogongneng SWB FWD Aiyike 41.86kWh Zhiyuan Ed. Pingdingdantai 6-seat"
+      },
+      {
+       "spec_id": 1024513,
+       "name": "2026款 i7 多功能 宁德时代43.53kWh 平顶短轴单胎 4座",
+       "price_cny": 107400,
+       "launch": "2026.09",
+       "name_en": "2026 i7 Duogongneng CATL 43.53kWh Pingding SWB Dantai 4-seat"
       },
       {
        "spec_id": 1020149,
@@ -99780,9 +100536,40 @@
      "name_en": "Hongqi H6"
     },
     {
+     "series_id": 4845,
+     "name": "红旗H7 PHEV",
+     "first_launch": "2026.09",
+     "price_min_cny": 191800,
+     "price_max_cny": 231800,
+     "trims": [
+      {
+       "spec_id": 78839,
+       "name": "2026款 180 智混版",
+       "price_cny": 191800,
+       "launch": "2026.09",
+       "name_en": "2026 180 Zhihun Ed."
+      },
+      {
+       "spec_id": 78419,
+       "name": "2026款 240 智混版",
+       "price_cny": 206800,
+       "launch": "2026.09",
+       "name_en": "2026 240 Zhihun Ed."
+      },
+      {
+       "spec_id": 77243,
+       "name": "2026款 210 四驱智混版",
+       "price_cny": 231800,
+       "launch": "2026.09",
+       "name_en": "2026 210 AWD Zhihun Ed."
+      }
+     ],
+     "name_en": "Hongqi H7 PHEV"
+    },
+    {
      "series_id": 5566,
      "name": "红旗H9",
-     "first_launch": "2024.04",
+     "first_launch": "2025.08",
      "price_min_cny": 329800,
      "price_max_cny": 539800,
      "trims": [
@@ -99801,34 +100588,6 @@
        "name_en": "2025 Facelift 2.0T 2WD Qixiangsixiangfengshang Ed. 5-seat"
       },
       {
-       "spec_id": 67958,
-       "name": "2024款 2.0T 旗享 豪华商务版",
-       "price_cny": 329800,
-       "launch": "2024.04",
-       "name_en": "2024 2.0T Qixiang Luxury Business"
-      },
-      {
-       "spec_id": 67959,
-       "name": "2024款 2.0T 旗享 私享风尚版",
-       "price_cny": 329800,
-       "launch": "2024.04",
-       "name_en": "2024 2.0T Qixiang Sixiangfengshang Ed."
-      },
-      {
-       "spec_id": 72955,
-       "name": "2025款 2.0T 两驱旗享豪华商务版 5座",
-       "price_cny": 329800,
-       "launch": "2025.05",
-       "name_en": "2025 2.0T 2WD Qixiang Luxury Business 5-seat"
-      },
-      {
-       "spec_id": 72956,
-       "name": "2025款 2.0T 两驱旗享私享风尚版 5座",
-       "price_cny": 329800,
-       "launch": "2025.05",
-       "name_en": "2025 2.0T 2WD Qixiangsixiangfengshang Ed. 5-seat"
-      },
-      {
        "spec_id": 74292,
        "name": "2025款 改款 2.0T 两驱旗畅豪华商务版 5座",
        "price_cny": 369800,
@@ -99843,53 +100602,11 @@
        "name_en": "2025 Facelift 2.0T 2WD Qichangsixiangfengshang Ed. 5-seat"
       },
       {
-       "spec_id": 67955,
-       "name": "2024款 2.0T 旗畅 豪华商务版",
-       "price_cny": 369800,
-       "launch": "2024.04",
-       "name_en": "2024 2.0T Qichang Luxury Business"
-      },
-      {
-       "spec_id": 67893,
-       "name": "2024款 2.0T 旗畅 私享风尚版",
-       "price_cny": 369800,
-       "launch": "2024.04",
-       "name_en": "2024 2.0T Qichang Sixiangfengshang Ed."
-      },
-      {
-       "spec_id": 72957,
-       "name": "2025款 2.0T 两驱旗畅豪华商务版 5座",
-       "price_cny": 369800,
-       "launch": "2025.05",
-       "name_en": "2025 2.0T 2WD Qichang Luxury Business 5-seat"
-      },
-      {
-       "spec_id": 72958,
-       "name": "2025款 2.0T 两驱旗畅私享风尚版 5座",
-       "price_cny": 369800,
-       "launch": "2025.05",
-       "name_en": "2025 2.0T 2WD Qichangsixiangfengshang Ed. 5-seat"
-      },
-      {
        "spec_id": 74294,
        "name": "2025款 改款 3.0T 四驱旗畅豪华商务版 5座",
        "price_cny": 459800,
        "launch": "2025.08",
        "name_en": "2025 Facelift 3.0T AWD Qichang Luxury Business 5-seat"
-      },
-      {
-       "spec_id": 67956,
-       "name": "2024款 3.0T 旗畅 豪华商务版",
-       "price_cny": 459800,
-       "launch": "2024.04",
-       "name_en": "2024 3.0T Qichang Luxury Business"
-      },
-      {
-       "spec_id": 72959,
-       "name": "2025款 3.0T 四驱旗畅豪华商务版 5座",
-       "price_cny": 459800,
-       "launch": "2025.05",
-       "name_en": "2025 3.0T AWD Qichang Luxury Business 5-seat"
       },
       {
        "spec_id": 74295,
@@ -99904,34 +100621,6 @@
        "price_cny": 539800,
        "launch": "2025.08",
        "name_en": "2025 Facelift 3.0T AWD Qilingsixiangfengshang Ed. 4-seat"
-      },
-      {
-       "spec_id": 67957,
-       "name": "2024款 3.0T 旗领四驱 豪华商务版",
-       "price_cny": 539800,
-       "launch": "2024.04",
-       "name_en": "2024 3.0T Qiling AWD Luxury Business"
-      },
-      {
-       "spec_id": 66480,
-       "name": "2024款 3.0T 旗领四驱 私享风尚版",
-       "price_cny": 539800,
-       "launch": "2024.04",
-       "name_en": "2024 3.0T Qiling AWD Sixiangfengshang Ed."
-      },
-      {
-       "spec_id": 72960,
-       "name": "2025款 3.0T 四驱旗领豪华商务版 4座",
-       "price_cny": 539800,
-       "launch": "2025.05",
-       "name_en": "2025 3.0T AWD Qiling Luxury Business 4-seat"
-      },
-      {
-       "spec_id": 72961,
-       "name": "2025款 3.0T 四驱旗领私享风尚版 4座",
-       "price_cny": 539800,
-       "launch": "2025.05",
-       "name_en": "2025 3.0T AWD Qilingsixiangfengshang Ed. 4-seat"
       }
      ],
      "name_en": "Hongqi H9"
@@ -101103,6 +101792,13 @@
      "price_max_cny": 349800,
      "trims": [
       {
+       "spec_id": 79195,
+       "name": "2026款 纯电 闪充尊荣型",
+       "price_cny": 299800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric Shanchongzunrong"
+      },
+      {
        "spec_id": 75025,
        "name": "2025款 尊荣型",
        "price_cny": 299800,
@@ -101111,10 +101807,17 @@
       },
       {
        "spec_id": 77265,
-       "name": "2026款 闪充 尊荣型",
+       "name": "2026款 插混 闪充尊荣型",
        "price_cny": 319800,
        "launch": "2026.06",
-       "name_en": "2026 Shanchong Zunrong"
+       "name_en": "2026 Chahun Shanchongzunrong"
+      },
+      {
+       "spec_id": 78536,
+       "name": "2026款 纯电 闪充旗舰型",
+       "price_cny": 329800,
+       "launch": "2026.09",
+       "name_en": "2026 Electric Shanchong Flagship"
       },
       {
        "spec_id": 73159,
@@ -101125,10 +101828,10 @@
       },
       {
        "spec_id": 77266,
-       "name": "2026款 闪充 旗舰型",
+       "name": "2026款 插混 闪充旗舰型",
        "price_cny": 349800,
        "launch": "2026.06",
-       "name_en": "2026 Shanchong Flagship"
+       "name_en": "2026 Chahun Shanchong Flagship"
       }
      ],
      "name_en": "Denza N8L"
@@ -101281,6 +101984,37 @@
       }
      ],
      "name_en": "Denza Z9GT"
+    },
+    {
+     "series_id": 8758,
+     "name": "腾势Z9S",
+     "first_launch": "2026.09",
+     "price_min_cny": 255800,
+     "price_max_cny": 325800,
+     "trims": [
+      {
+       "spec_id": 77255,
+       "name": "2026款 闪充尊荣型",
+       "price_cny": 255800,
+       "launch": "2026.09",
+       "name_en": "2026 Shanchongzunrong"
+      },
+      {
+       "spec_id": 78730,
+       "name": "2026款 闪充旗舰型",
+       "price_cny": 275800,
+       "launch": "2026.09",
+       "name_en": "2026 Shanchong Flagship"
+      },
+      {
+       "spec_id": 77254,
+       "name": "2026款 易三方闪充性能型",
+       "price_cny": 325800,
+       "launch": "2026.09",
+       "name_en": "2026 Yi 3 Fangshanchongxingneng"
+      }
+     ],
+     "name_en": "Denza Z9S"
     }
    ],
    "brand_en": "Denza"
@@ -102368,7 +103102,7 @@
      "name": "FOR ME",
      "first_launch": "2026.03",
      "price_min_cny": 508000,
-     "price_max_cny": 638000,
+     "price_max_cny": 668000,
      "trims": [
       {
        "spec_id": 76605,
@@ -102385,11 +103119,11 @@
        "name_en": "2026 For Me SE"
       },
       {
-       "spec_id": 77496,
-       "name": "2026款 黑金限量版",
-       "price_cny": 638000,
-       "launch": "2026.04",
-       "name_en": "2026 Heijin Limited"
+       "spec_id": 79235,
+       "name": "2026款 For Me Scura",
+       "price_cny": 668000,
+       "launch": "2026.09",
+       "name_en": "2026 For Me Scura"
       }
      ],
      "name_en": "FOR ME"
@@ -102909,37 +103643,6 @@
    "brand_latin": null,
    "models": [
     {
-     "series_id": 7283,
-     "name": "凌R",
-     "first_launch": "2023.05",
-     "price_min_cny": 58500,
-     "price_max_cny": 85000,
-     "trims": [
-      {
-       "spec_id": 1016021,
-       "name": "2023款 汽油DAM16KL",
-       "price_cny": 58500,
-       "launch": "2023.05",
-       "name_en": "2023 Petrol DAM16KL"
-      },
-      {
-       "spec_id": 1016022,
-       "name": "2023款 柴油WP2.3Q115E62 液刹",
-       "price_cny": 81500,
-       "launch": "2023.05",
-       "name_en": "2023 Diesel WP2.3Q115E62 Yesha"
-      },
-      {
-       "spec_id": 1016023,
-       "name": "2023款 柴油WP2.3Q140E62 气刹",
-       "price_cny": 85000,
-       "launch": "2023.05",
-       "name_en": "2023 Diesel WP2.3Q140E62 Qisha"
-      }
-     ],
-     "name_en": "Ling R"
-    },
-    {
      "series_id": 7282,
      "name": "悦ER",
      "first_launch": "2024.10",
@@ -103272,6 +103975,13 @@
        "price_cny": 358000,
        "launch": "2026.04",
        "name_en": "2026 100kWh"
+      },
+      {
+       "spec_id": 79276,
+       "name": "2026款 灵韵特别版 100kWh",
+       "price_cny": 369800,
+       "launch": "2026.09",
+       "name_en": "2026 Lingyun Special 100kWh"
       },
       {
        "spec_id": 76976,
@@ -103869,7 +104579,7 @@
      "name": "赫菲特高顶赛那",
      "first_launch": "2025.08",
      "price_min_cny": 498000,
-     "price_max_cny": 508000,
+     "price_max_cny": 548000,
      "trims": [
       {
        "spec_id": 74107,
@@ -103884,6 +104594,27 @@
        "price_cny": 508000,
        "launch": "2025.09",
        "name_en": "2026 AWD Ed."
+      },
+      {
+       "spec_id": 79204,
+       "name": "2027款 四驱高顶版",
+       "price_cny": 518000,
+       "launch": "2026.09",
+       "name_en": "2027 AWD High Roof Ed."
+      },
+      {
+       "spec_id": 79259,
+       "name": "2027款 四驱高顶浩轩银翼款",
+       "price_cny": 518000,
+       "launch": "2026.09",
+       "name_en": "2027 AWD High Roof Haoxuanyinyi"
+      },
+      {
+       "spec_id": 79260,
+       "name": "2027款 四驱高顶星际凌云款",
+       "price_cny": 548000,
+       "launch": "2026.09",
+       "name_en": "2027 AWD High Roof Xingjilingyun"
       }
      ],
      "name_en": "Hefeiteqiche High Roof Saina"
@@ -105210,6 +105941,23 @@
      "name_en": "Mansory G Ji"
     },
     {
+     "series_id": 6119,
+     "name": "迈莎锐Urus",
+     "first_launch": "2021.04",
+     "price_min_cny": 5980000,
+     "price_max_cny": 5980000,
+     "trims": [
+      {
+       "spec_id": 50777,
+       "name": "2021款 4.0T V8 标准版",
+       "price_cny": 5980000,
+       "launch": "2021.04",
+       "name_en": "2021 4.0T V8 Standard"
+      }
+     ],
+     "name_en": "Mansory Urus"
+    },
+    {
      "series_id": 6136,
      "name": "迈莎锐V级",
      "first_launch": "2021.04",
@@ -105389,6 +106137,23 @@
       }
      ],
      "name_en": "Mansory Kulinan"
+    },
+    {
+     "series_id": 5839,
+     "name": "迈莎锐揽胜",
+     "first_launch": "2020.07",
+     "price_min_cny": 2588000,
+     "price_max_cny": 2588000,
+     "trims": [
+      {
+       "spec_id": 46866,
+       "name": "2020款 3.0T Black Carbon",
+       "price_cny": 2588000,
+       "launch": "2020.07",
+       "name_en": "2020 3.0T Black Carbon"
+      }
+     ],
+     "name_en": "Mansory Range Rover"
     },
     {
      "series_id": 5690,
@@ -109564,23 +110329,6 @@
      "name_en": "Kairuihaoke"
     },
     {
-     "series_id": 6848,
-     "name": "浩锐",
-     "first_launch": "2022.07",
-     "price_min_cny": 409000,
-     "price_max_cny": 409000,
-     "trims": [
-      {
-       "spec_id": 1014226,
-       "name": "2022款 3.0T XMQ6716AYD6T进取版 YCY30150-60A",
-       "price_cny": 409000,
-       "launch": "2022.07",
-       "name_en": "2022 3.0T XMQ6716AYD6T Progressive YCY30150-60A"
-      }
-     ],
-     "name_en": "Haorui"
-    },
-    {
      "series_id": 2986,
      "name": "金威",
      "first_launch": "2022.01",
@@ -113130,11 +113878,25 @@
      "price_max_cny": 99800,
      "trims": [
       {
+       "spec_id": 1024526,
+       "name": "2026款 干饭版 1.5T 汽油两驱进取型大双",
+       "price_cny": 69800,
+       "launch": "2026.09",
+       "name_en": "2026 Ganfan Ed. 1.5T Petrol 2WD Progressive Dashuang"
+      },
+      {
        "spec_id": 1016129,
        "name": "2023款 干饭版 1.5T 汽油两驱进取型大双",
        "price_cny": 69800,
        "launch": "2023.05",
        "name_en": "2023 Ganfan Ed. 1.5T Petrol 2WD Progressive Dashuang"
+      },
+      {
+       "spec_id": 1024527,
+       "name": "2026款 干饭版 1.5T 汽油两驱进取型长箱",
+       "price_cny": 71800,
+       "launch": "2026.09",
+       "name_en": "2026 Ganfan Ed. 1.5T Petrol 2WD Progressive Zhangxiang"
       },
       {
        "spec_id": 1016130,
@@ -113144,11 +113906,25 @@
        "name_en": "2023 Ganfan Ed. 1.5T Petrol 2WD Progressive Zhanghuoxiang"
       },
       {
+       "spec_id": 1024528,
+       "name": "2026款 2.4L 汽油小双两驱进取型",
+       "price_cny": 75800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Xiaoshuang 2WD Progressive"
+      },
+      {
        "spec_id": 1016240,
        "name": "2023款 2.4L 汽油两驱进取型小双",
        "price_cny": 75800,
        "launch": "2023.06",
        "name_en": "2023 2.4L Petrol 2WD Progressive Xiaoshuang"
+      },
+      {
+       "spec_id": 1024532,
+       "name": "2026款 2.4L 汽油大双两驱进取型",
+       "price_cny": 76800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Dashuang 2WD Progressive"
       },
       {
        "spec_id": 1016131,
@@ -113158,6 +113934,13 @@
        "name_en": "2023 2.4L Petrol 2WD Progressive Dashuang"
       },
       {
+       "spec_id": 1024536,
+       "name": "2026款 2.0T 柴油大双两驱进取型",
+       "price_cny": 79800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Dashuang 2WD Progressive"
+      },
+      {
        "spec_id": 1016137,
        "name": "2023款 2.0T 柴油两驱进取型大双",
        "price_cny": 79800,
@@ -113165,11 +113948,46 @@
        "name_en": "2023 2.0T Diesel 2WD Progressive Dashuang"
       },
       {
+       "spec_id": 1024529,
+       "name": "2026款 2.4L 汽油小双两驱精英型",
+       "price_cny": 80800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Xiaoshuang 2WD Elite"
+      },
+      {
        "spec_id": 1016241,
        "name": "2023款 2.4L 汽油两驱精英型小双",
        "price_cny": 80800,
        "launch": "2023.06",
        "name_en": "2023 2.4L Petrol 2WD Elite Xiaoshuang"
+      },
+      {
+       "spec_id": 1024533,
+       "name": "2026款 2.4L 汽油大双两驱精英型",
+       "price_cny": 81800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Dashuang 2WD Elite"
+      },
+      {
+       "spec_id": 1024538,
+       "name": "2026款 2.0T 柴油长箱两驱进取型",
+       "price_cny": 81800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Zhangxiang 2WD Progressive"
+      },
+      {
+       "spec_id": 1024540,
+       "name": "2026款 2.0T 柴油平箱两驱进取型",
+       "price_cny": 81800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Pingxiang 2WD Progressive"
+      },
+      {
+       "spec_id": 1024542,
+       "name": "2026款 2.4L 大双两驱进取型CNG",
+       "price_cny": 81800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Dashuang 2WD Progressive CNG"
       },
       {
        "spec_id": 1016132,
@@ -113207,11 +114025,32 @@
        "name_en": "2023 2.0T Diesel 2WD Elite Dashuang"
       },
       {
+       "spec_id": 1024530,
+       "name": "2026款 2.4L 汽油小双四驱进取型",
+       "price_cny": 85800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Xiaoshuang AWD Progressive"
+      },
+      {
        "spec_id": 1016242,
        "name": "2023款 2.4L 汽油四驱进取型小双",
        "price_cny": 85800,
        "launch": "2023.06",
        "name_en": "2023 2.4L Petrol AWD Progressive Xiaoshuang"
+      },
+      {
+       "spec_id": 1024534,
+       "name": "2026款 2.4L 汽油大双四驱进取型",
+       "price_cny": 86800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Dashuang AWD Progressive"
+      },
+      {
+       "spec_id": 1024543,
+       "name": "2026款 2.4L 大双两驱精英型CNG",
+       "price_cny": 86800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Dashuang 2WD Elite CNG"
       },
       {
        "spec_id": 1016133,
@@ -113242,11 +114081,32 @@
        "name_en": "2023 2.4L CNG + Petrol 2WD Elite Dashuang"
       },
       {
+       "spec_id": 1024531,
+       "name": "2026款 2.4L 汽油小双四驱精英型",
+       "price_cny": 90800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Xiaoshuang AWD Elite"
+      },
+      {
        "spec_id": 1016243,
        "name": "2023款 2.4L 汽油四驱精英型小双",
        "price_cny": 90800,
        "launch": "2023.06",
        "name_en": "2023 2.4L Petrol AWD Elite Xiaoshuang"
+      },
+      {
+       "spec_id": 1024535,
+       "name": "2026款 2.4L 汽油大双四驱精英型",
+       "price_cny": 91800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Petrol Dashuang AWD Elite"
+      },
+      {
+       "spec_id": 1024544,
+       "name": "2026款 2.4L 大双四驱进取型CNG",
+       "price_cny": 91800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Dashuang AWD Progressive CNG"
       },
       {
        "spec_id": 1016134,
@@ -113263,11 +114123,32 @@
        "name_en": "2023 2.4L CNG + Petrol AWD Progressive Dashuang"
       },
       {
+       "spec_id": 1024537,
+       "name": "2026款 2.0T 柴油大双四驱进取型",
+       "price_cny": 92800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Dashuang AWD Progressive"
+      },
+      {
        "spec_id": 1016139,
        "name": "2023款 2.0T 柴油四驱进取型大双",
        "price_cny": 92800,
        "launch": "2023.05",
        "name_en": "2023 2.0T Diesel AWD Progressive Dashuang"
+      },
+      {
+       "spec_id": 1024539,
+       "name": "2026款 2.0T 柴油长箱四驱进取型",
+       "price_cny": 94800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Zhangxiang AWD Progressive"
+      },
+      {
+       "spec_id": 1024541,
+       "name": "2026款 2.0T 柴油平箱四驱进取型",
+       "price_cny": 94800,
+       "launch": "2026.09",
+       "name_en": "2026 2.0T Diesel Pingxiang AWD Progressive"
       },
       {
        "spec_id": 1016143,
@@ -113282,6 +114163,13 @@
        "price_cny": 94800,
        "launch": "2023.07",
        "name_en": "2023 2.0T Diesel AWD Progressive Pingcaochexiang"
+      },
+      {
+       "spec_id": 1024545,
+       "name": "2026款 2.4L 大双四驱精英型CNG",
+       "price_cny": 96800,
+       "launch": "2026.09",
+       "name_en": "2026 2.4L Dashuang AWD Elite CNG"
       },
       {
        "spec_id": 1022968,
@@ -113438,10 +114326,10 @@
       },
       {
        "spec_id": 77530,
-       "name": "2026款 1.5L 蓝鲸超擎 劲享型",
+       "name": "2026款 1.5L 蓝鲸超擎混动 劲享型",
        "price_cny": 89900,
        "launch": "2026.04",
-       "name_en": "2026 1.5L Lanjingchaoqing Jinxiang"
+       "name_en": "2026 1.5L Lanjingchaoqing Hybrid Jinxiang"
       },
       {
        "spec_id": 74283,
@@ -113452,10 +114340,10 @@
       },
       {
        "spec_id": 77531,
-       "name": "2026款 1.5L 蓝鲸超擎 悦享型",
+       "name": "2026款 1.5L 蓝鲸超擎混动 悦享型",
        "price_cny": 93900,
        "launch": "2026.04",
-       "name_en": "2026 1.5L Lanjingchaoqing Yuexiang"
+       "name_en": "2026 1.5L Lanjingchaoqing Hybrid Yuexiang"
       },
       {
        "spec_id": 72161,
@@ -113473,10 +114361,10 @@
       },
       {
        "spec_id": 76819,
-       "name": "2026款 1.5L 蓝鲸超擎 智享型",
+       "name": "2026款 1.5L 蓝鲸超擎混动 智享型",
        "price_cny": 99900,
        "launch": "2026.04",
-       "name_en": "2026 1.5L Lanjingchaoqing Zhixiang"
+       "name_en": "2026 1.5L Lanjingchaoqing Hybrid Zhixiang"
       }
      ],
      "name_en": "Eado"
@@ -113611,10 +114499,10 @@
       },
       {
        "spec_id": 78914,
-       "name": "2027款 HEV 1.5T 蓝鲸超擎启航型",
+       "name": "2027款 1.5T 蓝鲸超擎混动 启航型",
        "price_cny": 98900,
        "launch": "2026.08",
-       "name_en": "2027 HEV 1.5T Lanjingchaoqingqihang"
+       "name_en": "2027 1.5T Lanjingchaoqing Hybrid Qihang"
       },
       {
        "spec_id": 74514,
@@ -113632,10 +114520,10 @@
       },
       {
        "spec_id": 78607,
-       "name": "2027款 HEV 1.5T 蓝鲸超擎乐途型",
+       "name": "2027款 1.5T 蓝鲸超擎混动 乐途型",
        "price_cny": 106900,
        "launch": "2026.08",
-       "name_en": "2027 HEV 1.5T Lanjingchaoqingletu"
+       "name_en": "2027 1.5T Lanjingchaoqing Hybrid Letu"
       },
       {
        "spec_id": 72642,
@@ -113667,10 +114555,10 @@
       },
       {
        "spec_id": 78915,
-       "name": "2027款 HEV 1.5T 蓝鲸超擎自在型",
+       "name": "2027款 1.5T 蓝鲸超擎混动 自在型",
        "price_cny": 113900,
        "launch": "2026.08",
-       "name_en": "2027 HEV 1.5T Lanjingchaoqingzizai"
+       "name_en": "2027 1.5T Lanjingchaoqing Hybrid Zizai"
       },
       {
        "spec_id": 72275,
@@ -113688,10 +114576,10 @@
       },
       {
        "spec_id": 76831,
-       "name": "2027款 HEV 1.5T 蓝鲸超擎天枢智享型",
+       "name": "2027款 1.5T 蓝鲸超擎混动 天枢智享型",
        "price_cny": 117900,
        "launch": "2026.08",
-       "name_en": "2027 HEV 1.5T Lanjingchaoqingtianshuzhixiang"
+       "name_en": "2027 1.5T Lanjingchaoqing Hybrid Tianshuzhixiang"
       }
      ],
      "name_en": "Changan CS55PLUS"
@@ -113816,10 +114704,10 @@
       },
       {
        "spec_id": 77553,
-       "name": "2026款 第四代 1.5T 蓝鲸超擎 真香型",
+       "name": "2026款 第四代 1.5T 蓝鲸超擎混动 真香型",
        "price_cny": 109900,
        "launch": "2026.04",
-       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Zhenxiang"
+       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Hybrid Zhenxiang"
       },
       {
        "spec_id": 73824,
@@ -113844,10 +114732,10 @@
       },
       {
        "spec_id": 77497,
-       "name": "2026款 第四代 1.5T 蓝鲸超擎 尊享型",
+       "name": "2026款 第四代 1.5T 蓝鲸超擎混动 尊享型",
        "price_cny": 121900,
        "launch": "2026.04",
-       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Premium"
+       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Hybrid Premium"
       },
       {
        "spec_id": 77936,
@@ -113865,10 +114753,10 @@
       },
       {
        "spec_id": 77498,
-       "name": "2026款 第四代 1.5T 蓝鲸超擎 旗舰型",
+       "name": "2026款 第四代 1.5T 蓝鲸超擎混动 旗舰型",
        "price_cny": 129900,
        "launch": "2026.04",
-       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Flagship"
+       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Hybrid Flagship"
       },
       {
        "spec_id": 77937,
@@ -113893,10 +114781,10 @@
       },
       {
        "spec_id": 75382,
-       "name": "2026款 第四代 1.5T 蓝鲸超擎 天枢领航型",
+       "name": "2026款 第四代 1.5T 蓝鲸超擎混动 天枢领航型",
        "price_cny": 139900,
        "launch": "2026.04",
-       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Tianshulinghang"
+       "name_en": "2026 Di 4 Dai 1.5T Lanjingchaoqing Hybrid Tianshulinghang"
       },
       {
        "spec_id": 77938,
@@ -114136,10 +115024,10 @@
       },
       {
        "spec_id": 78636,
-       "name": "2026款 HEV 1.5T 蓝鲸超擎 智悦型",
+       "name": "2026款 1.5T 蓝鲸超擎混动 智悦型",
        "price_cny": 114900,
        "launch": "2026.09",
-       "name_en": "2026 HEV 1.5T Lanjingchaoqing Zhiyue"
+       "name_en": "2026 1.5T Lanjingchaoqing Hybrid Zhiyue"
       },
       {
        "spec_id": 72298,
@@ -114178,10 +115066,10 @@
       },
       {
        "spec_id": 77068,
-       "name": "2026款 HEV 1.5T 蓝鲸超擎 智领型",
+       "name": "2026款 1.5T 蓝鲸超擎混动 智领型",
        "price_cny": 119900,
        "launch": "2026.09",
-       "name_en": "2026 HEV 1.5T Lanjingchaoqing Zhiling"
+       "name_en": "2026 1.5T Lanjingchaoqing Hybrid Zhiling"
       },
       {
        "spec_id": 72299,
@@ -118661,6 +119549,58 @@
       }
      ],
      "name_en": "Changan Nevo Q05"
+    },
+    {
+     "series_id": 8589,
+     "name": "长安启源Q06",
+     "first_launch": "2026.09",
+     "price_min_cny": 139900,
+     "price_max_cny": 169900,
+     "trims": [
+      {
+       "spec_id": 78878,
+       "name": "2027款 602 越享型",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2027 602 Yuexiang"
+      },
+      {
+       "spec_id": 79087,
+       "name": "2027款 602 智享型",
+       "price_cny": 149900,
+       "launch": "2026.09",
+       "name_en": "2027 602 Zhixiang"
+      },
+      {
+       "spec_id": 79085,
+       "name": "2027款 1600 双电机智享型",
+       "price_cny": 151900,
+       "launch": "2026.09",
+       "name_en": "2027 1600 Dual Motor Zhixiang"
+      },
+      {
+       "spec_id": 79089,
+       "name": "2027款 700 智享型",
+       "price_cny": 159900,
+       "launch": "2026.09",
+       "name_en": "2027 700 Zhixiang"
+      },
+      {
+       "spec_id": 78819,
+       "name": "2027款 700 智尊型",
+       "price_cny": 169900,
+       "launch": "2026.09",
+       "name_en": "2027 700 Zhizun"
+      },
+      {
+       "spec_id": 79285,
+       "name": "2027款 670 双电机智享型",
+       "price_cny": 169900,
+       "launch": "2026.09",
+       "name_en": "2027 670 Dual Motor Zhixiang"
+      }
+     ],
+     "name_en": "Changan Nevo Q06"
     },
     {
      "series_id": 7975,
@@ -124558,6 +125498,13 @@
        "name_en": "2026 Max Dual Motor EREV Ed."
       },
       {
+       "spec_id": 79261,
+       "name": "2026款 猎装骑士版",
+       "price_cny": 253900,
+       "launch": "2026.09",
+       "name_en": "2026 Liezhuangqishi Ed."
+      },
+      {
        "spec_id": 77445,
        "name": "2026款 Max+ 双电机纯电版",
        "price_cny": 259900,
@@ -125294,11 +126241,25 @@
        "name_en": "2026 Chaojixuediguoji Ed."
       },
       {
+       "spec_id": 79170,
+       "name": "2027款 360THP Pro",
+       "price_cny": 139700,
+       "launch": "2026.09",
+       "name_en": "2027 360THP Pro"
+      },
+      {
        "spec_id": 76491,
        "name": "2026款 改款 360THP 智享版",
        "price_cny": 149700,
        "launch": "2026.02",
        "name_en": "2026 Facelift 360THP Smart"
+      },
+      {
+       "spec_id": 79111,
+       "name": "2027款 400THP Max",
+       "price_cny": 153700,
+       "launch": "2026.09",
+       "name_en": "2027 400THP Max"
       },
       {
        "spec_id": 76397,
@@ -127393,58 +128354,6 @@
       }
      ],
      "name_en": "Lynk & Co 900"
-    },
-    {
-     "series_id": 7812,
-     "name": "领克Z20",
-     "first_launch": "2024.12",
-     "price_min_cny": 109900,
-     "price_max_cny": 150900,
-     "trims": [
-      {
-       "spec_id": 73953,
-       "name": "2026款 430km 后驱Plus",
-       "price_cny": 109900,
-       "launch": "2025.07",
-       "name_en": "2026 430km RWD Plus"
-      },
-      {
-       "spec_id": 73165,
-       "name": "2026款 430km 后驱Pro",
-       "price_cny": 121900,
-       "launch": "2025.07",
-       "name_en": "2026 430km RWD Pro"
-      },
-      {
-       "spec_id": 70771,
-       "name": "2025款 530km 后驱Pro",
-       "price_cny": 135900,
-       "launch": "2024.12",
-       "name_en": "2025 530km RWD Pro"
-      },
-      {
-       "spec_id": 70772,
-       "name": "2025款 530km 后驱Max",
-       "price_cny": 145900,
-       "launch": "2024.12",
-       "name_en": "2025 530km RWD Max"
-      },
-      {
-       "spec_id": 69213,
-       "name": "2025款 530km 后驱Max逐日版",
-       "price_cny": 150900,
-       "launch": "2024.12",
-       "name_en": "2025 530km RWD Max Zhuri Ed."
-      },
-      {
-       "spec_id": 75691,
-       "name": "2026款 530km后驱Max曜红版",
-       "price_cny": 150900,
-       "launch": "2025.11",
-       "name_en": "2026 530km RWD Max Yaohong Ed."
-      }
-     ],
-     "name_en": "Lynk & Co Z20"
     }
    ],
    "brand_en": "Lynk & Co"
@@ -127993,9 +128902,9 @@
     {
      "series_id": 3294,
      "name": "马自达3 昂克赛拉",
-     "first_launch": "2020.09",
+     "first_launch": "2025.07",
      "price_min_cny": 89900,
-     "price_max_cny": 189900,
+     "price_max_cny": 141900,
      "trims": [
       {
        "spec_id": 67402,
@@ -128003,13 +128912,6 @@
        "price_cny": 89900,
        "launch": "2025.07",
        "name_en": "2025 1.5L Manual Zhimei Ed."
-      },
-      {
-       "spec_id": 63609,
-       "name": "2023款 1.5L 手动质美版",
-       "price_cny": 89900,
-       "launch": "2023.06",
-       "name_en": "2023 1.5L Manual Zhimei Ed."
       },
       {
        "spec_id": 67403,
@@ -128026,32 +128928,11 @@
        "name_en": "2025 2.0L Automatic Zhiqing Ed."
       },
       {
-       "spec_id": 63610,
-       "name": "2023款 1.5L 自动质悦版",
-       "price_cny": 99900,
-       "launch": "2023.06",
-       "name_en": "2023 1.5L Automatic Zhiyue Ed."
-      },
-      {
-       "spec_id": 63611,
-       "name": "2023款 2.0L 自动质擎版",
-       "price_cny": 99900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhiqing Ed."
-      },
-      {
        "spec_id": 67405,
        "name": "2025款 2.0L 自动质炫版",
        "price_cny": 112900,
        "launch": "2025.07",
        "name_en": "2025 2.0L Automatic Zhixuan Ed."
-      },
-      {
-       "spec_id": 63612,
-       "name": "2023款 2.0L 自动质炫版",
-       "price_cny": 112900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhixuan Ed."
       },
       {
        "spec_id": 67406,
@@ -128061,25 +128942,11 @@
        "name_en": "2025 2.0L Automatic Zhiya Ed."
       },
       {
-       "spec_id": 63613,
-       "name": "2023款 2.0L 自动质雅版",
-       "price_cny": 115900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhiya Ed."
-      },
-      {
        "spec_id": 67407,
        "name": "2025款 2.0L 自动质耀版",
        "price_cny": 119900,
        "launch": "2025.07",
        "name_en": "2025 2.0L Automatic Zhiyao Ed."
-      },
-      {
-       "spec_id": 63614,
-       "name": "2023款 2.0L 自动质耀版",
-       "price_cny": 119900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhiyao Ed."
       },
       {
        "spec_id": 67408,
@@ -128089,32 +128956,11 @@
        "name_en": "2025 2.0L Automatic Zhizhen Ed."
       },
       {
-       "spec_id": 63615,
-       "name": "2023款 2.0L 自动质臻版",
-       "price_cny": 122900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhizhen Ed."
-      },
-      {
        "spec_id": 67409,
        "name": "2025款 2.0L 自动质尊版",
        "price_cny": 141900,
        "launch": "2025.07",
        "name_en": "2025 2.0L Automatic Zhizun Ed."
-      },
-      {
-       "spec_id": 63616,
-       "name": "2023款 2.0L 自动质尊版",
-       "price_cny": 141900,
-       "launch": "2023.06",
-       "name_en": "2023 2.0L Automatic Zhizun Ed."
-      },
-      {
-       "spec_id": 46812,
-       "name": "2020款 2.0L X压燃尊荣型",
-       "price_cny": 189900,
-       "launch": "2020.09",
-       "name_en": "2020 2.0L X Yaranzunrong"
       }
      ],
      "name_en": "Mazda 3 Axela"
@@ -128409,8 +129255,15 @@
      "name": "马自达EZ-60",
      "first_launch": "2025.09",
      "price_min_cny": 119900,
-     "price_max_cny": 166900,
+     "price_max_cny": 172900,
      "trims": [
+      {
+       "spec_id": 79335,
+       "name": "2027款 增程200 Air",
+       "price_cny": 119900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV 200 Air"
+      },
       {
        "spec_id": 75004,
        "name": "2025款 增程200 Air",
@@ -128424,6 +129277,13 @@
        "price_cny": 134900,
        "launch": "2025.09",
        "name_en": "2025 EREV 200 Air+"
+      },
+      {
+       "spec_id": 79336,
+       "name": "2027款 增程200 Pro",
+       "price_cny": 139900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV 200 Pro"
       },
       {
        "spec_id": 77443,
@@ -128445,6 +129305,13 @@
        "price_cny": 144900,
        "launch": "2025.09",
        "name_en": "2025 EREV 200 Pro"
+      },
+      {
+       "spec_id": 79341,
+       "name": "2027款 纯电600 Pro",
+       "price_cny": 145900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric 600 Pro"
       },
       {
        "spec_id": 77444,
@@ -128475,6 +129342,20 @@
        "name_en": "2025 Electric 600 Pro"
       },
       {
+       "spec_id": 79337,
+       "name": "2027款 增程200 Pro激光版",
+       "price_cny": 151900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV 200 Pro Jiguang Ed."
+      },
+      {
+       "spec_id": 79338,
+       "name": "2027款 增程200 Max",
+       "price_cny": 154900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV 200 Max"
+      },
+      {
        "spec_id": 72679,
        "name": "2025款 增程200 Max",
        "price_cny": 154900,
@@ -128487,6 +129368,27 @@
        "price_cny": 156900,
        "launch": "2026.01",
        "name_en": "2026 Electric 600 Pro Sport"
+      },
+      {
+       "spec_id": 79342,
+       "name": "2027款 纯电600 Pro激光版",
+       "price_cny": 157900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric 600 Pro Jiguang Ed."
+      },
+      {
+       "spec_id": 79340,
+       "name": "2027款 增程 Max运动版",
+       "price_cny": 160900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV Max Sport"
+      },
+      {
+       "spec_id": 79343,
+       "name": "2027款 纯电600 Max",
+       "price_cny": 160900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric 600 Max"
       },
       {
        "spec_id": 76125,
@@ -128503,11 +129405,32 @@
        "name_en": "2025 Electric 600 Max"
       },
       {
+       "spec_id": 79339,
+       "name": "2027款 增程200 Max激光版",
+       "price_cny": 166900,
+       "launch": "2026.09",
+       "name_en": "2027 EREV 200 Max Jiguang Ed."
+      },
+      {
+       "spec_id": 79345,
+       "name": "2027款 纯电 Max运动版",
+       "price_cny": 166900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric Max Sport"
+      },
+      {
        "spec_id": 76123,
        "name": "2026款 纯电600 Max运动版",
        "price_cny": 166900,
        "launch": "2026.01",
        "name_en": "2026 Electric 600 Max Sport"
+      },
+      {
+       "spec_id": 79344,
+       "name": "2027款 纯电600 Max激光版",
+       "price_cny": 172900,
+       "launch": "2026.09",
+       "name_en": "2027 Electric 600 Max Jiguang Ed."
       }
      ],
      "name_en": "EZ-60"
@@ -129251,7 +130174,7 @@
      "name": "魏牌 高山新能源",
      "first_launch": "2025.05",
      "price_min_cny": 272800,
-     "price_max_cny": 353800,
+     "price_max_cny": 385800,
      "trims": [
       {
        "spec_id": 77872,
@@ -129282,6 +130205,13 @@
        "name_en": "2025 AWD Gaoshan 8"
       },
       {
+       "spec_id": 79103,
+       "name": "2027款 高山8智慧版",
+       "price_cny": 309800,
+       "launch": "2026.09",
+       "name_en": "2027 Gaoshan 8 Zhihui Ed."
+      },
+      {
        "spec_id": 74652,
        "name": "2025款 高山福祉版",
        "price_cny": 349800,
@@ -129294,6 +130224,13 @@
        "price_cny": 353800,
        "launch": "2025.05",
        "name_en": "2025 AWD Gaoshan 9"
+      },
+      {
+       "spec_id": 78784,
+       "name": "2027款 高山9智慧版",
+       "price_cny": 385800,
+       "launch": "2026.09",
+       "name_en": "2027 Gaoshan 9 Zhihui Ed."
       }
      ],
      "name_en": "WEY Gaoshan NEV"
