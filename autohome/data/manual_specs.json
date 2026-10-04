@@ -44307,5 +44307,117 @@
   "78517": {
     "cc": 1499,
     "skip_motor": true
+  },
+  "78419": {
+    "cc": 1499,
+    "skip_motor": true
+  },
+  "77243": {
+    "cc": 1499,
+    "skip_motor": true
+  },
+  "78839": {
+    "cc": 1499,
+    "skip_motor": true
+  },
+  "73762": {
+    "cc": 2992,
+    "kw": 463.0
+  },
+  "73763": {
+    "cc": 2992,
+    "kw": 463.0
+  },
+  "78944": {
+    "cc": 1999,
+    "kw": 190.0
+  },
+  "78945": {
+    "cc": 2998,
+    "kw": 280.0
+  },
+  "78946": {
+    "cc": 2998,
+    "kw": 280.0
+  },
+  "75987": {
+    "cc": 1999,
+    "kw": 190.0
+  },
+  "77781": {
+    "cc": 2998,
+    "kw": 280.0
+  },
+  "78889": {
+    "cc": 1497,
+    "skip_motor": true
+  },
+  "76426": {
+    "cc": 1497,
+    "skip_motor": true
+  },
+  "77476": {
+    "cc": 1497,
+    "skip_motor": true
+  },
+  "77447": {
+    "cc": 1497,
+    "skip_motor": true
+  },
+  "79085": {
+    "cc": 1497,
+    "skip_motor": true
+  },
+  "78027": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "79052": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "79053": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "79054": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "77778": {
+    "cc": 1499,
+    "skip_motor": true
+  },
+  "78833": {
+    "cc": 1499,
+    "skip_motor": true
+  },
+  "78002": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "79091": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "78519": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "78145": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "78967": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "78968": {
+    "cc": 1498,
+    "skip_motor": true
+  },
+  "78969": {
+    "cc": 1498,
+    "skip_motor": true
   }
 }
