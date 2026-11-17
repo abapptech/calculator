@@ -456,17 +456,17 @@ gtag('config','G-0T7CPPNW61');
       <div class="field">
         <label>Комиссия Abapp, ¥</label>
         <select id="comm_select" onchange="onCommSelect()" style="width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 12px;outline:none;-webkit-appearance:none;appearance:none">
-          <option value="12000" selected>12 000 ¥ — стандарт, под ключ</option>
-          <option value="9800">9 800 ¥ — передача авто на СВХ</option>
-          <option value="7800">7 800 ¥ — передача на границе КНР</option>
+          <option value="9000">9 000 ¥ — стандарт, под ключ</option>
+          <option value="7000" selected>7 000 ¥ — передача авто на СВХ</option>
+          <option value="5000">5 000 ¥ — передача на границе КНР</option>
           <option value="0">0 ¥ — без комиссии</option>
           <option value="custom">Ввести вручную...</option>
         </select>
-        <input type="hidden" id="comm" value="12000">
+        <input type="hidden" id="comm" value="7000">
         <input type="text" inputmode="numeric" id="comm_custom" placeholder="Введите сумму комиссии, ¥"
           oninput="maskThousands(this);document.getElementById('comm').value=this.value.trim()===''?'':parseMasked('comm_custom');calc_if_ready()"
           style="display:none;margin-top:8px;width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 12px;outline:none;box-sizing:border-box">
-        <div class="fhint" id="comm_hint">Стандартная комиссия — доставка под ключ</div>
+        <div class="fhint" id="comm_hint">Передача авто на СВХ</div>
       </div>
 
       <div class="field">
@@ -1063,11 +1063,11 @@ function resetForm(){
   document.querySelector('input[name="alex_other_rf_mode"][value="default"]').checked = true;
   document.getElementById('alex_other_rf_custom_field').style.display = 'none';
   document.getElementById('alex_other_rf_custom').value = '';
-  document.getElementById('comm_select').value = '12000';
-  document.getElementById('comm').value = '12000';
+  document.getElementById('comm_select').value = '7000';
+  document.getElementById('comm').value = '7000';
   document.getElementById('comm_custom').value = '';
   document.getElementById('comm_custom').style.display = 'none';
-  document.getElementById('comm_hint').textContent = 'Стандартная комиссия — доставка под ключ';
+  document.getElementById('comm_hint').textContent = 'Передача авто на СВХ';
   currentDistances = null;
   document.getElementById('dist_block').style.display = 'none';
   document.getElementById('city_status').textContent = 'Необязательно. Без города — расчёт от пограничного города (Маньчжурия / Эрэн-Хото / Суйфэньхэ / Хоргос)';
@@ -1111,9 +1111,9 @@ function calc_if_ready(){
 function onChkDeliveryIncluded(){
   if(document.getElementById('chk_delivery_included').checked){
     document.getElementById('chk_to_border_only').checked = false;
-    // Возвращаем стандартную комиссию 12000 если была автоматически выставлена 7800
-    if(document.getElementById('comm_select').value === '7800'){
-      document.getElementById('comm_select').value = '12000';
+    // Возвращаем стандартную комиссию 7000 если была автоматически выставлена 7800
+    if(document.getElementById('comm_select').value === '5000'){
+      document.getElementById('comm_select').value = '7000';
       document.getElementById('comm_custom').style.display = 'none';
       onCommSelect();
     }
@@ -1124,14 +1124,14 @@ function onChkDeliveryIncluded(){
 function onChkToBorderOnly(){
   if(document.getElementById('chk_to_border_only').checked){
     document.getElementById('chk_delivery_included').checked = false;
-    // Автоматически ставим комиссию 7800
-    document.getElementById('comm_select').value = '7800';
+    // Автоматически ставим комиссию 5000
+    document.getElementById('comm_select').value = '5000';
     document.getElementById('comm_custom').style.display = 'none';
     onCommSelect();
   } else {
-    // Возвращаем стандартную комиссию 12000 если она была автоматически выставлена
-    if(document.getElementById('comm_select').value === '7800'){
-      document.getElementById('comm_select').value = '12000';
+    // Возвращаем стандартную комиссию 7000 если она была автоматически выставлена
+    if(document.getElementById('comm_select').value === '5000'){
+      document.getElementById('comm_select').value = '7000';
       document.getElementById('comm_custom').style.display = 'none';
       onCommSelect();
     }
@@ -1170,9 +1170,9 @@ function onCommSelect(){
   const val = sel.value;
   const customInput = document.getElementById('comm_custom');
   const hints = {
-    '12000': 'Стандартная комиссия — доставка под ключ',
-    '9800':  'Передача авто на СВХ',
-    '7800':  'Передача на границе КНР',
+    '9000': 'Стандартная комиссия — доставка под ключ',
+    '7000':  'Передача авто на СВХ',
+    '5000':  'Передача на границе КНР',
     '0':     'Без комиссии Abapp',
     'custom': 'Введите сумму вручную',
   };
@@ -1458,7 +1458,7 @@ function calc(silent=false){
   const emKw    = (+document.getElementById('em_kw').value||0) + (+document.getElementById('em_kw2').value||0);
   const emHp    = emKw*KW2HP;
   const commRaw = document.getElementById('comm').value;
-  const comm = commRaw !== '' && commRaw !== null ? +commRaw : (document.getElementById('chk_to_border_only').checked ? 7800 : 12000);
+  const comm = commRaw !== '' && commRaw !== null ? +commRaw : (document.getElementById('chk_to_border_only').checked ? 5000 : 7000);
   const deliveryManual = parseMasked('delivery_manual');
 
   const missingFields = [];
