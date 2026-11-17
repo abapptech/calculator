@@ -1111,7 +1111,7 @@ function calc_if_ready(){
 function onChkDeliveryIncluded(){
   if(document.getElementById('chk_delivery_included').checked){
     document.getElementById('chk_to_border_only').checked = false;
-    // Возвращаем стандартную комиссию 7000 если была автоматически выставлена 7800
+    // Возвращаем комиссию СВХ 7000, если автоматически была выставлена комиссия границы 5000
     if(document.getElementById('comm_select').value === '5000'){
       document.getElementById('comm_select').value = '7000';
       document.getElementById('comm_custom').style.display = 'none';
