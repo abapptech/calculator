@@ -1625,7 +1625,7 @@ function calc(silent=false){
   const suiDelivCny = dManual ? deliveryManual : d.sui;
   const ussOfficialChina = ovhdCny
     + (showChinaDelivery ? suiDelivCny : 0)
-    + (showBrokerAndBorder ? 500+2500 : 0);
+    + (showBrokerAndBorder ? 500+1500 : 0);
   const ussHasCustomChina = hasCustom('uss','china');
   const ussEffChina = ussHasCustomChina ? ussCustomChina : ussOfficialChina;
   const ussOfficialRf = showRF ? 55000 : 0;
@@ -1851,7 +1851,7 @@ function calc(silent=false){
        ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
        ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), cny(suiDelivCny)) : ''}
        ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}
-       ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(2500)) : ''}`;
+       ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(1500)) : ''}`;
 
   const kyakChinaRowsOfficial = `
     ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
@@ -1995,7 +1995,7 @@ function calc(silent=false){
         ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), val: cny(suiDelivCny)}] : []),
         ...(showBrokerAndBorder ? [
           {label:'Брокер КНР + ПРР', val: cny(500)},
-          {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(2500)},
+          {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(1500)},
         ] : []),
       ];
   const ussLogExport = !showRF ? [] : ussHasCustomRf
