@@ -1594,7 +1594,7 @@ function calc(silent=false){
   const alexDelivCny = dManual ? deliveryManual : d.alex;
   const alexOfficialChina = ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? alexExtraCny : 0);
+    + (showBrokerAndBorder ? alexExtraCny + 500 : 0);
   const alexHasCustomChina = hasCustom('alex','china');
   const alexEffChina = alexHasCustomChina ? alexCustomChina : alexOfficialChina;
   const alexBaseRfDefault = 50000+20000+5000;
@@ -1833,7 +1833,8 @@ function calc(silent=false){
     : `${sec('Расходы в КНР', fmtN(alexOfficialChina) + ' ¥ = ' + fmt(alexOfficialChina * rVtb))}
        ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
        ${showChinaDelivery ? row(alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), cny(dManual ? deliveryManual : d.alex_cn)) : ''}
-       ${showBrokerAndBorder ? row(alexExtraLabel, cny(alexExtraCny)) : ''}`;
+       ${showBrokerAndBorder ? row(alexExtraLabel, cny(alexExtraCny)) : ''}
+       ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}`;
 
   const zabChinaRows = zabHasCustomChina
     ? `${sec('Расходы в КНР', cny(zabCustomChina))}
@@ -1974,7 +1975,7 @@ function calc(silent=false){
         {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexOfficialChina)+' ¥ = '+fmt(alexOfficialChina*rVtb)},
         ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
         ...(showChinaDelivery ? [{label: alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
-        ...(showBrokerAndBorder ? [{label: alexExtraLabel, val: cny(alexExtraCny)}] : []),
+        ...(showBrokerAndBorder ? [{label: alexExtraLabel, val: cny(alexExtraCny)}, {label:'Брокер КНР + ПРР', val: cny(500)}] : []),
       ];
   const alexLogExport = !showRF ? [] : alexHasCustomRf
     ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(alexCustomRf)}, ...customRowsFor('alex','rf').map(r => ({label: r.label, val: fmt(r.amount)}))]
