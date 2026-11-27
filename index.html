@@ -429,7 +429,7 @@ gtag('config','G-0T7CPPNW61');
           <div class="field"><label>До Хоргоса</label><input type="number" id="d_hor" readonly style="color:var(--accent2)"></div>
         </div>
         <div id="delivery_calc_block" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:10px;color:var(--text2)">
-          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5 + 1400)</div>
+          <div style="font-size:9px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-weight:600">Расчётная стоимость перевозки, ¥ (км × 1.5)</div>
           <div class="frow" style="margin-bottom:4px">
             <div>Маньчжурия: <span id="dc_man" style="color:var(--accent2);font-weight:600"></span></div>
             <div>Эрэн-Хото: <span id="dc_erl" style="color:var(--accent2);font-weight:600"></span></div>
@@ -610,12 +610,12 @@ async function loadDistances(cityName) {
       document.getElementById('dist_source').textContent='OSRM · реальные дороги';
       document.getElementById('city_reset_btn').style.display='block';
 
-      // Расчётная стоимость перевозки по формуле км×1.5+1400 (справочно — до пограничного города КНР)
+      // Расчётная стоимость перевозки по формуле км×1.5 (справочно — до пограничного города КНР)
       const fmtCny = n => Math.round(n).toLocaleString('ru-RU') + ' ¥';
-      document.getElementById('dc_man').textContent = fmtCny(man*1.5+1400);
-      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5+1400);
-      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5+1400);
-      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5+1400);
+      document.getElementById('dc_man').textContent = fmtCny(man*1.5);
+      document.getElementById('dc_erl').textContent = fmtCny(erl*1.5);
+      document.getElementById('dc_sui').textContent = fmtCny(sui*1.5);
+      document.getElementById('dc_hor').textContent = fmtCny(hor*1.5);
       st.textContent='\u2705 '+city.name+' \u00b7 расстояния загружены';
       st.style.color='var(--accent2)';
       calc_if_ready();
@@ -653,16 +653,16 @@ function hideDropdown() {
   if(val&&!currentDistances) loadDistances(val);
 }
 
-// Формула перевозки из таблицы: dist*1.5+1400 (+15000 для Хоргоса)
+// Формула перевозки: dist*1.5 (alex = китайское плечо до Хоргоса + 15000 казахстанского)
 function delivery() {
   // Если город не выбран — считаем что авто уже в пограничном городе (расстояние = 0)
   const d = currentDistances || {man:0, erl:0, sui:0, hor:0};
   return {
-    alex:     d.hor ? d.hor*1.5+1400+15000 : 15000,
-    alex_cn:  d.hor ? d.hor*1.5+1400 : 0,
-    man:  d.man ? d.man*1.5+1400 : 0,
-    erl:  d.erl ? d.erl*1.5+1400 : 0,
-    sui:  d.sui ? d.sui*1.5+1400 : 0,
+    alex:     d.hor ? d.hor*1.5+15000 : 15000,
+    alex_cn:  d.hor ? d.hor*1.5 : 0,
+    man:  d.man ? d.man*1.5 : 0,
+    erl:  d.erl ? d.erl*1.5 : 0,
+    sui:  d.sui ? d.sui*1.5 : 0,
   };
 }
 
@@ -1587,6 +1587,11 @@ function calc(silent=false){
   // Флаги: что включать в итог
   const showChinaDelivery = !deliveryIncluded;
   const showBrokerAndBorder = !deliveryIncluded && !toBorderOnly;
+  // Брокер КНР + ПРР 1900 ¥ для б/у:
+  // Александров — для новых (возраст «До 3-х лет (новый)» + галочка «Новый авто») не начисляется;
+  // Уссурийск — для новых остаётся 500 ¥
+  const alexBrokerCny = (showBrokerAndBorder && !isCheckedNewCar) ? 1900 : 0;
+  const ussBrokerCny = showBrokerAndBorder ? (isCheckedNewCar ? 500 : 1900) : 0;
   const showRF = !toBorderOnly;
   const showTax = !toBorderOnly;
 
@@ -1594,7 +1599,7 @@ function calc(silent=false){
   const alexDelivCny = dManual ? deliveryManual : d.alex;
   const alexOfficialChina = ovhdCny
     + (showChinaDelivery ? (dManual ? deliveryManual : d.alex_cn) : 0)
-    + (showBrokerAndBorder ? alexExtraCny + 500 : 0);
+    + (showBrokerAndBorder ? alexExtraCny + alexBrokerCny : 0);
   const alexHasCustomChina = hasCustom('alex','china');
   const alexEffChina = alexHasCustomChina ? alexCustomChina : alexOfficialChina;
   const alexBaseRfDefault = 50000+20000+5000;
@@ -1625,7 +1630,7 @@ function calc(silent=false){
   const suiDelivCny = dManual ? deliveryManual : d.sui;
   const ussOfficialChina = ovhdCny
     + (showChinaDelivery ? suiDelivCny : 0)
-    + (showBrokerAndBorder ? 500+1500 : 0);
+    + (showBrokerAndBorder ? ussBrokerCny + 1500 : 0);
   const ussHasCustomChina = hasCustom('uss','china');
   const ussEffChina = ussHasCustomChina ? ussCustomChina : ussOfficialChina;
   const ussOfficialRf = showRF ? 55000 : 0;
@@ -1834,7 +1839,7 @@ function calc(silent=false){
        ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
        ${showChinaDelivery ? row(alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), cny(dManual ? deliveryManual : d.alex_cn)) : ''}
        ${showBrokerAndBorder ? row(alexExtraLabel, cny(alexExtraCny)) : ''}
-       ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}`;
+       ${alexBrokerCny ? row('Брокер КНР + ПРР', cny(alexBrokerCny)) : ''}`;
 
   const zabChinaRows = zabHasCustomChina
     ? `${sec('Расходы в КНР', cny(zabCustomChina))}
@@ -1851,7 +1856,7 @@ function calc(silent=false){
     : `${sec('Расходы в КНР', fmtN(ussOfficialChina) + ' ¥ = ' + fmt(ussOfficialChina * rVtb))}
        ${ovhdPct > 0 ? row(ovhdLabel, cny(ovhdCny)) : ''}
        ${showChinaDelivery ? row('Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), cny(suiDelivCny)) : ''}
-       ${showBrokerAndBorder ? row('Брокер КНР + ПРР', cny(500)) : ''}
+       ${ussBrokerCny ? row('Брокер КНР + ПРР', cny(ussBrokerCny)) : ''}
        ${showBrokerAndBorder ? row('Перевозка через границу Суйфэньхэ–Уссурийск', cny(1500)) : ''}`;
 
   const kyakChinaRowsOfficial = `
@@ -1975,7 +1980,7 @@ function calc(silent=false){
         {type:'sec', label:'Расходы в КНР', subtotal: fmtN(alexOfficialChina)+' ¥ = '+fmt(alexOfficialChina*rVtb)},
         ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
         ...(showChinaDelivery ? [{label: alexChinaDelivLabel + (currentDistances && currentDistances.hor ? ' (' + currentDistances.hor + ' км)' : ''), val: cny(dManual ? deliveryManual : d.alex_cn)}] : []),
-        ...(showBrokerAndBorder ? [{label: alexExtraLabel, val: cny(alexExtraCny)}, {label:'Брокер КНР + ПРР', val: cny(500)}] : []),
+        ...(showBrokerAndBorder ? [{label: alexExtraLabel, val: cny(alexExtraCny)}, ...(alexBrokerCny ? [{label:'Брокер КНР + ПРР', val: cny(1900)}] : [])] : []),
       ];
   const alexLogExport = !showRF ? [] : alexHasCustomRf
     ? [{type:'sec', label:'Расходы в РФ', subtotal: fmt(alexCustomRf)}, ...customRowsFor('alex','rf').map(r => ({label: r.label, val: fmt(r.amount)}))]
@@ -1995,7 +2000,7 @@ function calc(silent=false){
         ...(ovhdPct > 0 ? [{label: ovhdLabel, val: cny(ovhdCny)}] : []),
         ...(showChinaDelivery ? [{label:'Перевозка по Китаю до границы' + (currentDistances && currentDistances.sui ? ' (' + currentDistances.sui + ' км)' : ''), val: cny(suiDelivCny)}] : []),
         ...(showBrokerAndBorder ? [
-          {label:'Брокер КНР + ПРР', val: cny(500)},
+          ...(ussBrokerCny ? [{label:'Брокер КНР + ПРР', val: cny(ussBrokerCny)}] : []),
           {label:'Перевозка через границу Суйфэньхэ–Уссурийск', val: cny(1500)},
         ] : []),
       ];
